@@ -23,6 +23,8 @@ Creating a metamorphic engine/PE obfuscator is no small feat. This project has b
 
 ## Code Morphing Techniques
 
+Techniques are also usable together but some 'heavy' techniques would eventually break if used together (like don't Use PII with instruction block permutation)
+
 ### 1. Equal Code Substitution
 
 This technique involves replacing certain instructions with other instructions that achieve the same result but in a different way. For example:
@@ -41,17 +43,16 @@ Random instructions that do not affect the functionality of the program are inse
 - `PUSH REG` and `POP REG`
 - Various other instructions that modify CPU flags, surrounded by `PUSHF` and `POPF` to preserve the flags' state.
 
-## Future Enhancements
 
-### Bogus Control Flow
+### 3. Bogus Control Flow
 
 This technique, involves creating fake conditions and blocks of code that will never be executed, confusing decompilers, malware analysts, and AVs.
 
-### Instruction Blocks Permutation
+### 4. Instruction Blocks Permutation
 
 this feature will involve dividing instructions into blocks, adding jumps at the end of each block, and shuffling these blocks to create highly obfuscated code.
 
-### Position Independent Instruction
+### 5. Position Independent Instruction
 
 This technique is novel and is a ultra granular VM-like technique which allows to shuffle EVERY SINGLE INSTRUCTION. Please refer only to `pobf.py` and `pobf86.py` for this technique.
 
