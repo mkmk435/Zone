@@ -1,3 +1,8 @@
+# ATTENTION
+Right Now Zone is only somehow usable with small sized PIE payloads (both x64 and x86, especially tested with Metasploit framework payloads). so only look at the `pobf.py` and `pobf86.py`. Zone as a PE obfuscator is totally unreliant and only works/is tested against very small executables compiled by myself. Anything bigger makes Zone completely unusable.
+
+
+
 # Zone: A Payload-Obfuscator with Metamorphic Engine
 
 ## Overview
@@ -40,11 +45,15 @@ Random instructions that do not affect the functionality of the program are inse
 
 ### Bogus Control Flow
 
-This technique, planned for future implementation, involves creating fake conditions and blocks of code that will never be executed, confusing decompilers, malware analysts, and AVs.
+This technique, involves creating fake conditions and blocks of code that will never be executed, confusing decompilers, malware analysts, and AVs.
 
 ### Instruction Blocks Permutation
 
-Currently in development, this feature will involve dividing instructions into blocks, adding jumps at the end of each block, and shuffling these blocks to create highly obfuscated code.
+this feature will involve dividing instructions into blocks, adding jumps at the end of each block, and shuffling these blocks to create highly obfuscated code.
+
+### Position Independent Instruction
+
+This technique is novel and is a ultra granular VM-like technique which allows to shuffle EVERY SINGLE INSTRUCTION. Please refer only to `pobf.py` and `pobf86.py` for this technique.
 
 ## Implementation Details
 
@@ -131,15 +140,11 @@ Since this is not the core of the project, I will briefly explain how I increase
 3. **Patching the ImportTable**:
    - Every entry of the ImportTable needs to be patched. The ImportTable contains every function imported from external libraries.
 
-4. **Patching the Security Cookie**:
-   - The security cookie needs to be patched.
-
 5. **Patching Every Reference Outside of .text**:
    - This is done exactly like in the main program using `self.adjust_out_of_text_references`.
 
 6. **Adding Padding**:
    - Finally, add null bytes or `0x90` to the end of the .text section to reach the desired length.
-
 
 
 9. **Writing modifications to the file**:
