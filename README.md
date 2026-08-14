@@ -1,6 +1,13 @@
 # ATTENTION
 Right Now Zone is only somehow usable with small sized PIE payloads (both x64 and x86, especially tested with Metasploit framework payloads). so only look at the `pobf.py` and `pobf86.py`. Zone as a PE obfuscator is totally unreliable and only works/is tested against very small executables compiled by myself. Anything bigger makes Zone completely unusable. For PE implementation refer to `Zone.py`
 
+## Disclaimer
+
+This tool is designed and provided for educational, research, and authorized security assessment purposes only. 
+
+Using this software against targets without prior mutual, explicit, and written consent is illegal. It is the end user's sole responsibility to comply with all applicable local, state, and international laws. 
+
+The author(s) and contributor(s) assume no liability and are not responsible for any misuse, damage, or legal consequences caused by this program.
 
 
 # Zone: A Payload-Obfuscator with Metamorphic Engine
