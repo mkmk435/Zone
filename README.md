@@ -27,6 +27,20 @@ may execute when the callee returns. For a string overlapping CFG code, the
 script requires the string to fill that whole call gap. All results remain
 candidates, not proofs of data.
 
+The same analysis is available as an importable function:
+
+```python
+from symbolic_payload_coverage import find_data_sections
+
+sections = find_data_sections("payload.bin", arch="x64")
+# [{"address": 0x400002, "offset": 2, "length": 6, "kind": "ascii"}, ...]
+```
+
+Pass raw bytes instead of a path if the payload is already in memory. The
+default base address is 0x400000 and can be changed with base_address. Each
+entry is a heuristic candidate; kind distinguishes strings, CFG data, and
+bytes outside the recovered CFG.
+
 Symbolic execution records instruction addresses. A second CFGFast pass starts
 at code entries observed at runtime but missed by the first pass. The report
 includes `cfg_observed_code_blocks`, `cfg_plausible_code_blocks`, and

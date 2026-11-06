@@ -14,10 +14,12 @@ import argparse
 import json
 import logging
 import re
+import tempfile
 import threading
 import time
 from collections import deque
 from pathlib import Path
+from types import SimpleNamespace
 
 
 def integer(value: str) -> int:
@@ -225,6 +227,98 @@ def identify_data(raw: bytes, base: int, arch: str, observed: set[int],
         offset = end
     strings.sort(key=lambda item: item["offset_start"])
     return strings, raw_candidates, sum(executed)
+
+
+def find_data_sections(payload: bytes | bytearray | memoryview | str | Path,
+                       arch: str, *, base_address: int = 0x400000,
+                       entry_offset: int = 0, scan_all: bool = False,
+                       max_steps: int = 10000, timeout: float = 120,
+                       solver_timeout_ms: int = 5000,
+                       max_queued_states: int = 10000,
+                       oppologist: bool = False) -> list[dict]:
+    """Return heuristic data ranges as dictionaries with address and length.
+
+    Payload may be raw bytes or a path to a raw x86/x64 payload. Each result
+    has integer address, offset, and length fields, plus kind (ascii, utf16le,
+    cfg_data, or outside_cfg). These are candidates, not proven data: bounded
+    exploration can miss code paths, and CFG recovery can mistake code for
+    data. The function does not modify the payload.
+    """
+    if arch not in ("x86", "x64"):
+        raise ValueError("arch must be 'x86' or 'x64'")
+    if base_address < 0 or entry_offset < 0:
+        raise ValueError("base_address and entry_offset must be nonnegative")
+    if any(value < 0 for value in (max_steps, timeout, solver_timeout_ms,
+                                    max_queued_states)):
+        raise ValueError("analysis limits must be nonnegative")
+
+    if isinstance(payload, (str, Path)):
+        payload_path = Path(payload)
+        raw = payload_path.read_bytes()
+    elif isinstance(payload, (bytes, bytearray, memoryview)):
+        raw = bytes(payload)
+        payload_path = None
+    else:
+        raise TypeError("payload must be raw bytes or a filesystem path")
+    if not raw or entry_offset >= len(raw):
+        raise ValueError("entry_offset must be inside a nonempty payload")
+
+    try:
+        import angr
+    except ImportError as exc:
+        raise ImportError("angr is required: python -m pip install angr") from exc
+
+    options = SimpleNamespace(
+        entry_offset=entry_offset, scan_all=scan_all, max_steps=max_steps,
+        timeout=timeout, solver_timeout_ms=solver_timeout_ms,
+        max_queued_states=max_queued_states, oppologist=oppologist,
+        progress_interval=0,
+    )
+
+    def analyze(path: Path) -> list[dict]:
+        logging.getLogger("angr").setLevel(logging.ERROR)
+        project = angr.Project(
+            str(path),
+            main_opts={"backend": "blob", "arch": "x86" if arch == "x86" else "amd64",
+                       "base_addr": base_address,
+                       "entry_point": base_address + entry_offset},
+            auto_load_libs=False,
+        )
+        candidates, unclassified, _, code_spans, inferred_data = static_candidates(
+            project, base_address, len(raw), scan_all)
+        run = explore(project, base_address, len(raw), options, angr)
+        observed = run["observed"]
+        block_entries = run["block_entries"]
+
+        # Recover code reached through indirect transfers before classifying
+        # bytes outside the first CFG pass as possible data.
+        cfg_seeds = set()
+        for item in unclassified:
+            start = int(item["address_start"], 16)
+            end = int(item["address_end_exclusive"], 16)
+            entries = [address for address in block_entries if start <= address < end]
+            if entries:
+                cfg_seeds.add(min(entries))
+        if cfg_seeds:
+            candidates, _, _, code_spans, inferred_data = static_candidates(
+                project, base_address, len(raw), scan_all, cfg_seeds)
+
+        strings, raw_candidates, _ = identify_data(
+            raw, base_address, arch, observed, candidates, code_spans, inferred_data)
+        return [
+            {"address": base_address + item["offset_start"],
+             "offset": item["offset_start"], "length": item["size"],
+             "kind": item["kind"]}
+            for item in sorted(strings + raw_candidates,
+                               key=lambda candidate: candidate["offset_start"])
+        ]
+
+    if payload_path is not None:
+        return analyze(payload_path)
+    with tempfile.TemporaryDirectory(prefix="symbolic_payload_coverage_") as temp_dir:
+        path = Path(temp_dir) / "payload.bin"
+        path.write_bytes(raw)
+        return analyze(path)
 
 
 def explore(project, base: int, size: int, args, angr):

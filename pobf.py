@@ -12,6 +12,7 @@ import increase_text
 import traceback
 # import asmjit
 import subprocess
+import symbolic_payload_coverage
 
 
 
@@ -917,6 +918,11 @@ class Zone:
         #     print("reiterating shuffle_blocks....")
         #     self.shuffle_blocks()
 
+
+
+    def find_data_and_refs(self):
+        sections = symbolic_payload_coverage.find_data_sections(self.file, arch="x64")
+        print(sections)
 
     def check_jcrxz_ok(self):
         check = False
@@ -1853,6 +1859,7 @@ def print_usage():
     print("--output,-o <file>                               Output file name")
 
 
+
 def start(file):
 
     equal_instr = False
@@ -1892,6 +1899,9 @@ def start(file):
     print("OPT_ARGS: ", opt_args)
 
 # INITIALIZATION
+
+    zone.find_data_and_refs()
+    exit(0)
     zone.create_jmp_table()
     zone.create_label_table()
     
