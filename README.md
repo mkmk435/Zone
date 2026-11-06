@@ -9,6 +9,44 @@ Using this software against targets without prior mutual, explicit, and written 
 
 The author(s) and contributor(s) assume no liability and are not responsible for any misuse, damage, or legal consequences caused by this program.
 
+## Symbolic payload coverage
+
+For a raw x86/x64 payload, install angr and run:
+
+```sh
+python -m pip install angr
+python symbolic_payload_coverage.py original_pl/x64/windows_x64_messagebox.bin --arch x64 --output coverage.json
+```
+
+The script prints candidate data with virtual addresses, file offsets, and raw
+hex bytes. Printable null-terminated runs are also decoded as ASCII or UTF-16LE.
+The JSON report stores them in `data_candidates`. It distinguishes strings,
+CFG-identified data, and bytes outside recovered CFG blocks. A forward
+`call`/`pop` alone does not prove that skipped bytes are data: ordinary code
+may execute when the callee returns. For a string overlapping CFG code, the
+script requires the string to fill that whole call gap. All results remain
+candidates, not proofs of data.
+
+Symbolic execution records instruction addresses. A second CFGFast pass starts
+at code entries observed at runtime but missed by the first pass. The report
+includes `cfg_observed_code_blocks`, `cfg_plausible_code_blocks`, and
+`cfg_unobserved_code_block_addresses`; unvisited CFG blocks remain uncertain.
+CFGFast can also mistake inline strings for instructions, so unexecuted string
+bytes take precedence in the candidate list. `--scan-all` searches more of the
+blob for code but can misclassify data. `--oppologist` can try Unicorn on
+unsupported instructions, potentially concretizing symbolic values.
+
+The default exploration stops after 10,000 state/block steps, 120 seconds, or
+when more than 10,000 states are queued. Set an individual limit to `0` to
+disable it. `coverage_status`, `stop_reason`, `pending_states`,
+`unconstrained_states`, and `errors` show why coverage may be incomplete.
+The script prints progress every five seconds (`--progress-interval`) and
+limits each solver query to five seconds (`--solver-timeout-ms`).
+Addresses marked `not_observed` are **not** proven unreachable: the analysis
+uses a blank raw-payload environment and does not initialize OS structures or
+external APIs. In particular, Windows shellcode that reads the PEB or calls
+APIs may leave paths unexplored. The timeout is checked between symbolic steps.
+
 
 # Zone: A Payload-Obfuscator with Metamorphic Engine
 

@@ -1,0 +1,230 @@
+{
+  "payload": "/home/ubu/Zone/original_pl/x64/windows_x64_messagebox.bin",
+  "architecture": "x64",
+  "base_address": 4194304,
+  "entry_address": 4194304,
+  "size": 313,
+  "note": "Uncovered bytes may be data or code missed by static CFG recovery.",
+  "byte_counts": {
+    "code": 79,
+    "uncovered": 234
+  },
+  "ranges": [
+    {
+      "kind": "code",
+      "offset_start": 0,
+      "offset_end": 13,
+      "address_start": 4194304,
+      "address_end": 4194317,
+      "size": 13,
+      "hex_preview": "fc 48 81 e4 f0 ff ff ff e8 cc 00 00 00",
+      "ascii_preview": ".H..........."
+    },
+    {
+      "kind": "uncovered",
+      "offset_start": 13,
+      "offset_end": 217,
+      "address_start": 4194317,
+      "address_end": 4194521,
+      "size": 204,
+      "hex_preview": "41 51 41 50 52 48 31 d2 65 48 8b 52 60 51 48 8b 52 18 56 48 8b 52 20 4d",
+      "ascii_preview": "AQAPRH1.eH.R`QH.R.VH.R M"
+    },
+    {
+      "kind": "code",
+      "offset_start": 217,
+      "offset_end": 228,
+      "address_start": 4194521,
+      "address_end": 4194532,
+      "size": 11,
+      "hex_preview": "5d e8 0b 00 00 00 75 73 65 72 33",
+      "ascii_preview": "].....user3"
+    },
+    {
+      "kind": "uncovered",
+      "offset_start": 228,
+      "offset_end": 234,
+      "address_start": 4194532,
+      "address_end": 4194538,
+      "size": 6,
+      "hex_preview": "32 2e 64 6c 6c 00",
+      "ascii_preview": "2.dll."
+    },
+    {
+      "kind": "code",
+      "offset_start": 234,
+      "offset_end": 255,
+      "address_start": 4194538,
+      "address_end": 4194559,
+      "size": 21,
+      "hex_preview": "59 41 ba 4c 77 26 07 ff d5 49 c7 c1 00 00 00 00 e8 11 00 00 00",
+      "ascii_preview": "YA.Lw&...I..........."
+    },
+    {
+      "kind": "uncovered",
+      "offset_start": 255,
+      "offset_end": 272,
+      "address_start": 4194559,
+      "address_end": 4194576,
+      "size": 17,
+      "hex_preview": "48 65 6c 6c 6f 2c 20 66 72 6f 6d 20 4d 53 46 21 00",
+      "ascii_preview": "Hello, from MSF!."
+    },
+    {
+      "kind": "code",
+      "offset_start": 272,
+      "offset_end": 282,
+      "address_start": 4194576,
+      "address_end": 4194586,
+      "size": 10,
+      "hex_preview": "5a e8 0b 00 00 00 4d 65 73 73",
+      "ascii_preview": "Z.....Mess"
+    },
+    {
+      "kind": "uncovered",
+      "offset_start": 282,
+      "offset_end": 289,
+      "address_start": 4194586,
+      "address_end": 4194593,
+      "size": 7,
+      "hex_preview": "61 67 65 42 6f 78 00",
+      "ascii_preview": "ageBox."
+    },
+    {
+      "kind": "code",
+      "offset_start": 289,
+      "offset_end": 313,
+      "address_start": 4194593,
+      "address_end": 4194617,
+      "size": 24,
+      "hex_preview": "41 58 48 31 c9 41 ba 45 83 56 07 ff d5 48 31 c9 41 ba f0 b5 a2 56 ff d5",
+      "ascii_preview": "AXH1.A.E.V...H1.A....V.."
+    }
+  ],
+  "angr_memory_data": [],
+  "cfg_blocks": [
+    {
+      "id": 0,
+      "address": 4194304,
+      "offset": 0,
+      "size": 13
+    },
+    {
+      "id": 1,
+      "address": 4194521,
+      "offset": 217,
+      "size": 6
+    },
+    {
+      "id": 2,
+      "address": 4194527,
+      "offset": 223,
+      "size": 2
+    },
+    {
+      "id": 3,
+      "address": 4194529,
+      "offset": 225,
+      "size": 3
+    },
+    {
+      "id": 4,
+      "address": 4194538,
+      "offset": 234,
+      "size": 9
+    },
+    {
+      "id": 5,
+      "address": 4194547,
+      "offset": 243,
+      "size": 12
+    },
+    {
+      "id": 6,
+      "address": 4194576,
+      "offset": 272,
+      "size": 6
+    },
+    {
+      "id": 7,
+      "address": 4194582,
+      "offset": 278,
+      "size": 1
+    },
+    {
+      "id": 8,
+      "address": 4194583,
+      "offset": 279,
+      "size": 3
+    },
+    {
+      "id": 9,
+      "address": 4194593,
+      "offset": 289,
+      "size": 13
+    },
+    {
+      "id": 10,
+      "address": 4194606,
+      "offset": 302,
+      "size": 11
+    }
+  ],
+  "cfg_edges": [
+    {
+      "source": 0,
+      "target": 1,
+      "jumpkind": "Ijk_Call"
+    },
+    {
+      "source": 1,
+      "target": 4,
+      "jumpkind": "Ijk_Call"
+    },
+    {
+      "source": 1,
+      "target": 2,
+      "jumpkind": "Ijk_FakeRet"
+    },
+    {
+      "source": 4,
+      "target": 5,
+      "jumpkind": "Ijk_FakeRet"
+    },
+    {
+      "source": 5,
+      "target": 6,
+      "jumpkind": "Ijk_Call"
+    },
+    {
+      "source": 6,
+      "target": 9,
+      "jumpkind": "Ijk_Call"
+    },
+    {
+      "source": 6,
+      "target": 7,
+      "jumpkind": "Ijk_FakeRet"
+    },
+    {
+      "source": 9,
+      "target": 10,
+      "jumpkind": "Ijk_FakeRet"
+    },
+    {
+      "source": 2,
+      "target": 3,
+      "jumpkind": "Ijk_Boring"
+    },
+    {
+      "source": 3,
+      "target": 8,
+      "jumpkind": "Ijk_Boring"
+    },
+    {
+      "source": 7,
+      "target": 8,
+      "jumpkind": "Ijk_Boring"
+    }
+  ]
+}

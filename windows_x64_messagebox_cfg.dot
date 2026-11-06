@@ -1,0 +1,26 @@
+digraph cfg {
+  graph [rankdir=TB];
+  node [shape=box, fontname="Consolas"];
+  n0 [label="0x400000\n13 bytes", color="#7c3aed"];
+  n1 [label="0x4000d9\n6 bytes", color="#2563eb"];
+  n2 [label="0x4000df\n2 bytes", color="#2563eb"];
+  n3 [label="0x4000e1\n3 bytes", color="#2563eb"];
+  n4 [label="0x4000ea\n9 bytes", color="#2563eb"];
+  n5 [label="0x4000f3\n12 bytes", color="#2563eb"];
+  n6 [label="0x400110\n6 bytes", color="#2563eb"];
+  n7 [label="0x400116\n1 bytes", color="#2563eb"];
+  n8 [label="0x400117\n3 bytes", color="#2563eb"];
+  n9 [label="0x400121\n13 bytes", color="#2563eb"];
+  n10 [label="0x40012e\n11 bytes", color="#2563eb"];
+  n0 -> n1 [label="Ijk_Call"];
+  n1 -> n4 [label="Ijk_Call"];
+  n1 -> n2 [label="Ijk_FakeRet"];
+  n4 -> n5 [label="Ijk_FakeRet"];
+  n5 -> n6 [label="Ijk_Call"];
+  n6 -> n9 [label="Ijk_Call"];
+  n6 -> n7 [label="Ijk_FakeRet"];
+  n9 -> n10 [label="Ijk_FakeRet"];
+  n2 -> n3 [label="Ijk_Boring"];
+  n3 -> n8 [label="Ijk_Boring"];
+  n7 -> n8 [label="Ijk_Boring"];
+}

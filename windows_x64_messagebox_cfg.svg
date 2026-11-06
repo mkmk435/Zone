@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1570" height="683" viewBox="0 0 1570 683">
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="none" stroke="#64748b"/></marker></defs>
+<rect width="100%" height="100%" fill="#f8fafc"/>
+<text x="40" y="48" font-size="24" font-family="sans-serif" font-weight="bold">angr CFG + byte map: windows_x64_messagebox.bin</text>
+<text x="40" y="75" font-size="14" font-family="sans-serif" fill="#475569">313 bytes · base 0x400000 · entry offset 0x0 · 11 CFG blocks · 11 edges</text>
+<rect x="40" y="89" width="15" height="15" fill="#cbd5e1"/>
+<text x="62" y="102" font-size="13" font-family="sans-serif">uncovered (234)</text>
+<rect x="270" y="89" width="15" height="15" fill="#2563eb"/>
+<text x="292" y="102" font-size="13" font-family="sans-serif">code (79)</text>
+<rect x="500" y="89" width="15" height="15" fill="#f59e0b"/>
+<text x="522" y="102" font-size="13" font-family="sans-serif">angr data (0)</text>
+<rect x="730" y="89" width="15" height="15" fill="#dc2626"/>
+<text x="752" y="102" font-size="13" font-family="sans-serif">overlap (0)</text>
+<text x="40" y="123" font-size="15" font-family="sans-serif" font-weight="bold">File offsets (128 bytes per row)</text>
+<text x="40" y="143" font-size="12" font-family="monospace" fill="#334155">0x000000</text>
+<rect x="140" y="132" width="91" height="14" fill="#2563eb"><title>0x0–0xd (exclusive): code</title></rect>
+<rect x="231" y="132" width="805" height="14" fill="#cbd5e1"><title>0xd–0x80 (exclusive): uncovered</title></rect>
+<text x="40" y="163" font-size="12" font-family="monospace" fill="#334155">0x000080</text>
+<rect x="140" y="152" width="623" height="14" fill="#cbd5e1"><title>0x80–0xd9 (exclusive): uncovered</title></rect>
+<rect x="763" y="152" width="77" height="14" fill="#2563eb"><title>0xd9–0xe4 (exclusive): code</title></rect>
+<rect x="840" y="152" width="42" height="14" fill="#cbd5e1"><title>0xe4–0xea (exclusive): uncovered</title></rect>
+<rect x="882" y="152" width="147" height="14" fill="#2563eb"><title>0xea–0xff (exclusive): code</title></rect>
+<rect x="1029" y="152" width="7" height="14" fill="#cbd5e1"><title>0xff–0x100 (exclusive): uncovered</title></rect>
+<text x="40" y="183" font-size="12" font-family="monospace" fill="#334155">0x000100</text>
+<rect x="140" y="172" width="112" height="14" fill="#cbd5e1"><title>0x100–0x110 (exclusive): uncovered</title></rect>
+<rect x="252" y="172" width="70" height="14" fill="#2563eb"><title>0x110–0x11a (exclusive): code</title></rect>
+<rect x="322" y="172" width="49" height="14" fill="#cbd5e1"><title>0x11a–0x121 (exclusive): uncovered</title></rect>
+<rect x="371" y="172" width="168" height="14" fill="#2563eb"><title>0x121–0x139 (exclusive): code</title></rect>
+<text x="1070" y="123" font-size="15" font-family="sans-serif" font-weight="bold">Non-CFG ranges</text>
+<text x="1070" y="144" font-size="12" font-family="monospace" fill="#334155">0xd–0xd9 uncovered (204 B)</text>
+<text x="1070" y="164" font-size="12" font-family="monospace" fill="#334155">0xe4–0xea uncovered (6 B)</text>
+<text x="1070" y="184" font-size="12" font-family="monospace" fill="#334155">0xff–0x110 uncovered (17 B)</text>
+<text x="1070" y="204" font-size="12" font-family="monospace" fill="#334155">0x11a–0x121 uncovered (7 B)</text>
+<text x="40" y="300" font-size="17" font-family="sans-serif" font-weight="bold">Control-flow graph</text>
+<path d="M167 384 C167 354.5, 467 354.5, 467 325" fill="none" stroke="#64748b" stroke-opacity="0.55" stroke-width="1.4" marker-end="url(#arrow)"/>
+<path d="M467 384 C467 354.5, 1367 354.5, 1367 325" fill="none" stroke="#64748b" stroke-opacity="0.55" stroke-width="1.4" marker-end="url(#arrow)"/>
+<path d="M467 384 C467 354.5, 767 354.5, 767 325" fill="none" stroke="#64748b" stroke-opacity="0.55" stroke-width="1.4" marker-end="url(#arrow)"/>
+<path d="M1367 384 C1367 404.5, 167 404.5, 167 425" fill="none" stroke="#64748b" stroke-opacity="0.55" stroke-width="1.4" marker-end="url(#arrow)"/>
+<path d="M167 484 C167 454.5, 467 454.5, 467 425" fill="none" stroke="#64748b" stroke-opacity="0.55" stroke-width="1.4" marker-end="url(#arrow)"/>
+<path d="M467 484 C467 454.5, 1367 454.5, 1367 425" fill="none" stroke="#64748b" stroke-opacity="0.55" stroke-width="1.4" marker-end="url(#arrow)"/>
+<path d="M467 484 C467 454.5, 767 454.5, 767 425" fill="none" stroke="#64748b" stroke-opacity="0.55" stroke-width="1.4" marker-end="url(#arrow)"/>
+<path d="M1367 484 C1367 504.5, 167 504.5, 167 525" fill="none" stroke="#64748b" stroke-opacity="0.55" stroke-width="1.4" marker-end="url(#arrow)"/>
+<path d="M767 384 C767 354.5, 1067 354.5, 1067 325" fill="none" stroke="#64748b" stroke-opacity="0.55" stroke-width="1.4" marker-end="url(#arrow)"/>
+<path d="M1067 384 C1067 404.5, 1067 404.5, 1067 425" fill="none" stroke="#64748b" stroke-opacity="0.55" stroke-width="1.4" marker-end="url(#arrow)"/>
+<path d="M767 484 C767 454.5, 1067 454.5, 1067 425" fill="none" stroke="#64748b" stroke-opacity="0.55" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="55" y="328" width="224" height="56" rx="7" fill="#ffffff" stroke="#7c3aed" stroke-width="2"/>
+<text x="67" y="351" font-size="15" font-family="monospace" font-weight="bold">0x400000</text>
+<text x="67" y="371" font-size="12" font-family="sans-serif" fill="#475569">offset 0x0 · 13 bytes · entry</text>
+<rect x="355" y="328" width="224" height="56" rx="7" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="367" y="351" font-size="15" font-family="monospace" font-weight="bold">0x4000d9</text>
+<text x="367" y="371" font-size="12" font-family="sans-serif" fill="#475569">offset 0xd9 · 6 bytes</text>
+<rect x="655" y="328" width="224" height="56" rx="7" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="667" y="351" font-size="15" font-family="monospace" font-weight="bold">0x4000df</text>
+<text x="667" y="371" font-size="12" font-family="sans-serif" fill="#475569">offset 0xdf · 2 bytes</text>
+<rect x="955" y="328" width="224" height="56" rx="7" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="967" y="351" font-size="15" font-family="monospace" font-weight="bold">0x4000e1</text>
+<text x="967" y="371" font-size="12" font-family="sans-serif" fill="#475569">offset 0xe1 · 3 bytes</text>
+<rect x="1255" y="328" width="224" height="56" rx="7" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="1267" y="351" font-size="15" font-family="monospace" font-weight="bold">0x4000ea</text>
+<text x="1267" y="371" font-size="12" font-family="sans-serif" fill="#475569">offset 0xea · 9 bytes</text>
+<rect x="55" y="428" width="224" height="56" rx="7" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="67" y="451" font-size="15" font-family="monospace" font-weight="bold">0x4000f3</text>
+<text x="67" y="471" font-size="12" font-family="sans-serif" fill="#475569">offset 0xf3 · 12 bytes</text>
+<rect x="355" y="428" width="224" height="56" rx="7" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="367" y="451" font-size="15" font-family="monospace" font-weight="bold">0x400110</text>
+<text x="367" y="471" font-size="12" font-family="sans-serif" fill="#475569">offset 0x110 · 6 bytes</text>
+<rect x="655" y="428" width="224" height="56" rx="7" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="667" y="451" font-size="15" font-family="monospace" font-weight="bold">0x400116</text>
+<text x="667" y="471" font-size="12" font-family="sans-serif" fill="#475569">offset 0x116 · 1 bytes</text>
+<rect x="955" y="428" width="224" height="56" rx="7" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="967" y="451" font-size="15" font-family="monospace" font-weight="bold">0x400117</text>
+<text x="967" y="471" font-size="12" font-family="sans-serif" fill="#475569">offset 0x117 · 3 bytes</text>
+<rect x="1255" y="428" width="224" height="56" rx="7" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="1267" y="451" font-size="15" font-family="monospace" font-weight="bold">0x400121</text>
+<text x="1267" y="471" font-size="12" font-family="sans-serif" fill="#475569">offset 0x121 · 13 bytes</text>
+<rect x="55" y="528" width="224" height="56" rx="7" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="67" y="551" font-size="15" font-family="monospace" font-weight="bold">0x40012e</text>
+<text x="67" y="571" font-size="12" font-family="sans-serif" fill="#475569">offset 0x12e · 11 bytes</text>
+</svg>
