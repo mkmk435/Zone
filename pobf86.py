@@ -2153,6 +2153,13 @@ class Zone:
                 self._save_data_cache(cache_path, payload_hash, sections,
                                       timeout)
 
+        # The analyzer may classify only the tail of an inline string: the
+        # linear sweep decodes its first bytes as code, so for the 32-bit
+        # messagebox it reports "ageBox" (0xb8) instead of "MessageBox"
+        # (0xb4). The `call` that skips the string is the proof of the real
+        # boundaries, so align the section with it before the xref scan.
+        sections = self._extend_sections_to_call_gaps(sections)
+
         xrefs = self.find_data_and_refs(sections=sections)
         self.data_sections = sections
         print(f"Data sections: {len(sections)}")
@@ -2163,6 +2170,67 @@ class Zone:
         for source, target, length in xrefs:
             print(f"  {source:#x} -> {target:#x} ({length} B)")
         return sections, xrefs
+
+    def _extend_sections_to_call_gaps(self, sections):
+        """Align analyzer sections with the ``call`` that points at them.
+
+        A ``call target`` pushes its return address; when the target is the
+        end of a data section and the return address falls before it, the
+        whole ``[return address, target)`` range is the data the call refers
+        to. The analyzer may have classified only the tail of it (the linear
+        sweep can decode the first bytes as code), so extend the section to
+        the return address when both the prefix and the section are
+        printable. This is what makes the 32-bit messagebox caption
+        (``MessageBox``) survive extraction and morphing.
+        """
+        if not sections:
+            return sections
+
+        result = [dict(section) for section in sections]
+        changed = True
+        while changed:
+            changed = False
+            for entry in self.instructions:
+                insn = entry.original_instruction
+                if insn.mnemonic != "call" or not insn.operands:
+                    continue
+                if insn.operands[0].type != x86_const.X86_OP_IMM:
+                    continue
+                return_address = insn.address + insn.size
+                target = insn.operands[0].imm & 0xFFFFFFFF
+                if target <= return_address:
+                    continue
+                for section in result:
+                    start = int(section["address"])
+                    end = start + int(section["length"])
+                    if end != target:
+                        continue
+                    if not (return_address < start
+                            and start - return_address <= 64):
+                        continue
+                    prefix = self.raw_code[return_address:start]
+                    gap = self.raw_code[return_address:target]
+                    if not prefix or not all(32 <= b < 127 for b in prefix):
+                        continue
+                    if not all(32 <= b < 127 or b == 0 for b in gap):
+                        continue
+                    section["address"] = return_address
+                    section["length"] = target - return_address
+                    section["kind"] = "ascii"
+                    changed = True
+                    break
+
+        result.sort(key=lambda section: int(section["address"]))
+        merged = []
+        for section in result:
+            start = int(section["address"])
+            if merged:
+                last_start = int(merged[-1]["address"])
+                last_end = last_start + int(merged[-1]["length"])
+                if last_start <= start < last_end:
+                    continue
+            merged.append(section)
+        return merged
 
     def _data_preview(self, section):
         raw = section["bytes"]

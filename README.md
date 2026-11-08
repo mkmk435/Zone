@@ -193,6 +193,11 @@ the same one (`symbolic_payload_coverage.py --arch x86`); what differs is the
 - a `call` whose return address is the start of a data section and whose target
   is its end is a getpc site (classic `call $+5; pop`, late pop, or the 32-bit
   idiom that leaves the pushed string address on the stack as an API argument);
+- when the analyzer classifies only the tail of an inline string (the linear
+  sweep decodes its first bytes as code), the section is extended back to the
+  call return address if the whole gap is printable. This is what keeps the
+  32-bit messagebox caption (`MessageBox`, at `0xb4`) intact instead of letting
+  the morphing shift the call return address and show a garbage title;
 - at extraction the call is kept and only the inline data is replaced by NOPs;
   after the final layout the call becomes `jmp stub`, where the 5-byte stub
   `call consumer` is placed right before the moved data. The stub pushes the
