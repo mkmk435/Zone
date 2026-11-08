@@ -3,3 +3,5 @@ sgn.exe
 keystone.dll
 equal_comp/
 mutations/
+data_cache.json
+data_cache.json.tmp

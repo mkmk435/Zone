@@ -1,0 +1,20 @@
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['C:\\Users\\ubu\\Desktop\\Zone\\original_pl\\x64\\windows_x64_custom_reverse_winhttps.bin', '-fd', '--data-timeout', '60']
+SYMBOLIC DATA ANALYSIS...
+Payload: C:\Users\ubu\Desktop\Zone\original_pl\x64\windows_x64_custom_reverse_winhttps.bin (944 B)
+SHA-256: 66eeae9543c530480d08a9fb9a0510222e994cb2e573bb3994830a424b4b0f70
+Architecture: x64; base: 0x0; entry: 0x0
+String candidates: 1 (length in bytes, including the NUL terminator)
+  0x116 (+0x116, 20 B) utf16le: '127.0.0.1'
+Stopped: frontier_exhausted after 5 steps in 1.969s (0 states pending, 0 deadended, 0 unconstrained, 2 errors)
+  Exploration error at 0x37: 'Unable to concretize address for load with the provided strategies.'
+  Exploration error at 0x35: 'Unable to concretize address for load with the provided strategies.'
+Data candidates are provisional: symbolic exploration has unresolved paths.
+[cache] saved 66eeae9543c5 to data_cache.json
+Data sections: 2
+  0x116 (20 B) utf16le
+  0x155 (216 B) outside_cfg
+Data xrefs: 2
+  0x4d -> 0x20b (216 B)
+  0x111 -> 0x116 (20 B)
+Data analysis only; no payload written.

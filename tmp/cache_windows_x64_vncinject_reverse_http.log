@@ -1,0 +1,22 @@
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['C:\\Users\\ubu\\Desktop\\Zone\\original_pl\\x64\\windows_x64_vncinject_reverse_http.bin', '-fd', '--data-timeout', '60']
+SYMBOLIC DATA ANALYSIS...
+Payload: C:\Users\ubu\Desktop\Zone\original_pl\x64\windows_x64_vncinject_reverse_http.bin (772 B)
+SHA-256: 6cf5f5f0b3e7696b9ec044ff9b43670f04660866c2add8d7804b699106df5ff8
+Architecture: x64; base: 0x0; entry: 0x0
+String candidates: 3 (length in bytes, including the NUL terminator)
+  0xfa (+0xfa, 131 B) ascii: 'Mozilla/5.0 (iPad; CPU OS 17_7_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Mobile/15E148 Safari/604.1'
+  0x199 (+0x199, 10 B) ascii: '127.0.0.1'
+  0x1c7 (+0x1c7, 123 B) ascii: '/cP3Oyj8NFsFiH2MdChTB3gIBnO6zew_6ihYQemzmgSr7qp3--pE2GzrE3_LnWDD-uv94N7TVK35E7OVy3s_sRUqAydJIy7NJNk1ps2ObUhhYm_BTMSltr0oHe'
+Stopped: timeout after 8 steps in 76.625s (6 states pending, 0 deadended, 0 unconstrained, 0 errors)
+Data candidates are provisional: symbolic exploration has unresolved paths.
+[cache] saved 6cf5f5f0b3e7 to data_cache.json
+Data sections: 3
+  0xfa (131 B) ascii
+  0x199 (10 B) ascii
+  0x1c7 (123 B) ascii
+Data xrefs: 3
+  0x4d -> 0x20b (123 B)
+  0xf5 -> 0xfa (131 B)
+  0x194 -> 0x199 (10 B)
+Data analysis only; no payload written.

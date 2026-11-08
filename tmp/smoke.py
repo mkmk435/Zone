@@ -1,0 +1,17 @@
+﻿import sys, os
+sys.path.insert(0, r"C:\Users\ubu\Desktop\Zone")
+os.chdir(r"C:\Users\ubu\Desktop\Zone")
+print("importing")
+import pobf86
+print("ok import")
+z = pobf86.Zone(r"original_pl\x86\windows_messagebox.bin")
+print("instrs", len(z.instructions))
+z.create_jmp_table()
+z.create_label_table()
+z.mark_data_ranges32()
+print("protected", len(z.data_instruction_ids))
+z.insert_random_nop()
+print("after nop", len(z.instructions), "nops", z.nops_addedd)
+z.update_label_table()
+z.write_file(r"tmp\test86.bin")
+print("written", os.path.getsize(r"tmp\test86.bin"))

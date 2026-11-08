@@ -1,0 +1,14 @@
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['C:\\Users\\ubu\\Desktop\\Zone\\original_pl\\x64\\windows_x64_messagebox.bin', '-fd', '--data-timeout', '60']
+SYMBOLIC DATA ANALYSIS...
+[cache] hit 8de9534d5a83 in data_cache.json (3 sections, timeout=4.0s, created 2026-11-07T16:35:57)
+[cache] using the stored sections; --refresh-data-cache re-runs the symbolic search
+Data sections: 3
+  0xdf (11 B) ascii
+  0xff (17 B) ascii
+  0x116 (11 B) ascii
+Data xrefs: 3
+  0xda -> 0xdf (11 B)
+  0xfa -> 0xff (17 B)
+  0x111 -> 0x116 (11 B)
+Data analysis only; no payload written.

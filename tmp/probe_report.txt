@@ -1,0 +1,5 @@
+x64/windows_x64_custom_reverse_https_xdebcf.bin,reverse,OK,
+x64/windows_x64_custom_reverse_https_xdeq.bin,reverse,OK,
+x64/windows_x64_custom_reverse_https_xdeq_nop_bcf.bin,reverse,OK,
+x64/windows_x64_custom_reverse_https_xdibp.bin,reverse,OK,
+x64/windows_x64_custom_reverse_https_xdpii.bin,reverse,OK,

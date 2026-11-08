@@ -1,0 +1,20 @@
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['C:\\Users\\ubu\\Desktop\\Zone\\original_pl\\x64\\windows_x64_vncinject_reverse_winhttp.bin', '-fd', '--data-timeout', '60']
+SYMBOLIC DATA ANALYSIS...
+Payload: C:\Users\ubu\Desktop\Zone\original_pl\x64\windows_x64_vncinject_reverse_winhttp.bin (1021 B)
+SHA-256: e621992c5bd4e5547a961be0f334fbb952e374527888f6a65c6150f8884c0406
+Architecture: x64; base: 0x0; entry: 0x0
+String candidates: 2 (length in bytes, including the NUL terminator)
+  0x116 (+0x116, 20 B) utf16le: '127.0.0.1'
+  0x149 (+0x149, 356 B) utf16le: 'http://127.0.0.1:1234/ecJdxQjJ-lU6ZztlUmyZpQ4365rRK4FfHi_KqIkvqoUD-mFo1M0_a0mxKeTwOo53gTu11F_20LMR1zMzxSqni6si5YTNzj2X9mwK-azerFQCL44cM11BlciDhn5_S7y-HNIaAeIVg1F9qzvw8YVI4M7GILh'
+Stopped: timeout after 159 steps in 60.593s (140 states pending, 0 deadended, 0 unconstrained, 1 errors)
+  Exploration error at 0x37: 'Unable to concretize address for load with the provided strategies.'
+Data candidates are provisional: symbolic exploration has unresolved paths.
+[cache] saved e621992c5bd4 to data_cache.json
+Data sections: 2
+  0x116 (20 B) utf16le
+  0x149 (356 B) utf16le
+Data xrefs: 2
+  0x4d -> 0x20b (356 B)
+  0x111 -> 0x116 (20 B)
+Data analysis only; no payload written.

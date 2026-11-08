@@ -1,0 +1,24 @@
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['C:\\Users\\ubu\\Desktop\\Zone\\original_pl\\x64\\windows_x64_custom_reverse_http.bin', '-fd', '--data-timeout', '60']
+SYMBOLIC DATA ANALYSIS...
+Payload: C:\Users\ubu\Desktop\Zone\original_pl\x64\windows_x64_custom_reverse_http.bin (789 B)
+SHA-256: 51ef8de8ca685e199f52e7d6bd46fb65bae74ddd3dbdd4e02686a4aba8123aa9
+Architecture: x64; base: 0x0; entry: 0x0
+String candidates: 3 (length in bytes, including the NUL terminator)
+  0xfa (+0xfa, 84 B) ascii: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14.7; rv:133.0) Gecko/20100101 Firefox/133.0'
+  0x16a (+0x16a, 10 B) ascii: '127.0.0.1'
+  0x198 (+0x198, 163 B) ascii: '/7FQjplfjf7-9eLx61XMe3gQjh1sfUZGvzApjYriP3Aci6Wfkg-7SY-Yo_n1-60rC_lUoli_dtnC_kpSsFbwbpTBe2-0sEk-W_1U2n5V6MyRoDuz6jW6cwBLjzhcHFkyPRd9tY8u_98TIxx8bcWhcscp62yndX3vvv'
+Stopped: frontier_exhausted after 5 steps in 1.797s (0 states pending, 0 deadended, 0 unconstrained, 2 errors)
+  Exploration error at 0x37: 'Unable to concretize address for load with the provided strategies.'
+  Exploration error at 0x35: 'Unable to concretize address for load with the provided strategies.'
+Data candidates are provisional: symbolic exploration has unresolved paths.
+[cache] saved 51ef8de8ca68 to data_cache.json
+Data sections: 3
+  0xfa (84 B) ascii
+  0x16a (10 B) ascii
+  0x198 (163 B) ascii
+Data xrefs: 3
+  0x4d -> 0x20b (163 B)
+  0xf5 -> 0xfa (84 B)
+  0x165 -> 0x16a (10 B)
+Data analysis only; no payload written.

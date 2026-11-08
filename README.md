@@ -33,13 +33,39 @@ The same analysis is available as an importable function:
 from symbolic_payload_coverage import find_data_sections
 
 sections = find_data_sections("payload.bin", arch="x64")
+# Prints each string's start address, file offset, byte length, encoding, and text.
 # [{"address": 0x400002, "offset": 2, "length": 6, "kind": "ascii"}, ...]
 ```
+
+To also return the full string candidates, use `return_strings=True`:
+
+```python
+sections, string_candidates = find_data_sections(
+    "original_pl/x64/windows_x64_messagebox.bin", arch="x64",
+    base_address=0, return_strings=True,
+)
+for candidate in string_candidates:
+    print(candidate["text"], candidate["offset_start"], candidate["size"])
+```
+
+Each string record contains `kind`, `offset_start`, `offset_end_exclusive`,
+`address_start` (a hex string), `size`, `text`, `hex`, and `cfg_code_overlap`,
+as in the CLI JSON report. `return_strings` is independent of `print_strings`;
+without it, the return value remains the list of sections.
 
 Pass raw bytes instead of a path if the payload is already in memory. The
 default base address is 0x400000 and can be changed with base_address. Each
 entry is a heuristic candidate; kind distinguishes strings, CFG data, and
 bytes outside the recovered CFG.
+String lengths include the NUL terminator. Pass `print_strings=False` for silent
+library use. Both entry points print the input path (or an in-memory label),
+byte size, SHA-256, load base, entry address, and exploration stop diagnostics.
+The CLI JSON report also includes `payload_sha256`.
+To compare library and CLI results, use the same input bytes, architecture,
+base address, entry offset, and exploration limits. For a base below 0x10000,
+`find_data_sections()` analyzes at an internal nonzero base and translates the
+reported addresses back, because CFGFast can mistake small payload constants
+for data pointers at a low base; the CLI does not rebase and warns instead.
 
 Symbolic execution records instruction addresses. A second CFGFast pass starts
 at code entries observed at runtime but missed by the first pass. The report
@@ -61,8 +87,104 @@ uses a blank raw-payload environment and does not initialize OS structures or
 external APIs. In particular, Windows shellcode that reads the PEB or calls
 APIs may leave paths unexplored. The timeout is checked between symbolic steps.
 
+## Data extraction (opt-in)
+
+The symbolic analysis runs only when `--find-data` or `--extract-data` is given.
+The same analysis can move the payload data to the end of the blob:
+
+```sh
+python pobf.py original_pl/x64/windows_x64_messagebox.bin --find-data
+python pobf.py original_pl/x64/windows_x64_messagebox.bin --extract-data
+python pobf.py original_pl/x64/windows_x64_messagebox.bin --extract-data -eq -nop -o out.bin
+python pobf.py original_pl/x64/windows_x64_messagebox.bin --extract-data --eliminate-bad-instructions -bcf -o out.bin
+```
+
+`--find-data` (`-fd`) runs the symbolic exploration, prints the data ranges and
+their xrefs, and exits without writing anything.
+
+`--extract-data` (`-xd`) rewrites the payload:
+
+- a `call $+N; pop reg` sequence that pushes a data address becomes
+  `lea reg, [rip + disp]` plus NOP padding, keeping the payload length and every
+  instruction address unchanged;
+- the data bytes are appended after a 16-byte boundary;
+- RIP-relative, absolute-memory, and `mov`/`push` immediate references are
+  adjusted after the optional morphing (`-eq`, `-nop`, ...), because the final
+  code length determines the displacement;
+- a section with a reference that cannot be rewritten safely is left in place
+  and reported.
+
+`--extract-unknown` (`-xu`) also moves `outside_cfg` ranges, which are heuristic
+and may be code. `--data-timeout <seconds>` sets the symbolic exploration
+timeout (default 120). `--extract-data` can be combined with
+`--position-independent-instr` (`-pii`): the indexed dispatcher shuffles the
+instruction handler units (the entry stays first) and places the extracted data
+after its instruction map; the `lea` displacements are finalized against that
+layout. `-pii` also works without extraction, but `--extract-data` is
+recommended because the linear sweep can miss the payload tail. A separate
+`--instruction-permutation` (`-ip`) mode permutes single instructions with an
+explicit successor `jmp`; it is **not** the PII dispatcher. Without
+`--extract-data` the data analysis never modifies the payload.
+
+`--eliminate-bad-instructions` (`-ebi`) expands `jrcxz`/`loop` short branches
+into a 12-byte trampoline before morphing, so their ±127-byte relative limit is
+no longer a problem. It is applied in both the normal and `--extract-data`
+paths, and is compatible with `-eq`, `-nop`, and `-bcf` (an example that used to
+hit the `DIFF > 120` restart). Each expanded branch adds 10 bytes. Without it,
+the old restart/abort fallback may trigger.
+
+The `je` inserted by `-bcf` is registered in the label table as well, so later
+random insertions cannot invalidate its target. In a 10-run `ploader.exe` test,
+`-xd -bcf -ebi` produced 10/10 payloads that displayed the message box; the
+same test against the previous code produced 3/10.
+
+The discovered data sections are cached by payload SHA-256 in `data_cache.json`
+(override with `--data-cache <file>`). A second run with the same payload skips
+the symbolic exploration and reuses the stored sections; xrefs are still
+recomputed. `--refresh-data-cache` (`-rc`) forces a fresh search and replaces
+the entry, `--no-data-cache` (`-nc`) disables the cache. The cache stores the
+timeout used, but a hit reuses it even if `--data-timeout` changed; refresh to
+re-run with new limits.
+
+This is a size-preserving rewrite: the data disappears from the code area (it
+is replaced by NOPs) and the output grows by the appended blob. Compacting the
+code would renumber every instruction and is not attempted here.
+
 
 # Zone: A Payload-Obfuscator with Metamorphic Engine
+
+## 32-bit build (`pobf86.py`)
+
+The 32-bit build now has the `-bcf` `je` label fix, `-ebi`
+(`loop`/`loope`/`loopne`/`jecxz`/`jcxz` trampolines), the indexed and shuffled
+`-pii` dispatcher, and the separate `-ip` single-instruction permutation. The
+old `brain_mode` bug that always selected `write_strange_file()` has been
+removed; a normal run now uses `write_file()`.
+
+On the 32-bit messagebox, `-eq`, `-nop`, and `-bcf` now display the message box
+(3/3 `-nop` and `-bcf`, 3/3 `-eq` in the `cdb` tests). The fixes that made this
+work were:
+
+- `pushf`/`popf` in Keystone 32 were being encoded as 16-bit (`66 9C`/`66 9D`)
+  and unbalanced the stack; all generated code now uses `pushfd`/`popfd`;
+- printable inline data ranges are marked and skipped by `-eq`/`-nop`/`-bcf`;
+- `-nop` uses plain `nop` instructions, only after the last inline data block,
+  and never between a call and its inline getpc data;
+- `-bcf` only inserts bogus blocks after the last inline data block.
+
+This is a conservative static heuristic, not a full x86 CFG classifier. `-pii`
+and `-ip` still move the inline data and therefore remain **experimental** on
+data-bearing 32-bit payloads; `-xd` is disabled with an explicit error.
+
+The dispatcher itself uses `pushad`/`popad` plus a saved-flags slot and `ret`,
+so all general registers and flags are preserved; the earlier register-pressure
+fallback to `ebx` is gone. The symbolic data layer (`-fd`, `-xd`, cache,
+`extract_data`) is **not yet ported** to 32-bit: it depends on the x64 analyzer
+(`gs`/PEB, RIP-relative references). A naive 32-bit `call/pop` getpc heuristic
+was tested and rejected: on the 32-bit messagebox it classified the whole
+resolver (`call 0x1 ... pop ebp`) as inline data and moved it, corrupting the
+payload. A proper 32-bit extractor needs CFG/reachability and absolute-reference
+handling; it is a separate x86 analyzer task, not a copy of the x64 code.
 
 ## Overview
 
@@ -110,6 +232,12 @@ This technique, involves creating fake conditions and blocks of code that will n
 ### 4. Instruction Blocks Permutation
 
 this feature will involve dividing instructions into blocks, adding jumps at the end of each block, and shuffling these blocks to create highly obfuscated code.
+
+The block builder now keeps every instruction (the old version skipped the
+last instruction and dropped the final block), keeps `-ebi` trampolines in one
+block, and fixes the entry and final blocks so the last one cannot fall through
+into a shuffled block. `-ibp -xd -ebi` on the messagebox sample was verified
+10/10 with a `cdb` breakpoint on `user32!MessageBoxA`.
 
 ### 5. Position Independent Instruction
 

@@ -1,0 +1,19 @@
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['C:\\Users\\ubu\\Desktop\\Zone\\original_pl\\x64\\windows_x64_custom_reverse_winhttp.bin', '-fd', '--data-timeout', '60']
+SYMBOLIC DATA ANALYSIS...
+Payload: C:\Users\ubu\Desktop\Zone\original_pl\x64\windows_x64_custom_reverse_winhttp.bin (1020 B)
+SHA-256: bc5283bbb2a4f0b21a38f99729ae02a55d009c7a87e18e540feed66c5cc6fdfb
+Architecture: x64; base: 0x0; entry: 0x0
+String candidates: 2 (length in bytes, including the NUL terminator)
+  0x116 (+0x116, 20 B) utf16le: '127.0.0.1'
+  0x149 (+0x149, 338 B) utf16le: 'http://127.0.0.1:1234/jz_C29yE1W8MgQ2DZIqvKw2RxSoIvJlgqp6uQKWVQvWl2VZUr3gQ1USFE_Ms-Pnk7OuDjq2ju8iAjlqMKKLGdE-kP4GROFNGHZttKdMln3ycgNFZtaSt-jfi-V66IV87B8vGtr7v-6d6H-JxhE'
+Stopped: timeout after 163 steps in 60.359s (145 states pending, 0 deadended, 0 unconstrained, 0 errors)
+Data candidates are provisional: symbolic exploration has unresolved paths.
+[cache] saved bc5283bbb2a4 to data_cache.json
+Data sections: 2
+  0x116 (20 B) utf16le
+  0x149 (338 B) utf16le
+Data xrefs: 2
+  0x4d -> 0x20b (338 B)
+  0x111 -> 0x116 (20 B)
+Data analysis only; no payload written.

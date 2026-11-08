@@ -1,0 +1,20 @@
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['C:\\Users\\ubu\\Desktop\\Zone\\original_pl\\x64\\windows_x64_vncinject_reverse_winhttps.bin', '-fd', '--data-timeout', '60']
+SYMBOLIC DATA ANALYSIS...
+Payload: C:\Users\ubu\Desktop\Zone\original_pl\x64\windows_x64_vncinject_reverse_winhttps.bin (961 B)
+SHA-256: f64c2b508515bdbdeaff234b76d0f6213f2ef4022aa4c5688e6b1e1163fa8645
+Architecture: x64; base: 0x0; entry: 0x0
+String candidates: 1 (length in bytes, including the NUL terminator)
+  0x116 (+0x116, 20 B) utf16le: '127.0.0.1'
+Stopped: timeout after 178 steps in 60.781s (169 states pending, 0 deadended, 0 unconstrained, 2 errors)
+  Exploration error at 0x37: 'Unable to concretize address for load with the provided strategies.'
+  Exploration error at 0x35: 'Unable to concretize address for load with the provided strategies.'
+Data candidates are provisional: symbolic exploration has unresolved paths.
+[cache] saved f64c2b508515 to data_cache.json
+Data sections: 2
+  0x116 (20 B) utf16le
+  0x155 (250 B) outside_cfg
+Data xrefs: 2
+  0x4d -> 0x20b (250 B)
+  0x111 -> 0x116 (20 B)
+Data analysis only; no payload written.

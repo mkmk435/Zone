@@ -1,5 +1,5 @@
 {
-  "payload": "/home/ubu/Zone/original_pl/x64/windows_x64_messagebox.bin",
+  "payload": "C:\\Users\\ubu\\Desktop\\Zone\\original_pl\\x64\\windows_x64_messagebox.bin",
   "architecture": "x64",
   "base_address": "0x400000",
   "entry_address": "0x400000",
@@ -7,7 +7,7 @@
   "meaning": "not_observed means not reached during this bounded analysis, not proven unreachable; data_candidates are heuristic",
   "model": "raw blob; uninitialized memory and registers are symbolic; external OS environment is not initialized",
   "coverage_status": "incomplete",
-  "unresolved_paths": 398,
+  "unresolved_paths": 424,
   "limits": {
     "max_steps": 10000,
     "timeout_seconds": 120,
@@ -775,16 +775,11 @@
     "0x400117"
   ],
   "observed_addresses_outside_payload": [],
-  "steps": 411,
-  "pending_states": 397,
+  "steps": 485,
+  "pending_states": 424,
   "deadended_states": 0,
   "unconstrained_states": 0,
-  "errors": [
-    {
-      "address": "0x400075",
-      "error": "Unable to concretize address for load with the provided strategies."
-    }
-  ],
+  "errors": [],
   "stop_reason": "timeout",
-  "elapsed_seconds": 120.174
+  "elapsed_seconds": 120.407
 }

@@ -1,0 +1,14 @@
+arch,payload,old_ok,old_total,old_rate_pct,pre_ok,pre_total,pre_rate_pct,new_ok,new_total,new_rate_pct,delta_pre_to_new_pct
+x64,windows_x64_custom_reverse_winhttps,0,150,0.0,10,150,6.7,10,150,6.7,+0.0
+x64,windows_x64_vncinject_reverse_winhttps,0,150,0.0,10,150,6.7,10,150,6.7,+0.0
+x64,windows_x64_messagebox,4,150,2.7,110,150,73.3,108,150,72.0,-1.3
+x64,windows_x64_meterpreter_reverse_winhttps,2,150,1.3,124,150,82.7,115,150,76.7,-6.0
+x64,windows_x64_custom_reverse_http,15,147,10.2,147,150,98.0,131,150,87.3,-10.7
+x64,windows_x64_custom_reverse_https,0,149,0.0,141,150,94.0,132,150,88.0,-6.0
+x64,windows_x64_meterpreter_reverse_https,0,149,0.0,10,150,6.7,132,150,88.0,+81.3
+x64,windows_x64_meterpreter_reverse_winhttp,0,149,0.0,123,150,82.0,132,150,88.0,+6.0
+x64,windows_x64_meterpreter_reverse_http,0,149,0.0,7,150,4.7,133,150,88.7,+84.0
+x64,windows_x64_vncinject_reverse_http,0,150,0.0,4,150,2.7,134,150,89.3,+86.7
+x64,windows_x64_vncinject_reverse_winhttp,0,150,0.0,10,150,6.7,139,150,92.7,+86.0
+x64,windows_x64_custom_reverse_winhttp,0,149,0.0,10,150,6.7,140,150,93.3,+86.7
+x64,windows_x64_vncinject_reverse_https,2,149,1.3,10,150,6.7,142,150,94.7,+88.0

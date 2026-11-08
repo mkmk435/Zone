@@ -1,0 +1,26 @@
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['C:\\Users\\ubu\\Desktop\\Zone\\original_pl\\x64\\windows_x64_vncinject_reverse_https.bin', '-fd', '--data-timeout', '60']
+SYMBOLIC DATA ANALYSIS...
+Payload: C:\Users\ubu\Desktop\Zone\original_pl\x64\windows_x64_vncinject_reverse_https.bin (789 B)
+SHA-256: d036eeb3911ad23617d972fb2aada6a81ed137452aff5d8c60e45de1d93f0e66
+Architecture: x64; base: 0x0; entry: 0x0
+String candidates: 3 (length in bytes, including the NUL terminator)
+  0xfa (+0xfa, 131 B) ascii: 'Mozilla/5.0 (iPad; CPU OS 17_7_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Mobile/15E148 Safari/604.1'
+  0x199 (+0x199, 10 B) ascii: '127.0.0.1'
+  0x1c7 (+0x1c7, 106 B) ascii: '/eBR_kOMTdKYs9C32RP-PNgvTwr6cae4ue3sVRyEVMtJ2i9AQYDUVhryvAgRA83ZRw4GChIBL6yMiNL_FpIpqrCzxh78lY-JAGNeI1MtA'
+Stopped: timeout after 165 steps in 60.375s (145 states pending, 0 deadended, 0 unconstrained, 4 errors)
+  Exploration error at 0x37: 'Unable to concretize address for load with the provided strategies.'
+  Exploration error at 0x35: 'Unable to concretize address for load with the provided strategies.'
+  Exploration error at 0x37: 'Unable to concretize address for load with the provided strategies.'
+  Exploration error at 0x35: 'Unable to concretize address for load with the provided strategies.'
+Data candidates are provisional: symbolic exploration has unresolved paths.
+[cache] saved d036eeb3911a to data_cache.json
+Data sections: 3
+  0xfa (131 B) ascii
+  0x199 (10 B) ascii
+  0x1c7 (106 B) ascii
+Data xrefs: 3
+  0x4d -> 0x20b (106 B)
+  0xf5 -> 0xfa (131 B)
+  0x194 -> 0x199 (10 B)
+Data analysis only; no payload written.

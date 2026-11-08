@@ -1,0 +1,2 @@
+x64/windows_x64_custom_reverse_https_xd_nop.bin,reverse,OK,
+x64/windows_x64_meterpreter_reverse_http_xd_nop.bin,reverse,FAIL,

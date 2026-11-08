@@ -1,0 +1,150 @@
+x64/windows_x64_messagebox_bcf_1.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_bcf_10.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_bcf_2.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_bcf_3.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_bcf_4.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_bcf_5.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_bcf_6.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_bcf_7.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_bcf_8.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_bcf_9.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_1.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_10.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_2.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_3.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_4.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_5.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_6.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_7.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_8.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_9.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_bcf_1.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_bcf_10.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_bcf_2.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_bcf_3.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_bcf_4.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_bcf_5.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_bcf_6.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_bcf_7.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_bcf_8.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_bcf_9.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_ibp_1.bin,other,FAIL,dialog class=#32770 rc=3221225477
+x64/windows_x64_messagebox_eq_ibp_10.bin,other,FAIL,dialog class=#32770 rc=3221225477
+x64/windows_x64_messagebox_eq_ibp_2.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_eq_ibp_3.bin,other,FAIL,dialog-not-closed class=#32770
+x64/windows_x64_messagebox_eq_ibp_4.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_eq_ibp_5.bin,other,FAIL,dialog-not-closed class=#32770
+x64/windows_x64_messagebox_eq_ibp_6.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_eq_ibp_7.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_eq_ibp_8.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_eq_ibp_9.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_eq_nop_bcf_1.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_nop_bcf_10.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_nop_bcf_2.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_nop_bcf_3.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_nop_bcf_4.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_nop_bcf_5.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_nop_bcf_6.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_eq_nop_bcf_7.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_nop_bcf_8.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_nop_bcf_9.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_nop_ibp_1.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_eq_nop_ibp_10.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_eq_nop_ibp_2.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_eq_nop_ibp_3.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_eq_nop_ibp_4.bin,other,FAIL,dialog class=#32770 rc=3221225477
+x64/windows_x64_messagebox_eq_nop_ibp_5.bin,other,FAIL,dialog class=#32770 rc=3221225477
+x64/windows_x64_messagebox_eq_nop_ibp_6.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_eq_nop_ibp_7.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_eq_nop_ibp_8.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_eq_nop_ibp_9.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_eq_nop_pii_1.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_nop_pii_10.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_nop_pii_2.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_nop_pii_3.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_nop_pii_4.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_nop_pii_5.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_nop_pii_6.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_nop_pii_7.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_nop_pii_8.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_nop_pii_9.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_pii_1.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_pii_10.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_pii_2.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_pii_3.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_pii_4.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_pii_5.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_pii_6.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_pii_7.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_pii_8.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_eq_pii_9.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_ibp_1.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_ibp_10.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_ibp_2.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_ibp_3.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_ibp_4.bin,other,FAIL,dialog class=#32770 rc=3221225501
+x64/windows_x64_messagebox_ibp_5.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_ibp_6.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_ibp_7.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_ibp_8.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_ibp_9.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_nop_1.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_10.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_2.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_3.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_4.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_5.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_6.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_7.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_8.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_9.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_bcf_1.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_bcf_10.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_bcf_2.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_bcf_3.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_bcf_4.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_bcf_5.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_bcf_6.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_bcf_7.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_bcf_8.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_bcf_9.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_eq_1.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_eq_10.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_eq_2.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_eq_3.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_eq_4.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_eq_5.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_eq_6.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_eq_7.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_eq_8.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_eq_9.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_ibp_1.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_nop_ibp_10.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_nop_ibp_2.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_nop_ibp_3.bin,other,FAIL,dialog class=#32770 rc=3221225477
+x64/windows_x64_messagebox_nop_ibp_4.bin,other,FAIL,dialog class=#32770 rc=3221225477
+x64/windows_x64_messagebox_nop_ibp_5.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_nop_ibp_6.bin,other,FAIL,dialog-not-closed class=#32770
+x64/windows_x64_messagebox_nop_ibp_7.bin,other,FAIL,dialog-not-closed class=#32770
+x64/windows_x64_messagebox_nop_ibp_8.bin,other,FAIL,dialog class=#32770 rc=3221225477
+x64/windows_x64_messagebox_nop_ibp_9.bin,other,FAIL,no-dialog
+x64/windows_x64_messagebox_nop_pii_1.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_pii_10.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_pii_2.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_pii_3.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_pii_4.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_pii_5.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_pii_6.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_pii_7.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_pii_8.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_nop_pii_9.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_pii_1.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_pii_10.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_pii_2.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_pii_3.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_pii_4.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_pii_5.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_pii_6.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_pii_7.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_pii_8.bin,other,OK,dialog class=#32770 rc=0
+x64/windows_x64_messagebox_pii_9.bin,other,OK,dialog class=#32770 rc=0

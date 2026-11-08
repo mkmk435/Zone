@@ -1,0 +1,21 @@
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['C:\\Users\\ubu\\Desktop\\Zone\\original_pl\\x64\\windows_x64_meterpreter_reverse_winhttp.bin', '-fd', '--data-timeout', '60']
+SYMBOLIC DATA ANALYSIS...
+Payload: C:\Users\ubu\Desktop\Zone\original_pl\x64\windows_x64_meterpreter_reverse_winhttp.bin (993 B)
+SHA-256: 1313689fa01ddd95b26c0d0e8f7f9f8697d85e7ba3d94a246d5b9ea9c390ff2b
+Architecture: x64; base: 0x0; entry: 0x0
+String candidates: 2 (length in bytes, including the NUL terminator)
+  0x116 (+0x116, 20 B) utf16le: '127.0.0.1'
+  0x149 (+0x149, 328 B) utf16le: 'http://127.0.0.1:1234/K-b6lWwshwq9dbx31X4e0wnmVUPGu461ZvX_1Dxs8QV_9mKxpgg8f3TwK6sJDz69mYe3Kc-xuoHNTGYQ1fiBa2STj_JNhMOyFkzBJSwoYPjFd9qdKUE97ILWYOYIOrFCIRI3gLsnjneUE'
+Stopped: frontier_exhausted after 5 steps in 1.406s (0 states pending, 0 deadended, 0 unconstrained, 2 errors)
+  Exploration error at 0x37: 'Unable to concretize address for load with the provided strategies.'
+  Exploration error at 0x35: 'Unable to concretize address for load with the provided strategies.'
+Data candidates are provisional: symbolic exploration has unresolved paths.
+[cache] saved 1313689fa01d to data_cache.json
+Data sections: 2
+  0x116 (20 B) utf16le
+  0x149 (328 B) utf16le
+Data xrefs: 2
+  0x4b -> 0x20b (328 B)
+  0x111 -> 0x116 (20 B)
+Data analysis only; no payload written.

@@ -1,0 +1,3 @@
+x64/windows_x64_meterpreter_reverse_http_nopnoxd.bin,reverse,FAIL,
+x64/windows_x64_meterpreter_reverse_http_xdebinop.bin,reverse,FAIL,
+x64/windows_x64_meterpreter_reverse_http_xdonly.bin,reverse,OK,

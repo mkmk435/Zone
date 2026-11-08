@@ -1,0 +1,27 @@
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['C:\\Users\\ubu\\Desktop\\Zone\\original_pl\\x64\\windows_x64_meterpreter_reverse_https.bin', '-fd', '--data-timeout', '60']
+SYMBOLIC DATA ANALYSIS...
+Payload: C:\Users\ubu\Desktop\Zone\original_pl\x64\windows_x64_meterpreter_reverse_https.bin (706 B)
+SHA-256: 28096956f0646a65541a4f6ad03ea47cb1edc7e20d82439e3ae92d5fb91ac408
+Architecture: x64; base: 0x0; entry: 0x0
+String candidates: 3 (length in bytes, including the NUL terminator)
+  0xfa (+0xfa, 118 B) ascii: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
+  0x18c (+0x18c, 10 B) ascii: '127.0.0.1'
+  0x1ba (+0x1ba, 36 B) ascii: '/TLum3793MJoCoAOiaquhBgdICDx4rm0ZJh'
+Stopped: timeout after 283 steps in 60.000s (80 states pending, 0 deadended, 4 unconstrained, 15 errors)
+  Exploration error at 0x37: 'Unable to concretize address for load with the provided strategies.'
+  Exploration error at 0x37: 'Unable to concretize address for load with the provided strategies.'
+  Exploration error at 0x37: 'Unable to concretize address for load with the provided strategies.'
+  Exploration error at 0x37: 'Unable to concretize address for load with the provided strategies.'
+  Exploration error at 0x64: 'Unable to concretize address for load with the provided strategies.'
+  ... 10 additional exploration errors
+Data candidates are provisional: symbolic exploration has unresolved paths.
+[cache] saved 28096956f064 to data_cache.json
+Data sections: 3
+  0xfa (118 B) ascii
+  0x18c (10 B) ascii
+  0x1ba (36 B) ascii
+Data xrefs: 2
+  0xf5 -> 0xfa (118 B)
+  0x187 -> 0x18c (10 B)
+Data analysis only; no payload written.

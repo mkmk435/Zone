@@ -1,175 +1,178 @@
 ###############################
 0 :  0x0 cld 
-0 :  0x1 call 0x3ca
-0 :  0x6 pushal 
-0 :  0x7 mov ebp, esp
-0 :  0x9 mov edx, 0
-0 :  0xe jmp 0x559
+0 :  0x1 and rsp, 0xfffffffffffffff0
+0 :  0x8 call 0xd5
+0 :  0xd push r9
+0 :  0xf push r8
+0 :  0x11 push rdx
+0 :  0x12 xor rdx, rdx
+0 :  0x15 jmp 0x148
 ###############################
-1 :  0x13 push 0x707474
-1 :  0x18 push 0x686e6977
-1 :  0x1d push esp
-1 :  0x1e push 0x726774c
-1 :  0x23 call ebp
-1 :  0x25 jmp 0x54e
+1 :  0x1a call 0x2a
+1 :  0x1f jne 0x94
+1 :  0x21 jb 0x57
+1 :  0x24 xor ch, byte ptr [rsi]
+1 :  0x26 insb byte ptr [rdi], dx
+1 :  0x28 insb byte ptr [rdi], dx
+1 :  0x29 add byte ptr [rcx + 0x41], bl
+1 :  0x2c jmp 0x2e
 ###############################
-2 :  0x2a push ebp
-2 :  0x2b add byte ptr [eax + eax + 0x62], ah
-2 :  0x2f add byte ptr [eax], ch
-2 :  0x32 push ecx
-2 :  0x33 add byte ptr [ebp], cl
-2 :  0x36 jmp 0x416
+2 :  0x2e mov edx, 0x726774c
+2 :  0x33 call rbp
+2 :  0x35 mov r9, 0
+2 :  0x3c call 0xbc
+2 :  0x41 insb byte ptr [rdi], dx
+2 :  0x44 insb byte ptr [rdi], dx
+2 :  0x45 outsd dx, dword ptr [rsi]
+2 :  0x46 jmp 0xb0
 ###############################
-3 :  0x3b sub eax, 1
-3 :  0x3e add byte ptr [esi], al
-3 :  0x41 inc edx
-3 :  0x42 add byte ptr [ecx], dh
-3 :  0x45 pop ecx
-3 :  0x46 jmp 0x203
+3 :  0x48 push rax
+3 :  0x49 mov r8d, dword ptr [rax + 0x20]
+3 :  0x4d add r8, rdx
+3 :  0x50 jrcxz 0xc6
+3 :  0x52 xor r9, r9
+3 :  0x55 dec rcx
+3 :  0x58 mov esi, dword ptr [r8 + rcx*4]
+3 :  0x5c jmp 0xdb
 ###############################
-4 :  0x4b dec edx
-4 :  0x4c add byte ptr [ecx], al
-4 :  0x4f pop ecx
-4 :  0x50 add byte ptr [eax], bl
-4 :  0x53 jbe 0x3f6
-4 :  0x59 jmp 0x3f6
+4 :  0x5e movzx rcx, word ptr [rdx + 0x4a]
+4 :  0x63 xor rax, rax
+4 :  0x66 lodsb al, byte ptr [rsi]
+4 :  0x67 cmp al, 0x61
+4 :  0x69 jl 0x6d
+4 :  0x6b sub al, 0x20
+4 :  0x6d ror r9d, 0xd
+4 :  0x71 jmp 0x11c
 ###############################
-5 :  0x5e add byte ptr [edi], al
-5 :  0x61 imul eax, dword ptr [eax], 0x39
-5 :  0x64 add byte ptr [ecx], dl
-5 :  0x67 dec ecx
-5 :  0x68 add byte ptr [edi], ah
-5 :  0x6b jmp 0x50c
+5 :  0x76 cmp word ptr [rax + 0x18], 0x20b
+5 :  0x7c jne 0xc7
+5 :  0x82 mov eax, dword ptr [rax + 0x88]
+5 :  0x88 test rax, rax
+5 :  0x8b je 0xc7
+5 :  0x8d add rax, rdx
+5 :  0x90 mov ecx, dword ptr [rax + 0x18]
+5 :  0x93 jmp 0x48
 ###############################
-6 :  0x70 push edx
-6 :  0x71 push edi
-6 :  0x72 mov edx, dword ptr [edx + 0x10]
-6 :  0x75 mov eax, dword ptr [edx + 0x3c]
-6 :  0x78 add eax, edx
-6 :  0x7a jmp 0xa7
+6 :  0x95 jae 0x10c
+6 :  0x99 .byte 0x61
+6 :  0x9a outsd dx, dword ptr gs:[esi]
+6 :  0x9e js 0xa0
+6 :  0xa0 pop r8
+6 :  0xa2 xor rcx, rcx
+6 :  0xa5 mov r10d, 0x7568345
+6 :  0xab jmp 0x12c
 ###############################
-7 :  0x7c add byte ptr [eax + eax], dh
-7 :  0x7f das 
-7 :  0x80 add byte ptr [ecx], dh
-7 :  0x82 add byte ptr [eax], cl
-7 :  0x85 sub ebx, 1
-7 :  0x88 jmp 0x1b3
+7 :  0xb0 sub al, 0x20
+7 :  0xb2 jb 0x124
+7 :  0xb5 insd dword ptr [rdi], dx
+7 :  0xb6 and byte ptr [rbp + 0x53], cl
+7 :  0xb9 and dword ptr [rax], r8d
+7 :  0xbc pop rdx
+7 :  0xbd call 0xa0
+7 :  0xc2 jmp 0x95
 ###############################
-8 :  0x8d add byte ptr [ecx], dh
-8 :  0x8f add byte ptr [edx], bh
-8 :  0x91 add byte ptr [ecx], dh
-8 :  0x93 add byte ptr [edx], dh
-8 :  0x95 add byte ptr [ebx], dh
-8 :  0x97 jmp 0x7c
+8 :  0xc4 jmp rax
+8 :  0xc6 pop rax
+8 :  0xc7 pop r9
+8 :  0xc9 pop rdx
+8 :  0xca mov rdx, qword ptr [rdx]
+8 :  0xcd jmp 0x157
+8 :  0xd5 pop rbp
+8 :  0xd6 jmp 0x1a
 ###############################
-9 :  0x99 add eax, edx
-9 :  0x9b mov dword ptr [esp + 0x24], eax
-9 :  0x9f pop ebx
-9 :  0xa0 pop ebx
-9 :  0xa1 popal 
-9 :  0xa2 jmp 0x56e
+9 :  0xdb add rsi, rdx
+9 :  0xde xor rax, rax
+9 :  0xe1 lodsb al, byte ptr [rsi]
+9 :  0xe2 ror r9d, 0xd
+9 :  0xe6 add r9d, eax
+9 :  0xe9 cmp al, ah
+9 :  0xeb jne 0xde
+9 :  0xed jmp 0xff
 ###############################
-10 :  0xa7 mov eax, dword ptr [eax + 0x78]
-10 :  0xaa test eax, eax
-10 :  0xac je 0x3c1
-10 :  0xb2 add eax, edx
-10 :  0xb4 mov ecx, dword ptr [eax + 0x18]
-10 :  0xb7 jmp 0x428
+10 :  0xef pop rcx
+10 :  0xf0 pop rdx
+10 :  0xf1 pop r8
+10 :  0xf3 pop r9
+10 :  0xf5 pop r10
+10 :  0xf7 sub rsp, 0x20
+10 :  0xfb push r10
+10 :  0xfd jmp 0xc4
 ###############################
-11 :  0xbc test eax, eax
-11 :  0xbe je 0x4a2
-11 :  0xc4 push 0x40
-11 :  0xc6 push 0x1000
-11 :  0xcb push 0x400000
-11 :  0xd0 jmp 0x309
+11 :  0xff add r9, qword ptr [rsp + 8]
+11 :  0x104 cmp r9d, r10d
+11 :  0x107 jne 0x50
+11 :  0x10d pop rax
+11 :  0x10e mov r8d, dword ptr [rax + 0x24]
+11 :  0x112 add r8, rdx
+11 :  0x115 mov cx, word ptr [r8 + rcx*2]
+11 :  0x11a jmp 0x133
 ###############################
-12 :  0xd5 ror edi, 0xd
-12 :  0xd8 lodsb al, byte ptr [esi]
-12 :  0xd9 add edi, eax
-12 :  0xdb cmp al, ah
-12 :  0xdd jne 0x2d3
-12 :  0xe3 jmp 0x127
+12 :  0x11c add r9d, eax
+12 :  0x11f loop 0x163
+12 :  0x121 push rdx
+12 :  0x122 push r9
+12 :  0x124 mov rdx, qword ptr [rdx + 0x20]
+12 :  0x128 mov eax, dword ptr [rdx + 0x3c]
+12 :  0x12b add rax, rdx
+12 :  0x12e jmp 0x76
 ###############################
-13 :  0xe5 push edi
-13 :  0xe6 push 0x26
-13 :  0xe8 push esi
-13 :  0xe9 push 0xce9d58d3
-13 :  0xee call ebp
-13 :  0xf0 jmp 0x485
+13 :  0x133 mov r8d, dword ptr [rax + 0x1c]
+13 :  0x137 add r8, rdx
+13 :  0x13a mov eax, dword ptr [r8 + rcx*4]
+13 :  0x13e pop r8
+13 :  0x140 add rax, rdx
+13 :  0x143 pop r8
+13 :  0x145 pop rsi
+13 :  0x146 jmp 0xef
 ###############################
-14 :  0xf5 add al, 0xe0
-14 :  0xf7 ror edi, 0xd
-14 :  0xfa add edi, eax
-14 :  0xfc dec ecx
-14 :  0xfd jne 0x4d6
-14 :  0x103 jmp 0x70
+14 :  0x148 mov rdx, qword ptr gs:[rdx + 0x60]
+14 :  0x14d push rcx
+14 :  0x14e mov rdx, qword ptr [rdx + 0x18]
+14 :  0x152 push rsi
+14 :  0x153 mov rdx, qword ptr [rdx + 0x20]
+14 :  0x157 xor r9, r9
+14 :  0x15a mov rsi, qword ptr [rdx + 0x50]
+14 :  0x15e jmp 0x5e
+ word ptr [rax + 0x18], 0x20b
+16 :  0x151 jne 0x12c
+16 :  0x157 jmp 0x14
 ###############################
-15 :  0x108 push ebx
-15 :  0x109 mov edi, esp
-15 :  0x10b push edi
-15 :  0x10c push 0x2000
-15 :  0x111 push ebx
-15 :  0x112 jmp 0x253
+17 :  0x15c pop r9
+17 :  0x15e pop r10
+17 :  0x160 sub rsp, 0x20
+17 :  0x164 push r10
+17 :  0x166 jmp rax
+17 :  0x168 pop rax
+17 :  0x169 jmp 0x12c
+16 :  0x14f jmp 0x135
 ###############################
-16 :  0x117 ret 
-16 :  0x118 pop edi
-16 :  0x119 call 0x39
-16 :  0x11e xor dword ptr [eax], eax
-16 :  0x120 xor al, byte ptr [eax]
-16 :  0x122 jmp 0x3b3
+17 :  0x151 push eax
+17 :  0x152 push eax
+17 :  0x153 inc eax
+17 :  0x154 push eax
+17 :  0x155 inc eax
+17 :  0x156 push eax
+17 :  0x157 push 0xe0df0fea
+17 :  0x15c jmp 0x79
 ###############################
-17 :  0x127 add edi, dword ptr [ebp - 8]
-17 :  0x12a cmp edi, dword ptr [ebp + 0x24]
-17 :  0x12d jne 0x42e
-17 :  0x133 pop eax
-17 :  0x134 mov ebx, dword ptr [eax + 0x24]
-17 :  0x137 jmp 0x2dd
+18 :  0x161 push 0x863fcc79
+18 :  0x166 call ebp
+18 :  0x168 mov eax, esp
+18 :  0x16a dec esi
+18 :  0x16b push esi
+18 :  0x16c inc esi
+18 :  0x16d push dword ptr [eax]
+18 :  0x16f jmp 0x138
 ###############################
-18 :  0x13c jns 0x13e
-18 :  0x13e push ebx
-18 :  0x13f add byte ptr [eax], ch
-18 :  0x142 push ebx
-18 :  0x143 add byte ptr [eax + eax + 0x7a], cl
-18 :  0x147 jmp 0x44f
-###############################
-19 :  0x14c mov eax, dword ptr [edi]
-19 :  0x14e add ebx, eax
-19 :  0x150 test eax, eax
-19 :  0x152 jne 0x10b
-19 :  0x154 pop eax
-19 :  0x155 jmp 0x117
-###############################
-20 :  0x157 pop eax
-20 :  0x158 add edi, eax
-20 :  0x15a sub eax, 1
-20 :  0x15d mov dword ptr [edi], eax
-20 :  0x15f push 0xc
-20 :  0x161 jmp 0xe5
-###############################
-21 :  0x163 test eax, eax
-21 :  0x165 je 0x485
-21 :  0x16b mov eax, dword ptr [edi + 4]
-21 :  0x16e test eax, eax
-21 :  0x170 je 0x1a4
-21 :  0x172 jmp 0x544
-###############################
-22 :  0x177 call ebp
-22 :  0x179 test eax, eax
-22 :  0x17b jne 0x4a7
-22 :  0x181 sub edi, 1
-22 :  0x184 jne 0x488
-22 :  0x18a jmp 0x4a2
-###############################
-23 :  0x18f add byte ptr [esi], ch
-23 :  0x191 add byte ptr [ecx], dh
-23 :  0x193 add byte ptr [eax], al
-23 :  0x195 add byte ptr [ebx + 0x56a2b5f0], bh
-23 :  0x19b push 0
-23 :  0x19d jmp 0x3a6
-###############################
-24 :  0x1a2 jmp 0x15f
-24 :  0x1a4 mov eax, dword ptr [edi + 8]
-24 :  0x1a7 test eax, eax
+19 :  0x171 mov ecx, dword ptr [edx + 0x3c]
+19 :  0x174 mov ecx, dword ptr [ecx + edx + 0x78]
+19 :  0x178 jecxz 0x1ef
+19 :  0x17a add ecx, edx
+19 :  0x17c push ecx
+19 :  0x17d mov ebx, dword ptr [ecx + 0x20]
+19 :  0x180 add ebx, edx
+19 :  0x182 jmp 0x23
+1a7 test eax, eax
 24 :  0x1a9 je 0x485
 24 :  0x1af push 4
 24 :  0x1b1 jmp 0x157

@@ -11,6 +11,7 @@ Example:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import logging
 import re
@@ -229,20 +230,54 @@ def identify_data(raw: bytes, base: int, arch: str, observed: set[int],
     return strings, raw_candidates, sum(executed)
 
 
+def _print_payload_details(raw: bytes, path: Path | None, arch: str,
+                           base: int, entry_offset: int) -> None:
+    source = str(path.resolve()) if path is not None else "<in-memory bytes>"
+    print(f"Payload: {source} ({len(raw)} B)", flush=True)
+    print(f"SHA-256: {hashlib.sha256(raw).hexdigest()}", flush=True)
+    print(f"Architecture: {arch}; base: {hex(base)}; "
+          f"entry: {hex(base + entry_offset)}", flush=True)
+
+
+def _print_exploration_status(run: dict) -> None:
+    print(f"Stopped: {run['stop_reason']} after {run['steps']} steps "
+          f"in {run['elapsed_seconds']:.3f}s "
+          f"({run['pending_states']} states pending, "
+          f"{run['deadended_states']} deadended, "
+          f"{run['unconstrained_states']} unconstrained, {len(run['errors'])} errors)")
+    for error in run["errors"][:5]:
+        print(f"  Exploration error at {error['address']}: {error['error']!r}")
+    if len(run["errors"]) > 5:
+        print(f"  ... {len(run['errors']) - 5} additional exploration errors")
+
+
 def find_data_sections(payload: bytes | bytearray | memoryview | str | Path,
                        arch: str, *, base_address: int = 0x400000,
                        entry_offset: int = 0, scan_all: bool = False,
                        max_steps: int = 10000, timeout: float = 120,
                        solver_timeout_ms: int = 5000,
                        max_queued_states: int = 10000,
-                       oppologist: bool = False) -> list[dict]:
+                       oppologist: bool = False,
+                       print_strings: bool = True,
+                       return_strings: bool = False
+                       ) -> list[dict] | tuple[list[dict], list[dict]]:
     """Return heuristic data ranges as dictionaries with address and length.
 
     Payload may be raw bytes or a path to a raw x86/x64 payload. Each result
     has integer address, offset, and length fields, plus kind (ascii, utf16le,
     cfg_data, or outside_cfg). These are candidates, not proven data: bounded
     exploration can miss code paths, and CFG recovery can mistake code for
-    data. The function does not modify the payload.
+    data. Found strings are printed with their start address, file offset,
+    byte length (including the NUL terminator), encoding, and text.
+    Input identity and exploration stop diagnostics are also printed. Pass
+    print_strings=False to suppress all this output. The function does not
+    modify the payload.
+
+    With return_strings=True, return (sections, string_candidates) instead.
+    The second list contains the full string records used by the CLI report:
+    kind, offset_start, offset_end_exclusive, address_start (hex), size, text,
+    hex, and cfg_code_overlap. String sizes include the NUL terminator.
+    This option is independent of print_strings.
     """
     if arch not in ("x86", "x64"):
         raise ValueError("arch must be 'x86' or 'x64'")
@@ -275,18 +310,29 @@ def find_data_sections(payload: bytes | bytearray | memoryview | str | Path,
         progress_interval=0,
     )
 
-    def analyze(path: Path) -> list[dict]:
+    # CFGFast's data-reference heuristic treats small constants inside the
+    # payload as absolute pointers. When the blob is mapped at 0, offsets such
+    # as the 0x4a displacement in `movzx rcx, [rdx+0x4a]` look like valid
+    # addresses: code bytes get marked as data, the block is truncated, and the
+    # remaining code is later classified as data. Analyze at a nonzero base and
+    # translate the reported addresses back to the caller's address space.
+    analysis_base = base_address if base_address >= 0x10000 else 0x400000
+    shift = base_address - analysis_base
+
+    def analyze(path: Path) -> list[dict] | tuple[list[dict], list[dict]]:
+        if print_strings:
+            _print_payload_details(raw, payload_path, arch, base_address, entry_offset)
         logging.getLogger("angr").setLevel(logging.ERROR)
         project = angr.Project(
             str(path),
             main_opts={"backend": "blob", "arch": "x86" if arch == "x86" else "amd64",
-                       "base_addr": base_address,
-                       "entry_point": base_address + entry_offset},
+                       "base_addr": analysis_base,
+                       "entry_point": analysis_base + entry_offset},
             auto_load_libs=False,
         )
         candidates, unclassified, _, code_spans, inferred_data = static_candidates(
-            project, base_address, len(raw), scan_all)
-        run = explore(project, base_address, len(raw), options, angr)
+            project, analysis_base, len(raw), scan_all)
+        run = explore(project, analysis_base, len(raw), options, angr)
         observed = run["observed"]
         block_entries = run["block_entries"]
 
@@ -301,17 +347,35 @@ def find_data_sections(payload: bytes | bytearray | memoryview | str | Path,
                 cfg_seeds.add(min(entries))
         if cfg_seeds:
             candidates, _, _, code_spans, inferred_data = static_candidates(
-                project, base_address, len(raw), scan_all, cfg_seeds)
+                project, analysis_base, len(raw), scan_all, cfg_seeds)
 
         strings, raw_candidates, _ = identify_data(
-            raw, base_address, arch, observed, candidates, code_spans, inferred_data)
-        return [
+            raw, analysis_base, arch, observed, candidates, code_spans, inferred_data)
+        if shift:
+            for item in strings + raw_candidates:
+                item["address_start"] = hex(int(item["address_start"], 16) + shift)
+            for error in run["errors"]:
+                error["address"] = hex(int(error["address"], 16) + shift)
+        if print_strings:
+            print(f"String candidates: {len(strings)} "
+                  "(length in bytes, including the NUL terminator)")
+            for item in strings:
+                print(f"  {item['address_start']} "
+                      f"(+0x{item['offset_start']:x}, {item['size']} B) "
+                      f"{item['kind']}: {item['text']!r}")
+            _print_exploration_status(run)
+            if (run["stop_reason"] != "frontier_exhausted"
+                    or run["unconstrained_states"] or run["errors"]):
+                print("Data candidates are provisional: symbolic exploration "
+                      "has unresolved paths.")
+        sections = [
             {"address": base_address + item["offset_start"],
              "offset": item["offset_start"], "length": item["size"],
              "kind": item["kind"]}
             for item in sorted(strings + raw_candidates,
                                key=lambda candidate: candidate["offset_start"])
         ]
+        return (sections, strings) if return_strings else sections
 
     if payload_path is not None:
         return analyze(payload_path)
@@ -445,6 +509,12 @@ def main() -> None:
 
     logging.getLogger("angr").setLevel(logging.ERROR)
     base = args.base_address
+    if base < 0x10000:
+        print("[angr] warning: base addresses below 0x10000 are ambiguous for a raw "
+              "payload; CFGFast can treat small constants as data pointers. "
+              "find_data_sections() rebases internally; this CLI does not.",
+              flush=True)
+    _print_payload_details(raw, args.payload, args.arch, base, args.entry_offset)
     project = angr.Project(
         str(args.payload),
         main_opts={"backend": "blob", "arch": "x86" if args.arch == "x86" else "amd64",
@@ -517,6 +587,7 @@ def main() -> None:
                         + len(run["errors"]))
     report = {
         "payload": str(args.payload.resolve()),
+        "payload_sha256": hashlib.sha256(raw).hexdigest(),
         "architecture": args.arch,
         "base_address": hex(base),
         "entry_address": hex(base + args.entry_offset),
@@ -572,9 +643,7 @@ def main() -> None:
                   (" [CFG overlap]" if item["cfg_code_overlap"] else ""))
         else:
             print(f"  {location} {item['kind']}: {item['hex']}")
-    print(f"Stopped: {run['stop_reason']} after {run['steps']} steps "
-          f"({run['pending_states']} states pending, {run['unconstrained_states']} unconstrained, "
-          f"{len(run['errors'])} errors)")
+    _print_exploration_status(run)
     if report["coverage_status"] == "incomplete":
         print("Data candidates are provisional: CFG coverage or symbolic paths remain incomplete.")
     if cfg_error:

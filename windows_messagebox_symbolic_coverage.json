@@ -1,0 +1,723 @@
+{
+  "payload": "C:\\Users\\ubu\\Desktop\\Zone\\original_pl\\x86\\windows_messagebox.bin",
+  "payload_sha256": "48f07bec1e6916b5333de861e9a5d1fe02429c3f3ea25615fb3e89fbe818a00d",
+  "architecture": "x86",
+  "base_address": "0x400000",
+  "entry_address": "0x400000",
+  "size_bytes": 231,
+  "meaning": "not_observed means not reached during this bounded analysis, not proven unreachable; data_candidates are heuristic",
+  "model": "raw blob; uninitialized memory and registers are symbolic; external OS environment is not initialized",
+  "coverage_status": "incomplete",
+  "unresolved_paths": 58,
+  "limits": {
+    "max_steps": 10000,
+    "timeout_seconds": 10.0,
+    "max_queued_states": 10000,
+    "solver_timeout_ms": 5000
+  },
+  "scan_all": false,
+  "oppologist": false,
+  "cfg_blocks": 22,
+  "cfg_plausible_code_blocks": 22,
+  "cfg_observed_code_blocks": 16,
+  "cfg_unobserved_code_block_addresses": [
+    "0x4000ad",
+    "0x4000bf",
+    "0x4000d5",
+    "0x4000de",
+    "0x4000b4",
+    "0x40006b"
+  ],
+  "cfg_initial_blocks": 22,
+  "cfg_seeded_entry_addresses": [],
+  "cfg_error": null,
+  "cfg_candidate_instruction_count": 84,
+  "observed_instruction_byte_count": 130,
+  "observed_instruction_addresses": [
+    "0x400000",
+    "0x400001",
+    "0x400006",
+    "0x400007",
+    "0x400009",
+    "0x40000b",
+    "0x40000f",
+    "0x400012",
+    "0x400015",
+    "0x400017",
+    "0x40001b",
+    "0x40001e",
+    "0x400020",
+    "0x400021",
+    "0x400023",
+    "0x400025",
+    "0x400027",
+    "0x40002a",
+    "0x40002c",
+    "0x40002d",
+    "0x40002f",
+    "0x400030",
+    "0x400033",
+    "0x400034",
+    "0x400037",
+    "0x400039",
+    "0x40003c",
+    "0x40003e",
+    "0x400040",
+    "0x400042",
+    "0x400045",
+    "0x400048",
+    "0x400049",
+    "0x40004b",
+    "0x40004d",
+    "0x40004f",
+    "0x400050",
+    "0x400053",
+    "0x400055",
+    "0x400057",
+    "0x400059",
+    "0x40005a",
+    "0x40005d",
+    "0x40005f",
+    "0x400061",
+    "0x400063",
+    "0x400066",
+    "0x400069",
+    "0x40008b",
+    "0x40008c",
+    "0x40008d",
+    "0x40008e",
+    "0x400090",
+    "0x400095",
+    "0x400096",
+    "0x4000a6",
+    "0x4000ab"
+  ],
+  "not_observed_instruction_addresses": [
+    "0x40006b",
+    "0x40006c",
+    "0x40006f",
+    "0x400071",
+    "0x400075",
+    "0x400078",
+    "0x40007a",
+    "0x40007d",
+    "0x40007f",
+    "0x400083",
+    "0x400084",
+    "0x400085",
+    "0x400086",
+    "0x400087",
+    "0x400088",
+    "0x400089",
+    "0x4000ad",
+    "0x4000af",
+    "0x4000b4",
+    "0x4000b5",
+    "0x4000bf",
+    "0x4000d5",
+    "0x4000d7",
+    "0x4000dc",
+    "0x4000de",
+    "0x4000e0",
+    "0x4000e5"
+  ],
+  "candidate_instructions": [
+    {
+      "address": "0x400000",
+      "offset": 0,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400001",
+      "offset": 1,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400006",
+      "offset": 6,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400007",
+      "offset": 7,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400009",
+      "offset": 9,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x40000b",
+      "offset": 11,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x40000f",
+      "offset": 15,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400012",
+      "offset": 18,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400015",
+      "offset": 21,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400017",
+      "offset": 23,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x40001b",
+      "offset": 27,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x40001e",
+      "offset": 30,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400020",
+      "offset": 32,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400021",
+      "offset": 33,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400023",
+      "offset": 35,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400025",
+      "offset": 37,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400027",
+      "offset": 39,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x40002a",
+      "offset": 42,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x40002c",
+      "offset": 44,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x40002d",
+      "offset": 45,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x40002f",
+      "offset": 47,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400030",
+      "offset": 48,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400033",
+      "offset": 51,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400034",
+      "offset": 52,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400037",
+      "offset": 55,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400039",
+      "offset": 57,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x40003c",
+      "offset": 60,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x40003e",
+      "offset": 62,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400040",
+      "offset": 64,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400042",
+      "offset": 66,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400045",
+      "offset": 69,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400048",
+      "offset": 72,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400049",
+      "offset": 73,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x40004b",
+      "offset": 75,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x40004d",
+      "offset": 77,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x40004f",
+      "offset": 79,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400050",
+      "offset": 80,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400053",
+      "offset": 83,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400055",
+      "offset": 85,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400057",
+      "offset": 87,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400059",
+      "offset": 89,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x40005a",
+      "offset": 90,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x40005d",
+      "offset": 93,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x40005f",
+      "offset": 95,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400061",
+      "offset": 97,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400063",
+      "offset": 99,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400066",
+      "offset": 102,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400069",
+      "offset": 105,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x40006b",
+      "offset": 107,
+      "status": "not_observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x40006c",
+      "offset": 108,
+      "status": "not_observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x40006f",
+      "offset": 111,
+      "status": "not_observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400071",
+      "offset": 113,
+      "status": "not_observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400075",
+      "offset": 117,
+      "status": "not_observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400078",
+      "offset": 120,
+      "status": "not_observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x40007a",
+      "offset": 122,
+      "status": "not_observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x40007d",
+      "offset": 125,
+      "status": "not_observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x40007f",
+      "offset": 127,
+      "status": "not_observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400083",
+      "offset": 131,
+      "status": "not_observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400084",
+      "offset": 132,
+      "status": "not_observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400085",
+      "offset": 133,
+      "status": "not_observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400086",
+      "offset": 134,
+      "status": "not_observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400087",
+      "offset": 135,
+      "status": "not_observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400088",
+      "offset": 136,
+      "status": "not_observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400089",
+      "offset": 137,
+      "status": "not_observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x40008b",
+      "offset": 139,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x40008c",
+      "offset": 140,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x40008d",
+      "offset": 141,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x40008e",
+      "offset": 142,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400090",
+      "offset": 144,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400095",
+      "offset": 149,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x400096",
+      "offset": 150,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x4000a6",
+      "offset": 166,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x4000ab",
+      "offset": 171,
+      "status": "observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x4000ad",
+      "offset": 173,
+      "status": "not_observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x4000af",
+      "offset": 175,
+      "status": "not_observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x4000b4",
+      "offset": 180,
+      "status": "not_observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x4000b5",
+      "offset": 181,
+      "status": "not_observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x4000bf",
+      "offset": 191,
+      "status": "not_observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x4000d5",
+      "offset": 213,
+      "status": "not_observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x4000d7",
+      "offset": 215,
+      "status": "not_observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x4000dc",
+      "offset": 220,
+      "status": "not_observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x4000de",
+      "offset": 222,
+      "status": "not_observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x4000e0",
+      "offset": 224,
+      "status": "not_observed",
+      "in_cfg": true
+    },
+    {
+      "address": "0x4000e5",
+      "offset": 229,
+      "status": "not_observed",
+      "in_cfg": true
+    }
+  ],
+  "outside_cfg_byte_ranges": [
+    {
+      "offset_start": 155,
+      "offset_end_exclusive": 166,
+      "address_start": "0x40009b",
+      "address_end_exclusive": "0x4000a6"
+    },
+    {
+      "offset_start": 184,
+      "offset_end_exclusive": 191,
+      "address_start": "0x4000b8",
+      "address_end_exclusive": "0x4000bf"
+    },
+    {
+      "offset_start": 196,
+      "offset_end_exclusive": 213,
+      "address_start": "0x4000c4",
+      "address_end_exclusive": "0x4000d5"
+    }
+  ],
+  "data_candidates": [
+    {
+      "kind": "ascii",
+      "offset_start": 155,
+      "offset_end_exclusive": 166,
+      "address_start": "0x40009b",
+      "size": 11,
+      "text": "user32.dll",
+      "hex": "75 73 65 72 33 32 2e 64 6c 6c 00",
+      "cfg_code_overlap": false
+    },
+    {
+      "kind": "outside_cfg",
+      "offset_start": 184,
+      "offset_end_exclusive": 191,
+      "address_start": "0x4000b8",
+      "size": 7,
+      "hex": "61 67 65 42 6f 78 00",
+      "ascii_preview": "ageBox."
+    },
+    {
+      "kind": "ascii",
+      "offset_start": 196,
+      "offset_end_exclusive": 213,
+      "address_start": "0x4000c4",
+      "size": 17,
+      "text": "Hello, from MSF!",
+      "hex": "48 65 6c 6c 6f 2c 20 66 72 6f 6d 20 4d 53 46 21 00",
+      "cfg_code_overlap": false
+    }
+  ],
+  "string_candidates": [
+    {
+      "kind": "ascii",
+      "offset_start": 155,
+      "offset_end_exclusive": 166,
+      "address_start": "0x40009b",
+      "size": 11,
+      "text": "user32.dll",
+      "hex": "75 73 65 72 33 32 2e 64 6c 6c 00",
+      "cfg_code_overlap": false
+    },
+    {
+      "kind": "ascii",
+      "offset_start": 196,
+      "offset_end_exclusive": 213,
+      "address_start": "0x4000c4",
+      "size": 17,
+      "text": "Hello, from MSF!",
+      "hex": "48 65 6c 6c 6f 2c 20 66 72 6f 6d 20 4d 53 46 21 00",
+      "cfg_code_overlap": false
+    }
+  ],
+  "raw_data_candidates": [
+    {
+      "kind": "outside_cfg",
+      "offset_start": 184,
+      "offset_end_exclusive": 191,
+      "address_start": "0x4000b8",
+      "size": 7,
+      "hex": "61 67 65 42 6f 78 00",
+      "ascii_preview": "ageBox."
+    }
+  ],
+  "cfg_instruction_candidates_rejected_as_strings": [],
+  "observed_addresses_outside_payload": [],
+  "steps": 76,
+  "pending_states": 58,
+  "deadended_states": 0,
+  "unconstrained_states": 0,
+  "errors": [],
+  "stop_reason": "timeout",
+  "elapsed_seconds": 10.188
+}

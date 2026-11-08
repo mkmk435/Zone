@@ -5,10 +5,14 @@ import pefile
 import time
 # import lief
 import os
+import json
+import hashlib
+import re
 import random
 from capstone import x86_const
 import zone_utils
 import increase_text
+import symbolic_payload_coverage
 import traceback
 # import asmjit
 import subprocess
@@ -25,6 +29,12 @@ class Instruction:
         self.prev_instruction = prev_instruction
         self.next_instruction = next_instruction
         self.address_history = []
+        self.bad_expanded = False
+        self.pii_group = False
+        # set when this instruction is a rewritten reference to extracted data
+        self.data_ref_fixup = None
+        # set on instructions that must not be turned into other code
+        self.protected = False
 
 
 
@@ -97,6 +107,10 @@ class Zone:
         #dizionario di istruzioni, molto utile dal punto di vista delle performance(tempo di accesso costante)
         #  dictionary of instructions, very useful from a performance point of view (constant access time)
         self.instr_dict = {}
+        # instructions inside inline ASCII/hash data must not be morphed
+        self.data_instruction_ids = set()
+        self.data_ranges32 = []
+        self.nop_skip_ids = set()
         # ductionary like instr_dict but with key updated to the old_instruction(not the original)
         self.updated_instr_dict = {}
 
@@ -133,6 +147,23 @@ class Zone:
 
         self.bytes_to_add = []
 
+        # data layer state (same interface as pobf.py)
+        self.data_xrefs = []
+        self.data_sections = []
+
+        # data-extraction state (opt-in, see --extract-data)
+        self.extracted_data = []
+        self.data_ref_fixups = []
+        self.final_data_blob = None
+        self.final_data_pad = b''
+        self.final_code_len = 0
+        self.data_refs_finalized = False
+
+        # kept for write_file(): a truncated sweep must not lose the tail
+        self.sweep_coverage = 0
+        self.sweep_tail = b''
+        self.morph_applied = False
+
 
 
         #con questo ciclo apro il file instr.txt e ci scrivo le istruzioni disassemblate
@@ -165,6 +196,13 @@ class Zone:
 
         print("FINITO DI DISASSEMBLARE")
         #self.cs.skipdata = False
+
+        # Capstone's skipdata support is broken in some versions (5.0.1):
+        # the linear sweep can stop before the end of the payload. Keep the
+        # unscanned tail so a plain write still reproduces the input.
+        self.sweep_coverage = sum(len(i.new_instruction.bytes)
+                                  for i in self.instructions)
+        self.sweep_tail = self.raw_code[self.sweep_coverage:]
 
         #assegno i prev_instruction e next_instruction
         # assign prev_instruction and next_instruction
@@ -204,7 +242,11 @@ class Zone:
                             # time.sleep(2)
                         # addr = instr.new_instruction.address + 2
                         addr = zone_utils.estrai_valore(instr.new_instruction.op_str)
-                        self.short_label_table.append((instr, self.instr_dict[addr]))
+                        target = self.instr_dict.get(addr)
+                        if target is None:
+                            # target is inline data / not a decoded instruction
+                            continue
+                        self.short_label_table.append((instr, target))
             except Exception as e:
                 print("Errore in create_label_table(): ",e)
                 print("Indirizzo: ",hex(instr.new_instruction.address))
@@ -238,40 +280,40 @@ class Zone:
         
         if pattern == 1:
             # Pattern 1: mov reg, imm; cmp reg, imm
-            code = f"pushf;push {reg};mov {reg}, {imm};cmp {reg}, {imm};pop {reg};popf"
+            code = f"pushfd;push {reg};mov {reg}, {imm};cmp {reg}, {imm};pop {reg};popfd"
         elif pattern == 2:
             # Pattern 2: cmp reg, reg
-            code = f"pushf;cmp {reg}, {reg};popf"
+            code = f"pushfd;cmp {reg}, {reg};popfd"
         elif pattern == 3:
             # Pattern 3: mov reg, imm; add reg, 0; cmp reg, imm
-            code = f"pushf;push {reg};mov {reg}, {imm};add {reg}, 0;cmp {reg}, {imm}; pop {reg};popf"
+            code = f"pushfd;push {reg};mov {reg}, {imm};add {reg}, 0;cmp {reg}, {imm}; pop {reg};popfd"
         elif pattern == 4:
             # Pattern 4: mov reg, imm; sub reg, 0; cmp reg, imm
-            code = f"pushf;push {reg};mov {reg}, {imm};sub {reg}, 0;cmp {reg}, {imm}; pop {reg};popf"
+            code = f"pushfd;push {reg};mov {reg}, {imm};sub {reg}, 0;cmp {reg}, {imm}; pop {reg};popfd"
         elif pattern == 5:
             # Pattern 5: push imm; pop reg; cmp reg, imm
-            code = f"pushf;push {reg};push {imm};pop {reg};cmp {reg}, {imm}; pop {reg};popf"
+            code = f"pushfd;push {reg};push {imm};pop {reg};cmp {reg}, {imm}; pop {reg};popfd"
         elif pattern == 6:
             # Pattern 6: sub reg, reg; cmp reg, 0
-            code = f"pushf;push {reg};sub {reg}, {reg};cmp {reg}, 0; pop {reg};popf"
+            code = f"pushfd;push {reg};sub {reg}, {reg};cmp {reg}, 0; pop {reg};popfd"
         elif pattern == 7:
             # Pattern 7: xor reg, reg; cmp reg, 0
-            code = f"pushf;push {reg}; xor {reg}, {reg};cmp {reg}, 0; pop {reg};popf"
+            code = f"pushfd;push {reg}; xor {reg}, {reg};cmp {reg}, 0; pop {reg};popfd"
         elif pattern == 8:
             # Pattern 9: mov reg, imm; neg reg; neg reg; cmp reg, imm
-            code = f"pushf;push {reg}; mov {reg}, {imm};neg {reg};neg {reg};cmp {reg}, {imm}; pop {reg};popf"
+            code = f"pushfd;push {reg}; mov {reg}, {imm};neg {reg};neg {reg};cmp {reg}, {imm}; pop {reg};popfd"
         elif pattern == 9:
             # Pattern 10: mov reg, imm; or reg, 0; cmp reg, imm
-            code = f"pushf;push {reg}; mov {reg}, {imm};or {reg}, 0;cmp {reg}, {imm}; pop {reg};popf"
+            code = f"pushfd;push {reg}; mov {reg}, {imm};or {reg}, 0;cmp {reg}, {imm}; pop {reg};popfd"
         elif pattern == 10:
             # Pattern 11: mov reg, imm; and reg, 0xFFFFFFFF; cmp reg, imm
-            code = f"pushf;push {reg};mov {reg}, {imm};and {reg}, 0xFFFFFFFF;cmp {reg}, {imm}; pop {reg};popf"
+            code = f"pushfd;push {reg};mov {reg}, {imm};and {reg}, 0xFFFFFFFF;cmp {reg}, {imm}; pop {reg};popfd"
         elif pattern == 11:
             # Pattern 12: mov reg, imm; lea reg, [{reg}+0]; cmp reg, imm
-            code = f"pushf;push {reg};mov {reg}, {imm};lea {reg}, [{reg}+0];cmp {reg}, {imm}; pop {reg};popf"
+            code = f"pushfd;push {reg};mov {reg}, {imm};lea {reg}, [{reg}+0];cmp {reg}, {imm}; pop {reg};popfd"
         elif pattern == 12:
             # Pattern 13: mov reg, imm; test reg, reg
-            code = f"pushf;push {reg};mov {reg}, {imm};test {reg}, {reg}; pop {reg};popf"
+            code = f"pushfd;push {reg};mov {reg}, {imm};test {reg}, {reg}; pop {reg};popfd"
         else:
             code = "nop"
         
@@ -298,6 +340,13 @@ class Zone:
                 # print("INSERTED_INSTR: ",inserted_instr)
                 if num_instr < (last_modification + inserted_instr):
                     continue
+                if id(instr) in self.data_instruction_ids:
+                    continue
+                if (instr.next_instruction is not None
+                        and id(instr.next_instruction) in self.data_instruction_ids):
+                    continue
+                if instr.new_instruction.address < getattr(self, "nop_min_address", 0):
+                    continue
                 if probability < self.bogus_probability:
                     re_iterate = True
                     inserted_instr = 0
@@ -306,7 +355,7 @@ class Zone:
 
                     block_size = random.randint(5,10)
 
-                    # appendi popf come pr
+                    # appendi popfd come pr
                     # for i in range(block_size):
                     #     trash_block.append(0x90)
 
@@ -334,6 +383,10 @@ class Zone:
                         new_instr = Instruction(i,i,i,None,None)
                         new_instr.address_history.append(i.address)
                         self.insert_instruction(num_instr + x,new_instr)
+                        if i.mnemonic == 'je':
+                            # Keep the je target in the label table: later
+                            # random insertions must repatch it.
+                            self.short_label_table.append((new_instr, instr))
                         tmp_inserted_instr +=  1
                     # faccio break perche' dovro' fare la reiterazione
                     inserted_instr = tmp_inserted_instr
@@ -367,7 +420,7 @@ class Zone:
 
         #             block_size = random.randint(5,10)
 
-        #             # appendi popf come pr
+        #             # appendi popfd come pr
         #             for i in range(block_size):
         #                 trash_block.append(0x90)
 
@@ -415,6 +468,8 @@ class Zone:
             try:
 
                 if x == 0:
+                    continue
+                if i.prev_instruction is None:
                     continue
                 addr = i.prev_instruction.new_instruction.address + len(i.prev_instruction.new_instruction.bytes)
 
@@ -996,19 +1051,30 @@ class Zone:
 
         inserted_nops = 0
         for num_instr,instr in enumerate(self.instructions):
+            if id(instr) in self.data_instruction_ids:
+                continue
+            if id(instr) in self.nop_skip_ids:
+                continue
+            if (instr.next_instruction is not None
+                    and id(instr.next_instruction) in self.data_instruction_ids):
+                # do not insert between a call and its inline getpc data
+                continue
+            if instr.new_instruction.address < getattr(self, "nop_min_address", 0):
+                # only modify code after the last inline data block
+                continue
             if num_instr == 0:
                 continue
             try:
 
                 # if instr.new_instruction.address >= new_entry_point:
                 #     break
-                if instr.new_instruction.mnemonic == '.byte':
+                if instr.new_instruction.mnemonic == '.byte' or instr.new_instruction.mnemonic == 'nop':
                     continue
                 #checko che non sia dentro una jmp table della .text
                 if self.check_if_inside_jmp_table(instr.original_instruction.address) == True:
                     continue
 
-                if instr.prev_instruction.new_instruction.mnemonic == 'pushf' or instr.new_instruction.mnemonic == 'pushf':
+                if instr.prev_instruction is not None and instr.prev_instruction.new_instruction.mnemonic == 'pushfd' or instr.new_instruction.mnemonic == 'pushfd':
                     continue
 
 
@@ -1031,68 +1097,68 @@ class Zone:
                 #               RCR REG, 0x0 
                 asm = None
                 operazione = None
-                reg_list = random.choice(self.reg_lists)
+                reg_list = self.reg_list32
                 reg = None
 
                 # just a random probability to insert a nop
                 probability = random.randint(0,100)
-                if probability <= 20:
+                if probability <= 100:
 
                     # choose a random NOP operation
-                    operazione = random.choice(self.no_ops_templates)
+                    operazione = 'nop'
                     # choose a random number of NOPs to insert
                     nop_num = random.randint(1,2)
 
                     # choose a random register to do the nop
                     reg = random.choice(reg_list)
 
-# IMPORTANT : Why there is pushf; nop; popf in every instruction?
+# IMPORTANT : Why there is pushfd; nop; popfd in every instruction?
 # BECAUSE even if these operations do nothing they still fuck up the CPU flags, therefore you need to save them and restore
 # maybe this is bad solution because it can be easily signatured (?) 
 
                     if operazione == 'nop':
-                        asm, _ = self.ks.asm('pushf;nop; popf', instr.new_instruction.address + instr.new_instruction.size)
+                        asm = b'\x90' * random.randint(1, 4)
 
                     if operazione == 'sub':
-                        asm, _ = self.ks.asm(f'pushf;sub {reg},0x0; popf', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushfd;sub {reg},0x0; popfd', instr.new_instruction.address + instr.new_instruction.size)
                     
                     if operazione == 'add':
-                        asm, _ = self.ks.asm(f'pushf;add {reg},0x0; popf', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushfd;add {reg},0x0; popfd', instr.new_instruction.address + instr.new_instruction.size)
                     
                     if operazione == 'mov':
-                        asm, _ = self.ks.asm(f'pushf;mov {reg},{reg}; popf', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushfd;mov {reg},{reg}; popfd', instr.new_instruction.address + instr.new_instruction.size)
 
                     if operazione == 'lea':
-                        asm, _ = self.ks.asm(f'pushf;lea {reg},[{reg}+0]; popf', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushfd;lea {reg},[{reg}+0]; popfd', instr.new_instruction.address + instr.new_instruction.size)
 
                     if operazione == 'inc':
                         nop_num = 1
-                        asm, _ = self.ks.asm(f'pushf;dec {reg}; inc {reg}; popf', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushfd;dec {reg}; inc {reg}; popfd', instr.new_instruction.address + instr.new_instruction.size)
                     
                     if operazione == 'sar':
-                        asm, _ = self.ks.asm(f'pushf;sar {reg},0x0; popf', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushfd;sar {reg},0x0; popfd', instr.new_instruction.address + instr.new_instruction.size)
                     
                     if operazione == 'shr':
-                        asm, _ = self.ks.asm(f'pushf;shr {reg},0x0; popf', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushfd;shr {reg},0x0; popfd', instr.new_instruction.address + instr.new_instruction.size)
                     
                     if operazione == 'shl':
-                        asm, _ = self.ks.asm(f'pushf;shl {reg},0x0; popf', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushfd;shl {reg},0x0; popfd', instr.new_instruction.address + instr.new_instruction.size)
                     
                     if operazione == 'rcl':
-                        asm, _ = self.ks.asm(f'pushf;rcl {reg},0x0; popf', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushfd;rcl {reg},0x0; popfd', instr.new_instruction.address + instr.new_instruction.size)
                     
                     if operazione == 'rcr':
-                        asm, _ = self.ks.asm(f'pushf;rcr {reg},0x0; popf', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushfd;rcr {reg},0x0; popfd', instr.new_instruction.address + instr.new_instruction.size)
                     
                     if operazione == 'xor':
-                        asm, _ = self.ks.asm(f'pushf;xor {reg},0x0; popf', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushfd;xor {reg},0x0; popfd', instr.new_instruction.address + instr.new_instruction.size)
 
                     if operazione == 'and':
-                        asm, _ = self.ks.asm(f'pushf;and {reg},{reg}; popf', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushfd;and {reg},{reg}; popfd', instr.new_instruction.address + instr.new_instruction.size)
 
                     
                     if operazione == 'or':
-                        asm, _ = self.ks.asm(f'pushf;or {reg},{reg}; popf', instr.new_instruction.address + instr.new_instruction.size)
+                        asm, _ = self.ks.asm(f'pushfd;or {reg},{reg}; popfd', instr.new_instruction.address + instr.new_instruction.size)
                     
                     if operazione == 'jmp':
                         # stupid jmp to next instruction
@@ -1534,7 +1600,7 @@ class Zone:
         push eax;
         push ecx;
         mov ecx, [esp + 0x8]
-        pushf;
+        pushfd;
         sub ecx, 0x3e8;
         inc ecx;
 
@@ -1545,7 +1611,7 @@ class Zone:
         mov ecx, [eax + {self.mem_address} - 5 + ecx * 4];
         sub ecx, 0x5
         add eax, ecx
-        popf;
+        popfd;
         pop ecx;
         jmp eax;
         '''
@@ -1611,6 +1677,1187 @@ class Zone:
             else:
                 instr.prev_instruction = self.instructions[x-1]
                 instr.next_instruction = self.instructions[x+1]
+
+    def _pii_single_insn_32(self, text, address=0):
+        try:
+            asm, _ = self.ks.asm(text, address)
+        except Exception as exc:
+            print(f"[pii32] cannot assemble {text!r} at {address:#x}: {exc}")
+            raise
+        for capstone_instr in self.cs.disasm(bytes(asm), address):
+            instr = Instruction(capstone_instr, capstone_instr,
+                                capstone_instr, None, None)
+            instr.address_history.append(capstone_instr.address)
+            return instr
+        return None
+
+    def _pii_scratch_register_32(self, instructions):
+        used = " ".join(
+            f"{instr.new_instruction.mnemonic} {instr.new_instruction.op_str}"
+            for instr in instructions)
+        for reg in self.reg_list32:
+            if reg in ("esp", "ebp"):
+                continue
+            if reg not in used:
+                return reg
+        print("WARNING: no unused PII scratch register; using ebx")
+        return "ebx"
+
+    def _pii_stub_text_32(self, map_displacement):
+        # 32-bit indexed dispatcher with pushad/popad: all general registers
+        # and flags are preserved. The target is parked in the saved-flags
+        # slot, then popfd restores flags and ret jumps to the target.
+        return ("pushad; "
+                "mov esi, [esp + 32]; sub esi, 0x3e8; "
+                "call 0; pop eax; "
+                f"add eax, {map_displacement}; "
+                "mov edx, [eax + esi * 4]; add eax, edx; "
+                "mov ebx, eax; "
+                "mov eax, [esp + 36]; mov [esp + 32], eax; "
+                "mov [esp + 36], ebx; "
+                "popad; popfd; ret")
+
+    def _pii_stub_insns_32(self, map_displacement, address):
+        asm, _ = self.ks.asm(self._pii_stub_text_32(map_displacement),
+                             address)
+        asm = bytearray(asm)
+        for insn in self.cs.disasm(bytes(asm), address):
+            if insn.mnemonic == "call":
+                offset = insn.address - address
+                asm[offset + 1:offset + 5] = b"\x00\x00\x00\x00"
+                break
+        return list(self.cs.disasm(bytes(asm), address))
+
+    def _pii_call_next_32(self):
+        for capstone_instr in self.cs.disasm(b"\xE8\x00\x00\x00\x00", 0):
+            instr = Instruction(capstone_instr, capstone_instr,
+                                capstone_instr, None, None)
+            instr.address_history.append(capstone_instr.address)
+            return instr
+        return None
+
+    # ------------------------------------------------------------------
+    # Data layer (same interface as pobf.py)
+    #
+    # The symbolic analyzer is arch-parametric; what differs in 32-bit mode
+    # is the reference classification (absolute 32-bit immediates, no
+    # RIP-relative operands) and the getpc rewrite: there is no
+    # `lea reg, [rip + disp]`, so the call is replaced by a jmp to a 5-byte
+    # stub placed just before the moved data. The stub calls the original
+    # consumer (the pop), so the pushed return address is the new data
+    # address and the payload stays position-independent.
+    # ------------------------------------------------------------------
+
+    DATA_CACHE_SCHEMA = 1
+
+    def decode_original_at(self, address):
+        """Decode one instruction from the current payload bytes at address."""
+        code_base = 0
+        if self.instructions:
+            code_base = self.instructions[0].original_instruction.address
+        offset = address - code_base
+        if offset < 0 or offset >= len(self.raw_code):
+            return None
+        chunk = self.raw_code[offset:offset + 15]
+        return next(self.cs.disasm(chunk, address, count=1), None)
+
+    def _simulate_getpc_consumer(self, callee_address, max_steps=24):
+        """Find the ``pop`` that consumes the return address pushed by a call.
+
+        The classic getpc is ``call $+5; pop reg``. Some 32-bit stagers use a
+        late pop instead: the callee starts with normal code, pushes/pops a
+        few temporary values, and only then consumes the saved return
+        address. This helper starts with one 4-byte item on the stack and
+        walks instructions until a ``pop`` consumes it. Branches, calls,
+        returns and unknown esp changes abort the simulation.
+        """
+        depth = 1  # the call pushed one 4-byte return address
+        address = callee_address
+        for _ in range(max_steps):
+            insn = self.decode_original_at(address)
+            if insn is None:
+                return None
+            mnemonic = insn.mnemonic
+            ops = insn.operands
+
+            if mnemonic.startswith("push"):
+                depth += 1
+            elif mnemonic.startswith("pop"):
+                if (mnemonic == "pop" and depth == 1 and ops
+                        and ops[0].type == x86_const.X86_OP_REG):
+                    reg = insn.reg_name(ops[0].reg)
+                    if reg in self.reg_list32:
+                        return insn, reg
+                    return None
+                depth -= 1
+                if depth <= 0:
+                    return None
+            elif (mnemonic in ("sub", "add") and len(ops) >= 2
+                  and ops[0].type == x86_const.X86_OP_REG
+                  and insn.reg_name(ops[0].reg) == "esp"
+                  and ops[1].type == x86_const.X86_OP_IMM):
+                slots = ops[1].imm // 4
+                if mnemonic == "sub":
+                    depth += slots
+                else:
+                    depth -= slots
+                    if depth <= 0:
+                        return None
+            elif (x86_const.X86_GRP_JUMP in insn.groups
+                  or x86_const.X86_GRP_CALL in insn.groups
+                  or x86_const.X86_GRP_RET in insn.groups
+                  or mnemonic in ("ret", "retf", "jmp", "call")):
+                return None
+            address = insn.address + insn.size
+        return None
+
+    def find_data_and_refs(
+        self,
+        sections=None,
+        *,
+        base_address=0,
+        include_immediates=True,
+        include_getpc=True,
+        **analysis_kwargs,
+    ):
+        """Find direct references to the data sections (32-bit).
+
+        Besides explicit operands (immediates and absolute memory) it
+        recognizes the position-independent getpc idiom ``call $+N; pop reg``
+        and the late-pop variant. Instructions that start inside a data
+        section (strings decoded as code by the linear sweep) are ignored,
+        and branch/call targets are not treated as data pointers.
+        """
+        if sections is None:
+            sections = symbolic_payload_coverage.find_data_sections(
+                self.file,
+                arch="x86",
+                base_address=base_address,
+                **analysis_kwargs,
+            )
+
+        self.data_sections = sections
+
+        ranges = []
+        for section in sections:
+            start = int(section["address"])
+            length = int(section["length"])
+            if length > 0:
+                ranges.append((start, start + length))
+
+        ranges.sort()
+
+        mask32 = 0xFFFFFFFF
+        invalid = x86_const.X86_REG_INVALID
+        xrefs = []
+        seen = set()
+
+        def containing_range(target):
+            for start, end in ranges:
+                if start > target:
+                    break
+                if start <= target < end:
+                    return start, end
+            return None
+
+        def overlaps_data(insn):
+            insn_end = insn.address + insn.size
+            for start, end in ranges:
+                if start >= insn_end:
+                    break
+                if end > insn.address and start < insn_end:
+                    return True
+            return False
+
+        def add_xref(source, target):
+            span = containing_range(target)
+            if span is None:
+                return
+            xref = (source, target, span[1] - span[0])
+            if xref not in seen:
+                seen.add(xref)
+                xrefs.append(xref)
+
+        def decode_at(address):
+            return self.decode_original_at(address)
+
+        for entry in self.instructions:
+            insn = entry.original_instruction
+
+            # Capstone uses id=0 for the data produced by skipdata.
+            if insn.id == 0 or insn.mnemonic == ".byte":
+                continue
+
+            if overlaps_data(insn):
+                continue
+
+            is_control_flow = (
+                x86_const.X86_GRP_JUMP in insn.groups
+                or x86_const.X86_GRP_CALL in insn.groups
+                or x86_const.X86_GRP_BRANCH_RELATIVE in insn.groups
+                or insn.mnemonic in (
+                    "loop", "loope", "loopne", "jecxz", "jcxz",
+                )
+            )
+
+            # call $+N; pop reg (classic) or call $+N; ...; pop reg (late
+            # pop): the call pushes the return address, which is the inline
+            # data pointer used by position-independent shellcode.
+            if include_getpc and insn.mnemonic == "call" and insn.operands:
+                first = insn.operands[0]
+                if first.type == x86_const.X86_OP_IMM:
+                    return_address = (insn.address + insn.size) & mask32
+                    callee = decode_at(first.imm & mask32)
+                    span = containing_range(return_address)
+                    if callee is not None:
+                        if callee.mnemonic.startswith("pop"):
+                            add_xref(insn.address, return_address)
+                        elif (span is not None
+                              and span[0] == return_address
+                              and callee.address == span[1]):
+                            if self._simulate_getpc_consumer(callee.address):
+                                add_xref(insn.address, return_address)
+
+            for op in insn.operands:
+                target = None
+
+                if op.type == x86_const.X86_OP_IMM:
+                    # Branch/call targets are code addresses, not pointers.
+                    if (include_immediates and not is_control_flow
+                            and insn.mnemonic.split()[0] in ("mov", "push")):
+                        target = op.imm & mask32
+
+                elif op.type == x86_const.X86_OP_MEM:
+                    mem = op.mem
+
+                    # FS/GS need the segment base at runtime.
+                    if (mem.segment in (x86_const.X86_REG_FS,
+                                        x86_const.X86_REG_GS)
+                            and insn.id != x86_const.X86_INS_LEA):
+                        continue
+
+                    # An index register value is unknown.
+                    if mem.index != invalid:
+                        continue
+
+                    if mem.base == invalid:
+                        address_mask = (1 << (insn.addr_size * 8)) - 1
+                        target = mem.disp & address_mask
+
+                if target is not None:
+                    add_xref(insn.address, target)
+
+        self.data_xrefs = xrefs
+        return xrefs
+
+    # ------------------------------------------------------------------
+    # Data extraction (opt-in with --extract-data)
+    # ------------------------------------------------------------------
+
+    def rebuild_instructions_from_bytes(self, code):
+        """Re-disassemble the payload after a byte-level edit."""
+        self.raw_code = bytes(code)
+        self.instructions = []
+        self.instr_dict = {}
+        self.updated_instr_dict = {}
+        self.short_label_table = []
+        self.start_end_table = []
+        self.jump_table = []
+        for i in self.cs.disasm(self.raw_code, 0):
+            instruction = Instruction(i, i, i, None, None)
+            instruction.address_history.append(i.address)
+            self.instructions.append(instruction)
+            self.instr_dict[i.address] = instruction
+            self.updated_instr_dict[i.address] = instruction
+        for x, instr in enumerate(self.instructions):
+            instr.new_bytes = instr.new_instruction.bytes
+            if x == 0:
+                continue
+            instr.prev_instruction = self.instructions[x - 1]
+            if x == len(self.instructions) - 1:
+                continue
+            instr.next_instruction = self.instructions[x + 1]
+        self.sweep_coverage = sum(len(i.new_instruction.bytes)
+                                  for i in self.instructions)
+        self.sweep_tail = self.raw_code[self.sweep_coverage:]
+        print(f"REBUILT {len(self.instructions)} INSTRUCTIONS "
+              f"({self.sweep_coverage}/{len(self.raw_code)} bytes)")
+
+    def _data_cache_key(self):
+        return hashlib.sha256(self.raw_code).hexdigest()
+
+    @staticmethod
+    def _valid_cached_sections(sections):
+        if not isinstance(sections, list):
+            return False
+        for section in sections:
+            if not isinstance(section, dict):
+                return False
+            if not isinstance(section.get("address"), int):
+                return False
+            if not isinstance(section.get("length"), int) or section["length"] <= 0:
+                return False
+            if not isinstance(section.get("kind"), str):
+                return False
+        return True
+
+    def _load_data_cache(self, cache_path, payload_hash, timeout):
+        if not cache_path or not os.path.isfile(cache_path):
+            return None
+        try:
+            with open(cache_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        except Exception as e:
+            print(f"[cache] cannot read {cache_path}: {e}; ignoring it")
+            return None
+        if not isinstance(data, dict) or \
+                data.get("schema") != self.DATA_CACHE_SCHEMA:
+            print(f"[cache] {cache_path}: unsupported schema; ignoring it")
+            return None
+        entry = (data.get("payloads", {}).get(payload_hash)
+                 if isinstance(data.get("payloads"), dict) else None)
+        if not isinstance(entry, dict):
+            return None
+        sections = entry.get("sections")
+        if not self._valid_cached_sections(sections):
+            print(f"[cache] {cache_path}: malformed entry; ignoring it")
+            return None
+        print(f"[cache] hit {payload_hash[:12]} in {cache_path} "
+              f"({len(sections)} sections, "
+              f"timeout={entry.get('analysis_timeout')}s, "
+              f"created {entry.get('created_at', '?')})")
+        print("[cache] using the stored sections; "
+              "--refresh-data-cache re-runs the symbolic search")
+        return sections
+
+    def _save_data_cache(self, cache_path, payload_hash, sections, timeout):
+        if not cache_path:
+            return
+        data = {"schema": self.DATA_CACHE_SCHEMA, "payloads": {}}
+        if os.path.isfile(cache_path):
+            try:
+                with open(cache_path, "r", encoding="utf-8") as f:
+                    loaded = json.load(f)
+                if (isinstance(loaded, dict)
+                        and loaded.get("schema") == self.DATA_CACHE_SCHEMA
+                        and isinstance(loaded.get("payloads"), dict)):
+                    data = loaded
+            except Exception as e:
+                print(f"[cache] cannot read {cache_path}: {e}; recreating it")
+        data["payloads"][payload_hash] = {
+            "payload": os.path.abspath(self.file),
+            "size": len(self.raw_code),
+            "arch": "x86",
+            "base_address": 0,
+            "analysis_timeout": timeout,
+            "created_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
+            "sections": sections,
+        }
+        tmp_path = cache_path + ".tmp"
+        try:
+            with open(tmp_path, "w", encoding="utf-8") as f:
+                json.dump(data, f, indent=2)
+                f.write("\n")
+            os.replace(tmp_path, cache_path)
+            print(f"[cache] saved {payload_hash[:12]} to {cache_path}")
+        except Exception as e:
+            print(f"[cache] cannot write {cache_path}: {e}")
+            try:
+                os.remove(tmp_path)
+            except OSError:
+                pass
+
+    def analyze_data(self, *, timeout=120, print_strings=True,
+                     cache_path="data_cache.json", use_cache=True,
+                     refresh_cache=False):
+        """Run (or reuse) the symbolic data discovery (32-bit)."""
+        print("SYMBOLIC DATA ANALYSIS...")
+        payload_hash = self._data_cache_key()
+        sections = None
+        if not use_cache:
+            print("[cache] disabled")
+        elif not refresh_cache:
+            sections = self._load_data_cache(cache_path, payload_hash, timeout)
+        else:
+            print(f"[cache] refreshing entry for {payload_hash[:12]}")
+
+        if sections is None:
+            sections = symbolic_payload_coverage.find_data_sections(
+                self.file,
+                arch="x86",
+                base_address=0,
+                timeout=timeout,
+                print_strings=print_strings,
+            )
+            if use_cache:
+                self._save_data_cache(cache_path, payload_hash, sections,
+                                      timeout)
+
+        xrefs = self.find_data_and_refs(sections=sections)
+        self.data_sections = sections
+        print(f"Data sections: {len(sections)}")
+        for section in sections:
+            print(f"  {section['address']:#x} ({section['length']} B) "
+                  f"{section.get('kind')}")
+        print(f"Data xrefs: {len(xrefs)}")
+        for source, target, length in xrefs:
+            print(f"  {source:#x} -> {target:#x} ({length} B)")
+        return sections, xrefs
+
+    def _data_preview(self, section):
+        raw = section["bytes"]
+        try:
+            if section.get("kind") == "ascii":
+                return raw[:-1].decode("ascii")
+            if section.get("kind") == "utf16le":
+                return raw[:-2].decode("utf-16-le")
+        except UnicodeDecodeError:
+            pass
+        return raw[:24].hex(" ")
+
+    def _classify_data_ref(self, source, target, section_start, section_length):
+        """Classify one xref as getpc/getpc_stub/abs/imm or unsupported."""
+        entry = self.instr_dict.get(source)
+        if entry is None:
+            return {"kind": "unsupported", "source": source,
+                    "reason": "no instruction at source"}
+        insn = entry.original_instruction
+        mask32 = 0xFFFFFFFF
+        delta = target - section_start
+
+        if insn.mnemonic == "call" and insn.operands and \
+                insn.operands[0].type == x86_const.X86_OP_IMM:
+            if target == (source + insn.size) & mask32 and delta == 0:
+                callee = self.decode_original_at(insn.operands[0].imm & mask32)
+                if (callee is not None
+                        and callee.address == section_start + section_length):
+                    if (callee.mnemonic == "pop" and callee.operands
+                            and callee.operands[0].type
+                            == x86_const.X86_OP_REG):
+                        reg = callee.reg_name(callee.operands[0].reg)
+                        if reg in self.reg_list32:
+                            return {
+                                "kind": "getpc", "source": source,
+                                "instr": entry, "reg": reg, "delta": 0,
+                                "region_start": source,
+                                "region_end": section_start + section_length,
+                                "callee": callee.address,
+                                "old_target": target,
+                            }
+                    consumer = self._simulate_getpc_consumer(callee.address)
+                    if consumer is not None:
+                        pop_insn, reg = consumer
+                        return {
+                            "kind": "getpc_stub", "source": source,
+                            "instr": entry, "reg": reg, "delta": 0,
+                            "region_start": source,
+                            "region_end": section_start + section_length,
+                            "consumer": pop_insn,
+                            "callee": callee.address,
+                            "old_target": target,
+                        }
+            return {"kind": "unsupported", "source": source,
+                    "reason": "call does not match a getpc data site"}
+
+        for op_index, op in enumerate(insn.operands):
+            if op.type == x86_const.X86_OP_MEM:
+                mem = op.mem
+                if mem.segment in (x86_const.X86_REG_FS,
+                                   x86_const.X86_REG_GS):
+                    continue
+                if mem.index != x86_const.X86_REG_INVALID:
+                    continue
+                if mem.base == x86_const.X86_REG_INVALID:
+                    address_mask = (1 << (insn.addr_size * 8)) - 1
+                    if (mem.disp & address_mask) == target:
+                        return {"kind": "abs", "source": source, "instr": entry,
+                                "op_index": op_index, "delta": delta,
+                                "old_disp": mem.disp, "old_target": target}
+            elif op.type == x86_const.X86_OP_IMM:
+                # Only instructions that can materialize an address.
+                if insn.mnemonic.split()[0] not in ("mov", "push"):
+                    continue
+                if (op.imm & mask32) == target:
+                    return {"kind": "imm", "source": source, "instr": entry,
+                            "op_index": op_index, "delta": delta,
+                            "old_imm": op.imm & mask32, "old_target": target}
+
+        return {"kind": "unsupported", "source": source,
+                "reason": "no supported operand references the data"}
+
+    def extract_data(self, sections=None, xrefs=None, *, include_unknown=False,
+                     timeout=120):
+        """Move discovered data to the end of the payload (32-bit).
+
+        The call of a getpc site is left in place during extraction; the
+        finalize step turns it into a jmp to a 5-byte ``call consumer`` stub
+        placed right before the moved data. The stub pushes the new data
+        address and jumps to the original consumer, so no RIP-relative
+        instruction is needed. Other supported references (absolute memory,
+        mov/push immediates) are recorded and patched by finalize.
+        """
+        if self.extracted_data:
+            raise RuntimeError("extract_data() already called")
+        if sections is None:
+            sections, xrefs = self.analyze_data(timeout=timeout,
+                                                print_strings=False)
+        elif xrefs is None:
+            xrefs = self.find_data_and_refs(sections=sections)
+
+        if self.instructions and \
+                self.instructions[0].original_instruction.address != 0:
+            raise RuntimeError("data extraction requires payload-relative "
+                               "addresses (base 0)")
+
+        # 1) candidate sections
+        candidates = []
+        for section in sections:
+            start = int(section["address"])
+            length = int(section["length"])
+            if length <= 0:
+                continue
+            if start < 0 or start + length > len(self.raw_code):
+                print(f"[extract] skip out-of-range section {start:#x}+{length}")
+                continue
+            kind = section.get("kind", "unknown")
+            if kind == "outside_cfg" and not include_unknown:
+                print(f"[extract] skip outside_cfg range {start:#x}+{length} "
+                      "(pass --extract-unknown to move it)")
+                continue
+            candidates.append({
+                "offset": start,
+                "length": length,
+                "bytes": bytes(self.raw_code[start:start + length]),
+                "kind": kind,
+                "new_address": None,
+                "move": True,
+                "refs": [],
+                "getpc": None,
+            })
+        candidates.sort(key=lambda item: item["offset"])
+
+        for first, second in zip(candidates, candidates[1:]):
+            if first["offset"] + first["length"] > second["offset"]:
+                raise RuntimeError(
+                    f"overlapping data candidates {first['offset']:#x} and "
+                    f"{second['offset']:#x}; refusing to move them")
+
+        def candidate_index(target):
+            for index, item in enumerate(candidates):
+                if item["offset"] <= target < item["offset"] + item["length"]:
+                    return index
+            return None
+
+        for source, target, _length in xrefs:
+            index = candidate_index(target)
+            if index is None:
+                continue
+            item = candidates[index]
+            item["refs"].append(
+                self._classify_data_ref(source, target, item["offset"],
+                                        item["length"]))
+
+        # 2) keep unsafe sections in place
+        for item in candidates:
+            unsupported = [ref for ref in item["refs"]
+                           if ref["kind"] == "unsupported"]
+            if unsupported:
+                print(f"[extract] keep {item['offset']:#x}+{item['length']}: "
+                      f"{unsupported[0].get('reason')}")
+                item["move"] = False
+                continue
+            getpc_refs = [ref for ref in item["refs"]
+                          if ref["kind"] in ("getpc", "getpc_stub")]
+            if len(getpc_refs) > 1:
+                print(f"[extract] keep {item['offset']:#x}: multiple getpc sites")
+                item["move"] = False
+                continue
+            if getpc_refs:
+                ref = getpc_refs[0]
+                if ref["region_end"] - (ref["region_start"] + 5) < 1:
+                    print(f"[extract] keep {item['offset']:#x}: getpc region too small")
+                    item["move"] = False
+                    continue
+                if ref["instr"].new_instruction.size != 5:
+                    print(f"[extract] keep {item['offset']:#x}: getpc call is not 5 bytes")
+                    item["move"] = False
+                    continue
+                item["getpc"] = ref
+
+        # 3) getpc rewrite regions must not overlap each other or other data
+        regions = sorted(
+            ((item["getpc"]["region_start"], item["getpc"]["region_end"], item)
+             for item in candidates if item["move"] and item.get("getpc")),
+            key=lambda entry: entry[0])
+        for index in range(len(regions) - 1):
+            if regions[index][1] > regions[index + 1][0]:
+                raise RuntimeError("overlapping getpc rewrite regions")
+        for start, end, owner in regions:
+            conflict = False
+            for item in candidates:
+                if item is owner:
+                    continue
+                if item["offset"] < end and start < item["offset"] + item["length"]:
+                    print(f"[extract] keep {owner['offset']:#x}: it overlaps "
+                          f"another data candidate at {item['offset']:#x}")
+                    conflict = True
+            if conflict:
+                owner["move"] = False
+
+        def crosses_instruction(start, end):
+            for entry in self.instructions:
+                insn = entry.original_instruction
+                insn_start = insn.address
+                insn_end = insn.address + insn.size
+                if insn_start < start < insn_end:
+                    return True
+                if insn_start < end < insn_end:
+                    return True
+            return False
+
+        for item in candidates:
+            if not item["move"] or item.get("getpc"):
+                continue
+            if crosses_instruction(item["offset"],
+                                   item["offset"] + item["length"]):
+                print(f"[extract] keep {item['offset']:#x}: an instruction "
+                      "crosses its boundary")
+                item["move"] = False
+
+        movable = [item for item in candidates if item["move"]]
+        if not movable:
+            print("[extract] no movable data sections")
+            return []
+
+        # 4) build the stripped code (same length, data replaced by NOPs)
+        new_code = bytearray(self.raw_code)
+        for item in movable:
+            ref = item.get("getpc")
+            if ref:
+                # keep the call; only the inline data becomes NOPs
+                for offset in range(ref["region_start"] + 5, ref["region_end"]):
+                    new_code[offset] = 0x90
+            else:
+                for offset in range(item["offset"],
+                                    item["offset"] + item["length"]):
+                    new_code[offset] = 0x90
+
+        self.rebuild_instructions_from_bytes(new_code)
+        if self.sweep_coverage != len(self.raw_code):
+            raise RuntimeError(
+                f"disassembly covered {self.sweep_coverage} of "
+                f"{len(self.raw_code)} bytes; refusing to extract data from a "
+                "partially disassembled payload")
+
+        # 5) register fixups on the rebuilt instructions
+        self.extracted_data = [{
+            "offset": item["offset"],
+            "length": item["length"],
+            "bytes": item["bytes"],
+            "kind": item["kind"],
+            "new_address": None,
+        } for item in movable]
+        section_index = {id(item): index for index, item in enumerate(movable)}
+        self.data_ref_fixups = []
+
+        for item in movable:
+            index = section_index[id(item)]
+            for ref in item["refs"]:
+                if ref["kind"] in ("getpc", "getpc_stub"):
+                    instr = self.instr_dict.get(ref["region_start"])
+                    if instr is None or instr.new_instruction.mnemonic != "call" \
+                            or instr.new_instruction.size != 5:
+                        raise RuntimeError(
+                            f"getpc rewrite at {ref['region_start']:#x} "
+                            "did not keep a 5-byte call")
+                    fixup = {"kind": "getpc", "section": index,
+                             "source": ref["source"], "delta": 0,
+                             "instr": instr, "callee": ref["callee"],
+                             "old_target": ref["old_target"]}
+                    instr.protected = True
+                else:
+                    instr = self.instr_dict.get(ref["source"])
+                    if instr is None:
+                        raise RuntimeError(
+                            f"instruction at {ref['source']:#x} disappeared")
+                    self._check_rebuilt_reference(instr.new_instruction, ref)
+                    fixup = {"kind": ref["kind"], "section": index,
+                             "source": ref["source"], "delta": ref["delta"],
+                             "instr": instr,
+                             "op_index": ref["op_index"],
+                             "old_disp": ref.get("old_disp"),
+                             "old_imm": ref.get("old_imm")}
+                instr.data_ref_fixup = fixup
+                self.data_ref_fixups.append(fixup)
+
+        print(f"[extract] moving {len(self.extracted_data)} section(s), "
+              f"{sum(section['length'] for section in self.extracted_data)} B")
+        for section in self.extracted_data:
+            print(f"  {section['offset']:#x} ({section['length']} B "
+                  f"{section['kind']}) {self._data_preview(section)!r}")
+        print(f"[extract] references to rewrite: {len(self.data_ref_fixups)}")
+        return self.extracted_data
+
+    def _check_rebuilt_reference(self, insn, ref):
+        """Confirm the rebuilt instruction still points at the old data."""
+        kind = ref["kind"]
+        if kind == "abs":
+            mem = insn.operands[ref["op_index"]].mem
+            address_mask = (1 << (insn.addr_size * 8)) - 1
+            actual = mem.disp & address_mask
+        elif kind == "imm":
+            actual = insn.operands[ref["op_index"]].imm & 0xFFFFFFFF
+        else:
+            raise RuntimeError(f"unknown reference kind {kind}")
+        if actual != ref["old_target"]:
+            raise RuntimeError(
+                f"reference at {ref['source']:#x} changed during the rewrite")
+
+    @staticmethod
+    def _replace_first_hex(text, value):
+        match = re.search(r"0x[0-9a-fA-F]+", text)
+        if match is None:
+            return None
+        return f"{text[:match.start()]}{hex(value)}{text[match.end():]}"
+
+    def _patch_memory_reference(self, instr, insn_address, fixup, target):
+        insn = instr.new_instruction
+        op_str = self._replace_first_hex(insn.op_str, target)
+        if op_str is None:
+            raise RuntimeError(
+                f"cannot locate displacement in {insn.mnemonic} {insn.op_str}")
+        text = f"{insn.mnemonic} {op_str}"
+        asm, _ = self.ks.asm(text, insn_address)
+        raw = bytes(asm) if asm else b""
+        if len(raw) != insn.size:
+            raise RuntimeError(
+                f"reference at {fixup['source']:#x} changed size: "
+                f"{insn.mnemonic} {insn.op_str} -> {text}")
+        new_instruction = next(self.cs.disasm(raw, insn_address, count=1), None)
+        if new_instruction is None:
+            raise RuntimeError(f"cannot decode rewritten {text}")
+        instr.new_instruction = new_instruction
+        instr.new_bytes = raw
+
+    def _patch_immediate_reference(self, instr, insn_address, fixup, target):
+        insn = instr.new_instruction
+        op_str = self._replace_first_hex(insn.op_str, target)
+        if op_str is None:
+            raise RuntimeError(
+                f"cannot locate immediate in {insn.mnemonic} {insn.op_str}")
+        text = f"{insn.mnemonic} {op_str}"
+        asm, _ = self.ks.asm(text, insn_address)
+        raw = bytes(asm) if asm else b""
+        if len(raw) != insn.size:
+            raise RuntimeError(
+                f"immediate reference at {fixup['source']:#x} changed size: "
+                f"{insn.mnemonic} {insn.op_str} -> {text}")
+        new_instruction = next(self.cs.disasm(raw, insn_address, count=1), None)
+        if new_instruction is None:
+            raise RuntimeError(f"cannot decode rewritten {text}")
+        instr.new_instruction = new_instruction
+        instr.new_bytes = raw
+
+    def _verify_data_ref(self, instr, insn_address, fixup, target):
+        insn = instr.new_instruction
+        kind = fixup["kind"]
+        if kind == "abs":
+            mem = insn.operands[fixup["op_index"]].mem
+            address_mask = (1 << (insn.addr_size * 8)) - 1
+            actual = mem.disp & address_mask
+        elif kind == "imm":
+            actual = insn.operands[fixup["op_index"]].imm & 0xFFFFFFFF
+        else:
+            raise RuntimeError(f"unknown fixup kind {kind}")
+        if actual != target:
+            raise RuntimeError(
+                f"reference {fixup['source']:#x} points at {actual:#x} "
+                f"instead of {target:#x}")
+
+    def finalize_data_refs(self):
+        """Lay out the extracted data and rewrite every reference.
+
+        Must be called after the last morphing step: the final instruction
+        addresses determine the stub/jmp displacements.
+        """
+        if not self.extracted_data:
+            return
+        if self.data_refs_finalized:
+            return
+
+        addresses = {}
+        address = 0
+        for instr in self.instructions:
+            addresses[id(instr)] = address
+            address += len(instr.new_instruction.bytes)
+        code_length = address
+
+        for fixup in self.data_ref_fixups:
+            if fixup["instr"] not in self.instructions:
+                raise RuntimeError(
+                    f"instruction at {fixup['source']:#x} disappeared during "
+                    "morphing; cannot fix its data reference")
+
+        if self.pii_enabled:
+            # write_strange_file() places the PII instruction map at
+            # self.mem_address; the data blob goes after the map (4-byte
+            # entries in 32-bit mode).
+            map_start = self.mem_address
+            map_size = 4 * len(self.instr_mapping)
+            data_base = map_start + map_size
+            pad = (-data_base) % 16
+            data_start = data_base + pad
+        else:
+            data_start = code_length + ((-code_length) % 16)
+            pad = data_start - code_length
+
+        by_original = {instr.original_instruction.address: instr
+                       for instr in self.instructions}
+        stub_indices = {fixup["section"] for fixup in self.data_ref_fixups
+                        if fixup["kind"] == "getpc"}
+
+        cursor = data_start
+        for index, section in enumerate(self.extracted_data):
+            if index in stub_indices:
+                # Reserve 5 bytes for the call stub placed just before this
+                # section: the stub's return address must be the section start.
+                cursor += 5
+            section["new_address"] = cursor
+            cursor += section["length"]
+        blob_start = data_start
+
+        stub_bytes = {}
+
+        for fixup in self.data_ref_fixups:
+            instr = fixup["instr"]
+            insn_address = addresses[id(instr)]
+            section = self.extracted_data[fixup["section"]]
+            target = section["new_address"] + fixup["delta"]
+            if fixup["kind"] == "getpc":
+                stub_addr = target - 5
+                jmp_disp = stub_addr - (insn_address + 5)
+                raw = b"\xE9" + (jmp_disp & 0xFFFFFFFF).to_bytes(4, "little")
+                new_instruction = next(
+                    self.cs.disasm(raw, insn_address, count=1), None)
+                if new_instruction is None or new_instruction.mnemonic != "jmp":
+                    raise RuntimeError(
+                        f"cannot build the getpc jmp at {insn_address:#x}")
+                instr.new_instruction = new_instruction
+                instr.new_bytes = raw
+                callee_instr = by_original.get(fixup["callee"])
+                if callee_instr is None:
+                    raise RuntimeError(
+                        f"getpc callee {fixup['callee']:#x} disappeared")
+                callee_addr = addresses[id(callee_instr)]
+                call_disp = callee_addr - (stub_addr + 5)
+                stub_bytes[stub_addr] = b"\xE8" + \
+                    (call_disp & 0xFFFFFFFF).to_bytes(4, "little")
+                if (instr.new_instruction.operands[0].imm
+                        & 0xFFFFFFFF) != stub_addr:
+                    raise RuntimeError("getpc jmp target mismatch")
+                if stub_addr + 5 != section["new_address"]:
+                    raise RuntimeError("getpc stub is not adjacent to data")
+                continue
+            elif fixup["kind"] == "abs":
+                self._patch_memory_reference(instr, insn_address, fixup, target)
+            elif fixup["kind"] == "imm":
+                self._patch_immediate_reference(instr, insn_address, fixup,
+                                                target)
+            self._verify_data_ref(instr, insn_address, fixup, target)
+
+        self.final_code_len = code_length
+        self.final_data_pad = b"\x90" * pad
+        blob_parts = []
+        for index, section in enumerate(self.extracted_data):
+            if index in stub_indices:
+                stub_addr = section["new_address"] - 5
+                blob_parts.append(stub_bytes[stub_addr])
+            blob_parts.append(section["bytes"])
+        self.final_data_blob = b"".join(blob_parts)
+        self.data_refs_finalized = True
+
+        code_bytes = b"".join(instr.new_instruction.bytes
+                              for instr in self.instructions)
+        for section in self.extracted_data:
+            if len(section["bytes"]) >= 4 and section["bytes"] in code_bytes:
+                print(f"[extract] WARNING: {section['offset']:#x} is still "
+                      "present in the code area")
+            blob_offset = section["new_address"] - blob_start
+            if self.final_data_blob[blob_offset:blob_offset + section["length"]] \
+                    != section["bytes"]:
+                raise RuntimeError(
+                    f"data section {section['offset']:#x} corrupted in the blob")
+
+        if self.pii_enabled:
+            map_size = 4 * len(self.instr_mapping)
+            total = self.mem_address + map_size + pad + len(self.final_data_blob)
+            print(f"[extract] PII code {code_length} B + map {map_size} B at "
+                  f"{self.mem_address:#x} + pad {pad} B + "
+                  f"data {len(self.final_data_blob)} B = {total} B")
+        else:
+            print(f"[extract] code {code_length} B + pad {pad} B + "
+                  f"data {len(self.final_data_blob)} B = "
+                  f"{code_length + pad + len(self.final_data_blob)} B")
+        for section in self.extracted_data:
+            print(f"[extract] data {section['offset']:#x} -> "
+                  f"{section['new_address']:#x} ({section['length']} B)")
+        for fixup in self.data_ref_fixups:
+            instr = fixup["instr"]
+            section = self.extracted_data[fixup["section"]]
+            print(f"[extract] ref {fixup['source']:#x} "
+                  f"(now {addresses[id(instr)]:#x}): "
+                  f"{instr.new_instruction.mnemonic} "
+                  f"{instr.new_instruction.op_str} -> "
+                  f"{section['new_address'] + fixup['delta']:#x}")
+
+    def pii_dispatcher_v2(self):
+        """32-bit indexed dispatcher, extraction-compatible in layout terms.
+
+        Handlers are shuffled except the entry. Direct branch/call targets are
+        handler starts. Remote call/pop getpc becomes a base-relative
+        call/pop/lea unit; extracted data getpc uses the same unit shape.
+        """
+        if not self.instructions:
+            return
+
+        old = list(self.instructions)
+        address_to_instr = {
+            instr.new_instruction.address: instr for instr in old
+        }
+        custom_getpc = {}
+        for index, instr in enumerate(old):
+            if instr.new_instruction.mnemonic != "call":
+                continue
+            operands = instr.new_instruction.operands
+            if not operands or operands[0].type != x86_const.X86_OP_IMM:
+                continue
+            target = address_to_instr.get(operands[0].imm)
+            if target is None or target.new_instruction.mnemonic != "pop":
+                continue
+            if target.new_instruction.op_str not in (
+                    "eax", "ebx", "ecx", "edx", "esi", "edi", "ebp", "esp"):
+                # data bytes can decode as pop es/ss/...; not a code getpc
+                continue
+            fallthrough = (old[index + 1] if index + 1 < len(old)
+                           else None)
+            if fallthrough is None or target is fallthrough:
+                continue
+            after_pop = target.next_instruction
+            if after_pop is None or after_pop not in old:
+                continue
+            custom_getpc[instr] = (target.new_instruction.op_str,
+                                   fallthrough, after_pop)
+
+        terminator = self._pii_single_insn_32("ret", 0)
+        getpc_fixups = []
+        getpc_units = {}
+        for instr, (reg, fallthrough, after_pop) in custom_getpc.items():
+            # Base-relative getpc: call $+5/pop gives the runtime address of
+            # the pop; lea adds the handler offset. This stays ASLR-safe.
+            placeholder = self._pii_call_next_32()
+            pop_instr = self._pii_single_insn_32(f"pop {reg}", 0)
+            lea_instr = self._pii_single_insn_32(
+                f"lea {reg}, [{reg} + 0]", 0)
+            instr.new_instruction = placeholder.new_instruction
+            pop_instr.pii_group = True
+            lea_instr.pii_group = True
+            instr.pii_group = True
+            getpc_units[instr] = (pop_instr, lea_instr, reg, fallthrough)
+            getpc_fixups.append((lea_instr, pop_instr, reg, fallthrough))
+            self.short_label_table = [
+                item for item in self.short_label_table
+                if item[0] is not instr]
+
+        groups = []
+        index = 0
+        while index < len(old):
+            if old[index] in getpc_units:
+                pop_instr, lea_instr, reg, fallthrough = getpc_units[old[index]]
+                group = [old[index], pop_instr, lea_instr]
+                index += 1
+            elif old[index].pii_group:
+                group = [old[index]]
+                cursor = index + 1
+                while cursor < len(old) and old[cursor].pii_group:
+                    group.append(old[cursor])
+                    cursor += 1
+                index = cursor
+            elif old[index].bad_expanded:
+                group = [old[index]]
+                cursor = index + 1
+                while cursor < len(old) and old[cursor].bad_expanded:
+                    group.append(old[cursor])
+                    cursor += 1
+                index = cursor
+            else:
+                group = [old[index]]
+                index += 1
+            groups.append(group)
+
+        instr_unit = {}
+        for unit_index, group in enumerate(groups):
+            for instr in group:
+                instr_unit[id(instr)] = unit_index
+
+        records = []
+        for unit_index, group in enumerate(groups):
+            if group[0] in custom_getpc:
+                after_pop = custom_getpc[group[0]][2]
+                next_index = instr_unit[id(after_pop)]
+            else:
+                next_index = (unit_index + 1
+                              if unit_index + 1 < len(groups)
+                              else len(groups))
+            records.append((unit_index, group, next_index))
+
+        first = records[0]
+        rest = records[1:]
+        random.shuffle(rest)
+        ordered = [first] + rest
+
+        handlers = []
+        stub_jumps = []
+        for unit_index, group, next_index in ordered:
+            handlers.extend(group)
+            flags = self._pii_single_insn_32("pushfd", 0)
+            push = self._pii_single_insn_32(f"push {0x3e8 + next_index}", 0)
+            jump = self._pii_single_insn_32("jmp 0", 0)
+            handlers.extend([flags, push, jump])
+            stub_jumps.append(jump)
+        handlers.append(terminator)
+
+        stub_addr_guess = sum(len(x.new_instruction.bytes) for x in handlers)
+        stub_placeholder = []
+        for capstone_instr in self._pii_stub_insns_32(0, stub_addr_guess):
+            instr = Instruction(capstone_instr, capstone_instr,
+                                capstone_instr, None, None)
+            instr.address_history.append(capstone_instr.address)
+            stub_placeholder.append(instr)
+        handlers.extend(stub_placeholder)
+
+        self.instructions = handlers
+        for x, instr in enumerate(self.instructions):
+            instr.prev_instruction = (self.instructions[x - 1] if x > 0
+                                      else None)
+            instr.next_instruction = (self.instructions[x + 1]
+                                      if x + 1 < len(self.instructions)
+                                      else None)
+
+        for jump in stub_jumps:
+            self.short_label_table.append((jump, stub_placeholder[0]))
+
+        self.update_label_table()
+
+        addresses = {}
+        address = 0
+        for instr in self.instructions:
+            addresses[id(instr)] = address
+            address += len(instr.new_instruction.bytes)
+
+        for lea_instr, pop_instr, reg, fallthrough in getpc_fixups:
+            addr = addresses[id(lea_instr)]
+            here = addresses[id(pop_instr)]
+            target = addresses[id(fallthrough)]
+            displacement = target - here
+            asm, _ = self.ks.asm(
+                f"lea {reg}, [{reg} + {displacement}]", addr)
+            for capstone_instr in self.cs.disasm(bytes(asm), addr):
+                lea_instr.new_instruction = capstone_instr
+                break
+
+        stub_addr = addresses[id(stub_placeholder[0])]
+        stub_size = sum(len(x.new_instruction.bytes)
+                        for x in stub_placeholder)
+        map_addr = stub_addr + stub_size
+
+        here_instr = next(x for x in stub_placeholder
+                          if x.new_instruction.mnemonic == "pop")
+        map_displacement = map_addr - here_instr.new_instruction.address
+        new_stub = self._pii_stub_insns_32(map_displacement, stub_addr)
+        if len(new_stub) != len(stub_placeholder):
+            raise RuntimeError("PII32 stub size changed during layout")
+        for instr, capstone_instr in zip(stub_placeholder, new_stub):
+            instr.new_instruction = capstone_instr
+
+        entries = []
+        for unit_index, group, next_index in records:
+            entries.append((unit_index,
+                            addresses[id(group[0])] - map_addr))
+        entries.append((len(records),
+                        addresses[id(terminator)] - map_addr))
+        self.instr_mapping = entries
+        self.mem_address = map_addr
+        self.pii_enabled = True
+        print(f"[pii32-v2] {len(records)} units, map at {map_addr:#x}, "
+              f"{len(entries)} entries, shuffled")
+
+    def pii_permute_instructions(self):
+        if not self.instructions:
+            return 0
+
+        original = list(self.instructions)
+        ret_instr = None
+        asm, _ = self.ks.asm("ret", 0)
+        for capstone_instr in self.cs.disasm(bytes(asm), 0):
+            ret_instr = Instruction(capstone_instr, capstone_instr,
+                                    capstone_instr, None, None)
+            ret_instr.address_history.append(capstone_instr.address)
+            break
+
+        slots = []
+        index = 0
+        while index < len(original):
+            group = [original[index]]
+            if original[index].pii_group:
+                cursor = index + 1
+                while cursor < len(original) and original[cursor].pii_group:
+                    group.append(original[cursor])
+                    cursor += 1
+                index = cursor
+            elif original[index].bad_expanded:
+                cursor = index + 1
+                while (cursor < len(original)
+                       and original[cursor].bad_expanded):
+                    group.append(original[cursor])
+                    cursor += 1
+                index = cursor
+            else:
+                index += 1
+
+            next_instr = (original[index] if index < len(original)
+                          else ret_instr)
+            last = group[-1]
+            address = (last.new_instruction.address
+                       + last.new_instruction.size)
+            asm, _ = self.ks.asm(f"jmp {address}", address)
+            jmp_instr = None
+            for capstone_instr in self.cs.disasm(bytes(asm), address):
+                jmp_instr = Instruction(capstone_instr, capstone_instr,
+                                        capstone_instr, None, None)
+                jmp_instr.address_history.append(capstone_instr.address)
+                break
+            slot = list(group)
+            if jmp_instr is not None and next_instr is not None:
+                slot.append(jmp_instr)
+                self.short_label_table.append((jmp_instr, next_instr))
+            slots.append(slot)
+
+        first = slots[0]
+        rest = slots[1:]
+        random.shuffle(rest)
+        self.instructions = [instr for slot in [first] + rest for instr in slot]
+        if ret_instr is not None:
+            self.instructions.append(ret_instr)
+
+        for x, instr in enumerate(self.instructions):
+            instr.prev_instruction = (self.instructions[x - 1] if x > 0
+                                      else None)
+            instr.next_instruction = (self.instructions[x + 1]
+                                      if x + 1 < len(self.instructions)
+                                      else None)
+        print(f"[ip] permuted {len(original)} instructions into "
+              f"{len(self.instructions)} slots")
+        return len(self.instructions)
 
     def brain_obfuscator(self):
         brain_shuffle = True
@@ -1731,7 +2978,7 @@ class Zone:
         push eax;
         push ecx;
         mov ecx, [esp + 0x8]
-        pushf;
+        pushfd;
         sub ecx, 0x3e8;
         inc ecx;
 
@@ -1742,7 +2989,7 @@ class Zone:
         mov ecx, [eax + {self.mem_address} - 5 + ecx * 4];
         sub ecx, 0x5
         add eax, ecx
-        popf;
+        popfd;
         pop ecx;
         jmp eax;
         '''
@@ -1791,10 +3038,139 @@ class Zone:
         self.re_adjust_brain()
 
 
+    def eliminate_bad_instructions(self):
+        """Expand jecxz/jcxz/loop-family short branches to a 12-byte trampoline.
+
+        A+0: short branch +5
+        A+2: near jmp fallthrough
+        A+7: near jmp target
+        A+12: fallthrough
+        """
+        opcodes = {
+            "jrcxz": 0xE3, "jecxz": 0xE3, "jcxz": 0xE3,
+            "loop": 0xE2, "loope": 0xE1, "loopne": 0xE0,
+        }
+        expanded = 0
+        while True:
+            found = False
+            for index, instr in enumerate(self.instructions):
+                mnemonic = instr.new_instruction.mnemonic
+                if mnemonic not in opcodes:
+                    continue
+                if instr.bad_expanded:
+                    continue
+                entry = next((item for item in self.short_label_table
+                              if item[0] is instr), None)
+                if entry is None or index + 1 >= len(self.instructions):
+                    print(f"[bad] {instr.new_instruction.address:#x} "
+                          f"{mnemonic}: no label/fallthrough, skipped")
+                    continue
+                target_instr = entry[1]
+                fallthrough = self.instructions[index + 1]
+                address = instr.new_instruction.address
+
+                sequence = bytearray([opcodes[mnemonic], 0x05, 0xE9])
+                sequence += (5).to_bytes(4, "little", signed=True)
+                sequence += b"\xE9"
+                sequence += (0).to_bytes(4, "little", signed=True)
+
+                sequence_instrs = []
+                for capstone_instr in self.cs.disasm(bytes(sequence), address):
+                    new_instr = Instruction(capstone_instr, capstone_instr,
+                                            capstone_instr, None, None)
+                    new_instr.address_history.append(capstone_instr.address)
+                    sequence_instrs.append(new_instr)
+                if len(sequence_instrs) != 3:
+                    raise RuntimeError(
+                        f"cannot build the trampoline for {mnemonic} at "
+                        f"{address:#x}")
+
+                self.short_label_table = [
+                    item for item in self.short_label_table
+                    if item[0] is not instr]
+
+                if index == 0:
+                    self.instructions.pop(0)
+                    if self.instructions:
+                        self.instructions[0].prev_instruction = None
+                else:
+                    self.eliminate_instruction(index)
+                for offset, sequence_instr in enumerate(sequence_instrs):
+                    self.insert_instruction(index + offset, sequence_instr)
+                    sequence_instr.bad_expanded = True
+
+                self.short_label_table.append(
+                    (sequence_instrs[0], sequence_instrs[2]))
+                self.short_label_table.append(
+                    (sequence_instrs[1], fallthrough))
+                self.short_label_table.append(
+                    (sequence_instrs[2], target_instr))
+
+                for position, item in enumerate(self.short_label_table):
+                    if item[1] is instr:
+                        self.short_label_table[position] = (
+                            item[0], sequence_instrs[0])
+
+                expanded += 1
+                found = True
+                break
+            if not found:
+                break
+        print(f"[bad] expanded {expanded} short branch(es)")
+        return expanded
+
+    def mark_data_ranges32(self):
+        """Mark printable inline data so -eq/-nop do not rewrite it.
+
+        This is a conservative static heuristic: printable runs of four or
+        more bytes are treated as data. It is not a full CFG classifier, but
+        it protects the strings/hashes embedded in 32-bit shellcode.
+        """
+        raw = self.raw_code
+        ranges = []
+        index = 0
+        while index < len(raw):
+            if 32 <= raw[index] < 127:
+                end = index
+                while end < len(raw) and 32 <= raw[end] < 127:
+                    end += 1
+                if end - index >= 4:
+                    if end < len(raw) and raw[end] == 0:
+                        end += 1
+                    ranges.append((index, end))
+                index = end
+            else:
+                index += 1
+        self.data_ranges32 = ranges
+        self.nop_min_address = max((end for _start, end in ranges), default=0)
+        self.data_instruction_ids = set()
+        for instr in self.instructions:
+            address = instr.original_instruction.address
+            if any(start <= address < end for start, end in ranges):
+                self.data_instruction_ids.add(id(instr))
+        if ranges:
+            print(f"[data32] protected {len(ranges)} printable range(s), "
+                  f"{len(self.data_instruction_ids)} instruction(s)")
+
+        # Do not insert random NOPs inside a pushal/popal resolver frame:
+        # the frame and its tight hash loops are sensitive to layout changes.
+        self.nop_skip_ids = set()
+        inside_frame = False
+        for instr in self.instructions:
+            mnemonic = instr.new_instruction.mnemonic
+            if mnemonic in ("pushal", "pushad"):
+                inside_frame = True
+            if inside_frame:
+                self.nop_skip_ids.add(id(instr))
+            if mnemonic in ("popal", "popad"):
+                inside_frame = False
+
     def equal_instructions(self):
         change_num = 0
         bytes_added = 0
         for num_instr,instr in enumerate(self.instructions):
+            if id(instr) in self.data_instruction_ids:
+                continue
             #substitue xor reg,rex with mov reg,0x0
 
             prob = random.randint(0,100)
@@ -1917,9 +3293,16 @@ class Zone:
         # create a bytearray of the instruction map
         map_bytes = b''
         for x,i in enumerate(self.instr_mapping):
-            map_bytes += i[1].to_bytes(4, byteorder='little')
+            map_bytes += int(i[1]).to_bytes(4, byteorder='little', signed=True)
 
         new_bytes += map_bytes
+
+        # extracted data lives after the PII instruction map
+        if self.extracted_data:
+            if not self.data_refs_finalized:
+                self.finalize_data_refs()
+            new_bytes += self.final_data_pad
+            new_bytes += self.final_data_blob
         
         if output_file == None:
             output_file = 'new_payload.bin'
@@ -1933,6 +3316,21 @@ class Zone:
         new_bytes = b''
         for i in self.instructions:
             new_bytes += i.new_instruction.bytes
+
+        # data extracted with --extract-data goes after the code
+        if self.extracted_data:
+            if not self.data_refs_finalized:
+                self.finalize_data_refs()
+            new_bytes += self.final_data_pad
+            new_bytes += self.final_data_blob
+        elif not self.morph_applied and len(new_bytes) == self.sweep_coverage:
+            # Capstone skipdata can leave a tail un-disassembled: keep it when
+            # the instruction stream was not modified.
+            new_bytes += self.sweep_tail
+        elif self.morph_applied and self.sweep_tail:
+            print("WARNING: Capstone stopped before the end of the payload; "
+                  "the untouched tail is not included after morphing. "
+                  "Use --extract-data to rebuild the full payload.")
 
         # non modificare il file esistente, creano uno nuovo
         if output_file == None:
@@ -1950,7 +3348,10 @@ def print_usage():
     print("--bogus-cf, -bcf                                 Add bogus control flow instructions")
     print("--insert-nop, -nop                               Insert NOP instructions")
     print("--instruction-block-permutation, -ibp            Permute instruction blocks")
-    print("--position-independent-instr, -pii               VM technique")
+    print("--position-independent-instr, -pii               Indexed PII dispatcher")
+    print("--instruction-permutation, -ip                   Single-instruction permutation")
+    print("--eliminate-bad-instructions, -ebi               Expand loop/jecxz short branches")
+    print("--extract-data, -xd                              Move inline call/pop data to the end")
     print("--output,-o <file>                               Output file name")
 
 
@@ -1963,6 +3364,9 @@ def start():
     insert_nop = False
     instruction_block_permutation = False
     position_independent_instr = False
+    instruction_permutation = False
+    eliminate_bad = False
+    extract_data = False
     output_file = None
     
     if len(sys.argv) < 2:
@@ -1985,70 +3389,70 @@ def start():
             instruction_block_permutation = True
         elif arg == "--position-independent-instr" or arg == "-pii":
             position_independent_instr = True
+        elif arg == "--instruction-permutation" or arg == "-ip":
+            instruction_permutation = True
+        elif (arg == "--eliminate-bad-instructions" or arg == "-ebi"
+              or arg == "--eliminate-bad"):
+            eliminate_bad = True
+        elif arg == "--extract-data" or arg == "-xd":
+            extract_data = True
         elif arg == "--output" or arg == "-o":
             output_file = opt_args[opt_args.index(arg) + 1]
 
-    
+    if position_independent_instr and instruction_permutation:
+        print("ERROR: -pii and -ip are different techniques; choose one")
+        sys.exit(1)
+    if extract_data:
+        print("ERROR: 32-bit -xd data extraction is not implemented safely yet.")
+        print("       The call/pop heuristic can move resolver code as data;")
+        print("       it is disabled instead of producing a corrupt payload.")
+        sys.exit(1)
+    if (position_independent_instr or instruction_permutation) and not eliminate_bad:
+        print("[bad] enabling short-branch expansion for PII/permutation")
+        eliminate_bad = True
 
-
-    brain_mode = True
     zone = Zone(sys.argv[1])
 
-    # print available registers
-
-    zone.eliminate_loop_instructions()
-    # zone.eliminate_jrcxz_instructions()
-    
-
 # INITIALIZATION
-    zone.create_jmp_table()
+    try:
+        zone.create_jmp_table()
+    except Exception as e:
+        print("create_jmp_table() skipped: ", e)
     zone.create_label_table()
+
+    if equal_instr or insert_nop or bogus_cf:
+        zone.mark_data_ranges32()
+
+    if eliminate_bad:
+        zone.eliminate_bad_instructions()
 
 # CODE MODIFICATION
     if equal_instr == True:
         zone.equal_instructions()
     if insert_nop == True:
         zone.insert_random_nop()
-
-
-    
-    if position_independent_instr == True:
-    # if brain_mode == True:
-        zone.pii_enabled = True
-        zone.brain_obfuscator()
-
-    if bogus_cf == True:
-        zone.bogus_control_flow()
-
     if instruction_block_permutation == True:
         zone.chaos_cf()
         zone.shuffle_blocks()
+    if bogus_cf == True:
+        zone.bogus_control_flow()
 
-        # zone.update_label_table_brain()
-    
-    if position_independent_instr == False:
+    if position_independent_instr == True:
+        zone.pii_dispatcher_v2()
+    elif instruction_permutation == True:
+        zone.pii_permute_instructions()
+
+    if (not position_independent_instr
+            and (equal_instr or insert_nop or instruction_block_permutation
+                 or bogus_cf or eliminate_bad or instruction_permutation
+                 or extract_data)):
         zone.update_label_table()
 
-
-
-    # while check == False:
-    # check = zone.check_jcrxz_ok()
-
-
-
-# CODE PATCHING
-    # zone.update_label_table()
-    
     zone.print_blocks()
-
     zone.print_instructions()
-    # zone.adjust_out_text_references()
-
-    # zone.adjust_reloc_table()
-    # zone.adjust_jmp_table()
 
 # WRITE MODIFICATION
-    if brain_mode == True:
+    if position_independent_instr == True:
         zone.write_strange_file(output_file)
     else:
         zone.write_file(output_file)

@@ -1,0 +1,5 @@
+x64/windows_x64_meterpreter_reverse_http_bcf.bin,reverse,FAIL,
+x64/windows_x64_meterpreter_reverse_http_eq.bin,reverse,OK,
+x64/windows_x64_meterpreter_reverse_http_ibp.bin,reverse,FAIL,
+x64/windows_x64_meterpreter_reverse_http_plainxdnop.bin,reverse,FAIL,
+x64/windows_x64_meterpreter_reverse_http_xunop.bin,reverse,FAIL,
