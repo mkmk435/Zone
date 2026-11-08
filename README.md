@@ -174,17 +174,42 @@ work were:
 
 This is a conservative static heuristic, not a full x86 CFG classifier. `-pii`
 and `-ip` still move the inline data and therefore remain **experimental** on
-data-bearing 32-bit payloads; `-xd` is disabled with an explicit error.
+data-bearing 32-bit payloads; use `-xd` to move the data out first.
 
 The dispatcher itself uses `pushad`/`popad` plus a saved-flags slot and `ret`,
 so all general registers and flags are preserved; the earlier register-pressure
-fallback to `ebx` is gone. The symbolic data layer (`-fd`, `-xd`, cache,
-`extract_data`) is **not yet ported** to 32-bit: it depends on the x64 analyzer
-(`gs`/PEB, RIP-relative references). A naive 32-bit `call/pop` getpc heuristic
-was tested and rejected: on the 32-bit messagebox it classified the whole
-resolver (`call 0x1 ... pop ebp`) as inline data and moved it, corrupting the
-payload. A proper 32-bit extractor needs CFG/reachability and absolute-reference
-handling; it is a separate x86 analyzer task, not a copy of the x64 code.
+fallback to `ebx` is gone.
+
+### 32-bit symbolic data layer (`-fd`, `-xd`)
+
+`pobf86.py` now has the same data layer as `pobf.py`. The symbolic analyzer is
+the same one (`symbolic_payload_coverage.py --arch x86`); what differs is the
+32-bit reference model and the getpc rewrite:
+
+- references are absolute 32-bit immediates and `[disp32]` memory operands
+  (there is no RIP-relative addressing); a section is moved only if **every**
+  reference to it is classified as supported (`getpc`, `abs` or `imm`), and a
+  section with no verified reference is left in place;
+- a `call` whose return address is the start of a data section and whose target
+  is its end is a getpc site (classic `call $+5; pop`, late pop, or the 32-bit
+  idiom that leaves the pushed string address on the stack as an API argument);
+- at extraction the call is kept and only the inline data is replaced by NOPs;
+  after the final layout the call becomes `jmp stub`, where the 5-byte stub
+  `call consumer` is placed right before the moved data. The stub pushes the
+  new data address and jumps to the original consumer, so no `lea rip` is
+  needed and the payload stays position-independent.
+
+Flags: `--find-data/-fd`, `--extract-data/-xd`, `--extract-unknown/-xu`,
+`--data-timeout`, `--data-cache`, `--no-data-cache/-nc`,
+`--refresh-data-cache/-rc`. Sections are cached by payload SHA-256, and the
+xref scan is recomputed on every run. The old naive `call/pop` heuristic that
+classified the whole resolver as data has been removed.
+
+`-xd` was validated by execution with `ploader86.exe` on the 32-bit messagebox:
+`-xd`, `-xd -eq`, `-xd -nop`, `-xd -ebi -bcf`, `-xd -ebi -nop -eq`,
+`-xd -ip` and `-xd -pii` all still display the message box. On the reverse_tcp
+family the analyzer finds no inline data (those payloads resolve APIs by hash),
+so `-xd` is a no-op there.
 
 ## Overview
 

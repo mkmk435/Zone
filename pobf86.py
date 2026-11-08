@@ -594,10 +594,27 @@ class Zone:
                                 print("EXITING...............\n")
                                 print("###########################################\n")
 
-                                # prima di chiudere starta un nuovo processo uguale
-                                command = f"python3 {sys.argv[0]} {sys.argv[1]}"
-                                os.system(command)
-                                exit(0)
+                                # Restart with the *same* command line. The old
+                                # version only passed sys.argv[0] and sys.argv[1],
+                                # losing --extract-data, -eq, -o, etc.
+                                try:
+                                    restarts = int(os.environ.get(
+                                        "POBF_JRCXZ_RESTARTS", "0"))
+                                except ValueError:
+                                    restarts = 0
+                                if restarts >= 20:
+                                    print("Too many restarts (jrcxz distance "
+                                          "still > 120); aborting.")
+                                    sys.exit(1)
+                                env = os.environ.copy()
+                                env["POBF_JRCXZ_RESTARTS"] = str(restarts + 1)
+                                command = ([sys.executable,
+                                            os.path.abspath(sys.argv[0])]
+                                           + sys.argv[1:])
+                                print("RESTARTING:",
+                                      subprocess.list2cmdline(command))
+                                result = subprocess.run(command, env=env)
+                                sys.exit(result.returncode)
                                 # start()
                                 
                             #     time.sleep(2)
@@ -780,10 +797,27 @@ class Zone:
                                 print("EXITING...............\n")
                                 print("###########################################\n")
 
-                                # prima di chiudere starta un nuovo processo uguale
-                                command = f"python3 {sys.argv[0]} {sys.argv[1]}"
-                                os.system(command)
-                                exit(0)
+                                # Restart with the *same* command line. The old
+                                # version only passed sys.argv[0] and sys.argv[1],
+                                # losing --extract-data, -eq, -o, etc.
+                                try:
+                                    restarts = int(os.environ.get(
+                                        "POBF_JRCXZ_RESTARTS", "0"))
+                                except ValueError:
+                                    restarts = 0
+                                if restarts >= 20:
+                                    print("Too many restarts (jrcxz distance "
+                                          "still > 120); aborting.")
+                                    sys.exit(1)
+                                env = os.environ.copy()
+                                env["POBF_JRCXZ_RESTARTS"] = str(restarts + 1)
+                                command = ([sys.executable,
+                                            os.path.abspath(sys.argv[0])]
+                                           + sys.argv[1:])
+                                print("RESTARTING:",
+                                      subprocess.list2cmdline(command))
+                                result = subprocess.run(command, env=env)
+                                sys.exit(result.returncode)
                                 # start()
                                 
                             #     time.sleep(2)
@@ -1718,9 +1752,19 @@ class Zone:
                 "popad; popfd; ret")
 
     def _pii_stub_insns_32(self, map_displacement, address):
-        asm, _ = self.ks.asm(self._pii_stub_text_32(map_displacement),
-                             address)
+        # Assemble with a fixed 32-bit placeholder so `add eax, disp` always
+        # uses the imm32 encoding. With a small displacement keystone picks
+        # the shorter imm8 form, and the stub would change size between the
+        # first layout guess and the final one, shifting the instruction map.
+        sentinel = 0x11111111
+        asm, _ = self.ks.asm(self._pii_stub_text_32(sentinel), address)
         asm = bytearray(asm)
+        marker = sentinel.to_bytes(4, "little")
+        position = asm.find(marker)
+        if position < 0:
+            raise RuntimeError("PII32 stub: displacement placeholder not found")
+        asm[position:position + 4] = \
+            (map_displacement & 0xFFFFFFFF).to_bytes(4, "little")
         for insn in self.cs.disasm(bytes(asm), address):
             if insn.mnemonic == "call":
                 offset = insn.address - address
@@ -1749,6 +1793,25 @@ class Zone:
     # ------------------------------------------------------------------
 
     DATA_CACHE_SCHEMA = 1
+
+    def _lea_reg_disp32(self, reg, displacement, address=0):
+        """Assemble ``lea reg, [reg + disp32]`` with a fixed encoding.
+
+        The displacement is patched in place so the instruction keeps the
+        disp32 form (and therefore its size) for every value.
+        """
+        sentinel = 0x11111111
+        asm, _ = self.ks.asm(f"lea {reg}, [{reg} + {sentinel}]", address)
+        raw = bytearray(asm)
+        if not raw:
+            raise RuntimeError(f"cannot assemble lea {reg}, [{reg} + disp]")
+        marker = sentinel.to_bytes(4, "little")
+        position = raw.find(marker)
+        if position < 0:
+            raise RuntimeError("lea disp32 placeholder not found")
+        raw[position:position + 4] = \
+            (displacement & 0xFFFFFFFF).to_bytes(4, "little")
+        return bytes(raw)
 
     def decode_original_at(self, address):
         """Decode one instruction from the current payload bytes at address."""
@@ -1900,23 +1963,20 @@ class Zone:
                 )
             )
 
-            # call $+N; pop reg (classic) or call $+N; ...; pop reg (late
-            # pop): the call pushes the return address, which is the inline
-            # data pointer used by position-independent shellcode.
+            # `call target` whose return address is the start of a data
+            # section and whose target is its end: the CPU pushes the data
+            # address. This covers the classic `call $+5; pop reg`, the late
+            # pop, and the 32-bit idiom where the pushed string address is
+            # left on the stack as an argument for the resolved API.
             if include_getpc and insn.mnemonic == "call" and insn.operands:
                 first = insn.operands[0]
                 if first.type == x86_const.X86_OP_IMM:
                     return_address = (insn.address + insn.size) & mask32
-                    callee = decode_at(first.imm & mask32)
                     span = containing_range(return_address)
-                    if callee is not None:
-                        if callee.mnemonic.startswith("pop"):
+                    if span is not None and span[0] == return_address:
+                        callee = decode_at(first.imm & mask32)
+                        if callee is not None and callee.address == span[1]:
                             add_xref(insn.address, return_address)
-                        elif (span is not None
-                              and span[0] == return_address
-                              and callee.address == span[1]):
-                            if self._simulate_getpc_consumer(callee.address):
-                                add_xref(insn.address, return_address)
 
             for op in insn.operands:
                 target = None
@@ -2131,31 +2191,16 @@ class Zone:
                 callee = self.decode_original_at(insn.operands[0].imm & mask32)
                 if (callee is not None
                         and callee.address == section_start + section_length):
-                    if (callee.mnemonic == "pop" and callee.operands
-                            and callee.operands[0].type
-                            == x86_const.X86_OP_REG):
-                        reg = callee.reg_name(callee.operands[0].reg)
-                        if reg in self.reg_list32:
-                            return {
-                                "kind": "getpc", "source": source,
-                                "instr": entry, "reg": reg, "delta": 0,
-                                "region_start": source,
-                                "region_end": section_start + section_length,
-                                "callee": callee.address,
-                                "old_target": target,
-                            }
-                    consumer = self._simulate_getpc_consumer(callee.address)
-                    if consumer is not None:
-                        pop_insn, reg = consumer
-                        return {
-                            "kind": "getpc_stub", "source": source,
-                            "instr": entry, "reg": reg, "delta": 0,
-                            "region_start": source,
-                            "region_end": section_start + section_length,
-                            "consumer": pop_insn,
-                            "callee": callee.address,
-                            "old_target": target,
-                        }
+                    # The call skips the whole section and pushes its start
+                    # address (classic pop, late pop, or API argument).
+                    return {
+                        "kind": "getpc", "source": source,
+                        "instr": entry, "delta": 0,
+                        "region_start": source,
+                        "region_end": section_start + section_length,
+                        "callee": callee.address,
+                        "old_target": target,
+                    }
             return {"kind": "unsupported", "source": source,
                     "reason": "call does not match a getpc data site"}
 
@@ -2259,6 +2304,11 @@ class Zone:
 
         # 2) keep unsafe sections in place
         for item in candidates:
+            if not item["refs"]:
+                print(f"[extract] keep {item['offset']:#x}+{item['length']}: "
+                      "no verified reference (moving it could break the payload)")
+                item["move"] = False
+                continue
             unsupported = [ref for ref in item["refs"]
                            if ref["kind"] == "unsupported"]
             if unsupported:
@@ -2628,6 +2678,10 @@ class Zone:
         for index, instr in enumerate(old):
             if instr.new_instruction.mnemonic != "call":
                 continue
+            # a call rewritten for data extraction is handled by
+            # finalize_data_refs(); do not turn it into a getpc unit
+            if getattr(instr, "protected", False) or instr.data_ref_fixup:
+                continue
             operands = instr.new_instruction.operands
             if not operands or operands[0].type != x86_const.X86_OP_IMM:
                 continue
@@ -2656,8 +2710,10 @@ class Zone:
             # the pop; lea adds the handler offset. This stays ASLR-safe.
             placeholder = self._pii_call_next_32()
             pop_instr = self._pii_single_insn_32(f"pop {reg}", 0)
+            # disp32 placeholder: the final lea must keep the same size, so
+            # it is assembled with a placeholder too and patched in place.
             lea_instr = self._pii_single_insn_32(
-                f"lea {reg}, [{reg} + 0]", 0)
+                f"lea {reg}, [{reg} + 0x11111111]", 0)
             instr.new_instruction = placeholder.new_instruction
             pop_instr.pii_group = True
             lea_instr.pii_group = True
@@ -2759,8 +2815,7 @@ class Zone:
             here = addresses[id(pop_instr)]
             target = addresses[id(fallthrough)]
             displacement = target - here
-            asm, _ = self.ks.asm(
-                f"lea {reg}, [{reg} + {displacement}]", addr)
+            asm = self._lea_reg_disp32(reg, displacement, addr)
             for capstone_instr in self.cs.disasm(bytes(asm), addr):
                 lea_instr.new_instruction = capstone_instr
                 break
@@ -3348,16 +3403,20 @@ def print_usage():
     print("--bogus-cf, -bcf                                 Add bogus control flow instructions")
     print("--insert-nop, -nop                               Insert NOP instructions")
     print("--instruction-block-permutation, -ibp            Permute instruction blocks")
-    print("--position-independent-instr, -pii               Indexed PII dispatcher")
-    print("--instruction-permutation, -ip                   Single-instruction permutation")
+    print("--position-independent-instr, -pii               Indexed PII dispatcher (works with -xd)")
+    print("--instruction-permutation, -ip                   Single-instruction permutation (works with -xd)")
+    print("--find-data, -fd                                 Find data with symbolic exploration and exit")
+    print("--extract-data, -xd                              Move data to the end of the payload and fix references")
+    print("--extract-unknown, -xu                           Also move outside_cfg ranges (risky)")
     print("--eliminate-bad-instructions, -ebi               Expand loop/jecxz short branches")
-    print("--extract-data, -xd                              Move inline call/pop data to the end")
+    print("--data-timeout <seconds>                         Symbolic exploration timeout (default 120)")
+    print("--data-cache <file>                              Data cache (default data_cache.json)")
+    print("--no-data-cache, -nc                             Disable the data cache")
+    print("--refresh-data-cache, -rc                        Ignore and replace the cached entry")
     print("--output,-o <file>                               Output file name")
 
 
-def start():
-        # 1st increase the text sectiona
-
+def start(file=None):
 
     equal_instr = False
     bogus_cf = False
@@ -3365,19 +3424,28 @@ def start():
     instruction_block_permutation = False
     position_independent_instr = False
     instruction_permutation = False
-    eliminate_bad = False
+    find_data = False
     extract_data = False
+    extract_unknown = False
+    eliminate_bad = False
+    data_timeout = 120.0
+    data_cache = "data_cache.json"
+    no_data_cache = False
+    refresh_data_cache = False
     output_file = None
-    
-    if len(sys.argv) < 2:
-        print_usage()
-        sys.exit(1)
-    if "--help" in sys.argv or "-h" in sys.argv:
-        print_usage()
-        sys.exit(0)
+
+    if file == None:
+        if len(sys.argv) < 2:
+            print_usage()
+            sys.exit(1)
+        if sys.argv[1] == "--help" or "--help" in sys.argv[2:]:
+            print_usage()
+            sys.exit(0)
+        zone = Zone(sys.argv[1])
+    else:
+        zone = Zone(file)
 
     opt_args = sys.argv[1:]
-
     for arg in opt_args:
         if arg == "--equal-instructions" or arg == "-eq":
             equal_instr = True
@@ -3391,34 +3459,120 @@ def start():
             position_independent_instr = True
         elif arg == "--instruction-permutation" or arg == "-ip":
             instruction_permutation = True
+        elif arg == "--find-data" or arg == "-fd":
+            find_data = True
+        elif arg == "--extract-data" or arg == "-xd":
+            extract_data = True
+        elif arg == "--extract-unknown" or arg == "-xu":
+            extract_unknown = True
         elif (arg == "--eliminate-bad-instructions" or arg == "-ebi"
               or arg == "--eliminate-bad"):
             eliminate_bad = True
-        elif arg == "--extract-data" or arg == "-xd":
-            extract_data = True
+        elif arg == "--data-timeout":
+            try:
+                data_timeout = float(opt_args[opt_args.index(arg) + 1])
+            except (IndexError, ValueError):
+                print("--data-timeout requires a number of seconds")
+                sys.exit(1)
+        elif arg == "--data-cache":
+            try:
+                data_cache = opt_args[opt_args.index(arg) + 1]
+            except IndexError:
+                print("--data-cache requires a file name")
+                sys.exit(1)
+        elif arg == "--no-data-cache" or arg == "-nc":
+            no_data_cache = True
+        elif arg == "--refresh-data-cache" or arg == "-rc":
+            refresh_data_cache = True
         elif arg == "--output" or arg == "-o":
             output_file = opt_args[opt_args.index(arg) + 1]
+
+    if data_timeout < 0:
+        print("--data-timeout must be nonnegative")
+        sys.exit(1)
 
     if position_independent_instr and instruction_permutation:
         print("ERROR: -pii and -ip are different techniques; choose one")
         sys.exit(1)
-    if extract_data:
-        print("ERROR: 32-bit -xd data extraction is not implemented safely yet.")
-        print("       The call/pop heuristic can move resolver code as data;")
-        print("       it is disabled instead of producing a corrupt payload.")
-        sys.exit(1)
+
+    if extract_data and position_independent_instr:
+        print("[pii] indexed dispatcher; data blob goes after the "
+              "instruction map")
+
     if (position_independent_instr or instruction_permutation) and not eliminate_bad:
         print("[bad] enabling short-branch expansion for PII/permutation")
         eliminate_bad = True
 
-    zone = Zone(sys.argv[1])
+    morph_requested = (equal_instr or instruction_block_permutation
+                       or bogus_cf or insert_nop)
+    if (morph_requested or eliminate_bad or position_independent_instr
+            or instruction_permutation):
+        zone.morph_applied = True
 
-# INITIALIZATION
-    try:
-        zone.create_jmp_table()
-    except Exception as e:
-        print("create_jmp_table() skipped: ", e)
-    zone.create_label_table()
+# INITIALIZATION / DATA EXTRACTION
+
+    if find_data or extract_data:
+        sections, xrefs = zone.analyze_data(
+            timeout=data_timeout,
+            print_strings=find_data,
+            cache_path=data_cache,
+            use_cache=not no_data_cache,
+            refresh_cache=refresh_data_cache,
+        )
+        if find_data and not extract_data:
+            print("Data analysis only; no payload written.")
+            sys.exit(0)
+
+        zone.extract_data(sections, xrefs, include_unknown=extract_unknown)
+
+        try:
+            zone.create_jmp_table()
+        except Exception as e:
+            print("create_jmp_table() skipped: ", e)
+        if (morph_requested or eliminate_bad
+                or instruction_permutation or position_independent_instr):
+            zone.create_label_table()
+        if eliminate_bad:
+            zone.eliminate_bad_instructions()
+        if morph_requested:
+            if equal_instr == True:
+                zone.equal_instructions()
+            if instruction_block_permutation == True:
+                zone.chaos_cf()
+                zone.shuffle_blocks()
+            if bogus_cf == True:
+                zone.bogus_control_flow()
+            if insert_nop == True:
+                zone.insert_random_nop()
+        if position_independent_instr:
+            zone.pii_dispatcher_v2()
+        elif instruction_permutation:
+            zone.pii_permute_instructions()
+            zone.update_label_table()
+        elif morph_requested or eliminate_bad:
+            zone.update_label_table()
+
+        # the final layout is known only now: fill in the stub displacements
+        zone.finalize_data_refs()
+        zone.print_instructions()
+        if position_independent_instr:
+            zone.write_strange_file(output_file)
+        else:
+            zone.write_file(output_file)
+        zone.print_instructions()
+        print(f"Output: {output_file if output_file else 'new_payload.bin'}")
+        print("FINE")
+        return
+
+# NORMAL PIPELINE
+
+    if (morph_requested or eliminate_bad or position_independent_instr
+            or instruction_permutation):
+        try:
+            zone.create_jmp_table()
+        except Exception as e:
+            print("create_jmp_table() skipped: ", e)
+        zone.create_label_table()
 
     if equal_instr or insert_nop or bogus_cf:
         zone.mark_data_ranges32()
@@ -3429,13 +3583,13 @@ def start():
 # CODE MODIFICATION
     if equal_instr == True:
         zone.equal_instructions()
-    if insert_nop == True:
-        zone.insert_random_nop()
     if instruction_block_permutation == True:
         zone.chaos_cf()
         zone.shuffle_blocks()
     if bogus_cf == True:
         zone.bogus_control_flow()
+    if insert_nop == True:
+        zone.insert_random_nop()
 
     if position_independent_instr == True:
         zone.pii_dispatcher_v2()
@@ -3443,9 +3597,7 @@ def start():
         zone.pii_permute_instructions()
 
     if (not position_independent_instr
-            and (equal_instr or insert_nop or instruction_block_permutation
-                 or bogus_cf or eliminate_bad or instruction_permutation
-                 or extract_data)):
+            and (morph_requested or eliminate_bad or instruction_permutation)):
         zone.update_label_table()
 
     zone.print_blocks()
@@ -3458,7 +3610,7 @@ def start():
         zone.write_file(output_file)
     zone.print_instructions()
     print("FINE")
-    
+
 
 if __name__ == "__main__":
     start()
