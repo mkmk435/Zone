@@ -1,0 +1,5 @@
+x64/windows_x64_custom_reverse_tcp.bin,reverse,OK,
+x64/windows_x64_messagebox.bin,other,OK,dialog class=#32770 closed=True rc=0
+x86/windows_custom_reverse_nonx_tcp.bin,reverse,OK,
+x86/windows_custom_reverse_tcp.bin,reverse,OK,
+x86/windows_messagebox.bin,other,OK,dialog class=#32770 closed=True rc=0

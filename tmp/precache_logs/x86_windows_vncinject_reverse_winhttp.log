@@ -1,0 +1,16 @@
+FINITO DI DISASSEMBLARE
+SYMBOLIC DATA ANALYSIS...
+Payload: C:\Users\ubu\Desktop\Zone\original_pl\x86\windows_vncinject_reverse_winhttp.bin (937 B)
+SHA-256: f729c9efd406685b85ac773ed87585209c2d363fc5fa3dcb0e21618cb6067225
+Architecture: x86; base: 0x0; entry: 0x0
+String candidates: 1 (length in bytes, including the NUL terminator)
+  0xc2 (+0xc2, 484 B) utf16le: 'http://127.0.0.1:1234/1HKVrkGsOPp2mnebHpHShw4_gx8yHFBqYnvATg0nTUw4FNviFcZVne0yH4ma6syfBI-iM4BTRnD_SR1HUVZzEFUdbhQMDY6zrOnZZ511FjiFXrhD5EyShSLzBHEsMnt4qdPtLlRQJxTZGFidpaQsi-5wK4UXs2akMGk9QIgs-MSXq71pJriYrJAYXvGvfnR6RmT3uGlfhBmFWHZbY3bYGh0U8Lo'
+Stopped: timeout after 512 steps in 60.250s (300 states pending, 0 deadended, 1 unconstrained, 0 errors)
+Data candidates are provisional: symbolic exploration has unresolved paths.
+[cache] saved f729c9efd406 to data_cache.json
+Data sections: 2
+  0xc2 (484 B) utf16le
+  0x39e (1 B) outside_cfg
+Data xrefs: 1
+  0x2b1 -> 0x100 (484 B)
+Data analysis only; no payload written.

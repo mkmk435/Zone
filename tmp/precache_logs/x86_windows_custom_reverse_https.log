@@ -1,0 +1,17 @@
+FINITO DI DISASSEMBLARE
+SYMBOLIC DATA ANALYSIS...
+Payload: C:\Users\ubu\Desktop\Zone\original_pl\x86\windows_custom_reverse_https.bin (684 B)
+SHA-256: e69f00c974e4ffb23567ca87bd037722a0819fb5eab9c7005b4443e028b6a7f1
+Architecture: x86; base: 0x0; entry: 0x0
+String candidates: 2 (length in bytes, including the NUL terminator)
+  0xb4 (+0xb4, 84 B) ascii: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14.7; rv:133.0) Gecko/20100101 Firefox/133.0'
+  0x11f (+0x11f, 218 B) ascii: '/KA3siacO21YoJykmQCyL8w7akbzdcWymXY99rXfne2ehbNZ56JXJrSHEVsGZx6ovHlXaZt2J_w1wAZii_pL1qSyOLxMeQF8I-XM8IUtKfTyLLl1upHBzvbPC1OBk0Sgjnl6EDTF3YOqvMcgJCHjm0BHJdOQE9WodqwSllw1HFoMF5fY4RaVIA3bwThBhNOACB2eOZlG_alQ5VRkuasvZkdTE'
+Stopped: timeout after 306 steps in 60.188s (205 states pending, 0 deadended, 0 unconstrained, 0 errors)
+Data candidates are provisional: symbolic exploration has unresolved paths.
+[cache] saved e69f00c974e4 to data_cache.json
+Data sections: 2
+  0xb4 (84 B) ascii
+  0x11f (218 B) ascii
+Data xrefs: 1
+  0xaf -> 0xb4 (84 B)
+Data analysis only; no payload written.

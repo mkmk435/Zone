@@ -1,0 +1,12 @@
+FINITO DI DISASSEMBLARE
+SYMBOLIC DATA ANALYSIS...
+Payload: C:\Users\ubu\Desktop\Zone\original_pl\x86\windows_meterpreter_bind_nonx_tcp.bin (201 B)
+SHA-256: 5606b83471c01c78b505fc46927afd3e887be34b8f7811a20262721723343ee9
+Architecture: x86; base: 0x0; entry: 0x0
+String candidates: 0 (length in bytes, including the NUL terminator)
+Stopped: timeout after 484 steps in 60.015s (100 states pending, 0 deadended, 20 unconstrained, 0 errors)
+Data candidates are provisional: symbolic exploration has unresolved paths.
+[cache] saved 5606b83471c0 to data_cache.json
+Data sections: 0
+Data xrefs: 0
+Data analysis only; no payload written.

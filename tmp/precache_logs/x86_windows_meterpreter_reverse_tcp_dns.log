@@ -1,0 +1,12 @@
+FINITO DI DISASSEMBLARE
+SYMBOLIC DATA ANALYSIS...
+Payload: C:\Users\ubu\Desktop\Zone\original_pl\x86\windows_meterpreter_reverse_tcp_dns.bin (373 B)
+SHA-256: bc6554040bcc3b72bfb12099bc0f8afa446342f014d94b7610defc001b9b90e5
+Architecture: x86; base: 0x0; entry: 0x0
+String candidates: 0 (length in bytes, including the NUL terminator)
+Stopped: timeout after 985 steps in 60.063s (474 states pending, 0 deadended, 0 unconstrained, 0 errors)
+Data candidates are provisional: symbolic exploration has unresolved paths.
+[cache] saved bc6554040bcc to data_cache.json
+Data sections: 0
+Data xrefs: 0
+Data analysis only; no payload written.

@@ -1,0 +1,7 @@
+FINITO DI DISASSEMBLARE
+SYMBOLIC DATA ANALYSIS...
+[cache] hit 5606b83471c0 in data_cache.json (0 sections, timeout=60.0s, created 2026-11-09T00:20:55)
+[cache] using the stored sections; --refresh-data-cache re-runs the symbolic search
+Data sections: 0
+Data xrefs: 0
+Data analysis only; no payload written.

@@ -1,0 +1,12 @@
+FINITO DI DISASSEMBLARE
+SYMBOLIC DATA ANALYSIS...
+Payload: C:\Users\ubu\Desktop\Zone\original_pl\x86\windows_vncinject_reverse_tcp_dns.bin (373 B)
+SHA-256: 91fb6b9c1070616b451048abc366549fe87392eb85e5afc842b950e2bc71c3a9
+Architecture: x86; base: 0x0; entry: 0x0
+String candidates: 0 (length in bytes, including the NUL terminator)
+Stopped: timeout after 544 steps in 60.235s (339 states pending, 0 deadended, 1 unconstrained, 0 errors)
+Data candidates are provisional: symbolic exploration has unresolved paths.
+[cache] saved 91fb6b9c1070 to data_cache.json
+Data sections: 0
+Data xrefs: 0
+Data analysis only; no payload written.

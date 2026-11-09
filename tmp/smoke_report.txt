@@ -1,0 +1,2 @@
+x64/windows_x64_custom_reverse_tcp.bin,reverse,OK,
+x86/windows_custom_reverse_tcp.bin,reverse,OK,

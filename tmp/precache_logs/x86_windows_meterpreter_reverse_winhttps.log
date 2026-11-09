@@ -1,0 +1,15 @@
+FINITO DI DISASSEMBLARE
+SYMBOLIC DATA ANALYSIS...
+Payload: C:\Users\ubu\Desktop\Zone\original_pl\x86\windows_meterpreter_reverse_winhttps.bin (647 B)
+SHA-256: c2e2c52b115118b91822a9eacafac8292292acc1907f4a2746aa9d8c5f10b6f5
+Architecture: x86; base: 0x0; entry: 0x0
+String candidates: 1 (length in bytes, including the NUL terminator)
+  0xc2 (+0xc2, 174 B) utf16le: 'https://127.0.0.1:1234/kRrO_c8tr_LOMs8zpjlt3Q2F-rcTWLtSIVZ-dhIx9v_cdBTvmErBYN3wttktio2'
+Stopped: timeout after 351 steps in 60.078s (260 states pending, 0 deadended, 0 unconstrained, 0 errors)
+Data candidates are provisional: symbolic exploration has unresolved paths.
+[cache] saved c2e2c52b1151 to data_cache.json
+Data sections: 2
+  0xc2 (174 B) utf16le
+  0x27c (1 B) outside_cfg
+Data xrefs: 0
+Data analysis only; no payload written.

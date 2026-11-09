@@ -1,0 +1,349 @@
+{
+  "source_report": "test_report.txt",
+  "threshold_pct": 50.0,
+  "payloads": [
+    {
+      "arch": "x64",
+      "payload": "windows_x64_custom_reverse_https",
+      "old_ok": 0,
+      "old_total": 149,
+      "old_rate": 0.0
+    },
+    {
+      "arch": "x64",
+      "payload": "windows_x64_custom_reverse_winhttp",
+      "old_ok": 0,
+      "old_total": 149,
+      "old_rate": 0.0
+    },
+    {
+      "arch": "x64",
+      "payload": "windows_x64_custom_reverse_winhttps",
+      "old_ok": 0,
+      "old_total": 150,
+      "old_rate": 0.0
+    },
+    {
+      "arch": "x64",
+      "payload": "windows_x64_meterpreter_reverse_http",
+      "old_ok": 0,
+      "old_total": 149,
+      "old_rate": 0.0
+    },
+    {
+      "arch": "x64",
+      "payload": "windows_x64_meterpreter_reverse_https",
+      "old_ok": 0,
+      "old_total": 149,
+      "old_rate": 0.0
+    },
+    {
+      "arch": "x64",
+      "payload": "windows_x64_meterpreter_reverse_winhttp",
+      "old_ok": 0,
+      "old_total": 149,
+      "old_rate": 0.0
+    },
+    {
+      "arch": "x64",
+      "payload": "windows_x64_vncinject_reverse_http",
+      "old_ok": 0,
+      "old_total": 150,
+      "old_rate": 0.0
+    },
+    {
+      "arch": "x64",
+      "payload": "windows_x64_vncinject_reverse_winhttp",
+      "old_ok": 0,
+      "old_total": 150,
+      "old_rate": 0.0
+    },
+    {
+      "arch": "x64",
+      "payload": "windows_x64_vncinject_reverse_winhttps",
+      "old_ok": 0,
+      "old_total": 150,
+      "old_rate": 0.0
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_custom_reverse_http",
+      "old_ok": 0,
+      "old_total": 150,
+      "old_rate": 0.0
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_custom_reverse_nonx_tcp",
+      "old_ok": 0,
+      "old_total": 150,
+      "old_rate": 0.0
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_messagebox",
+      "old_ok": 0,
+      "old_total": 150,
+      "old_rate": 0.0
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_meterpreter_bind_nonx_tcp",
+      "old_ok": 0,
+      "old_total": 150,
+      "old_rate": 0.0
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_patchupmeterpreter_bind_nonx_tcp",
+      "old_ok": 0,
+      "old_total": 150,
+      "old_rate": 0.0
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_shell_bind_nonx_tcp",
+      "old_ok": 0,
+      "old_total": 150,
+      "old_rate": 0.0
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_shell_reverse_nonx_tcp",
+      "old_ok": 0,
+      "old_total": 150,
+      "old_rate": 0.0
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_vncinject_bind_nonx_tcp",
+      "old_ok": 0,
+      "old_total": 150,
+      "old_rate": 0.0
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_vncinject_reverse_http",
+      "old_ok": 0,
+      "old_total": 150,
+      "old_rate": 0.0
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_vncinject_reverse_nonx_tcp",
+      "old_ok": 0,
+      "old_total": 150,
+      "old_rate": 0.0
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_custom_bind_nonx_tcp",
+      "old_ok": 1,
+      "old_total": 150,
+      "old_rate": 0.67
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_meterpreter_reverse_nonx_tcp",
+      "old_ok": 1,
+      "old_total": 150,
+      "old_rate": 0.67
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_patchupmeterpreter_reverse_nonx_tcp",
+      "old_ok": 1,
+      "old_total": 150,
+      "old_rate": 0.67
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_vncinject_reverse_winhttp",
+      "old_ok": 1,
+      "old_total": 150,
+      "old_rate": 0.67
+    },
+    {
+      "arch": "x64",
+      "payload": "windows_x64_meterpreter_reverse_winhttps",
+      "old_ok": 2,
+      "old_total": 150,
+      "old_rate": 1.33
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_meterpreter_reverse_winhttps",
+      "old_ok": 2,
+      "old_total": 150,
+      "old_rate": 1.33
+    },
+    {
+      "arch": "x64",
+      "payload": "windows_x64_vncinject_reverse_https",
+      "old_ok": 2,
+      "old_total": 149,
+      "old_rate": 1.34
+    },
+    {
+      "arch": "x64",
+      "payload": "windows_x64_messagebox",
+      "old_ok": 4,
+      "old_total": 150,
+      "old_rate": 2.67
+    },
+    {
+      "arch": "x64",
+      "payload": "windows_x64_custom_reverse_http",
+      "old_ok": 15,
+      "old_total": 147,
+      "old_rate": 10.2
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_meterpreter_reverse_winhttp",
+      "old_ok": 17,
+      "old_total": 150,
+      "old_rate": 11.33
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_vncinject_reverse_tcp_allports",
+      "old_ok": 20,
+      "old_total": 123,
+      "old_rate": 16.26
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_custom_reverse_winhttps",
+      "old_ok": 25,
+      "old_total": 150,
+      "old_rate": 16.67
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_shell_reverse_tcp",
+      "old_ok": 22,
+      "old_total": 121,
+      "old_rate": 18.18
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_shell_bind_tcp",
+      "old_ok": 25,
+      "old_total": 125,
+      "old_rate": 20.0
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_custom_reverse_winhttp",
+      "old_ok": 32,
+      "old_total": 150,
+      "old_rate": 21.33
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_shell_reverse_tcp_allports",
+      "old_ok": 26,
+      "old_total": 121,
+      "old_rate": 21.49
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_custom_reverse_https",
+      "old_ok": 33,
+      "old_total": 150,
+      "old_rate": 22.0
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_patchupmeterpreter_reverse_tcp_allports",
+      "old_ok": 27,
+      "old_total": 118,
+      "old_rate": 22.88
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_custom_reverse_tcp_dns",
+      "old_ok": 35,
+      "old_total": 150,
+      "old_rate": 23.33
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_custom_reverse_tcp_rc4_dns",
+      "old_ok": 37,
+      "old_total": 150,
+      "old_rate": 24.67
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_custom_reverse_tcp_allports",
+      "old_ok": 29,
+      "old_total": 117,
+      "old_rate": 24.79
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_meterpreter_reverse_tcp_allports",
+      "old_ok": 30,
+      "old_total": 120,
+      "old_rate": 25.0
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_meterpreter_reverse_tcp_rc4_dns",
+      "old_ok": 42,
+      "old_total": 150,
+      "old_rate": 28.0
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_meterpreter_reverse_tcp_dns",
+      "old_ok": 46,
+      "old_total": 150,
+      "old_rate": 30.67
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_patchupmeterpreter_reverse_tcp_rc4_dns",
+      "old_ok": 48,
+      "old_total": 150,
+      "old_rate": 32.0
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_vncinject_reverse_tcp_dns",
+      "old_ok": 49,
+      "old_total": 150,
+      "old_rate": 32.67
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_shell_reverse_tcp_rc4_dns",
+      "old_ok": 54,
+      "old_total": 150,
+      "old_rate": 36.0
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_shell_reverse_tcp_dns",
+      "old_ok": 55,
+      "old_total": 150,
+      "old_rate": 36.67
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_patchupmeterpreter_reverse_tcp_dns",
+      "old_ok": 56,
+      "old_total": 150,
+      "old_rate": 37.33
+    },
+    {
+      "arch": "x86",
+      "payload": "windows_vncinject_reverse_tcp_rc4_dns",
+      "old_ok": 58,
+      "old_total": 150,
+      "old_rate": 38.67
+    }
+  ]
+}

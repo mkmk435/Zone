@@ -1,0 +1,16 @@
+FINITO DI DISASSEMBLARE
+SYMBOLIC DATA ANALYSIS...
+Payload: C:\Users\ubu\Desktop\Zone\original_pl\x86\windows_shell_bind_tcp.bin (328 B)
+SHA-256: 8ee7291c6e963370cbb3113fb552bea05b6fdaf117b2dc4b055f7207386a0e52
+Architecture: x86; base: 0x0; entry: 0x0
+String candidates: 0 (length in bytes, including the NUL terminator)
+Stopped: timeout after 205 steps in 60.766s (185 states pending, 0 deadended, 0 unconstrained, 4 errors)
+  Exploration error at 0x25: 'Unable to concretize address for load with the provided strategies.'
+  Exploration error at 0x23: 'Unable to concretize address for load with the provided strategies.'
+  Exploration error at 0x25: 'Unable to concretize address for load with the provided strategies.'
+  Exploration error at 0x23: 'Unable to concretize address for load with the provided strategies.'
+Data candidates are provisional: symbolic exploration has unresolved paths.
+[cache] saved 8ee7291c6e96 to data_cache.json
+Data sections: 0
+Data xrefs: 0
+Data analysis only; no payload written.

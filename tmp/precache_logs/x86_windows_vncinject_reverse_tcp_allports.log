@@ -1,0 +1,18 @@
+FINITO DI DISASSEMBLARE
+SYMBOLIC DATA ANALYSIS...
+Payload: C:\Users\ubu\Desktop\Zone\original_pl\x86\windows_vncinject_reverse_tcp_allports.bin (282 B)
+SHA-256: a92d1486513a41640166f131c4116ec391c1d4f52a85dffee4d43cc7a05e7b31
+Architecture: x86; base: 0x0; entry: 0x0
+String candidates: 0 (length in bytes, including the NUL terminator)
+Stopped: timeout after 179 steps in 60.000s (150 states pending, 0 deadended, 0 unconstrained, 9 errors)
+  Exploration error at 0x25: 'Unable to concretize address for load with the provided strategies.'
+  Exploration error at 0x25: 'Unable to concretize address for load with the provided strategies.'
+  Exploration error at 0x23: 'Unable to concretize address for load with the provided strategies.'
+  Exploration error at 0x25: 'Unable to concretize address for load with the provided strategies.'
+  Exploration error at 0x23: 'Unable to concretize address for load with the provided strategies.'
+  ... 4 additional exploration errors
+Data candidates are provisional: symbolic exploration has unresolved paths.
+[cache] saved a92d1486513a to data_cache.json
+Data sections: 0
+Data xrefs: 0
+Data analysis only; no payload written.

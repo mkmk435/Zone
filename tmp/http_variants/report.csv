@@ -1,0 +1,12 @@
+x86/windows_custom_reverse_http_xd.bin,reverse,OK,
+x86/windows_custom_reverse_http_xd_ebi.bin,reverse,OK,
+x86/windows_custom_reverse_http_xd_ebi_nop.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_xd_nop.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_xd.bin,reverse,OK,
+x86/windows_custom_reverse_http_xd_ebi.bin,reverse,OK,
+x86/windows_custom_reverse_http_xd_ebi_nop.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_xd_nop.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_xd.bin,reverse,OK,
+x86/windows_custom_reverse_http_xd_ebi.bin,reverse,OK,
+x86/windows_custom_reverse_http_xd_ebi_nop.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_xd_nop.bin,reverse,FAIL,exited rc=0
