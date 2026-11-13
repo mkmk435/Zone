@@ -1,0 +1,336 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['C:\\Users\\ubu\\Desktop\\Zone\\original_pl\\x64\\windows_x64_messagebox.bin', '-xd', '-wrap', '-eq', '-nop', '-bcf', '-ibp', '-o', 'C:\\Users\\ubu\\Desktop\\Zone\\tmp\\wrap_combos\\msg_c6_4.bin']
+[wrap] enabling short-branch expansion for assembly wrapping
+SYMBOLIC DATA ANALYSIS...
+[cache] hit 8de9534d5a83 in data_cache.json (3 sections, timeout=4.0s, created 2026-11-07T16:35:57)
+[cache] using the stored sections; --refresh-data-cache re-runs the symbolic search
+Data sections: 3
+  0xdf (11 B) ascii
+  0xff (17 B) ascii
+  0x116 (11 B) ascii
+Data xrefs: 3
+  0xda -> 0xdf (11 B)
+  0xfa -> 0xff (17 B)
+  0x111 -> 0x116 (11 B)
+REBUILT 126 INSTRUCTIONS (313/313 bytes)
+[extract] moving 3 section(s), 39 B
+  0xdf (11 B ascii) 'user32.dll'
+  0xff (17 B ascii) 'Hello, from MSF!'
+  0x116 (11 B ascii) 'MessageBox'
+[extract] references to rewrite: 3
+CREO LABEL TABLE
+LOOP
+JRCXZ
+[bad] expanded 2 short branch(es)
+ADDRESS DEL PRIMO XOR EAX,EAX:  0x12
+vecchia istruzione:  xor rdx, rdx
+nuova istruzione:  mov rdx, 0
+ADDRESS DEL PRIMO XOR EAX,EAX:  0x30
+vecchia istruzione:  xor rax, rax
+nuova istruzione:  mov rax, 0
+ADDRESS DEL PRIMO SUB:  0x38
+vecchia istruzione:  sub al, 0x20
+nuova istruzione:  add al, 0xe0
+ADDRESS DEL PRIMO XOR EAX,EAX:  0x77
+vecchia istruzione:  xor r9, r9
+nuova istruzione:  mov r9, 0
+ADDRESS DEL PRIMO SUB:  0xc5
+vecchia istruzione:  sub rsp, 0x20
+nuova istruzione:  add rsp, -0x20
+##########################################
+BYTES ADDED:  0xc
+##########################################
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+NEW_LEN > ORIG_LEN
+NEW_LEN > ORIG_LEN
+jne 1
+NEW_LEN > ORIG_LEN
+NEW_LEN > ORIG_LEN
+NEW_LEN > ORIG_LEN
+NEW_LEN > ORIG_LEN
+NEW_LEN > ORIG_LEN
+NEW_LEN > ORIG_LEN
+NEW_LEN > ORIG_LEN
+NEW_LEN > ORIG_LEN
+NEW_LEN > ORIG_LEN
+NEW_LEN > ORIG_LEN
+NEW_LEN > ORIG_LEN
+NEW_LEN > ORIG_LEN
+ITERANDO: num_iterazioni:  1
+UPDATE INSTR
+NEW_LEN > ORIG_LEN
+ITERANDO: num_iterazioni:  2
+UPDATE INSTR
+REG:  rcx
+CODE:  pushf;cmp rcx, rcx;popf;je 0x20
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r11
+CODE:  pushf;push r11; mov r11, 78;or r11, 0;cmp r11, 78; pop r11;popf;je 0x53
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r14
+CODE:  pushf;push r14;mov r14, 250;test r14, r14; pop r14;popf;je 0x7a
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+NEW_LEN > ORIG_LEN
+ITERANDO: num_iterazioni:  1
+UPDATE INSTR
+REG:  r11
+CODE:  pushf;push r11;mov r11, 125;and r11, 0xffffffffffffffff;cmp r11, 125; pop r11;popf;je 0xaf
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+NEW_LEN > ORIG_LEN
+ITERANDO: num_iterazioni:  1
+UPDATE INSTR
+REG:  rdi
+CODE:  pushf;push rdi;mov rdi, 252;and rdi, 0xffffffffffffffff;cmp rdi, 252; pop rdi;popf;je 0xda
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r12
+CODE:  pushf;push r12;mov r12, 61;cmp r12, 61;pop r12;popf;je 0xf3
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+NEW_LEN > ORIG_LEN
+ITERANDO: num_iterazioni:  1
+UPDATE INSTR
+REG:  r8
+CODE:  pushf;push r8;push 137;pop r8;cmp r8, 137; pop r8;popf;je 0x112
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  rax
+CODE:  pushf;push rax; mov rax, 24;neg rax;neg rax;cmp rax, 24; pop rax;popf;je 0x13f
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r10
+CODE:  pushf;push r10;mov r10, 188;lea r10, [r10+0];cmp r10, 188; pop r10;popf;je 0x15e
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  rsi
+CODE:  pushf;push rsi;sub rsi, rsi;cmp rsi, 0; pop rsi;popf;je 0x166
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r9
+CODE:  pushf;push r9;push 182;pop r9;cmp r9, 182; pop r9;popf;je 0x1a4
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r12
+CODE:  pushf;push r12;mov r12, 216;lea r12, [r12+0];cmp r12, 216; pop r12;popf;je 0x1d4
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  rbx
+CODE:  pushf;push rbx;mov rbx, 142;cmp rbx, 142;pop rbx;popf;je 0x1ec
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+NEW_LEN > ORIG_LEN
+ITERANDO: num_iterazioni:  1
+UPDATE INSTR
+REG:  r12
+CODE:  pushf;push r12;mov r12, 82;lea r12, [r12+0];cmp r12, 82; pop r12;popf;je 0x20f
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r8
+CODE:  pushf;push r8; mov r8, 8;neg r8;neg r8;cmp r8, 8; pop r8;popf;je 0x22f
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  rdx
+CODE:  pushf;push rdx;sub rdx, rdx;cmp rdx, 0; pop rdx;popf;je 0x239
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r14
+CODE:  pushf;push r14; xor r14, r14;cmp r14, 0; pop r14;popf;je 0x266
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r8
+CODE:  pushf;push r8;mov r8, 148;and r8, 0xffffffffffffffff;cmp r8, 148; pop r8;popf;je 0x290
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r11
+CODE:  pushf;push r11;mov r11, 36;test r11, r11; pop r11;popf;je 0x2d5
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r13
+CODE:  pushf;push r13;sub r13, r13;cmp r13, 0; pop r13;popf;je 0x304
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  rsi
+CODE:  pushf;push rsi;sub rsi, rsi;cmp rsi, 0; pop rsi;popf;je 0x315
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r13
+CODE:  pushf;push r13;sub r13, r13;cmp r13, 0; pop r13;popf;je 0x32a
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+NEW_LEN > ORIG_LEN
+ITERANDO: num_iterazioni:  1
+UPDATE INSTR
+REG:  r11
+CODE:  pushf;push r11; mov r11, 230;neg r11;neg r11;cmp r11, 230; pop r11;popf;je 0x377
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  rdi
+CODE:  pushf;push rdi; mov rdi, 88;neg rdi;neg rdi;cmp rdi, 88; pop rdi;popf;je 0x395
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  rbx
+CODE:  pushf;push rbx;mov rbx, 245;cmp rbx, 245;pop rbx;popf;je 0x3ad
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r8
+CODE:  pushf;cmp r8, r8;popf;je 0x3b0
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  rdi
+CODE:  pushf;push rdi;sub rdi, rdi;cmp rdi, 0; pop rdi;popf;je 0x3c9
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+NEW_LEN > ORIG_LEN
+ITERANDO: num_iterazioni:  1
+UPDATE INSTR
+REG:  rcx
+CODE:  pushf;push rcx; mov rcx, 75;or rcx, 0;cmp rcx, 75; pop rcx;popf;je 0x3f6
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  rbx
+CODE:  pushf;push rbx;mov rbx, 123;lea rbx, [rbx+0];cmp rbx, 123; pop rbx;popf;je 0x428
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r9
+CODE:  pushf;push r9;mov r9, 41;test r9, r9; pop r9;popf;je 0x465
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r8
+CODE:  pushf;push r8;push 210;pop r8;cmp r8, 210; pop r8;popf;je 0x491
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  rsi
+CODE:  pushf;push rsi;sub rsi, rsi;cmp rsi, 0; pop rsi;popf;je 0x4b3
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  rcx
+CODE:  pushf;push rcx;mov rcx, 89;test rcx, rcx; pop rcx;popf;je 0x4ca
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r9
+CODE:  pushf;push r9; mov r9, 35;neg r9;neg r9;cmp r9, 35; pop r9;popf;je 0x4f3
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  rdi
+CODE:  pushf;push rdi;sub rdi, rdi;cmp rdi, 0; pop rdi;popf;je 0x513
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r15
+CODE:  pushf;push r15;mov r15, 27;add r15, 0;cmp r15, 27; pop r15;popf;je 0x53a
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r10
+CODE:  pushf;push r10;push 239;pop r10;cmp r10, 239; pop r10;popf;je 0x556
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  rdx
+CODE:  pushf;push rdx;mov rdx, 159;sub rdx, 0;cmp rdx, 159; pop rdx;popf;je 0x57b
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+NEW_LEN > ORIG_LEN
+NEW_LEN > ORIG_LEN
+ITERANDO: num_iterazioni:  1
+UPDATE INSTR
+[wrap] expanding the remaining loop/jcxz branches
+[bad] expanded 0 short branch(es)
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+[extract] code 6483 B + pad 13 B + data 39 B = 6535 B
+[extract] data 0xdf -> 0x1960 (11 B)
+[extract] data 0xff -> 0x196b (17 B)
+[extract] data 0x116 -> 0x197c (11 B)
+[extract] ref 0xda (now 0x1546): lea rcx, [rip + 0x413] -> 0x1960
+[extract] ref 0xfa (now 0x105f): lea rdx, [rip + 0x905] -> 0x196b
+[extract] ref 0x111 (now 0x16be): lea r8, [rip + 0x2b7] -> 0x197c
+[wrap] 836 instruction(s) hidden in 467 container(s), 55 raw, 113 ghost, 73 junk block(s): 2320 -> 6483 bytes
+Output: C:\Users\ubu\Desktop\Zone\tmp\wrap_combos\msg_c6_4.bin
+FINE

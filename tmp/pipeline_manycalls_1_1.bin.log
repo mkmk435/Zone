@@ -1,0 +1,19 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['tmp/pipeline_manycalls_1_1.bin.in', '-wrap', '-eq', '-nop', '-o', 'tmp/pipeline_manycalls_1_1.bin']
+[wrap] enabling short-branch expansion for assembly wrapping
+CREO JUMP TABLE
+CREO LABEL TABLE
+[bad] expanded 0 short branch(es)
+ADDRESS DEL PRIMO XOR EAX,EAX:  0x7
+vecchia istruzione:  xor r11d, r11d
+nuova istruzione:  mov r11d, 0
+##########################################
+BYTES ADDED:  0x3
+##########################################
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+[wrap] 17 instruction(s) hidden in 11 container(s), 1 raw, 0 ghost, 3 junk block(s): 58 -> 142 bytes
+FINE

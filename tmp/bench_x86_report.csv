@@ -1,0 +1,170 @@
+x86/windows_custom_reverse_http_bcf_1.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_bcf_10.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_bcf_2.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_bcf_3.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_bcf_4.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_bcf_5.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_bcf_6.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_bcf_7.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_bcf_8.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_bcf_9.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_eq_1.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_10.bin,reverse,OK,
+x86/windows_custom_reverse_http_eq_2.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_3.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_4.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_5.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_6.bin,reverse,OK,
+x86/windows_custom_reverse_http_eq_7.bin,reverse,OK,
+x86/windows_custom_reverse_http_eq_8.bin,reverse,FAIL,exited rc=3221225501
+x86/windows_custom_reverse_http_eq_9.bin,reverse,FAIL,exited rc=3221225501
+x86/windows_custom_reverse_http_eq_bcf_1.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_eq_bcf_10.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_eq_bcf_2.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_bcf_3.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_bcf_4.bin,reverse,FAIL,exited rc=2147483652
+x86/windows_custom_reverse_http_eq_bcf_5.bin,reverse,FAIL,exited rc=3221225622
+x86/windows_custom_reverse_http_eq_bcf_6.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_eq_bcf_7.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_eq_bcf_8.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_eq_bcf_9.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_eq_ibp_1.bin,reverse,FAIL,timeout
+x86/windows_custom_reverse_http_eq_ibp_10.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_ibp_2.bin,reverse,FAIL,timeout
+x86/windows_custom_reverse_http_eq_ibp_3.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_ibp_4.bin,reverse,FAIL,timeout
+x86/windows_custom_reverse_http_eq_ibp_5.bin,reverse,FAIL,timeout
+x86/windows_custom_reverse_http_eq_ibp_6.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_ibp_7.bin,reverse,FAIL,timeout
+x86/windows_custom_reverse_http_eq_ibp_8.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_ibp_9.bin,reverse,FAIL,exited rc=3221225622
+x86/windows_custom_reverse_http_eq_nop_bcf_1.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_nop_bcf_10.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_eq_nop_bcf_2.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_eq_nop_bcf_3.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_nop_bcf_4.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_nop_bcf_5.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_eq_nop_bcf_6.bin,reverse,FAIL,exited rc=3221225622
+x86/windows_custom_reverse_http_eq_nop_bcf_7.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_eq_nop_bcf_8.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_nop_bcf_9.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_nop_ibp_1.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_nop_ibp_10.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_nop_ibp_2.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_nop_ibp_3.bin,reverse,FAIL,timeout
+x86/windows_custom_reverse_http_eq_nop_ibp_4.bin,reverse,FAIL,timeout
+x86/windows_custom_reverse_http_eq_nop_ibp_5.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_nop_ibp_6.bin,reverse,FAIL,exited rc=3221225501
+x86/windows_custom_reverse_http_eq_nop_ibp_7.bin,reverse,FAIL,timeout
+x86/windows_custom_reverse_http_eq_nop_ibp_8.bin,reverse,FAIL,exited rc=3221225725
+x86/windows_custom_reverse_http_eq_nop_ibp_9.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_nop_pii_1.bin,reverse,FAIL,exited rc=2147483652
+x86/windows_custom_reverse_http_eq_nop_pii_10.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_nop_pii_2.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_nop_pii_3.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_eq_nop_pii_4.bin,reverse,FAIL,exited rc=3221225612
+x86/windows_custom_reverse_http_eq_nop_pii_5.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_nop_pii_6.bin,reverse,FAIL,exited rc=2147483652
+x86/windows_custom_reverse_http_eq_nop_pii_7.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_nop_pii_8.bin,reverse,FAIL,timeout
+x86/windows_custom_reverse_http_eq_nop_pii_9.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_pii_1.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_pii_10.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_pii_2.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_pii_3.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_pii_4.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_pii_5.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_pii_6.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_pii_7.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_eq_pii_8.bin,reverse,FAIL,exited rc=2147483652
+x86/windows_custom_reverse_http_eq_pii_9.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_ibp_1.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_ibp_10.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_ibp_2.bin,reverse,FAIL,timeout
+x86/windows_custom_reverse_http_ibp_3.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_ibp_4.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_ibp_5.bin,reverse,FAIL,timeout
+x86/windows_custom_reverse_http_ibp_6.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_ibp_7.bin,reverse,FAIL,exited rc=3221225501
+x86/windows_custom_reverse_http_ibp_8.bin,reverse,FAIL,exited rc=3221225725
+x86/windows_custom_reverse_http_ibp_9.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_nop_1.bin,reverse,FAIL,timeout
+x86/windows_custom_reverse_http_nop_10.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_nop_2.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_nop_3.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_nop_4.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_nop_5.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_nop_6.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_nop_7.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_nop_8.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_nop_9.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_nop_bcf_1.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_nop_bcf_10.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_nop_bcf_2.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_nop_bcf_3.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_nop_bcf_4.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_nop_bcf_5.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_nop_bcf_6.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_nop_bcf_7.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_nop_bcf_8.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_nop_bcf_9.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_nop_eq_1.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_nop_eq_10.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_nop_eq_2.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_nop_eq_3.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_nop_eq_4.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_nop_eq_5.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_nop_eq_6.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_nop_eq_7.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_nop_eq_8.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_nop_eq_9.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_nop_ibp_1.bin,reverse,FAIL,timeout
+x86/windows_custom_reverse_http_nop_ibp_10.bin,reverse,FAIL,timeout
+x86/windows_custom_reverse_http_nop_ibp_2.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_nop_ibp_3.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_nop_ibp_4.bin,reverse,FAIL,timeout
+x86/windows_custom_reverse_http_nop_ibp_5.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_nop_ibp_6.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_nop_ibp_7.bin,reverse,FAIL,exited rc=3221225725
+x86/windows_custom_reverse_http_nop_ibp_8.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_nop_ibp_9.bin,reverse,FAIL,timeout
+x86/windows_custom_reverse_http_nop_pii_1.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_nop_pii_10.bin,reverse,FAIL,timeout
+x86/windows_custom_reverse_http_nop_pii_2.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_nop_pii_3.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_nop_pii_4.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_nop_pii_5.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_nop_pii_6.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_nop_pii_7.bin,reverse,FAIL,exited rc=3221225501
+x86/windows_custom_reverse_http_nop_pii_8.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_nop_pii_9.bin,reverse,FAIL,exited rc=0
+x86/windows_custom_reverse_http_pii_1.bin,reverse,FAIL,exited rc=3221225622
+x86/windows_custom_reverse_http_pii_10.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_pii_2.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_pii_3.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_pii_4.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_pii_5.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_pii_6.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_pii_7.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_pii_8.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_pii_9.bin,reverse,FAIL,exited rc=3221225477
+x86/windows_custom_reverse_http_xd_1.bin,reverse,OK,
+x86/windows_custom_reverse_http_xd_10.bin,reverse,OK,
+x86/windows_custom_reverse_http_xd_2.bin,reverse,OK,
+x86/windows_custom_reverse_http_xd_3.bin,reverse,OK,
+x86/windows_custom_reverse_http_xd_4.bin,reverse,OK,
+x86/windows_custom_reverse_http_xd_5.bin,reverse,OK,
+x86/windows_custom_reverse_http_xd_6.bin,reverse,OK,
+x86/windows_custom_reverse_http_xd_7.bin,reverse,OK,
+x86/windows_custom_reverse_http_xd_8.bin,reverse,OK,
+x86/windows_custom_reverse_http_xd_9.bin,reverse,OK,
+x86/windows_custom_reverse_http_xd_ebi_1.bin,reverse,OK,
+x86/windows_custom_reverse_http_xd_ebi_10.bin,reverse,OK,
+x86/windows_custom_reverse_http_xd_ebi_2.bin,reverse,OK,
+x86/windows_custom_reverse_http_xd_ebi_3.bin,reverse,OK,
+x86/windows_custom_reverse_http_xd_ebi_4.bin,reverse,OK,
+x86/windows_custom_reverse_http_xd_ebi_5.bin,reverse,OK,
+x86/windows_custom_reverse_http_xd_ebi_6.bin,reverse,OK,
+x86/windows_custom_reverse_http_xd_ebi_7.bin,reverse,OK,
+x86/windows_custom_reverse_http_xd_ebi_8.bin,reverse,OK,
+x86/windows_custom_reverse_http_xd_ebi_9.bin,reverse,OK,

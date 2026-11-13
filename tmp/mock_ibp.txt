@@ -1,0 +1,12 @@
+```asm
+_start:
+L_0:
+    mov eax, 0x1234
+    jmp block_a
+block_b:
+    mov dword ptr [rcx], eax
+    ret
+block_a:
+    add eax, 1
+    jmp block_b
+```

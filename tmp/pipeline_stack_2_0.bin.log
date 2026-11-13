@@ -1,0 +1,29 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['tmp/pipeline_stack_2_0.bin.in', '-wrap', '-bcf', '-o', 'tmp/pipeline_stack_2_0.bin']
+[wrap] enabling short-branch expansion for assembly wrapping
+CREO JUMP TABLE
+CREO LABEL TABLE
+[bad] expanded 0 short branch(es)
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r8
+CODE:  pushf;push r8;mov r8, 36;lea r8, [r8+0];cmp r8, 36; pop r8;popf;je 0x3f
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  rdi
+CODE:  pushf;push rdi;mov rdi, 220;sub rdi, 0;cmp rdi, 220; pop rdi;popf;je 0x5d
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+[wrap] 27 instruction(s) hidden in 15 container(s), 5 raw, 4 ghost, 3 junk block(s): 102 -> 258 bytes
+FINE

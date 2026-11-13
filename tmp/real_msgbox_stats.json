@@ -1,0 +1,47 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "eq",
+  "arch": "x64",
+  "started_at": "2026-11-12T21:29:09.674286+00:00",
+  "finished_at": "2026-11-12T21:30:41.000019+00:00",
+  "ok": true,
+  "error": null,
+  "timing": {
+    "wall_seconds": 91.326,
+    "api_seconds": 91.268,
+    "local_seconds": 0.057
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 0,
+  "usage": {
+    "prompt_tokens": 3545,
+    "completion_tokens": 21143,
+    "total_tokens": 24688,
+    "cache_hit_tokens": 3328,
+    "cache_miss_tokens": 217,
+    "reasoning_tokens": 20061
+  },
+  "cost_usd": {
+    "total": 0.012728334,
+    "cache_hit": 9.984e-06,
+    "cache_miss": 3.255e-05,
+    "output": 0.0126858,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.9388,
+  "reasoning_ratio": 0.9488,
+  "payload": {
+    "code_bytes": 359,
+    "data_bytes": 39,
+    "instructions": 133,
+    "similarity": 0.9189
+  },
+  "errors": [],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

@@ -1,0 +1,103 @@
+arch,payload,is_low,old_original_ok,old_original_total,old_original_rate_pct,old_5001_ok,old_5001_total,old_5001_rate_pct,old_getpc_ok,old_getpc_total,old_getpc_rate_pct,new_morph_ok,new_morph_total,new_morph_rate_pct,new_xd_ok,new_xd_total,new_xd_rate_pct,new_all_ok,new_all_total,new_all_rate_pct,baseline_ok,baseline_total,baseline_rate_pct,delta_original_to_new_pct,delta_getpc_to_new_pct,delta_original_to_xd_pct,delta_getpc_to_xd_pct,generated_ok,generation_fail,tested,notes
+x64,windows_x64_custom_bind_tcp,no,120,145,82.8,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x64,windows_x64_custom_bind_tcp_rc4,no,127,149,85.2,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x64,windows_x64_custom_bind_tcp_uuid,no,126,149,84.6,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x64,windows_x64_custom_reverse_http,yes,15,147,10.2,147,150,98.0,131,150,87.3,143,150,95.3,20,20,100.0,163,170,95.9,3,3,100.0,+85.7,+8.5,+89.8,+12.7,170,0,170,basso working rate; miglioramento +85.7 pp
+x64,windows_x64_custom_reverse_https,yes,0,149,0.0,141,150,94.0,132,150,88.0,142,150,94.7,20,20,100.0,162,170,95.3,3,3,100.0,+95.3,+7.3,+100.0,+12.0,170,0,170,basso working rate; miglioramento +95.3 pp
+x64,windows_x64_custom_reverse_tcp,no,125,146,85.6,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x64,windows_x64_custom_reverse_tcp_rc4,no,129,150,86.0,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x64,windows_x64_custom_reverse_tcp_uuid,no,122,147,83.0,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x64,windows_x64_custom_reverse_winhttp,yes,0,149,0.0,10,150,6.7,140,150,93.3,134,150,89.3,20,20,100.0,154,170,90.6,3,3,100.0,+90.6,-2.7,+100.0,+6.7,170,0,170,basso working rate; miglioramento +90.6 pp
+x64,windows_x64_custom_reverse_winhttps,yes,0,150,0.0,10,150,6.7,10,150,6.7,10,150,6.7,20,20,100.0,30,170,17.6,3,3,100.0,+17.6,+11.0,+100.0,+93.3,170,0,170,basso working rate; -xd recupera (getpc 6.7% -> 100.0%)
+x64,windows_x64_messagebox,yes,4,150,2.7,110,150,73.3,108,150,72.0,150,150,100.0,20,20,100.0,170,170,100.0,3,3,100.0,+97.3,+28.0,+97.3,+28.0,170,0,170,basso working rate; old harness non rilevava il dialog; miglioramento +97.3 pp
+x64,windows_x64_meterpreter_bind_tcp,no,126,147,85.7,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x64,windows_x64_meterpreter_bind_tcp_rc4,no,127,150,84.7,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x64,windows_x64_meterpreter_bind_tcp_uuid,no,123,150,82.0,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x64,windows_x64_meterpreter_reverse_http,yes,0,149,0.0,7,150,4.7,133,150,88.7,145,150,96.7,20,20,100.0,165,170,97.1,3,3,100.0,+97.1,+8.4,+100.0,+11.3,170,0,170,basso working rate; miglioramento +97.1 pp
+x64,windows_x64_meterpreter_reverse_https,yes,0,149,0.0,10,150,6.7,132,150,88.0,137,150,91.3,20,20,100.0,157,170,92.4,3,3,100.0,+92.4,+4.4,+100.0,+12.0,170,0,170,basso working rate; miglioramento +92.4 pp
+x64,windows_x64_meterpreter_reverse_tcp,no,128,149,85.9,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x64,windows_x64_meterpreter_reverse_tcp_rc4,no,128,150,85.3,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x64,windows_x64_meterpreter_reverse_tcp_uuid,no,126,150,84.0,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x64,windows_x64_meterpreter_reverse_winhttp,yes,0,149,0.0,123,150,82.0,132,150,88.0,143,150,95.3,20,20,100.0,163,170,95.9,3,3,100.0,+95.9,+7.9,+100.0,+12.0,170,0,170,basso working rate; miglioramento +95.9 pp
+x64,windows_x64_meterpreter_reverse_winhttps,yes,2,150,1.3,124,150,82.7,115,150,76.7,124,150,82.7,20,20,100.0,144,170,84.7,3,3,100.0,+83.4,+8.0,+98.7,+23.3,170,0,170,basso working rate; miglioramento +83.4 pp
+x64,windows_x64_pingback_reverse_tcp,no,125,148,84.5,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x64,windows_x64_shell_bind_tcp,no,130,149,87.2,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x64,windows_x64_shell_bind_tcp_rc4,no,129,150,86.0,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x64,windows_x64_shell_bind_tcp_uuid,no,107,150,71.3,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x64,windows_x64_shell_reverse_tcp,no,128,150,85.3,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x64,windows_x64_shell_reverse_tcp_rc4,no,129,150,86.0,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x64,windows_x64_shell_reverse_tcp_uuid,no,124,148,83.8,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x64,windows_x64_vncinject_bind_tcp,no,127,150,84.7,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x64,windows_x64_vncinject_bind_tcp_rc4,no,129,149,86.6,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x64,windows_x64_vncinject_bind_tcp_uuid,no,128,150,85.3,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x64,windows_x64_vncinject_reverse_http,yes,0,150,0.0,4,150,2.7,134,150,89.3,145,150,96.7,20,20,100.0,165,170,97.1,3,3,100.0,+97.1,+7.7,+100.0,+10.7,170,0,170,basso working rate; miglioramento +97.1 pp
+x64,windows_x64_vncinject_reverse_https,yes,2,149,1.3,10,150,6.7,142,150,94.7,140,150,93.3,20,20,100.0,160,170,94.1,3,3,100.0,+92.8,-0.5,+98.7,+5.3,170,0,170,basso working rate; miglioramento +92.8 pp
+x64,windows_x64_vncinject_reverse_tcp,no,125,149,83.9,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x64,windows_x64_vncinject_reverse_tcp_rc4,no,130,150,86.7,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x64,windows_x64_vncinject_reverse_tcp_uuid,no,109,149,73.2,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x64,windows_x64_vncinject_reverse_winhttp,yes,0,150,0.0,10,150,6.7,139,150,92.7,141,150,94.0,20,20,100.0,161,170,94.7,3,3,100.0,+94.7,+2.0,+100.0,+7.3,170,0,170,basso working rate; miglioramento +94.7 pp
+x64,windows_x64_vncinject_reverse_winhttps,yes,0,150,0.0,10,150,6.7,10,150,6.7,10,150,6.7,20,20,100.0,30,170,17.6,3,3,100.0,+17.6,+11.0,+100.0,+93.3,170,0,170,basso working rate; -xd recupera (getpc 6.7% -> 100.0%)
+x86,windows_custom_bind_nonx_tcp,yes,1,150,0.7,0,0,,0,0,,0,75,0.0,10,10,100.0,10,85,11.8,3,3,100.0,+11.1,,+99.3,,170,0,85,basso working rate
+x86,windows_custom_bind_tcp,no,123,150,82.0,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_custom_bind_tcp_rc4,no,126,150,84.0,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_custom_bind_tcp_uuid,no,125,150,83.3,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_custom_reverse_http,yes,0,150,0.0,0,0,,0,0,,0,75,0.0,10,10,100.0,10,85,11.8,3,3,100.0,+11.8,,+100.0,,170,0,85,basso working rate
+x86,windows_custom_reverse_https,yes,33,150,22.0,0,0,,0,0,,22,75,29.3,10,10,100.0,32,85,37.6,3,3,100.0,+15.6,,+78.0,,170,0,85,basso working rate
+x86,windows_custom_reverse_nonx_tcp,yes,0,150,0.0,0,0,,0,0,,0,75,0.0,10,10,100.0,10,85,11.8,3,3,100.0,+11.8,,+100.0,,170,0,85,basso working rate
+x86,windows_custom_reverse_tcp,no,131,150,87.3,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_custom_reverse_tcp_allports,yes,29,117,24.8,0,0,,0,0,,59,75,78.7,10,10,100.0,69,85,81.2,3,3,100.0,+56.4,,+75.2,,170,0,85,basso working rate; miglioramento +56.4 pp
+x86,windows_custom_reverse_tcp_dns,yes,35,150,23.3,0,0,,0,0,,13,75,17.3,10,10,100.0,23,85,27.1,3,3,100.0,+3.7,,+76.7,,170,0,85,basso working rate
+x86,windows_custom_reverse_tcp_rc4,no,135,150,90.0,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_custom_reverse_tcp_rc4_dns,yes,37,150,24.7,0,0,,0,0,,21,75,28.0,10,10,100.0,31,85,36.5,3,3,100.0,+11.8,,+75.3,,170,0,85,basso working rate
+x86,windows_custom_reverse_tcp_uuid,no,126,150,84.0,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_custom_reverse_winhttp,yes,32,150,21.3,0,0,,0,0,,0,75,0.0,0,10,0.0,0,85,0.0,3,3,100.0,-21.3,,-21.3,,170,0,85,basso working rate; regressione -21.3 pp
+x86,windows_custom_reverse_winhttps,yes,25,150,16.7,0,0,,0,0,,30,75,40.0,10,10,100.0,40,85,47.1,3,3,100.0,+30.4,,+83.3,,170,0,85,basso working rate; miglioramento +30.4 pp
+x86,windows_messagebox,yes,0,150,0.0,0,0,,0,0,,68,75,90.7,10,10,100.0,78,85,91.8,3,3,100.0,+91.8,,+100.0,,170,0,85,basso working rate; old harness non rilevava il dialog; miglioramento +91.8 pp
+x86,windows_meterpreter_bind_nonx_tcp,yes,0,150,0.0,0,0,,0,0,,0,75,0.0,10,10,100.0,10,85,11.8,3,3,100.0,+11.8,,+100.0,,170,0,85,basso working rate
+x86,windows_meterpreter_bind_tcp_rc4,no,127,150,84.7,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_meterpreter_bind_tcp_uuid,no,102,110,92.7,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_meterpreter_reverse_nonx_tcp,yes,1,150,0.7,0,0,,0,0,,0,75,0.0,10,10,100.0,10,85,11.8,3,3,100.0,+11.1,,+99.3,,170,0,85,basso working rate
+x86,windows_meterpreter_reverse_tcp_allports,yes,30,120,25.0,0,0,,0,0,,58,75,77.3,10,10,100.0,68,85,80.0,3,3,100.0,+55.0,,+75.0,,170,0,85,basso working rate; miglioramento +55.0 pp
+x86,windows_meterpreter_reverse_tcp_dns,yes,46,150,30.7,0,0,,0,0,,19,75,25.3,10,10,100.0,29,85,34.1,3,3,100.0,+3.5,,+69.3,,170,0,85,basso working rate
+x86,windows_meterpreter_reverse_tcp_rc4,no,128,150,85.3,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_meterpreter_reverse_tcp_rc4_dns,yes,42,150,28.0,0,0,,0,0,,18,75,24.0,10,10,100.0,28,85,32.9,3,3,100.0,+4.9,,+72.0,,170,0,85,basso working rate
+x86,windows_meterpreter_reverse_tcp_uuid,no,114,150,76.0,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_meterpreter_reverse_winhttp,yes,17,150,11.3,0,0,,0,0,,0,75,0.0,0,10,0.0,0,85,0.0,3,3,100.0,-11.3,,-11.3,,170,0,85,basso working rate; regressione -11.3 pp
+x86,windows_meterpreter_reverse_winhttps,yes,2,150,1.3,0,0,,0,0,,1,75,1.3,10,10,100.0,11,85,12.9,3,3,100.0,+11.6,,+98.7,,170,0,85,basso working rate
+x86,windows_patchupmeterpreter_bind_nonx_tcp,yes,0,150,0.0,0,0,,0,0,,0,75,0.0,10,10,100.0,10,85,11.8,3,3,100.0,+11.8,,+100.0,,170,0,85,basso working rate
+x86,windows_patchupmeterpreter_bind_tcp,no,113,150,75.3,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_patchupmeterpreter_bind_tcp_rc4,no,124,150,82.7,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_patchupmeterpreter_bind_tcp_uuid,no,133,150,88.7,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_patchupmeterpreter_reverse_nonx_tcp,yes,1,150,0.7,0,0,,0,0,,0,75,0.0,10,10,100.0,10,85,11.8,3,3,100.0,+11.1,,+99.3,,170,0,85,basso working rate
+x86,windows_patchupmeterpreter_reverse_tcp,no,126,150,84.0,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_patchupmeterpreter_reverse_tcp_allports,yes,27,118,22.9,0,0,,0,0,,58,75,77.3,10,10,100.0,68,85,80.0,3,3,100.0,+57.1,,+77.1,,170,0,85,basso working rate; miglioramento +57.1 pp
+x86,windows_patchupmeterpreter_reverse_tcp_dns,yes,56,150,37.3,0,0,,0,0,,16,75,21.3,10,10,100.0,26,85,30.6,3,3,100.0,-6.7,,+62.7,,170,0,85,basso working rate; regressione -6.7 pp
+x86,windows_patchupmeterpreter_reverse_tcp_rc4,no,133,150,88.7,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_patchupmeterpreter_reverse_tcp_rc4_dns,yes,48,150,32.0,0,0,,0,0,,17,75,22.7,10,10,100.0,27,85,31.8,3,3,100.0,-0.2,,+68.0,,170,0,85,basso working rate
+x86,windows_patchupmeterpreter_reverse_tcp_uuid,no,112,150,74.7,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_pingback_bind_tcp,no,132,150,88.0,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_pingback_reverse_tcp,no,123,150,82.0,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_shell_bind_nonx_tcp,yes,0,150,0.0,0,0,,0,0,,0,75,0.0,10,10,100.0,10,85,11.8,3,3,100.0,+11.8,,+100.0,,170,0,85,basso working rate
+x86,windows_shell_bind_tcp,yes,25,125,20.0,0,0,,0,0,,55,75,73.3,10,10,100.0,65,85,76.5,3,3,100.0,+56.5,,+80.0,,170,0,85,basso working rate; miglioramento +56.5 pp
+x86,windows_shell_bind_tcp_rc4,no,118,150,78.7,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_shell_bind_tcp_uuid,no,131,150,87.3,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_shell_reverse_nonx_tcp,yes,0,150,0.0,0,0,,0,0,,0,75,0.0,10,10,100.0,10,85,11.8,3,3,100.0,+11.8,,+100.0,,170,0,85,basso working rate
+x86,windows_shell_reverse_tcp,yes,22,121,18.2,0,0,,0,0,,56,75,74.7,10,10,100.0,66,85,77.6,3,3,100.0,+59.5,,+81.8,,170,0,85,basso working rate; miglioramento +59.5 pp
+x86,windows_shell_reverse_tcp_allports,yes,26,121,21.5,0,0,,0,0,,57,75,76.0,10,10,100.0,67,85,78.8,3,3,100.0,+57.3,,+78.5,,170,0,85,basso working rate; miglioramento +57.3 pp
+x86,windows_shell_reverse_tcp_dns,yes,55,150,36.7,0,0,,0,0,,14,75,18.7,10,10,100.0,24,85,28.2,3,3,100.0,-8.4,,+63.3,,170,0,85,basso working rate; regressione -8.4 pp
+x86,windows_shell_reverse_tcp_rc4,no,130,150,86.7,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_shell_reverse_tcp_rc4_dns,yes,54,150,36.0,0,0,,0,0,,18,75,24.0,10,10,100.0,28,85,32.9,3,3,100.0,-3.1,,+64.0,,170,0,85,basso working rate
+x86,windows_shell_reverse_tcp_uuid,no,109,150,72.7,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_vncinject_bind_nonx_tcp,yes,0,150,0.0,0,0,,0,0,,0,75,0.0,10,10,100.0,10,85,11.8,3,3,100.0,+11.8,,+100.0,,170,0,85,basso working rate
+x86,windows_vncinject_bind_tcp,no,116,150,77.3,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_vncinject_bind_tcp_rc4,no,116,150,77.3,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_vncinject_bind_tcp_uuid,no,134,150,89.3,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_vncinject_reverse_http,yes,0,150,0.0,0,0,,0,0,,2,75,2.7,10,10,100.0,12,85,14.1,3,3,100.0,+14.1,,+100.0,,170,0,85,basso working rate
+x86,windows_vncinject_reverse_nonx_tcp,yes,0,150,0.0,0,0,,0,0,,0,75,0.0,10,10,100.0,10,85,11.8,3,3,100.0,+11.8,,+100.0,,170,0,85,basso working rate
+x86,windows_vncinject_reverse_tcp,no,126,150,84.0,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_vncinject_reverse_tcp_allports,yes,20,123,16.3,0,0,,0,0,,56,75,74.7,10,10,100.0,66,85,77.6,3,3,100.0,+61.4,,+83.7,,170,0,85,basso working rate; miglioramento +61.4 pp
+x86,windows_vncinject_reverse_tcp_dns,yes,49,150,32.7,0,0,,0,0,,19,75,25.3,10,10,100.0,29,85,34.1,3,3,100.0,+1.5,,+67.3,,170,0,85,basso working rate
+x86,windows_vncinject_reverse_tcp_rc4,no,130,150,86.7,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_vncinject_reverse_tcp_rc4_dns,yes,58,150,38.7,0,0,,0,0,,21,75,28.0,10,10,100.0,31,85,36.5,3,3,100.0,-2.2,,+61.3,,170,0,85,basso working rate
+x86,windows_vncinject_reverse_tcp_uuid,no,130,150,86.7,0,0,,0,0,,0,0,,0,0,,0,0,,0,0,,,,,,0,0,0,
+x86,windows_vncinject_reverse_winhttp,yes,1,150,0.7,0,0,,0,0,,1,75,1.3,10,10,100.0,11,85,12.9,3,3,100.0,+12.3,,+99.3,,170,0,85,basso working rate

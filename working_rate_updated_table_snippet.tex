@@ -1,0 +1,33 @@
+\begin{table}[htbp]
+\centering
+\caption{Working rate by technique on the 49 low-rate payloads: old (no flags)
+vs new (\texttt{-xd -ebi} + technique). x64 has 13 payloads, x86 has 36.
+The mean row is the unweighted mean over the 15 techniques.
+Extraction only (no morphing) is 100.0\% on x64 and 94.4\% on x86.}
+\label{tab:working_rate_updated}
+\begin{tabular}{lcccccc}
+\toprule
+ & \multicolumn{2}{c}{x64} & \multicolumn{2}{c}{x86} & \multicolumn{2}{c}{$\Delta$ (pp)} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+Tecnica & old & new & old & new & x64 & x86 \\
+\midrule
+nop & 0.0\% & 77.7\% & 20.8\% & 22.2\% & +77.7 & +1.4 \\
+eq & 0.0\% & 100.0\% & 60.0\% & 57.8\% & +100.0 & -2.2 \\
+pii & 0.0\% & 84.6\% & 0.0\% & 25.0\% & +84.6 & +25.0 \\
+bcf & 0.0\% & 83.8\% & 18.3\% & 42.2\% & +83.8 & +23.9 \\
+ibp & 0.0\% & 83.1\% & 14.2\% & 23.9\% & +83.1 & +9.7 \\
+eq\_nop\_pii & 0.8\% & 65.4\% & 0.0\% & 5.0\% & +64.6 & +5.0 \\
+eq\_nop\_bcf & 0.0\% & 83.1\% & 11.9\% & 31.1\% & +83.1 & +19.2 \\
+eq\_nop\_ibp & 0.0\% & 74.6\% & 7.5\% & 11.1\% & +74.6 & +3.6 \\
+nop\_eq & 6.2\% & 78.5\% & 20.3\% & 22.2\% & +72.2 & +1.9 \\
+eq\_bcf & 7.0\% & 83.1\% & 22.2\% & 43.9\% & +76.0 & +21.7 \\
+eq\_ibp & 1.6\% & 83.8\% & 12.2\% & 26.1\% & +82.3 & +13.9 \\
+eq\_pii & 0.0\% & 84.6\% & 0.0\% & 25.0\% & +84.6 & +25.0 \\
+nop\_bcf & 0.0\% & 83.1\% & 17.2\% & 30.6\% & +83.1 & +13.3 \\
+nop\_ibp & 1.6\% & 70.8\% & 9.7\% & 17.2\% & +69.2 & +7.5 \\
+nop\_pii & 0.8\% & 66.9\% & 0.0\% & 5.0\% & +66.1 & +5.0 \\
+\midrule
+\textbf{Media} & 1.2\% & 80.2\% & 14.3\% & 25.9\% & +79.0 & +11.6 \\
+\bottomrule
+\end{tabular}
+\end{table}

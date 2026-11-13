@@ -1,0 +1,2 @@
+### attempt 1
+{"sections":[{"offset":223,"length":11,"kind":"ascii","text":"user32.dll"},{"offset":255,"length":17,"kind":"ascii","text":"Hello, from MSF!"},{"offset":278,"length":11,"kind":"ascii","text":"MessageBox"}]}

@@ -1,0 +1,50 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['tmp/pipeline_basic_3_1.bin.in', '-wrap', '-eq', '-nop', '-bcf', '-o', 'tmp/pipeline_basic_3_1.bin']
+[wrap] enabling short-branch expansion for assembly wrapping
+CREO JUMP TABLE
+CREO LABEL TABLE
+[bad] expanded 0 short branch(es)
+##########################################
+BYTES ADDED:  0x0
+##########################################
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r10
+CODE:  pushf;push r10;push 167;pop r10;cmp r10, 167; pop r10;popf;je 0x47
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r14
+CODE:  pushf;cmp r14, r14;popf;je 0x53
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r15
+CODE:  pushf;push r15;mov r15, 130;lea r15, [r15+0];cmp r15, 130; pop r15;popf;je 0x8c
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r11
+CODE:  pushf;push r11;mov r11, 37;cmp r11, 37;pop r11;popf;je 0xa5
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  rdi
+CODE:  pushf;cmp rdi, rdi;popf;je 0xaf
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+[wrap] 113 instruction(s) hidden in 73 container(s), 9 raw, 14 ghost, 13 junk block(s): 353 -> 1010 bytes
+FINE

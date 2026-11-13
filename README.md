@@ -9,6 +9,247 @@ Using this software against targets without prior mutual, explicit, and written 
 
 The author(s) and contributor(s) assume no liability and are not responsible for any misuse, damage, or legal consequences caused by this program.
 
+## LLM-assisted morphing (`--llm`)
+
+Zone can hand one of its techniques to a DeepSeek model instead of running the
+Python implementation.  The model receives a label-annotated assembly listing
+of the payload and must return the **complete morphed payload as assembly**;
+Zone assembles it with Keystone, appends the data blob itself, validates the
+result and retries with the exact error if the answer is broken.
+
+This is deliberately a full assembly rewrite, not a byte patch.  A local
+substitution changes instruction lengths, which changes every relative branch
+and every RIP-relative reference; labels let Keystone recompute all of them.
+
+```sh
+# x86-64
+python pobf.py payload.bin --llm -eq  -o out.bin
+python pobf.py payload.bin --llm -bcf --llm-verify messagebox -o out.bin
+python pobf.py payload.bin --llm -ibp --llm-shots 2 -o out.bin
+python pobf.py payload.bin --llm-data -o extracted.bin
+
+# x86 (32-bit)
+python pobf86.py payload.bin --llm -nop -o out.bin
+```
+
+Supported techniques in LLM mode: `-eq`, `-nop`, `-bcf`, `-ibp`.
+`-pii`, `-ip` and `-wrap` keep using the native implementation (their layout is
+part of the technique and is not delegated to the model yet).  Pass exactly one
+technique flag.  `--llm-technique eq` is an alternative spelling.
+
+The prompt includes worked examples.  `--llm-shots 1` (the default) sends the
+first example; `--llm-shots 2` or `3` sends more; `--llm-shots 0` disables the
+examples and leaves only the textual specification.  For `-ibp`, `--llm-shots 2`
+is recommended: the second example shows a helper block moved past the done
+block, and in testing it produced a larger permutation than the default single
+example.  The tool rejects an `-ibp` answer whose original instruction order is
+unchanged, so a no-op cannot be accepted as a successful permutation.
+
+### API key and model
+
+The key is read from `ZONE_LLM_API_KEY` or `DEEPSEEK_API_KEY`.  If neither is
+set and stdin is a terminal, Zone asks for it with a hidden prompt.  The key is
+never written to disk, to the prompt, or to the response dump.
+
+| Variable | Default | Meaning |
+|---|---|---|
+| `DEEPSEEK_API_KEY` / `ZONE_LLM_API_KEY` | — | API key |
+| `ZONE_LLM_MODEL` | `deepseek-flash` | Model id (`deepseek-v4-pro` also available) |
+| `ZONE_LLM_BASE_URL` / `DEEPSEEK_BASE_URL` | `https://api.deepseek.com/v1` | OpenAI-compatible base URL |
+| `ZONE_LLM_TIMEOUT` | `180` | HTTP timeout (seconds) |
+| `ZONE_LLM_MAX_TOKENS` | `32768` | Output token limit (reasoning tokens included) |
+
+If the model id is not available on the account, set
+`ZONE_LLM_MODEL` to one of the ids accepted by the API.  The account used
+during development accepts `deepseek-flash` (the default) and
+`deepseek-v4-pro`.  All values can also be passed on the command
+line (`--llm-model`, `--llm-base-url`, ...).
+
+`deepseek-flash` reasons before answering, and the reasoning tokens count
+against `--llm-max-tokens`.  A small budget can be spent entirely on
+reasoning, leaving an empty answer (`finish_reason=length`).  The default is
+therefore 32768; lower it only if you know the payload is small.
+
+### What Zone does around the model
+
+1. **Data extraction first.**  With `--llm`, `-xd` runs automatically (unless
+   `--llm-no-extract-data` is given).  Inline strings and getpc data cannot be
+   moved safely by a language model, so Zone moves them to the appended blob
+   and rewrites the references before building the prompt.  This is
+   preprocessing, not the selected morphing technique.
+2. **Canonical listing.**  Every direct branch target becomes a label
+   (`L_*`), every getpc return address becomes `RET_*`, and every reference
+   into the data blob becomes `DATA_*` / `DATA_STUB_*`.  The model never sees
+   absolute code addresses and never emits the data bytes.
+3. **Prompt.**  It contains the detailed technique specification, the
+   constraints (flags, stack, operand size, short branches, getpc adjacency,
+   string instructions, ...), a verified input/output example, and the payload
+   delimited as data.  The prompt is rebuilt for every retry with the exact
+   validation error and the rejected answer.
+4. **Assembly and validation.**  Keystone assembles the answer.  Zone checks
+   full disassembly coverage, branch targets on instruction boundaries, data
+   references, `RET_*` adjacency, return-instruction count, forbidden
+   instructions, and (per technique) that the original instructions were not
+   dropped or reordered.
+5. **Optional execution check.**  `--llm-verify messagebox` runs the output
+   through `ploader.exe` / `ploader86.exe` and waits for the `#32770` dialog.
+   This is the strongest check available; the default `static` mode does not
+   execute the payload.
+
+### LLM data classification (`--llm-data`)
+
+`--llm-data` is an alternative to the symbolic `-xd`: the model classifies
+which byte ranges are data, then the existing xref scanner and
+`Zone.extract_data()` machinery move those ranges and rewrite every reference.
+
+```powershell
+# classify + extract only (like -xd, but LLM-classified)
+python pobf.py payload.bin --llm-data -o out.bin
+
+# classify + extract, then morph with an LLM technique
+python pobf.py payload.bin --llm-data -eq -o out.bin
+
+# x86
+python pobf86.py payload86.bin --llm-data -o out86.bin
+```
+
+`--llm-data` implies `--llm`; it cannot be combined with `-xd`, `-fd` or
+`--llm-no-extract-data`.  It and `-xd` are alternatives, not a pipeline.
+
+The prompt contains a hex dump with ASCII, a linear disassembly, and
+candidate printable runs.  The model returns JSON only:
+
+```json
+{"sections":[{"offset":223,"length":11,"kind":"ascii","text":"user32.dll"}]}
+```
+
+The tool then:
+
+* checks offsets, lengths and overlaps;
+* locates references to each range with the existing xref scanner;
+* drops ranges with no code reference;
+* refuses to move a range whose references cannot be rewritten safely;
+* calls `extract_data()` and `finalize_data_refs()` on a fresh `Zone`, so a
+  rejected answer never corrupts the working payload.
+
+The model never relocates code and never rewrites a reference; that part stays
+deterministic.  `--llm-data-json <file>` saves the classified ranges, their
+xrefs and the token/cost statistics.  `--llm-shots` controls the worked
+examples in the data-classification prompt as well.
+
+On the x64 messagebox sample the model returned exactly the three strings
+(`user32.dll`, `Hello, from MSF!`, `MessageBox`, 39 bytes) in one 7.4 s /
+5,363-token request, and the extracted payload still displayed the dialog.
+
+Limits: the mode is capped at 64 KiB and is only a classifier; it does not
+prove that the extraction is semantically safe.  Use
+`--llm-verify messagebox` for the known sample, or your normal harness for
+other payloads.  A range without a code reference is dropped, and a payload
+with undecodable bytes plus an empty classification is rejected and retried.
+
+### Options
+
+| Option | Meaning |
+|---|---|
+| `--llm` | Enable LLM mode |
+| `--llm-technique <eq\|nop\|bcf\|ibp>` | Technique to request |
+| `--llm-shots <n>` | Number of worked examples in the prompt (default 1; 0 disables) |
+| `--llm-data` / `--llm-classify-data` | LLM data classification instead of `-xd` |
+| `--llm-data-json <file>` | Save classified ranges, xrefs and stats as JSON |
+| `--llm-retries <n>` | Generation attempts (default 3) |
+| `--llm-verify <static\|messagebox>` | Verification after assembly |
+| `--llm-no-extract-data` | Skip the automatic `-xd` preprocessing |
+| `--llm-min-similarity <float>` | Override the structural check floor |
+| `--llm-dump-prompt <file>` | Save the full prompt |
+| `--llm-dump-response <file>` | Save the last raw model response |
+| `--llm-mock-response <file>` | Offline answer (testing; no API call) |
+| `--llm-failed-output <file>` | Where to save the last rejected answer |
+| `--llm-stats <file>` | Save token/time/cost statistics as JSON |
+
+The data blob is appended by Zone after assembly and is checked byte for byte;
+a model answer that touches it is rejected.  `RET_*` labels must stay
+immediately after their `call`; an answer that separates them is rejected.
+
+### Statistics, time and cost
+
+Every `--llm` run ends with a statistics block.  It is printed **by default**;
+`--llm-stats <file>` only adds a JSON copy, it is not required to see the
+numbers.  A compact per-attempt line is also printed as soon as each API
+answer arrives:
+
+```
+====================================================================
+[llm] run statistics
+  model:      deepseek-flash (DeepSeek-V4.1-Flash-1017)
+  technique:  eq (x64)
+  attempts:   1 (1 API call(s), 0 rejected)
+  time:       1m 31.3s total (API 1m 31.3s, local 0.1s)
+  attempt 1:  91.3s, ok, similarity 0.92
+  tokens:     24,688 total = 3,545 input + 21,143 output
+              input: 3,328 cache hit + 217 cache miss (93.9% hit)
+              output: 21,143 (reasoning 20,061, 94.9%)
+  throughput: 231.7 output tokens/s (API time)
+  cost:       $0.012728 USD (off-peak)
+              input $0.000043 (hit $0.000010, miss $0.000033) + output $0.012686
+  payload:    359 code + 39 data bytes, 133 instructions
+  validation: ok, similarity 0.92
+====================================================================
+```
+
+`--llm-stats <file>` writes the same data as JSON (model, usage, per-call
+timings, cost breakdown, payload stats, errors).  Costs are estimates from the
+official DeepSeek price list (USD per 1M tokens):
+
+| Model | Input cache hit (off-peak / peak) | Input cache miss (off-peak / peak) | Output (off-peak / peak) |
+|---|---|---|---|
+| `deepseek-flash` | $0.003 / $0.006 | $0.15 / $0.30 | $0.60 / $1.20 |
+| `deepseek-v4-pro` | $0.022 / $0.044 | $0.66 / $1.32 | $1.98 / $3.96 |
+
+Peak hours are 01:00-04:00 and 06:00-10:00 UTC, Monday-Friday; weekends are
+off-peak.  Chinese public holidays are not modelled, so a holiday run is
+classified by the weekday/hour rule only.  The model's reasoning tokens are
+included in `completion_tokens` and are billed at the output rate, which is
+why a reasoning-heavy run can cost more than its visible assembly suggests.
+Rates can change; the table is a snapshot of
+[the official pricing page](https://api-docs.deepseek.com/quick_start/pricing/).
+
+Overrides:
+
+| Variable | Meaning |
+|---|---|
+| `ZONE_LLM_PRICE_HIT` | USD per 1M cache-hit input tokens |
+| `ZONE_LLM_PRICE_MISS` | USD per 1M cache-miss input tokens |
+| `ZONE_LLM_PRICE_OUTPUT` | USD per 1M output tokens |
+| `ZONE_LLM_EUR_RATE` | if set, also print an approximate EUR cost |
+
+If the model is unknown and no override is set, the cost line is `n/a`.
+
+### Limits and caveats
+
+* The model output is sent to a third-party API.  Do not use this mode on
+  payloads or secrets you are not allowed to share.
+* Static validation catches structural mistakes, not every semantic one.  For
+  a known payload, use `--llm-verify messagebox`; otherwise test the output
+  with your normal harness.
+* The model may refuse or produce invalid assembly; Zone reports the exact
+  error, saves the last rejected answer, and exits non-zero.  It never writes a
+  payload that failed validation.
+* LLM mode currently supports one technique per run.  Combine techniques in
+  the native engine, or run the LLM twice.
+* `--llm` is not a replacement for the deterministic techniques: it is an
+  experiment in model-written morphing with a strict assembler/validator around
+  it.
+
+Offline tests (no API key, no network) live in `test_llm_technique.py`:
+
+```sh
+python test_llm_technique.py
+```
+
+They cover canonicalisation round-trips on the real CPU, mocked `-eq`, `-nop`,
+`-bcf` and `-ibp` answers, retry logic, the HTTP client, and rejection of
+dropped instructions, extra `ret`s and missing getpc labels.
+
 ## Symbolic payload coverage
 
 For a raw x86/x64 payload, install angr and run:
@@ -272,6 +513,72 @@ into a shuffled block. `-ibp -xd -ebi` on the messagebox sample was verified
 ### 5. Position Independent Instruction
 
 This technique is novel and is a ultra granular VM-like technique which allows to shuffle EVERY SINGLE INSTRUCTION. Please refer only to `pobf.py` and `pobf86.py` for this technique.
+
+### 6. Assembly Wrapping (`-wrap`, x64 only)
+
+Assembly wrapping hides the real instructions inside the immediate operand of a
+benign `mov r64, imm64`. A linear or recursive disassembler keeps decoding the
+`mov`, while the CPU is sent one byte *inside* the immediate.
+
+```
+entry:  push reg
+        lea  reg, [rip + disp]      ; address of the first immediate
+        xchg reg, [rsp]             ; push it, restore the register
+        ret                         ; jump there (flags untouched)
+
+0x00:   48 b8 <6 bytes of code> <EB dist> <junk>     ; static view: mov rax, imm64
+0x0a:   49 b9 <6 bytes of code> <EB dist> <junk>     ; static view: mov rcx, imm64
+```
+
+Each 8-byte immediate holds up to six bytes of original code, a two-byte
+`jmp short` and some junk. The jump lands on the immediate of the next
+container, so execution chains through the payload while every byte stays
+covered by a legal instruction. The entry stub is position independent and
+restores the scratch register through the stack, so no register and no flag is
+clobbered.
+
+Some instructions do not fit (a `mov rax, 0x...` is ten bytes) or must keep a
+byte-exact local layout (the `-ebi` trampolines, `loop`/`jrcxz`): they are
+copied verbatim into "raw" blocks. Control flow through them is still glued
+with the same short jumps, so semantics are preserved, but those bytes stay
+visible to a disassembler. On the Metasploit x64 payloads about 95% of the
+instructions fit in a container.
+
+Options that shape the output (environment variables, useful for experiments):
+
+| Variable | Default | Meaning |
+|---|---|---|
+| `ZONE_WRAP_SEED` | random | fixes chunking, wrapper registers and decoys |
+| `ZONE_WRAP_GHOST` | `0.20` | probability of a decoy container between blocks |
+| `ZONE_WRAP_JUNK` | `0.15` | probability of junk bytes between blocks |
+
+Constraints:
+
+- the payload must be fully disassembled: a skipped tail is refused;
+- inline data (getpc `call`/`pop` strings) must be moved first with
+  `--extract-data`; `-wrap` refuses with a clear error otherwise;
+- `-wrap` implies `-ebi` (a `loop`/`jrcxz` a few bytes away would leave `rel8`
+  range once its code is moved inside a container);
+- it cannot be combined with `-pii` or `-ip`: those techniques already own the
+  final layout;
+- jump tables that store code addresses are not relocated;
+- only `pobf.py` implements it (x86-64); the 32-bit build is unchanged.
+
+The implementation lives in `asm_wrap.py` and is independent from the rest of
+the engine, so it can be tested alone. Test entry points:
+
+```sh
+python test_asm_wrap.py          # chunking + real-CPU execution, 30 runs
+python test_wrap_pipeline.py     # end-to-end through pobf.py, 40 cases
+python test_wrap_messagebox.py   # MessageBox payload, 7 flag combinations x5
+python check_messagebox.py <payload.bin>
+```
+
+Measured working rate on the x64 MessageBox payload with `--extract-data`:
+5/5 dialogs for `-wrap`, `-wrap -eq`, `-wrap -nop`, `-wrap -bcf`,
+`-wrap -eq -nop -bcf`, `-wrap -ibp` and `-wrap -eq -nop -bcf -ibp`
+(average output 1.0-6.8 KB).
+
 
 ## Implementation Details
 

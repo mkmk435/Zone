@@ -1,0 +1,137 @@
+```asm
+_start:
+    nop
+    cld
+    call L_95  ; GETPC: the instruction labelled RET_ must stay immediately after this call
+RET_6:
+    pushal
+    mov ebp, esp
+    xor edx, edx
+    mov edx, dword ptr fs:[edx + 0x30]
+    mov edx, dword ptr [edx + 0xc]
+    mov edx, dword ptr [edx + 0x14]
+L_15:
+    xor edi, edi
+    movzx ecx, word ptr [edx + 0x26]
+    mov esi, dword ptr [edx + 0x28]
+L_1e:
+    xor eax, eax
+    lodsb al, byte ptr [esi]
+    cmp al, 0x61
+    jl L_27
+    sub al, 0x20
+L_27:
+    ror edi, 0xd
+    add edi, eax
+    dec ecx
+    jne L_1e
+    push edx
+    mov edx, dword ptr [edx + 0x10]
+    push edi
+    mov eax, dword ptr [edx + 0x3c]
+    add eax, edx
+    mov eax, dword ptr [eax + 0x78]
+    test eax, eax
+    je L_8c
+    add eax, edx
+    mov ecx, dword ptr [eax + 0x18]
+    mov ebx, dword ptr [eax + 0x20]
+    push eax
+    add ebx, edx
+L_4b:
+    test ecx, ecx
+    je L_8b
+    dec ecx
+    mov esi, dword ptr [ebx + ecx*4]
+    xor edi, edi
+    add esi, edx
+L_57:
+    xor eax, eax
+    lodsb al, byte ptr [esi]
+    ror edi, 0xd
+    add edi, eax
+    cmp al, ah
+    jne L_57
+    add edi, dword ptr [ebp - 8]
+    cmp edi, dword ptr [ebp + 0x24]
+    jne L_4b
+    pop eax
+    mov ebx, dword ptr [eax + 0x24]
+    add ebx, edx
+    mov cx, word ptr [ebx + ecx*2]
+    mov ebx, dword ptr [eax + 0x1c]
+    add ebx, edx
+    mov eax, dword ptr [ebx + ecx*4]
+    add eax, edx
+    mov dword ptr [esp + 0x24], eax
+    pop ebx
+    pop ebx
+    popal
+    pop ecx
+    pop edx
+    push ecx
+    jmp eax
+L_8b:
+    pop eax
+L_8c:
+    pop edi
+    pop edx
+    mov edx, dword ptr [edx]
+    jmp L_15
+L_95:
+    pop ebp
+    jmp DATA_STUB_0
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+L_a6:
+    push 0x726774c
+    call ebp
+    push 0
+    jmp DATA_STUB_1
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+L_bf:
+    jmp DATA_STUB_2
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+L_d5:
+    push 0
+    push 0x7568345
+    call ebp
+    push 0
+    push 0x56a2b5f0
+    call ebp
+```

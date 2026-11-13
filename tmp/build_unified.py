@@ -135,7 +135,7 @@ def load_manifest(path):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--old", default="test_report.txt")
-    ap.add_argument("--new", default="new_test_report.csv")
+    ap.add_argument("--new", default="new_test_report_5run.csv")
     ap.add_argument("--baseline", default="tmp/original_baseline.csv")
     ap.add_argument("--manifest", default="mutations_new_xd_ebi/manifest.jsonl")
     ap.add_argument("--low", default="tmp/low_payloads.json")
@@ -313,13 +313,41 @@ def main():
     lines.append("## Metodo\n")
     lines.append("- **Vecchi**: `test_report.txt`, 15 tecniche di morphing x 10 run per payload, nessuna flag `-xd`/`-ebi`.")
     lines.append("- **Nuovi**: stessi 15 setup di morphing rigenerati con `-xd -ebi` (fallback `-xd`), "
-                 "piu due configurazioni di sola estrazione: `-xd` e `-xd -ebi`.")
+                 "10 run per config su x64 e 5 run (sui 10 generati) per config su x86, piu due "
+                 "configurazioni di sola estrazione: `-xd` e `-xd -ebi` (10 run x64, 5 run x86).")
     lines.append("- **Test nuovi**: `ploader.exe` (x64) / `ploader86.exe` (x86); reverse con listener "
                  "127.0.0.1:1234, bind con connessione a 127.0.0.1:1234, messagebox con `EnumWindows` + `WM_CLOSE`.")
     lines.append("- **Baseline**: ogni payload originale e stato eseguito 3 volte con lo stesso harness; "
                  "tutti i 49 originali hanno funzionato 3/3, quindi le differenze misurano l'obfuscator, non l'harness.")
     lines.append("- `new_morph` = 15 tecniche storiche; `new_xd` = solo `-xd` / `-xd -ebi`; "
                  "`new_all` = tutte le 17 configurazioni.\n")
+
+    lines.append("## Sintesi\n")
+    x64_low = [r for r in records if r["is_low"] and r["arch"] == "x64"]
+    x86_low = [r for r in records if r["is_low"] and r["arch"] == "x86"]
+    x64_xd_ok = sum(1 for r in x64_low if r["new_xd_rate"] == 100.0)
+    x86_xd_ok = sum(1 for r in x86_low
+                    if r["new_xd_rate"] is not None and r["new_xd_rate"] >= 90.0)
+    x86_xd_bad = [r["payload"] for r in x86_low
+                  if r["new_xd_rate"] is not None and r["new_xd_rate"] == 0.0]
+    lines.append(f"- **x64**: `-xd`/`-xd -ebi` da solo porta {x64_xd_ok}/{len(x64_low)} "
+                 f"payload al 100%; le 15 tecniche di morphing restano al "
+                 f"{fmt_pct(pct(*summary[0]['new_morph']))}.")
+    bad_txt = ", ".join('`' + p + '`' for p in x86_xd_bad) or "nessuna"
+    if len(x86_xd_bad) > 1:
+        exc_txt = f"le eccezioni sono {bad_txt}"
+    elif x86_xd_bad:
+        exc_txt = f"l'eccezione e {bad_txt}"
+    else:
+        exc_txt = "nessuna eccezione"
+    lines.append(f"- **x86**: `-xd`/`-xd -ebi` da solo e al 100% su {x86_xd_ok}/{len(x86_low)} "
+                 f"payload; {exc_txt} (getpc con consumer lontano: l'estrattore sposta i dati "
+                 f"senza riscrivere la call).")
+    lines.append(f"- Il morphing resta il collo di bottiglia: x86 `new_morph` = "
+                 f"{fmt_pct(pct(*summary[1]['new_morph']))}, x64 = "
+                 f"{fmt_pct(pct(*summary[0]['new_morph']))}. Su diversi payload x86 "
+                 f"(`*_nonx_tcp`, HTTP) la sola estrazione e 100% mentre `-nop`/`-bcf`/`-pii` rompono il payload.")
+    lines.append("")
 
     lines.append("## 1. Payload a basso working rate (vecchio → nuovo)\n")
     lines.append("| # | Arch | Payload | Vecchio | Baseline orig. | Nuovo `-xd` | Nuovo morph | Δ morph |")
@@ -370,18 +398,29 @@ def main():
         lines.append("- **messagebox**: il vecchio report trattava il payload come \"other\" e aspettava "
                      "l'uscita del processo; il dialog bloccava il test. I nuovi dati usano il rilevamento "
                      "della finestra, quindi il confronto vecchio/nuovo per questi due payload non e omogeneo.")
-    lines.append("- **x64 `*_winhttps`**: resta il caso noto: `-eq` funziona, le altre tecniche no; "
-                 "la fix getpc non lo recupera.")
-    lines.append("- **x86 HTTP/winhttp**: la sola estrazione `-xd`/`-xd -ebi` funziona; "
+    lines.append("- **x64 `*_winhttps`**: la sola estrazione `-xd`/`-xd -ebi` funziona 10/10; "
+                 "con le 15 tecniche di morphing solo `-eq` regge. Il limite non e la getpc, "
+                 "ma il morphing che sposta/riscrive i riferimenti.")
+    lines.append("- **x86 HTTP**: la sola estrazione `-xd`/`-xd -ebi` funziona 10/10; "
                  "`-nop` (e le combinazioni che lo includono) rompe il payload, quindi il tasso delle "
                  "15 tecniche storiche resta basso anche dopo la rigenerazione.")
+    lines.append("- **x86 winhttp** (`custom`, `meterpreter`): regressione. Il getpc ha la call "
+                 "che salta il primo blocco dati ma il consumer e dopo un secondo blocco; "
+                 "l'estrattore sposta il primo blocco senza riscrivere la call, quindi `-xd` "
+                 "rompe il payload (0/10). Era 21.3% / 11.3% col vecchio morphing.")
+    lines.append("- **x86 nonx**: la sola estrazione e 10/10 su tutti i payload `*_nonx_tcp`; "
+                 "tutte le 15 tecniche di morphing sono 0/75. Il morphing, non l'estrazione, "
+                 "e la causa dei fallimenti.")
+    lines.append("- **x86**: per contenere il tempo di esecuzione la matrice nuova usa 5 run per "
+                 "configurazione invece di 10; i tassi hanno granularita del 20% per singola "
+                 "configurazione, ma i totali per payload/arch restano su centinaia di test.")
     lines.append("- I fallimenti di **generazione** sono contati a parte (`generation_fail` nel CSV/XLSX); "
                  "il denominatore dei tassi nuovi e il numero di test effettivamente eseguiti.")
     lines.append("")
     lines.append("## 5. File\n")
     lines.append(f"- `{csv_path}` — dati completi per payload (tutti i 102 payload originali).")
     lines.append("- `working_rate_unified.xlsx` — riepilogo, per payload, per tecnica, matrice, dettaglio.")
-    lines.append("- `new_test_report.csv` — test grezzi dei nuovi payload.")
+    lines.append("- `new_test_report_5run.csv` — test grezzi dei nuovi payload (x64 10 run, x86 5 run).")
     lines.append("- `mutations_new_xd_ebi/` — payload rigenerati (x64/x86).")
     lines.append("- `tmp/original_baseline.csv` — baseline 3 run/payload degli originali.")
     lines.append("")

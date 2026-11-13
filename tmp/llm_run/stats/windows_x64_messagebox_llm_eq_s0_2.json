@@ -1,0 +1,111 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "eq",
+  "arch": "x64",
+  "started_at": "2026-11-13T00:53:43.135162+00:00",
+  "finished_at": "2026-11-13T00:58:35.307362+00:00",
+  "ok": true,
+  "error": null,
+  "timing": {
+    "wall_seconds": 292.172,
+    "api_seconds": 292.119,
+    "local_seconds": 0.053
+  },
+  "attempts": 2,
+  "api_calls": 2,
+  "rejected_attempts": 1,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 157.727,
+      "api_seconds": 157.727,
+      "accepted": false,
+      "similarity": 0.0,
+      "code_bytes": 0,
+      "data_bytes": 0,
+      "instructions": 0,
+      "error": "the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+    },
+    {
+      "attempt": 2,
+      "seconds": 134.444,
+      "api_seconds": 134.392,
+      "accepted": true,
+      "similarity": 0.9112,
+      "code_bytes": 360,
+      "data_bytes": 39,
+      "instructions": 133,
+      "error": null
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T00:53:43.135162+00:00",
+      "seconds": 157.727,
+      "finish_reason": "length",
+      "content_chars": 0,
+      "usage": {
+        "prompt_tokens": 3459,
+        "completion_tokens": 32768,
+        "total_tokens": 36227,
+        "cache_hit_tokens": 3325,
+        "cache_miss_tokens": 134,
+        "reasoning_tokens": 32768
+      },
+      "cost_usd": 0.019690875,
+      "error": "truncated"
+    },
+    {
+      "attempt": 1,
+      "generation_attempt": 2,
+      "started_at": "2026-11-13T00:56:20.862862+00:00",
+      "seconds": 134.392,
+      "finish_reason": "stop",
+      "content_chars": 1707,
+      "usage": {
+        "prompt_tokens": 3502,
+        "completion_tokens": 29269,
+        "total_tokens": 32771,
+        "cache_hit_tokens": 3328,
+        "cache_miss_tokens": 174,
+        "reasoning_tokens": 28323
+      },
+      "cost_usd": 0.017597484,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 6961,
+    "completion_tokens": 62037,
+    "total_tokens": 68998,
+    "cache_hit_tokens": 6653,
+    "cache_miss_tokens": 308,
+    "reasoning_tokens": 61091
+  },
+  "cost_usd": {
+    "total": 0.037288359,
+    "cache_hit": 1.9959e-05,
+    "cache_miss": 4.62e-05,
+    "output": 0.0372222,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 2,
+  "cache_hit_ratio": 0.9558,
+  "reasoning_ratio": 0.9848,
+  "payload": {
+    "code_bytes": 360,
+    "data_bytes": 39,
+    "instructions": 133,
+    "similarity": 0.9112
+  },
+  "errors": [
+    "the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+  ],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}
