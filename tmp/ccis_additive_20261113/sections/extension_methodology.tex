@@ -1,0 +1,104 @@
+\section{Additional Experimental Methodology}\label{sec:methodology}
+\subsection{Questions and Experimental Record}
+The additional experiments complement the original fifteen-configuration
+study. They examine (i) identification quality and agreement between
+the two code--data paths, (ii) construction and functional outcomes
+after data handling, (iii) architecture-specific wrapping outcomes,
+and (iv) zero-shot versus two-shot LLM transformation. The original
+corpus and its measurements remain those of
+Sections~\ref{sec:results} and~\ref{sect:var_metrics}.
+
+Each new campaign records distinct inputs, selection criteria,
+architecture, configuration, repetitions, input/output hashes, and
+engine version or snapshot. A subset selected for low historical
+working rate is reported as a subset, not a new assessment of the
+whole corpus. Model identifier, prompt examples, generation parameters,
+retry policy, dependency versions, and cache status are retained where
+applicable. A run is distinguished from attempts within that run and
+from a reused artifact; run numbers do not imply controlled model seeds.
+
+\subsection{Code--Data Quality and Downstream Outcomes}
+Reference-based identification measures use independently annotated
+data-byte offsets $G$ and predicted offsets $P$. With data as the
+positive class, precision is $|P\cap G|/|P|$, recall is
+$|P\cap G|/|G|$, and $F_1$ is their harmonic mean. Undefined cases and
+unresolved reference bytes are identified explicitly. Interval-level
+agreement complements byte scores, with the boundary or overlap rule
+specified in the report. Raw candidates and accepted intervals are
+assessed separately to distinguish classification from filtering.
+
+Without independent annotations, the analysis is a case study of
+agreement and downstream functionality. Agreement with the symbolic
+method does not make that method ground truth, and byte-identical
+outputs do not establish identical raw proposals. Analysis limits,
+unresolved states, and computed versus cached runtimes accompany the
+identification outcomes.
+
+For $N$ planned cases, $B$ accepted binaries, and $W$ successful
+functional checks, the additional assessment reports
+\begin{equation}
+\mathrm{BuildRate}=B/N,\qquad
+\mathrm{WorkingRate}_{\mathrm{all}}=W/N,\qquad
+\mathrm{WorkingRate}_{\mathrm{built}}=W/B.
+\end{equation}
+Counts accompany percentages. Unbuilt cases remain in the planned-case
+denominator, and uncompleted tests remain distinct from completed
+failures. The observable, harness version, architecture, and observation
+window are stated. Connections, open ports, dialogs, and clean
+termination provide different empirical checks rather than a general
+proof of equivalence.
+
+For LLM runs, initial acceptance and acceptance within the retry budget
+are separated. If the functional verifier participates in output
+selection, the pass rate on accepted outputs is conditional on that
+selection. Exhausted and restarted runs, including their time and
+cost, remain part of the record.
+
+\subsection{Static Verdicts, Similarity, and Cost}
+The published detection definition is retained for comparison. For a
+completed file, $d_i=m_i/a_i$ is the malicious-verdict fraction, with
+$m_i$ malicious verdicts and $a_i$ engines under the declared eligibility
+rule. The new report also distinguishes the fraction of completed
+files with any malicious verdict:
+\begin{equation}
+\overline d=\frac{1}{F}\sum_{i=1}^{F}d_i,\qquad
+q=\frac{1}{F}\sum_{i=1}^{F}\mathbf{1}[m_i>0].
+\end{equation}
+Unsupported engines, errors, timeouts, scan dates, and pending analyses
+are accounted for explicitly. Pending is not zero detection. Identical
+hashes may reuse a scan while retaining their membership in several
+experimental conditions. The aggregation states whether payloads,
+runs, or distinct binaries receive equal weight.
+
+The original size, entropy, and cosine measurements are retained in
+Section~\ref{sect:var_metrics}. The additional LLM validation score uses
+\texttt{SequenceMatcher} on normalized instruction signatures,
+not cosine similarity~\cite{python_difflib}. Its matching-block ratio
+is $2M/(u+v)$ for $M$ matched elements and sequence lengths $u,v$.
+The NOP condition additionally removes recognized no-op operations;
+a score of one under that representation does not imply byte identity.
+The original file and the prepared intermediate representation are
+distinguished as comparison references. Any new cosine measure states
+its token vocabulary and whether comparisons are paired or pooled.
+Wrapping measurements also identify the decoding view.
+
+Distinct output hashes characterize exact diversity independently of
+similarity. Size is reported as bytes and paired relative change.
+Timing separates analysis, preparation, API calls, and local checks
+where available. Costs include rejected attempts and state the tariff
+snapshot and estimation rule. Repetitions of the same payload are
+grouped for uncertainty analysis; small pilots retain case-level scope.
+
+\subsection{Validity of the Extensions}\label{sec:extension_limits}
+The original limitations remain relevant. Bounded exploration can
+miss paths because of missing environment behavior or resource limits;
+LLM and deterministic paths can share errors; and structural validation
+does not establish full semantic preservation. Changes in the harness,
+dependencies, input selection, or engine version can affect apparent
+working-rate improvements. Historical and new scans also differ in
+time and service conditions. Architecture-specific development,
+especially x86 wrapping, is associated with its own frozen version
+and assessment rather than inferred from x64 results.
+\draftnote{Finalize input counts, repetitions, model configuration,
+annotations, harness, scan eligibility, and aggregation from the completed
+campaigns. Preserve the original measurements as the published comparison.}

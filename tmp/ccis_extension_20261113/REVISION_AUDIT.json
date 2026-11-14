@@ -1,0 +1,31 @@
+{
+  "status": "working draft; experiments and x86 wrapping assessment pending",
+  "method_count_rule": "indicative alphabetic tokens; includes LaTeX command names; not a scientific novelty certificate",
+  "new_method_sections": [
+    "sections/04_code_data.tex",
+    "sections/05_llm.tex",
+    "sections/06_wrapping.tex",
+    "sections/07_methodology.tex"
+  ],
+  "new_method_tokens": 3615,
+  "all_section_tokens": 7354,
+  "reused_visuals": [
+    "PII layout: attributed to conference Figure 1",
+    "inline-data example: attributed to conference Table 5"
+  ],
+  "historical_plots": "omitted pending reconciliation; original source preserved",
+  "editor_statement": "EDITOR_DIFFERENCES.txt: exactly two paragraphs",
+  "original_source_sha256": "4496accb7442a63f7c84f1a5ceacec303e88fbce0a87a1813f3d9d798de7f56f",
+  "new_method_fraction_indicative": 0.492,
+  "longest_shared_prose_token_run_against_previous_ccis_draft": 9,
+  "original_conference_fulltext_comparison": "not certified; no separate conference full text supplied in this project",
+  "pdf_checks": {
+    "pages": 22,
+    "unresolved_references": 0,
+    "overfull_boxes": 0,
+    "out_of_page_characters": 0,
+    "all_pages_rendered": true,
+    "visual_review": "all contact sheets and full-size selected pages inspected"
+  },
+  "pdf_sha256": "56fe9d0815335cfb84079a5d106075ca9aeb23254ae5e97ea622f061639ae6c1"
+}

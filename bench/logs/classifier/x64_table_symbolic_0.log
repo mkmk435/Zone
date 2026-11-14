@@ -1,0 +1,14 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['C:\\Users\\ubu\\Desktop\\Zone\\bench\\fixtures\\classifier\\x64\\table.bin', '-xd', '-o', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\cls_outputs\\x64_table_symbolic_0.bin']
+SYMBOLIC DATA ANALYSIS...
+[cache] saved 3b12c8f62442 to data_cache.json
+Data sections: 1
+  0x15 (16 B) outside_cfg
+Data xrefs: 1
+  0x0 -> 0x15 (16 B)
+[extract] skip outside_cfg range 0x15+16 (pass --extract-unknown to move it)
+[extract] no movable data sections
+Output: C:\Users\ubu\Desktop\Zone\bench\run\cls_outputs\x64_table_symbolic_0.bin
+FINE

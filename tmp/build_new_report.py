@@ -351,13 +351,70 @@ if any(group["done"] for group in vt_groups.values()):
     add("")
     add(f"Totale: **{all_detected}/{all_done} rilevati "
         f"({overall_rate:.1f}%)** su {all_files} file unici inviati.")
+    add("")
+    add("Nota: la colonna File conta gli SHA-256 unici. Le estrazioni "
+        "`--llm-data` sono deterministiche e alcune risposte LLM `eq`/`ibp` "
+        "sono byte-identiche, quindi le celle con meno di 3 file sono "
+        "duplicati deduplicati. `lldata` è la sola estrazione dati (codice "
+        "intatto): viene rilevata come gli originali, perché non offusca il "
+        "codice; non è una tecnica di evasione ma un preprocessing.")
+    add("")
+    add("Lettura dei risultati: `-wrap` e `-wrap` combinato non vengono "
+        "rilevati da nessun motore (0/197, massimo 0), mentre gli stessi "
+        "payload originali inviati oggi sono 13/13 rilevati con 20-29 motori. "
+        "Le tecniche LLM sono funzionalmente corrette ma la copertura "
+        "anti-VT è irregolare e dipende dalla tecnica e dagli shot: `eq` 0/3, "
+        "`bcf` 4/6, `ibp` 3/4, `nop` 1/6 (file unici).")
     if all_done < all_files:
         add(f"Analisi ancora in corso per {all_files - all_done} file al "
             "momento della generazione del report.")
+    originals_manifest = ROOT / "vt_originals.json"
+    originals_results = ROOT / "tmp" / "vt_results_original.jsonl"
+    if originals_manifest.exists() and originals_results.exists():
+        original_latest = {}
+        for line in originals_results.read_text(encoding="utf-8").splitlines():
+            try:
+                record = json.loads(line)
+            except ValueError:
+                continue
+            original_latest[record["sha256"]] = record
+        entries = json.loads(originals_manifest.read_text(encoding="utf-8"))
+        oks = [original_latest.get(entry["sha256"], {}) for entry in entries]
+        done = [record for record in oks
+                if record.get("status") == "completed"]
+        if done:
+            detected = sum(record.get("malicious", 0) > 0 for record in done)
+            mean = sum(record.get("malicious", 0) for record in done) / len(done)
+            total = sum(record.get("total", 0) for record in done) / len(done)
+            add("")
+            add(f"Confronto omogeneo con gli originali, inviati oggi con la "
+                f"stessa key: **{detected}/{len(done)} rilevati "
+                f"({100 * detected / len(done):.1f}%)**, malicious medi "
+                f"{mean:.1f}/{total:.0f}. Gli stessi payload senza wrapping "
+                "sono quindi ancora ampiamente rilevati, mentre le mutazioni "
+                "`-wrap` no.")
 else:
     add("Invio **non eseguito**: manca `api_keys.txt`. Il submitter è pronto "
         "in `tmp/vt_submit.py`; appena disponibili una o più key parte in "
         "background con deduplica per SHA-256 e ripresa.")
+add("")
+add("")
+add("## Conclusioni")
+add("")
+add("1. **Assembly wrapping**: è la tecnica più solida del lotto. Il 77% dei "
+    "tentativi produce un binario (200/260) e su questi il working rate è del "
+    "99% (198/200); i 197 file unici \"-wrap\" non sono rilevati da nessun "
+    "motore VT (0/197), contro 13/13 originali rilevati oggi. Il limite è a "
+    "monte: i tre `*_winhttps` non sono costruibili perché `-xd` lascia un "
+    "blocco dati inline.")
+add("2. **LLM morphing**: 24/24 mutazioni accettate e funzionanti, costo "
+    "~$0.59. La qualità strutturale è buona (similarità 0.71-1.00), ma la "
+    "diversità è limitata dalle risposte identiche e la copertura VT è "
+    "irregolare (12/220 globali, quasi tutti `bcf`/`ibp`).")
+add("3. **LLM data classifier**: 15/15 run funzionanti e output byte-identico "
+    "a `-xd` sui quattro payload di confronto; costo ~$0.10. È un'alternativa "
+    "valida all'estrazione simbolica, ma non aggiunge evasione: il codice "
+    "resta quello originale e VT lo rileva (16-20/75).")
 add("")
 add("## File prodotti")
 add("")

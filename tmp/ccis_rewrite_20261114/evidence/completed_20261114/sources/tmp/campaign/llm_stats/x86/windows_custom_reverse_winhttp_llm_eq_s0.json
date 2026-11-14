@@ -1,0 +1,82 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "eq",
+  "arch": "x86",
+  "started_at": "2026-11-13T21:24:00.167608+00:00",
+  "finished_at": "2026-11-13T21:26:15.722449+00:00",
+  "ok": false,
+  "error": "branch at 0x337 targets 0x3a8, which is not an instruction boundary; data references disappeared from the payload: DATA offset 0x132 x1; equal-code substitution removed 2 non-control instruction(s); transformations may only replace an instruction, not delete it",
+  "timing": {
+    "wall_seconds": 135.555,
+    "api_seconds": 135.504,
+    "local_seconds": 0.051
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 1,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 135.555,
+      "api_seconds": 135.504,
+      "accepted": false,
+      "similarity": 0.0,
+      "code_bytes": 0,
+      "data_bytes": 0,
+      "instructions": 0,
+      "error": "branch at 0x337 targets 0x3a8, which is not an instruction boundary; data references disappeared from the payload: DATA offset 0x132 x1; equal-code substitution removed 2 non-control instruction(s); transformations may only replace an instruction, not delete it"
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T21:24:00.167608+00:00",
+      "seconds": 135.504,
+      "finish_reason": "stop",
+      "content_chars": 7680,
+      "usage": {
+        "prompt_tokens": 6054,
+        "completion_tokens": 34455,
+        "total_tokens": 40509,
+        "cache_hit_tokens": 2048,
+        "cache_miss_tokens": 4006,
+        "reasoning_tokens": 30818
+      },
+      "cost_usd": 0.021280044,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 6054,
+    "completion_tokens": 34455,
+    "total_tokens": 40509,
+    "cache_hit_tokens": 2048,
+    "cache_miss_tokens": 4006,
+    "reasoning_tokens": 30818
+  },
+  "cost_usd": {
+    "total": 0.021280044,
+    "cache_hit": 6.144e-06,
+    "cache_miss": 0.0006009,
+    "output": 0.020673,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.3383,
+  "reasoning_ratio": 0.8944,
+  "payload": {
+    "code_bytes": 0,
+    "data_bytes": 0,
+    "instructions": 0,
+    "similarity": 0.0
+  },
+  "errors": [
+    "branch at 0x337 targets 0x3a8, which is not an instruction boundary; data references disappeared from the payload: DATA offset 0x132 x1; equal-code substitution removed 2 non-control instruction(s); transformations may only replace an instruction, not delete it"
+  ],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

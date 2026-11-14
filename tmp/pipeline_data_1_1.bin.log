@@ -9,14 +9,11 @@ CREO LABEL TABLE
 ADDRESS DEL PRIMO ADD:  0x14
 vecchia istruzione:  add rdx, 0x1000
 nuova istruzione:  sub rdx, -0x1000
-ADDRESS DEL PRIMO DEC:  0x2d
-vecchia istruzione:  dec r10
-nuova istruzione:  sub r10, 1
 ##########################################
-BYTES ADDED:  0x1
+BYTES ADDED:  0x0
 ##########################################
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
 UPDATE INSTR
-[wrap] 27 instruction(s) hidden in 19 container(s), 4 raw, 2 ghost, 3 junk block(s): 105 -> 267 bytes
+[wrap] 22 instruction(s) hidden in 15 container(s), 4 raw, 3 ghost, 2 junk block(s): 92 -> 234 bytes
 FINE

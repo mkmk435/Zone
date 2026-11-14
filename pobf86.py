@@ -158,6 +158,12 @@ class Zone:
         self.final_data_pad = b''
         self.final_code_len = 0
         self.data_refs_finalized = False
+        self.data_analysis_done = False
+
+        # assembly-wrapping state (opt-in, see --assembly-wrapping)
+        self.final_payload_bytes = None
+        self.layout_override = None
+        self.code_length_override = 0
 
         # kept for write_file(): a truncated sweep must not lose the tail
         self.sweep_coverage = 0
@@ -320,6 +326,30 @@ class Zone:
         return code
     
 
+    def short_branch_spans(self):
+        """(address, target) pairs of the nested loop/jcxz branches."""
+        spans = []
+        for scan_instr in self.instructions:
+            mnemonic = scan_instr.new_instruction.mnemonic
+            if mnemonic not in ('loop', 'loope', 'loopne',
+                                'jecxz', 'jcxz'):
+                continue
+            target = zone_utils.estrai_valore(
+                scan_instr.new_instruction.op_str)
+            spans.append((scan_instr.new_instruction.address, target))
+        return spans
+
+    def inside_short_branch_span(self, point):
+        """True when `point` sits between a short branch and its target."""
+        for branch, target in self.short_branch_spans():
+            if target > branch:
+                if branch < point <= target:
+                    return True
+            else:
+                if target <= point <= branch:
+                    return True
+        return False
+
     def bogus_control_flow(self):
         # SOLUZIONE ULTRA TEMPORANEA
         last_modification = 0
@@ -348,6 +378,13 @@ class Zone:
                 if instr.new_instruction.address < getattr(self, "nop_min_address", 0):
                     continue
                 if probability < self.bogus_probability:
+                    # an -ebi trampoline keeps a short jecxz to its local
+                    # target: a bogus block inserted inside the span would
+                    # push that distance out of rel8 range
+                    insertion_point = (instr.new_instruction.address
+                                       + instr.new_instruction.size)
+                    if self.inside_short_branch_span(insertion_point):
+                        continue
                     re_iterate = True
                     inserted_instr = 0
 
@@ -1062,8 +1099,19 @@ class Zone:
 
     # a function that given an index and an instruction will insert the new instruction in self.instructions
     def insert_instruction(self,index,instruction):
-        instruction_number = len(self.instructions)
-        if index >= instruction_number:
+        if index == 0:
+            self.instructions[0].prev_instruction = instruction
+            instruction.next_instruction = self.instructions[0]
+            instruction.prev_instruction = None
+            self.instructions.insert(0,instruction)
+            return
+        if index >= len(self.instructions):
+            # appending must also wire prev/next: update_instr() recomputes
+            # the addresses from the chain and would leave a dangling
+            # instruction at a stale address otherwise
+            self.instructions[-1].next_instruction = instruction
+            instruction.prev_instruction = self.instructions[-1]
+            instruction.next_instruction = None
             self.instructions.append(instruction)
             return
         self.instructions[index - 1].next_instruction = instruction
@@ -2606,11 +2654,17 @@ class Zone:
             return
 
         addresses = {}
-        address = 0
-        for instr in self.instructions:
-            addresses[id(instr)] = address
-            address += len(instr.new_instruction.bytes)
-        code_length = address
+        if self.layout_override is not None:
+            # a layout pass (assembly wrapping) already decided where every
+            # instruction lives and how long the code area is
+            addresses = dict(self.layout_override)
+            code_length = self.code_length_override
+        else:
+            address = 0
+            for instr in self.instructions:
+                addresses[id(instr)] = address
+                address += len(instr.new_instruction.bytes)
+            code_length = address
 
         for fixup in self.data_ref_fixups:
             if fixup["instr"] not in self.instructions:
@@ -3407,6 +3461,9 @@ class Zone:
 
     
     def write_strange_file(self,output_file):
+        if self.extracted_data and not self.data_refs_finalized:
+            # Finalize before serialising the instruction bytes.
+            self.finalize_data_refs()
         new_bytes = b''
         for x,i in enumerate(self.instructions):
             new_bytes += i.new_instruction.bytes
@@ -3424,8 +3481,6 @@ class Zone:
 
         # extracted data lives after the PII instruction map
         if self.extracted_data:
-            if not self.data_refs_finalized:
-                self.finalize_data_refs()
             new_bytes += self.final_data_pad
             new_bytes += self.final_data_blob
         
@@ -3437,15 +3492,164 @@ class Zone:
             f.seek(0)
             f.write(new_bytes)
     
+    def assembly_wrapping(self, seed=None, ghost_probability=0.20,
+                          junk_probability=0.15):
+        """Assembly wrapping: hide every instruction inside `mov r32, imm32`.
+
+        The 32-bit variant of the x86-64 technique: a container is a 5-byte
+        `mov r32, imm32` whose immediate holds four bytes of the original
+        code, followed by a two-byte `jmp short` that lands on the next
+        immediate.  The entry stub computes the first immediate with the
+        classic `call/pop` getpc and a base-relative `lea`.
+
+        The payload must be fully disassembled and getpc inline data must
+        have been moved first (--extract-data).  See asm_wrap.py.
+        """
+        try:
+            from asm_wrap import AssemblyWrapping, WrapItem, WrapError
+        except ImportError as error:            # pragma: no cover
+            raise RuntimeError(f"-wrap needs asm_wrap.py: {error}")
+
+        if self.sweep_coverage != len(self.raw_code):
+            raise RuntimeError(
+                f"-wrap needs a fully disassembled payload "
+                f"({self.sweep_coverage}/{len(self.raw_code)} bytes covered); "
+                "the untouched tail would stay outside the wrapped stream")
+
+        loop_mnemonics = ("loop", "loope", "loopne", "jcxz", "jecxz")
+        if any(instr.new_instruction.mnemonic in loop_mnemonics
+               for instr in self.instructions):
+            print("[wrap] expanding the remaining loop/jcxz branches")
+            self.eliminate_bad_instructions()
+            self.update_label_table()
+        remaining = [instr.new_instruction.address for instr in self.instructions
+                     if instr.new_instruction.mnemonic in loop_mnemonics
+                     and not instr.bad_expanded]
+        if remaining:
+            raise RuntimeError(
+                "-wrap cannot relocate the loop/jcxz branches at "
+                + ", ".join(hex(address) for address in remaining[:4])
+                + "; they have no label entry (see -ebi)")
+
+        if not self.data_analysis_done:
+            by_address = {instr.new_instruction.address: instr
+                          for instr in self.instructions}
+
+            def is_getpc(instr):
+                insn = instr.new_instruction
+                if insn.mnemonic != "call" or not insn.operands:
+                    return False
+                if insn.operands[0].type != x86_const.X86_OP_IMM:
+                    return False
+                target = by_address.get(insn.operands[0].imm)
+                return (target is not None
+                        and target.new_instruction.mnemonic == "pop")
+
+            if any(is_getpc(instr) for instr in self.instructions):
+                # `call $+5; pop reg` and the "call to a later pop" getpc
+                # idiom: the code builds a pointer into inline data, which
+                # wrapping would move and split
+                raise RuntimeError(
+                    "payload uses a getpc call/pop sequence: run with "
+                    "--extract-data before -wrap")
+
+        for instr in self.instructions:
+            insn = instr.new_instruction
+            if insn.mnemonic == ".byte" or insn.id == 0:
+                raise RuntimeError(
+                    f"the bytes at {insn.address:#x} are not code (Capstone "
+                    "could not decode them): this is inline data, run with "
+                    "--extract-data before -wrap")
+            if (insn.mnemonic == "call" and len(insn.operands) == 1
+                    and insn.operands[0].type == x86_const.X86_OP_IMM
+                    and insn.operands[0].imm == insn.address + insn.size
+                    and not self.data_analysis_done):
+                raise RuntimeError(
+                    "payload uses a getpc sequence (call/pop) at "
+                    f"{insn.address:#x}: run with --extract-data so the "
+                    "inline data is moved before -wrap")
+
+        items = []
+        by_key = {}
+        for instr in self.instructions:
+            insn = instr.new_instruction
+            key = id(instr)
+            by_key[key] = instr
+            items.append(WrapItem(
+                key=key,
+                addr=insn.address,
+                data=bytes(insn.bytes),
+                forced_raw=bool(instr.bad_expanded),
+                data_fixup=instr.data_ref_fixup is not None))
+
+        wrapper = AssemblyWrapping(seed=seed, bits=32,
+                                   ghost_probability=ghost_probability,
+                                   junk_probability=junk_probability)
+        try:
+            wrapper.plan(items)
+        except WrapError as error:
+            raise RuntimeError(
+                f"assembly wrapping failed: {error}\n"
+                "hint: payloads with inline data (getpc strings, tables) must "
+                "be wrapped after --extract-data") from error
+
+        # short branches may have been promoted to their near forms
+        for item in items:
+            instr = by_key[item.key]
+            decoded = next(self.cs.disasm(
+                item.data, instr.new_instruction.address, count=1), None)
+            if decoded is None or decoded.size != len(item.data):
+                raise RuntimeError(
+                    "cannot re-decode the normalised instruction at "
+                    f"{item.addr:#x}")
+            instr.new_instruction = decoded
+
+        self.layout_override = {item.key: wrapper.new_address[item.key]
+                                for item in items}
+        self.code_length_override = wrapper.code_length
+
+        # the getpc call/jmp and the absolute references depend on the final
+        # wrapped addresses, so the data layer must run after the layout
+        if self.extracted_data:
+            self.finalize_data_refs()
+
+        try:
+            payload = wrapper.render(
+                lambda key: bytes(by_key[key].new_instruction.bytes))
+        except WrapError as error:
+            raise RuntimeError(f"assembly wrapping failed: {error}") from error
+
+        self.final_payload_bytes = payload
+        self.morph_applied = True
+        print(wrapper.describe())
+        return payload
+
     def write_file(self, output_file):
+        if self.final_payload_bytes is not None:
+            # an assembly-wrapping pass produced the whole code area
+            new_bytes = self.final_payload_bytes
+            if self.extracted_data:
+                if not self.data_refs_finalized:
+                    self.finalize_data_refs()
+                new_bytes += self.final_data_pad
+                new_bytes += self.final_data_blob
+            if output_file == None:
+                output_file = 'new_payload.bin'
+            with open(output_file, 'wb') as f:
+                f.seek(0)
+                f.write(new_bytes)
+            return
+
+        if self.extracted_data and not self.data_refs_finalized:
+            # Must run before the instruction bytes are concatenated.
+            self.finalize_data_refs()
+
         new_bytes = b''
         for i in self.instructions:
             new_bytes += i.new_instruction.bytes
 
         # data extracted with --extract-data goes after the code
         if self.extracted_data:
-            if not self.data_refs_finalized:
-                self.finalize_data_refs()
             new_bytes += self.final_data_pad
             new_bytes += self.final_data_blob
         elif not self.morph_applied and len(new_bytes) == self.sweep_coverage:
@@ -3465,6 +3669,29 @@ class Zone:
             f.write(new_bytes)
 
 
+def _wrap_seed():
+    """ZONE_WRAP_SEED makes the random wrapping reproducible."""
+    raw = os.environ.get("ZONE_WRAP_SEED", "")
+    if not raw:
+        return None
+    try:
+        return int(raw, 0)
+    except ValueError:
+        return None
+
+
+def _wrap_fraction(name, default):
+    """Read a probability override from the environment."""
+    raw = os.environ.get(name, "")
+    if not raw:
+        return default
+    try:
+        value = float(raw)
+    except ValueError:
+        return default
+    return min(max(value, 0.0), 1.0)
+
+
 def print_usage():
     print("Usage: python pobf86.py <file> <options>")
     print("Options:")
@@ -3475,7 +3702,7 @@ def print_usage():
     print("--instruction-block-permutation, -ibp            Permute instruction blocks")
     print("--position-independent-instr, -pii               Indexed PII dispatcher (works with -xd)")
     print("--instruction-permutation, -ip                   Single-instruction permutation (works with -xd)")
-    print("--assembly-wrapping, -wrap                       x86-64 only (see pobf.py)")
+    print("--assembly-wrapping, -wrap                       Hide instructions inside mov reg32, imm32 (implies -ebi)")
     print("--find-data, -fd                                 Find data with symbolic exploration and exit")
     print("--extract-data, -xd                              Move data to the end of the payload and fix references")
     print("--extract-unknown, -xu                           Also move outside_cfg ranges (risky)")
@@ -3508,17 +3735,13 @@ def print_usage():
 
 def start(file=None):
 
-    if "-wrap" in sys.argv or "--assembly-wrapping" in sys.argv:
-        print("ERROR: assembly wrapping (-wrap) is only implemented for "
-              "x86-64; use pobf.py")
-        sys.exit(1)
-
     equal_instr = False
     bogus_cf = False
     insert_nop = False
     instruction_block_permutation = False
     position_independent_instr = False
     instruction_permutation = False
+    assembly_wrapping = False
     find_data = False
     extract_data = False
     extract_unknown = False
@@ -3529,6 +3752,7 @@ def start(file=None):
     refresh_data_cache = False
     output_file = None
     llm_mode = False
+    llm_morph = False
     llm_technique = None
     llm_model = None
     llm_base_url = None
@@ -3573,6 +3797,8 @@ def start(file=None):
             position_independent_instr = True
         elif arg == "--instruction-permutation" or arg == "-ip":
             instruction_permutation = True
+        elif arg == "--assembly-wrapping" or arg == "-wrap":
+            assembly_wrapping = True
         elif arg == "--find-data" or arg == "-fd":
             find_data = True
         elif arg == "--extract-data" or arg == "-xd":
@@ -3602,12 +3828,15 @@ def start(file=None):
             output_file = opt_args[opt_args.index(arg) + 1]
         elif arg == "--llm" or arg == "-llm":
             llm_mode = True
+            llm_morph = True
         elif arg == "--llm-technique":
             try:
                 llm_technique = opt_args[opt_args.index(arg) + 1]
             except IndexError:
                 print("--llm-technique requires a name")
                 sys.exit(1)
+            llm_mode = True
+            llm_morph = True
         elif arg == "--llm-shots":
             try:
                 llm_shots = int(opt_args[opt_args.index(arg) + 1])
@@ -3721,10 +3950,22 @@ def start(file=None):
         print("[bad] enabling short-branch expansion for PII/permutation")
         eliminate_bad = True
 
+    if assembly_wrapping and (position_independent_instr
+                              or instruction_permutation):
+        print("ERROR: -wrap cannot be combined with -pii or -ip: both "
+              "techniques rewrite the whole layout")
+        sys.exit(1)
+
+    if assembly_wrapping and not eliminate_bad:
+        # a loop/jcxz that was a few bytes away would leave rel8 range once
+        # its code is moved inside a container
+        print("[wrap] enabling short-branch expansion for assembly wrapping")
+        eliminate_bad = True
+
     morph_requested = (equal_instr or instruction_block_permutation
                        or bogus_cf or insert_nop)
     if (morph_requested or eliminate_bad or position_independent_instr
-            or instruction_permutation):
+            or instruction_permutation or assembly_wrapping):
         zone.morph_applied = True
 
 # LLM MODE: the model applies the selected technique as a full assembly rewrite
@@ -3762,36 +4003,46 @@ def start(file=None):
         if instruction_permutation:
             selected.append("ip")
 
+        technique = None
         try:
-            technique = None
-            if llm_technique:
-                technique = llm_engine.resolve_technique(llm_technique)
-                if selected and technique not in selected:
+            if llm_morph:
+                if llm_technique:
+                    technique = llm_engine.resolve_technique(llm_technique)
+                    if selected and technique not in selected:
+                        raise llm_engine.LLMConfigError(
+                            f"--llm-technique {technique} does not match the "
+                            f"selected flag(s): {', '.join(selected)}")
+                    if len(selected) > 1:
+                        raise llm_engine.LLMConfigError(
+                            "LLM mode applies one technique at a time; pass "
+                            "only one of -eq, -nop, -bcf, -ibp")
+                elif selected:
+                    if len(selected) > 1:
+                        raise llm_engine.LLMConfigError(
+                            "LLM mode applies one technique at a time; pass "
+                            "only one of -eq, -nop, -bcf, -ibp")
+                    technique = selected[0]
+                elif not llm_data:
                     raise llm_engine.LLMConfigError(
-                        f"--llm-technique {technique} does not match the "
-                        f"selected flag(s): {', '.join(selected)}")
-                if len(selected) > 1:
+                        "LLM mode needs a technique or --llm-data: pass one "
+                        "of -eq, -nop, -bcf, -ibp, or --llm-data")
+                if technique is not None and technique not in llm_engine.TECHNIQUES:
                     raise llm_engine.LLMConfigError(
-                        "LLM mode applies one technique at a time; pass only "
-                        "one of -eq, -nop, -bcf, -ibp")
-            elif selected:
-                if len(selected) > 1:
+                        f"LLM mode does not implement {technique!r} yet; "
+                        "supported: eq, nop, bcf, ibp (use the native "
+                        "-pii/-ip implementation for the others)")
+            else:
+                # --llm-data without --llm: native Zone transformations run
+                # after LLM data classification.
+                if llm_technique:
                     raise llm_engine.LLMConfigError(
-                        "LLM mode applies one technique at a time; pass only "
-                        "one of -eq, -nop, -bcf, -ibp")
-                technique = selected[0]
-            elif not llm_data:
-                raise llm_engine.LLMConfigError(
-                    "LLM mode needs a technique or --llm-data: pass one of "
-                    "-eq, -nop, -bcf, -ibp, or --llm-data")
-            if technique is not None and technique not in llm_engine.TECHNIQUES:
-                raise llm_engine.LLMConfigError(
-                    f"LLM mode does not implement {technique!r} yet; "
-                    "supported: eq, nop, bcf, ibp (use the native -pii/-ip "
-                    "implementation for the others)")
+                        "--llm-technique selects LLM morphing; use --llm with "
+                        "it, or use native technique flags with --llm-data")
         except llm_engine.LLMConfigError as error:
             print(f"ERROR: {error}")
             sys.exit(1)
+
+        native_after = bool(llm_data and not llm_morph and selected)
 
         if llm_verify not in ("static", "messagebox"):
             print("ERROR: --llm-verify must be static or messagebox")
@@ -3884,7 +4135,12 @@ def start(file=None):
             print(f"[llm] data classification: "
                   f"{len(data_result.sections)} section(s), "
                   f"{data_result.data_bytes} bytes")
-            if technique is None:
+            if native_after:
+                # Native Zone techniques will run after this block; let
+                # write_file() finalize the data references at the final
+                # layout.
+                zone.data_refs_finalized = False
+            if technique is None and not native_after:
                 out = output_file if output_file else "new_payload.bin"
                 zone.write_file(out)
                 with open(out, "rb") as handle:
@@ -3927,59 +4183,61 @@ def start(file=None):
                     print("[llm] WARNING: the payload has undecodable bytes; "
                           "without -xd the canonical listing may contain data")
 
-        zone.morph_applied = False
-        try:
-            canonical = llm_payload.from_zone(zone, "x86")
-        except llm_payload.LLMPayloadError as error:
-            print(f"ERROR: cannot canonicalise the payload: {error}")
-            sys.exit(1)
-        print(f"[llm] canonical listing: {len(canonical.code)} code bytes, "
-              f"{len(canonical.blob)} data bytes, "
-              f"{len(canonical.ret_labels)} getpc site(s)")
+        if llm_morph:
+            zone.morph_applied = False
+            try:
+                canonical = llm_payload.from_zone(zone, "x86")
+            except llm_payload.LLMPayloadError as error:
+                print(f"ERROR: cannot canonicalise the payload: {error}")
+                sys.exit(1)
+            print(f"[llm] canonical listing: {len(canonical.code)} code "
+                  f"bytes, {len(canonical.blob)} data bytes, "
+                  f"{len(canonical.ret_labels)} getpc site(s)")
 
-        verifier = None
-        if llm_verify == "messagebox":
-            verifier = lambda data: llm_engine.verify_messagebox_bytes(
-                data, "x86")
+            verifier = None
+            if llm_verify == "messagebox":
+                verifier = lambda data: llm_engine.verify_messagebox_bytes(
+                    data, "x86")
 
-        try:
-            result = llm_engine.run(canonical, options, verifier=verifier)
-        except llm_engine.LLMGenerationError as error:
-            if error.last_source and llm_failed_output:
-                with open(llm_failed_output, "w", encoding="utf-8",
-                          newline="\n") as handle:
-                    handle.write(error.last_source)
-                print(f"[llm] last rejected answer saved to "
-                      f"{llm_failed_output}")
-            if error.stats is not None:
-                print(error.stats.summary())
+            try:
+                result = llm_engine.run(canonical, options,
+                                        verifier=verifier)
+            except llm_engine.LLMGenerationError as error:
+                if error.last_source and llm_failed_output:
+                    with open(llm_failed_output, "w", encoding="utf-8",
+                              newline="\n") as handle:
+                        handle.write(error.last_source)
+                    print(f"[llm] last rejected answer saved to "
+                          f"{llm_failed_output}")
+                if error.stats is not None:
+                    print(error.stats.summary())
+                    if llm_stats_path:
+                        error.stats.write_json(llm_stats_path)
+                        print(f"[llm] stats JSON: {llm_stats_path}")
+                print(f"ERROR: {error}")
+                sys.exit(1)
+            except llm_engine.LLMError as error:
+                stats = getattr(error, "stats", None)
+                if stats is not None:
+                    print(stats.summary())
+                    if llm_stats_path:
+                        stats.write_json(llm_stats_path)
+                        print(f"[llm] stats JSON: {llm_stats_path}")
+                print(f"ERROR: {error}")
+                sys.exit(1)
+
+            out = output_file if output_file else "new_payload.bin"
+            with open(out, "wb") as handle:
+                handle.write(result.payload)
+            print(f"[llm] wrote {out} ({len(result.payload)} bytes, "
+                  f"{result.attempts} attempt(s))")
+            print(f"Output: {out}")
+            if result.stats is not None:
+                print(result.stats.summary())
                 if llm_stats_path:
-                    error.stats.write_json(llm_stats_path)
+                    result.stats.write_json(llm_stats_path)
                     print(f"[llm] stats JSON: {llm_stats_path}")
-            print(f"ERROR: {error}")
-            sys.exit(1)
-        except llm_engine.LLMError as error:
-            stats = getattr(error, "stats", None)
-            if stats is not None:
-                print(stats.summary())
-                if llm_stats_path:
-                    stats.write_json(llm_stats_path)
-                    print(f"[llm] stats JSON: {llm_stats_path}")
-            print(f"ERROR: {error}")
-            sys.exit(1)
-
-        out = output_file if output_file else "new_payload.bin"
-        with open(out, "wb") as handle:
-            handle.write(result.payload)
-        print(f"[llm] wrote {out} ({len(result.payload)} bytes, "
-              f"{result.attempts} attempt(s))")
-        print(f"Output: {out}")
-        if result.stats is not None:
-            print(result.stats.summary())
-            if llm_stats_path:
-                result.stats.write_json(llm_stats_path)
-                print(f"[llm] stats JSON: {llm_stats_path}")
-        return
+            return
 
 # INITIALIZATION / DATA EXTRACTION
 
@@ -3996,6 +4254,7 @@ def start(file=None):
             sys.exit(0)
 
         zone.extract_data(sections, xrefs, include_unknown=extract_unknown)
+        zone.data_analysis_done = True
 
         try:
             zone.create_jmp_table()
@@ -4023,6 +4282,12 @@ def start(file=None):
             zone.update_label_table()
         elif morph_requested or eliminate_bad:
             zone.update_label_table()
+
+        if assembly_wrapping:
+            zone.assembly_wrapping(
+                seed=_wrap_seed(),
+                ghost_probability=_wrap_fraction("ZONE_WRAP_GHOST", 0.20),
+                junk_probability=_wrap_fraction("ZONE_WRAP_JUNK", 0.15))
 
         # the final layout is known only now: fill in the stub displacements
         zone.finalize_data_refs()
@@ -4072,6 +4337,12 @@ def start(file=None):
             and (morph_requested or eliminate_bad or instruction_permutation)):
         zone.update_label_table()
 
+    if assembly_wrapping:
+        zone.assembly_wrapping(
+            seed=_wrap_seed(),
+            ghost_probability=_wrap_fraction("ZONE_WRAP_GHOST", 0.20),
+            junk_probability=_wrap_fraction("ZONE_WRAP_JUNK", 0.15))
+
     zone.print_blocks()
     zone.print_instructions()
 
@@ -4081,6 +4352,15 @@ def start(file=None):
     else:
         zone.write_file(output_file)
     zone.print_instructions()
+    if llm_data and llm_verify == "messagebox":
+        out = output_file if output_file else "new_payload.bin"
+        with open(out, "rb") as handle:
+            output_bytes = handle.read()
+        ok, detail = llm_engine.verify_messagebox_bytes(output_bytes, "x86")
+        print(f"[llm] execution check: {detail}")
+        if not ok:
+            print("ERROR: native morph output failed the message-box check")
+            sys.exit(1)
     print("FINE")
 
 

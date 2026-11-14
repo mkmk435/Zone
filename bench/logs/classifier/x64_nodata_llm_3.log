@@ -1,0 +1,32 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['C:\\Users\\ubu\\Desktop\\Zone\\bench\\fixtures\\classifier\\x64\\nodata.bin', '--llm-data', '--llm-data-json', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\cls_data\\x64_nodata_llm_3.json', '--llm-dump-response', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\cls_responses\\x64_nodata_llm_3.json', '--llm-stats', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\cls_stats\\x64_nodata_llm_3.json', '--llm-retries', '1', '-o', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\cls_outputs\\x64_nodata_llm_3.bin']
+[llm] technique=data-classification model=deepseek-flash
+[llm] endpoint=https://api.deepseek.com/v1/chat/completions
+[llm] classifying data with the model instead of -xd
+[llm-data] attempt 1/1: deepseek-flash
+[llm-data] attempt 1: 932 tokens (756 in / 176 out), 1.9s, $0.000144
+FINITO DI DISASSEMBLARE
+====================================================================
+[llm] run statistics
+  model:      deepseek-flash (DeepSeek-V4.1-Flash-1017)
+  technique:  data (x64)
+  attempts:   1 (1 API call(s), 0 rejected)
+  time:       1.9s total (API 1.9s, local 0.0s)
+  attempt 1: 1.9s, ok, 0 data bytes
+  tokens:     932 total = 756 input + 176 output
+              input: 512 cache hit + 244 cache miss (67.7% hit)
+              output: 176 (reasoning 169, 96.0%)
+  throughput: 92.3 output tokens/s (API time)
+  cost:       $0.000144 USD (off-peak)
+              input $0.000038 (hit $0.000002, miss $0.000037) + output $0.000106
+              prices: DeepSeek official USD/1M tokens; peak/off-peak UTC, holidays not modelled
+  payload:    17 code + 0 data bytes, 4 instructions
+  extraction: ok, 0 data bytes
+====================================================================
+[llm] data stats JSON: C:\Users\ubu\Desktop\Zone\bench\run\cls_stats\x64_nodata_llm_3.json
+[llm] data classification JSON: C:\Users\ubu\Desktop\Zone\bench\run\cls_data\x64_nodata_llm_3.json
+[llm] data classification: 0 section(s), 0 bytes
+[llm] wrote C:\Users\ubu\Desktop\Zone\bench\run\cls_outputs\x64_nodata_llm_3.bin (17 bytes, data-only mode)
+Output: C:\Users\ubu\Desktop\Zone\bench\run\cls_outputs\x64_nodata_llm_3.bin

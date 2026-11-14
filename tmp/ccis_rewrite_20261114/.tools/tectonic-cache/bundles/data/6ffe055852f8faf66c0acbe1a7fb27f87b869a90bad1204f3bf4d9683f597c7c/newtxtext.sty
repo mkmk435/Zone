@@ -1,0 +1,668 @@
+\NeedsTeXFormat{LaTeX2e}
+
+% Based originally on Young Ryu's txfonts.sty, v.1.1.1
+%
+% Changes from original txfonts.sty by Michael Sharpe, msharpe at ucsd dot edu;
+% Text and math versions now separate. 
+% Added scaled keyword and osf option;
+% Text is now directed to an extension of TeXGyreTermes rather than tx.
+% 1.7 is first version of newtxtext to support both [pdf]latex and unicode latex.
+
+\def\fileversion{1.71}
+\def\filedate{2022/02/28}
+\ProvidesPackage{newtxtext}[%
+\filedate\space v\fileversion (Michael Sharpe) latex and unicode latex support for TeXGyreTermesX]
+
+\message{`newtxtext' v\fileversion, \filedate\space Text macros taking advantage of TeXGyre Termes and its extensions (msharpe)}
+
+\RequirePackage{iftex,xkeyval,etoolbox,textcomp}
+\RequirePackage{xstring,ifthen,scalefnt} % for \textfrac
+\RequirePackage{mweights} % should be in latex kernel
+\DeclareEncodingSubset{TS1}{ntx*}{0}
+\input{binhex}
+
+\newcount\ntx@tmpcnta
+\newcount\ntx@cnt \ntx@cnt=0
+
+%KOMA check
+\newif\ifntx@KOMA
+\@ifundefined{KOMAClassName}{}{\ntx@KOMAtrue}
+\@ifundefined{ver@scrextend.sty}{}{\ntx@KOMAtrue}
+
+
+% Engine check
+\newif\ifntx@newtx
+\@ifundefined{ntx@otftexttrue}{% not run from newtx.sty
+  \newif\ifntx@otftext%
+  \newif\ifntx@otfmath % default is type1 math
+  %iftex's \iftutex returns true for LuaTeX and XeTeX, not [pdf]latex
+  \iftutex\ntx@otftexttrue\fi % default is otf text for unicode latex
+  \newif\ifntx@nofontspec % default is to load fontspec iftutex  
+  % might have been defined in newtx.sty
+  \def\ntx@id{0} % make it appear that newtxtext was chosen in newtx
+}{% run from newtx.sty
+  \ntx@newtxtrue%
+  %\ifntx@otftext\typeout{ntx@otftexttrue.}\else\typeout{ntx@otftextfalse.}\fi
+}
+%%%%%%%%%%%%%%%%%%
+%
+
+%\newif\ifntx@nomath\ntx@nomathfalse % ?????
+\newif\ifntx@lining\ntx@liningtrue
+\newif\ifntx@tabular\ntx@tabulartrue % default is tabular lining figures
+\@ifundefined{ver@newtxmath.sty}{\iftutex\ntx@otfmathtrue\fi}{}
+
+\DeclareOptionX{type1}[true]{%
+\def\ntx@tmpx{\@nameuse{if#1}\ntx@otftextfalse\fi}
+\ifntx@newtx
+\else\ntx@tmpx\fi}
+\DeclareOptionX{type1text}[true]{%
+\def\ntx@tmpx{\@nameuse{if#1}\ntx@otftextfalse\fi}
+\ifntx@newtx
+\else\ntx@tmpx\fi}
+
+\DeclareOptionX{otfmath}[true]{%
+\def\ntx@tmpx{\@nameuse{if#1}\iftutex\ntx@otfmathtrue\fi\fi}
+\ifntx@newtx
+\else\ntx@tmpx\fi}
+
+\DeclareOptionX{nofontspec}[true]{%
+\def\ntx@tmpx{\@nameuse{if#1}\ntx@nofontspectrue\fi}
+\ifntx@newtx
+\else\ntx@tmpx\fi}
+
+%\DeclareOptionX{no-math}[true]{%
+%\def\ntx@tmpx{\@nameuse{if#1}\ntx@nomathtrue\fi}
+%\ifntx@newtx
+%\else\ntx@tmpx\fi}
+
+\def\ntx@defaultfeatures{}
+\DeclareOptionX{defaultfeatures}{\def\ntx@defaultfeatures{#1}}
+
+%Figure style options
+\def\ntx@dfltfigurestyle{lf}
+\def\ntx@dfltfigurealign{t}
+
+\DeclareOptionX{lining}[true]{%
+\@nameuse{ntx@lining#1}
+}
+\DeclareOptionX{lf}[true]{%
+\@nameuse{ntx@lining#1}
+}
+\DeclareOptionX{oldstyle}[true]{%
+\@nameuse{if#1}%
+  \ntx@liningfalse
+\else
+  \ntx@liningtrue
+\fi
+}
+\DeclareOptionX{osf}[true]{%
+\@nameuse{if#1}%
+  \ntx@liningfalse
+\else
+  \ntx@liningtrue
+\fi
+}
+\DeclareOptionX{tabular}[true]{%
+\@nameuse{ntx@tabular#1}
+}
+\DeclareOptionX{t}[true]{%
+\@nameuse{ntx@tabular#1}
+}
+\DeclareOptionX{proportional}[true]{%
+\@nameuse{if#1}%
+  \ntx@tabularfalse
+\else
+  \ntx@tabulartrue
+\fi
+}
+\DeclareOptionX{p}[true]{%
+\@nameuse{if#1}%
+  \ntx@tabularfalse
+\else
+  \ntx@tabulartrue
+\fi
+}
+
+%Scale
+\newcommand*{\ntx@scale}{1}  % actual scaled command in \ntx@scaled
+\DeclareOptionX{scale}{\renewcommand*{\ntx@scale}{#1}}
+\DeclareOptionX{scaled}{\renewcommand*{\ntx@scale}{#1}}
+
+\newif\ifntx@defaultsups
+%\newif\ifntx@adobesc % we don't use this exc. in fd, but may in future
+\newif\ifntx@scosf
+\newif\ifntx@largesc 
+\newif\ifntx@helv \ntx@helvtrue % default is to load helvetica as sans serif font
+\newif\ifntx@tt \ntx@tttrue % default is to load ntxtt as typewriter font
+\newif\ifntx@thrm
+\newif\ifntx@sl 
+
+% Other options
+\DeclareOptionX{defaultsups}[true]{%
+\@nameuse{ntx@defaultsups#1}
+}
+\DeclareOptionX{babel}[true]{%
+\@nameuse{ntx@babel#1}% for backward compatibility
+}
+\DeclareOptionX{largesc}[true]{%
+\@nameuse{ntx@largesc#1}
+}
+\DeclareOptionX{nohelv}[true]{%
+\@nameuse{if#1}\ntx@helvfalse\fi}%
+
+\DeclareOptionX{nott}[true]{%
+\@nameuse{if#1}\ntx@ttfalse\fi}%
+
+\def\ntx@helvratio{.94}
+\DeclareOptionX{helvratio}[0.94]{%
+\def\ntx@helvratio{#1}
+}
+\def\ntx@spcmag{1}
+\def\ntx@spc{.25em}
+\def\ntx@stretch{.2em}
+\def\ntx@shrink{.1em}
+\def\ntx@nospc{T}
+
+\DeclareOptionX{spcfactor}{%
+\def\ntx@spcmag{#1}\def\ntx@nospc{F}
+}
+\DeclareOptionX{spacing}{%
+\def\ntx@spc{#1}
+}
+\DeclareOptionX{stretch}{%
+\def\ntx@stretch{#1}
+}
+\DeclareOptionX{shrink}{%
+\def\ntx@shrink{#1}
+}
+\def\ntx@thmshape{i} % other option is slanted
+\def\ntx@defaultfeatures{}
+\newif\ifntx@zeroslash
+\def\ntx@thmlin{X} % default is to not change to lining
+\def\ntx@noti{T}\def\ntx@nolo{T}
+\DeclareOptionX{defaultfeatures}{\def\ntx@defaultfeatures{#1}}
+\DeclareOptionX{oldSS}{\advance\ntx@cnt 32 }
+\DeclareOptionX{slashedzero}{\ntx@zeroslashtrue}
+\DeclareOptionX{theoremfont}{\ntx@thrmtrue}
+\DeclareOptionX{thmslshape}{\def\ntx@thmshape{s}}
+\DeclareOptionX{thmlining}{\edef\ntx@thmlin{l}}
+\DeclareOptionX{trueslanted}{\ntx@sltrue}
+\DeclareOptionX{scosf}{\ntx@scosftrue}
+\DeclareOptionX{tighter}{% 
+\gdef\ntx@spc{.25em}\gdef\ntx@stretch{.125em}%
+\gdef\ntx@shrink{.1em}\def\ntx@noti{F}}
+\DeclareOptionX{looser}{%
+\gdef\ntx@spc{.3em}\gdef\ntx@stretch{.2em}%
+\gdef\ntx@shrink{.1em}\def\ntx@nolo{F}}
+%\traceon
+\ProcessOptionsX\relax
+% Check for conflict between nofontspec and others
+\ifntx@nofontspec
+  \iftutex
+  	\ntx@otfmathfalse
+	\ntx@otftextfalse
+  \fi
+\fi
+
+\ifntx@otftext \typeout{ntx@otftexttrue}\else\typeout{ntx@otftextfalse}\fi
+\ifntx@newtx\let\ntx@scale=\ntxtext@scale\fi
+% following lines required by newtxmath
+% They must follow the definition of \ntx@scaled
+\@tempdima=\ntx@scale\p@\@tempdima=\ntx@helvratio\@tempdima%
+\edef\qhv@scale{\strip@pt\@tempdima}
+\edef\ntx@scaled{s*[\ntx@scale]}% used in fd files
+\providecommand*{\ntx@minfam}{minntx} % won't override value from newtx
+
+%\RequirePackage[T1]{fontenc} % do we need this?
+\renewcommand*{\rmdefault}{\ntx@minfam} % the default until end of preamble
+\renewcommand*{\familydefault}{\rmdefault} % Cause the fd files to load
+
+\def\re@DeclareTextSymbol#1#2#3{%
+   \let#1=\undefined
+   \DeclareTextSymbol{#1}{#2}{#3}}
+
+\iftutex
+  \ifntx@nofontspec % do nothing
+  \else   
+    \ifntx@otfmath
+      \RequirePackage{fontspec}
+    \else
+      \RequirePackage[no-math]{fontspec}
+    \fi
+  \fi
+\fi
+
+\ifntx@otftext   
+  \ifxetex\XeTeXtracingfonts=1\fi
+  \ifluatex  % avoid possibly uncorrected "system" fonts
+    \directlua{fonts.names.set_location_precedence{
+        "local", "texmf", "system" }}
+  \fi
+  \def\ntx@base{TeXGyreTermesX}
+  
+  \newcommand{\textfrac}[3][]{{%\normalfont%
+\mbox{%
+    \ifthenelse{\not\equal{#1}{}}%Test for integer portion [optional #1]
+      {{\lfstyle#1}\kern.04em}{}%
+\addfontfeatures{RawFeature=+sups}#2\char"2044% numerator
+\addfontfeatures{RawFeature=-sups;+dnom;+ss20}\char"2044{}#3% 
+}}}
+  
+\else % type1
+	\RequirePackage{fontaxes}
+    \fa@naming@exception{figures}{{superior}{proportional}}{sups}
+    \fa@naming@exception{figures}{{superior}{tabular}}{sups}
+%    \def\sufigures{\@nomath\sufigures
+%        \fontfigurestyle{superior}\selectfont}
+%     \let\sustyle=\sufigures
+%    \DeclareTextFontCommand{\textsu}{\sufigures}
+%    \let\textsuperior\textsu
+   \DeclareRobustCommand{\sustyle}{%
+   \not@math@alphabet\sustyle\relax
+   \fontfamily{ntxsups}\selectfont}
+   \let\sufigures=\sustyle
+   \let\nustyle=\sustyle
+   \let\nufigures=\sustyle
+
+    \fa@naming@exception{figures}{{inferior}{proportional}}{inf}
+     \fa@naming@exception{figures}{{inferior}{tabular}}{inf}
+%    \def\infigures{\@nomath\infigures
+%        \fontfigurestyle{inferior}\selectfont}
+%     \let\instyle=\infigures
+%    \DeclareTextFontCommand{\textinf}{\infigures}
+%    \let\textinferior\textinf
+   \DeclareRobustCommand{\instyle}{%
+   \not@math@alphabet\instyle\relax
+   \fontfamily{ntxinf}\selectfont}
+   \let\infigures=\instyle
+
+    \fa@naming@exception{figures}{{denominators}{proportional}}{dnom}
+    \fa@naming@exception{figures}{{denominators}{tabular}}{dnom}
+%    \def\defigures{\@nomath\defigures
+%        \fontfamily{defigures}\selectfont}
+%     \let\destyle=\defigures
+%    \DeclareTextFontCommand{\textde}{\defigures}
+%    \let\textdenominators\textde
+  \DeclareRobustCommand{\destyle}{%
+   \not@math@alphabet\destyle\relax
+   \fontfamily{ntxdnom}\selectfont}
+   \let\defigures=\destyle
+
+%    \fa@naming@exception{figures}{{numerators}{proportional}}{numr}
+%    \fa@naming@exception{figures}{{numerators}{tabular}}{numr}
+%    \def\defigures{\@nomath\nufigures
+%        \fontfigurestyle{numerators}\selectfont}
+%     \let\nustyle=\nufigures
+%    \DeclareTextFontCommand{\textnu}{\nufigures}
+%    \let\textnumerators\textnu
+%  \DeclareRobustCommand{\nustyle}{%
+%   \not@math@alphabet\nustyle\relax
+%   \fontfamily{ntxnumr}\selectfont}
+%   \let\nufigures=\nustyle
+
+\newcommand{\textfrac}[3][]{% like \textfrac[1]{7}{8}
+  \mbox{%
+    \ifthenelse{\not\equal{#1}{}}%Test for integer portion [optional #1]
+      {\textlf{#1}\kern.1em}{}%         
+    {\sustyle#2}% numerator
+    \StrRight{#2}{1}[\@digit@]%
+    % look for  1, 2, 6, 7
+    \ifcase\@digit@% 0
+    \or%\kern.03em% 1
+    \or\kern.04em% 2
+    \or%\kern-.01em% 3
+    \or%\kern.02em% 4
+    \or%\kern.01em% 5
+    \or\kern.01em% 6
+    \or\kern-.11em% 7
+     \or%\kern-.11em% 8
+    \or\kern-.02em% 9
+   \fi%
+%    \kern\ntx@foresolidus{\fontencoding{TS1}\selectfont\char"2F}%
+%    \kern\ntx@aftsolidus%
+    {\fontencoding{TS1}\selectfont\char"2F}%
+	\StrLeft{#3}{1}[\@digit@]%
+    % look for 1, 4, 7
+    \ifcase\@digit@% 0
+    \or%\kern -.02em% 1
+    \or% 2
+    \or% 3
+    \or\kern -.05em% 4
+    \or% 5
+    \or\kern-.02em% 6
+    \or\kern .01em% 7
+    \fi%
+    {\destyle #3}%       denominator [#3]
+  }%mbox
+} % textfrac
+\fi
+
+\let\orig@footnote=\thefootnote
+\let\orig@makefnmark=\@makefnmark
+\def\bfseries@rm{b}
+\def\mdseries@rm{m}
+
+\def\useosf{\ntx@liningfalse}
+\@onlypreamble\useosf
+\def\useproportional{\ntx@tabularfalse}
+\@onlypreamble\useproportional
+
+\ifntx@otftext
+  \def\ntx@dflt{}
+  \ifntx@zeroslash\edef\ntx@dflt{Numbers = SlashedZero , 
+  }\fi
+  \if T\ntx@nospc
+    \if F\ntx@noti\def\ntx@spcmag{{1,.625,1}}\def\ntx@nospc{F}\fi
+    \if F\ntx@nolo\def\ntx@spcmag{{1.2,1,1}}\def\ntx@nospc{F}\fi  
+  \fi
+  \if F\ntx@nospc
+  	\edef\ntx@dflt{\ntx@dflt WordSpace = \ntx@spcmag ,
+	}
+  \fi
+  \def\ntx@scraw{pcap}
+  \ifntx@largesc\def\ntx@scraw{smcp}\fi
+  
+ %\ntx@cnt will be 0..2^8-1 
+  \edef\ntx@lst{}
+  \ifnum\ntx@cnt>127 \edef\ntx@lst{8}\advance\ntx@cnt -128 \fi
+  \ifnum\ntx@cnt>63 \edef\ntx@lst{7,\ntx@lst}\advance\ntx@cnt -64 \fi
+  \ifnum\ntx@cnt>31 \edef\ntx@lst{6,\ntx@lst}\advance\ntx@cnt -32 \fi
+  \ifnum\ntx@cnt>15 \edef\ntx@lst{5,\ntx@lst}\advance\ntx@cnt -16 \fi
+  \ifnum\ntx@cnt>7 \edef\ntx@lst{4,\ntx@lst}\advance\ntx@cnt -8 \fi
+  \ifnum\ntx@cnt>3 \edef\ntx@lst{3,\ntx@lst}\advance\ntx@cnt -4 \fi
+  \ifnum\ntx@cnt>1 \edef\ntx@lst{2,\ntx@lst}\advance\ntx@cnt -2 \fi
+  \ifnum\ntx@cnt>0 \edef\ntx@lst{1,\ntx@lst}\fi
+  \ifthenelse{\not\equal{\ntx@lst}{}}
+	{\edef\ntx@dflt{\ntx@dflt StylisticSet={\ntx@lst} , 
+	}}{}
+  
+   \defaultfontfeatures{
+     Ligatures = TeX ,
+	Scale = \ntx@scale ,
+     Extension = .otf ,
+     SmallCapsFeatures={\ifntx@scosf Numbers = OldStyle ,
+     \fi RawFeature = +\ntx@scraw ,
+     \ifluatex Renderer=Basic\fi} ,
+     \ntx@dflt ,
+     RawFeature=-ss05 ,   
+     \ntx@defaultfeatures ,
+    }
+ 
+ \else % type1
+  \def\ntx@spacing{%
+	\fontdimen2\font=\ntx@spc
+	\fontdimen3\font=\ntx@stretch
+	\fontdimen4\font=\ntx@shrink}
+  %\show\ntx@scaled
+  %\def\oldstylenums#1{{\fontencoding{TS1}\selectfont #1}}
+
+ %\expandafter\patchcmd\expandafter{\csname scshape \endcsname}{\fontshape}{\fontfamily{ntx\ntx@figurealign osf}\fontshape}{\message{Replaced figure style by osf in sc.}}{\message{Unable to replace figure style by osf in sc.}}
+
+    \DeclareRobustCommand{\lfstyle}{%
+      \not@math@alphabet\lfstyle\relax
+      \fontfamily{ntxlf}\selectfont %
+    }
+    \DeclareRobustCommand{\tlfstyle}{%
+      \not@math@alphabet\tlfstyle\relax
+      \fontfamily{ntxtlf}\selectfont %
+    }
+    \DeclareRobustCommand{\osfstyle}{%
+      \not@math@alphabet\osfstyle\relax
+      \fontfamily{ntxosf}\selectfont %
+    }
+    \DeclareRobustCommand{\tosfstyle}{%
+      \not@math@alphabet\tosfstyle\relax
+      \fontfamily{ntxtosf}\selectfont %
+    }    
+    \ifntx@defaultsups %
+    \else
+      \ifntx@KOMA
+      	%\let\textsuperscript\sustyle
+      \else % NOT KOMA
+        \def\f@@tn@te{footnote}
+        \def\@makefnmark{%
+          \ifx\@mpfn\f@@tn@te%
+            \ifx\thefootnote\orig@footnote%
+              \hbox{\sustyle\hspace*{.05em}\@thefnmark\hspace*{.05em}}%
+            \else%
+              \orig@makefnmark%
+            \fi
+          \else%
+            \orig@makefnmark%
+          \fi}%
+        \fi
+    \fi
+  \ifntx@helv\renewcommand*{\sfdefault}{qhv}\fi
+  \ifntx@tt\renewcommand*{\ttdefault}{ntxtt}\fi
+  \DeclareRobustCommand\thfamily % new family for theorem font
+        {\not@math@alphabet\thfamily\relax
+         \fontfamily\thdefault\selectfont}
+\fi % type1
+
+\ifntx@thrm
+	%\RequirePackage{amsmath,amsthm} % in case of theoremfont
+	\ifdefined\newtheoremstyle %amsthm and ntheorem, not theorem.sty
+		\@ifpackageloaded{ntheorem}\relax{%
+		\newtheoremstyle{plain}
+		{\medskipamount}   % ABOVESPACE, was \topsep
+    	{\medskipamount}   % BELOWSPACE, was \topsep
+    	{\thfamily}  % BODYFONT--\thfamily is italic with upright figures and punctuation
+    	{}       % INDENT (empty value is the same as 0pt)
+    	{\bfseries} % HEADFONT--you may want to add \tlfstyle so the number is tab lining, regardless of text figure selection
+    	{.}         % HEADPUNCT
+    	{5pt plus 1pt minus 1pt} % HEADSPACE
+    	{}          % CUSTOM-HEAD-SPEC\newtheorem{thm}{Theorem}[section]
+    	} % end @ifpackageloaded
+    \fi%
+\fi%}		
+
+\ifntx@otftext
+%	\def\ntx@nft{\if t\ntx@thmtab Monospaced%
+%	\else Proportional\fi}
+   \DeclareRobustCommand{\lfstyle}{%
+      \not@math@alphabet\lfstyle\relax
+      \addfontfeatures{Numbers={Proportional,Lining}}%
+    }
+    \DeclareRobustCommand{\tlfstyle}{%
+      \not@math@alphabet\tlfstyle\relax
+      \addfontfeatures{Numbers={Monospaced,Lining}}%
+    }
+    \DeclareRobustCommand{\osfstyle}{%
+      \not@math@alphabet\osfstyle\relax
+      \addfontfeatures{Numbers={Proportional,OldStyle}}%
+    }
+    \DeclareRobustCommand{\tosfstyle}{%
+      \not@math@alphabet\tosfstyle\relax
+      \addfontfeatures{Numbers={Monospaced,OldStyle}}%
+    }
+    \DeclareRobustCommand{\oldstylenums}{%
+      \not@math@alphabet\oldstylenums\relax
+      \addfontfeatures{Numbers=OldStyle}%
+    }
+    \DeclareRobustCommand{\liningnums}{%
+      \not@math@alphabet\liningnums\relax
+      \addfontfeatures{Numbers=Lining}%
+    }
+    \DeclareRobustCommand{\tabularnums}{%
+      \not@math@alphabet\tabularnums\relax
+      \addfontfeatures{Numbers=Monospaced}%
+    }
+   \DeclareRobustCommand{\proportionalnums}{%
+      \not@math@alphabet\proportionalnums\relax
+      \addfontfeatures{Numbers=Proportional}%
+    }
+
+   \providecommand\sufigures{%
+    \addfontfeatures{VerticalPosition=Superior}}
+   \providecommand\infigures{%
+    \addfontfeatures{VerticalPosition=Inferior}}
+%   \providecommand\nufigures{%
+%    \addfontfeatures{VerticalPosition=Numerator}}
+   \providecommand\defigures{%
+    \addfontfeatures{VerticalPosition=Denominator}}
+   \let\sustyle=\sufigures
+   \let\nustyle=\sufigures
+   \let\instyle=\infigures
+   \let\destyle=\defigures
+   \ifntx@defaultsups %
+   \else
+      \usepackage{realscripts}
+      \ifntx@KOMA
+        \setkomafont{footnotelabel}{\normalfont}
+      \else
+        \renewcommand\footnotemarkfont{\normalfont}
+      \fi
+   \fi
+%   \ifntx@scosf
+%		\edef\ntx@fnt{\expandafter\csname ntx\ifntx@tabular T\fi OsF\endcsname}
+%	\DeclareRobustCommand{\textsc}[1]{%
+%	{\ntx@fnt \addfontfeatures{RawFeature=+smcp}#1}}%
+%	\fi
+   \renewcommand*{\textcircled}[1]{% 
+	\StrLen{#1}[\ntx@tmpa]\ntx@tmpcnta=\ntx@tmpa\relax
+	\ifnum\ntx@tmpcnta>2 
+	  #1
+	\else
+	  \ifnum\ntx@tmpcnta=\@ne
+	    \mbox{\normalfont\addfontfeatures{RawFeature=+ss08}#1}	
+	  \else % argument has length 2
+	    \IfInteger{#1}{%
+	    \ntx@tmpcnta=#1\relax
+	    \ifnum\ntx@tmpcnta<10\relax
+	      #1
+	    \else % >=10
+	      \ifnum\ntx@tmpcnta>20\relax
+	        #1
+	      \else % between 10 and 20
+	        \advance\ntx@tmpcnta 9311 \relax
+	        \symbol{"\nhex{4}{\the\ntx@tmpcnta}}
+	      \fi
+	    \fi %\ifnum
+	    }{#1}  % \IfInteger
+	  \fi %ifnum
+	\fi
+	}
+	  %\ntx@tmpcnta=9321 % decimal value of "2469 (uni2469 is circled{10})
+	  %\ntx@cnt=#1 \advance\count@\the\count1 \advance\count@ -10\relax
+%	  \symbol{"\nhex{4}{\the\count@}}
+%    \renewcommand*{\textcircled}[1]{\hmode@bgroup\ooalign{%
+%    \hfil \raise -.08ex\hbox{{%
+%    \normalfont\addfontfeatures{Numbers={Monospaced, Lining}}%
+%    \scalefont{.8}{\sustyle#1}}}% end hbox
+%    \hfil \crcr \symbol{"25EF}}%
+%    \egroup}
+\else % type1
+
+    \renewcommand*{\textcircled}[1]{\hmode@bgroup\ooalign{%
+    \hfil \raise .3ex\hbox{{%
+    \normalfont
+    {\scalefont{.6}\tlfstyle#1}}}% end hbox
+    \hfil \crcr {\usefont{TS1}{ntxtlf}{m}{n}\char"4F}}%\textbigcircle}%
+    \egroup}
+\fi
+
+% applies to both
+\DeclareTextFontCommand{\textosf}{\osfstyle}
+\DeclareTextFontCommand{\texttosf}{\tosfstyle}
+\DeclareTextFontCommand{\texttlf}{\tlfstyle}
+\DeclareTextFontCommand{\textlf}{\lfstyle}
+
+\DeclareTextFontCommand{\textsu}{\sustyle}
+    \let\textsuperior\textsu
+\DeclareTextFontCommand{\textnu}{\nustyle}
+    \let\textnumerator\textnu
+\DeclareTextFontCommand{\textde}{\destyle}
+    \let\textdenominator\textde
+\DeclareTextFontCommand{\textinf}{\instyle}
+    \let\textinferior\textinf
+    
+\AtEndPreamble{%
+\ifntx@otftext
+  \ifntx@lining
+    \def\ntx@figurestyle{Lining}
+  \else
+    \def\ntx@figurestyle{OldStyle}
+  \fi
+  \ifntx@tabular
+    \def\ntx@figurealign{Monospaced} 
+  \else
+    \def\ntx@figurealign{Proportional} 
+  \fi
+  \setmainfont
+          [ Numbers = {\ntx@figurealign,\ntx@figurestyle},
+          UprightFont    = *-Regular ,
+          ItalicFont     = *-Italic ,
+          BoldFont       = *-Bold , 
+          BoldItalicFont = *-BoldItalic ,
+          SlantedFont    = *-Slanted ,
+          BoldSlantedFont= *-BoldSlanted ,
+          ] {\ntx@base}
+  \let\ntx@sty\ntx@figurestyle
+  \if l\ntx@thmlin\def\ntx@sty{Lining}\fi
+  \newcommand{\thfamily}%{\@nameuse{ntx\ntx@figurestyle}%
+    {\@nameuse{\if i\ntx@thmshape itshape\else slshape\fi}\addfontfeatures{%
+    Numbers={\ntx@figurealign,\ntx@sty} ,
+    RawFeature=+ss05}
+    } % for theorems
+    \ifntx@sl\else\let\slshape=\thfamily\fi    
+
+\else % type1
+  \ifntx@lining
+    \def\ntx@figurestyle{lf} 
+  \else
+    \def\ntx@figurestyle{osf} 
+  \fi
+  \ifntx@tabular
+    \def\ntx@figurealign{t} 
+  \else
+    \def\ntx@figurealign{} 
+  \fi
+
+  \renewcommand*{\rmdefault}{ntx\ntx@figurealign%
+  \ntx@figurestyle}
+  \ifntx@scosf %
+  \DeclareRobustCommand{\textsc}[1]{%
+  {\fontfamily{ntx\ntx@figurealign osf}\scshape\selectfont #1}%
+  }\fi% use OsF in small caps
+
+  \def\ntx@thfigurestyle{\ntx@figurestyle}
+  \ifx\ntx@figurestyle\ntx@dfltfigurestyle
+    \def\ntx@thfigurestyle{tlf}
+  \else
+    \def\ntx@thfigurestyle{osf}
+  \fi % there just two possible figure styles for the theorem font
+  \newcommand*{\thdefault}{ntxth-\ntx@thfigurestyle}
+  \normalfont
+\fi
+}
+%both
+
+\ifntx@thrm
+	\@ifundefined{theoremstyle}{}{%
+    \theoremstyle{plain}
+    \patchcmd{\th@plain}{\itshape}{\thfamily}{\message{Replaced itshape by thfamily in theorem style plain.}}{\message{Unable to replace itshape by thfamily in theorem style plain.}}
+    }
+\fi
+%\DeclareRobustCommand{\textth}[1]{%
+%    {\thfamily #1}%
+%}
+\DeclareTextFontCommand{\textth}{\thfamily}
+\let\textthit\textth
+
+% Define \oldstylenums, \liningnums ,\tabularnums and \proportionalnums
+\ifntx@otftext
+\else % type1
+    \DeclareTextFontCommand{%
+      \oldstylenums}{\fontfamily{ntx\ntx@figurealign osf}\selectfont }
+    \DeclareTextFontCommand{%
+      \liningnums}{\fontfamily{ntx\ntx@figurealign lf}\selectfont }
+    \DeclareTextFontCommand{%
+      \tabularnums}{\fontfamily{ntxt\ntx@figurestyle}\selectfont }
+    \DeclareTextFontCommand{%
+      \proportionalnums}{\fontfamily{ntx\ntx@figurestyle}\selectfont }
+	\re@DeclareTextSymbol{\textdollar}{OT1}{36}
+\fi
+
+\endinput
+

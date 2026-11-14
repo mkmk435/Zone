@@ -1,0 +1,32 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['C:\\Users\\ubu\\Desktop\\Zone\\bench\\fixtures\\x64\\branch.bin', '-bcf', '-o', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\outputs\\x64_branch_bcf_2.bin']
+CREO JUMP TABLE
+CREO LABEL TABLE
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r12
+CODE:  pushf;push r12; mov r12, 160;neg r12;neg r12;cmp r12, 160; pop r12;popf;je 0x45
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r15
+CODE:  pushf;push r15; mov r15, 252;or r15, 0;cmp r15, 252; pop r15;popf;je 0x69
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  rdi
+CODE:  pushf;push rdi;mov rdi, 124;test rdi, rdi; pop rdi;popf;je 0x76
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+FINE

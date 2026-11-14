@@ -1,0 +1,82 @@
+\section{Additional Experimental Results}\label{sec:extended_results}
+The results below are additional to the full published study retained
+in Sections~\ref{sec:results}--\ref{sec:comparison}. New campaign outcomes
+will be associated with their own inputs, versions, and observation
+protocol. They do not silently replace the historical measurements.
+
+\subsection{Code--Data Identification and Functional Outcomes}
+\draftnote{Insert the completed comparison, independent reference
+annotations if available, candidate/accepted interval results, analysis
+time, and functional outcomes after extraction. Keep selection and
+architecture explicit.}
+\begin{table}[t]
+\caption{Additional code--data assessment; entries await finalized
+experiments. Use agreement/case-study reporting if independent labels
+are unavailable.}
+\label{tab:new_data_results}
+\centering\small
+\begin{tabularx}{\linewidth}{@{}Yllll@{}}
+\toprule
+Method & Inputs & Precision$_D$ & Recall$_D$ & $F_{1,D}$ \\
+\midrule
+Symbolic/heuristic & \pending & \pending & \pending & \pending \\
+LLM classification & \pending & \pending & \pending & \pending \\
+\bottomrule
+\end{tabularx}
+\end{table}
+The final analysis will separate a changed classification from a
+changed acceptance decision or functional oracle. Any current
+working-rate comparison with the original study will state changes
+in corpus selection, preparation, and testing conditions.
+
+\subsection{Assembly Wrapping}
+\draftnote{Insert build counts, working rates, size, diversity, and
+completed static scans. x86 remains development work until its version
+and architecture-specific campaign are fixed.}
+\begin{table}[t]
+\caption{Additional wrapping outcomes. Report both planned-case and
+constructed-output working rates; static results refer to completed scans.}
+\label{tab:new_wrap_results}
+\centering\small
+\begin{tabularx}{\linewidth}{@{}Yllll@{}}
+\toprule
+Condition & $B/N$ & $W/N$ & $W/B$ & $\overline d$ \\
+\midrule
+x64 wrapping & \pending & \pending & \pending & \pending \\
+x64 wrapping, combined & \pending & \pending & \pending & \pending \\
+x86 wrapping & \multicolumn{4}{c}{\dev} \\
+x86 wrapping, combined & \multicolumn{4}{c}{\dev} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{LLM Transformation: Zero-Shot versus Two-Shot}
+\draftnote{Insert the final input/run counts, initial and final acceptance,
+functional outcomes, static verdicts, normalized sequence similarity,
+output uniqueness, attempts, time, and estimated cost. Record the scope
+of the pilot and the role of the generation-time verifier.}
+\begin{table}[t]
+\caption{Additional LLM transformation results. Similarity denotes
+the normalized sequence score, distinct from the historical cosine
+measure. Pending scans have no measured detection fraction.}
+\label{tab:new_llm_results}
+\centering\small
+\begin{tabularx}{\linewidth}{@{}Yllll@{}}
+\toprule
+Family / shots & Runs & $W/N$ & $\overline d$ & Similarity \\
+\midrule
+EQ / 0 & \pending & \pending & \pending & \pending \\
+EQ / 2 & \pending & \pending & \pending & \pending \\
+NOP / 0 & \pending & \pending & \pending & \pending \\
+NOP / 2 & \pending & \pending & \pending & \pending \\
+BCF / 0 & \pending & \pending & \pending & \pending \\
+BCF / 2 & \pending & \pending & \pending & \pending \\
+IBP / 0 & \pending & \pending & \pending & \pending \\
+IBP / 2 & \pending & \pending & \pending & \pending \\
+\bottomrule
+\end{tabularx}
+\end{table}
+The comparison will interpret representation changes alongside
+construction and functional outcomes. Similarity alone does not
+establish correctness, and accepted outputs do not characterize the
+success rate of first attempts or exhausted runs.

@@ -153,14 +153,19 @@ def resolve_keys(path: Path, interval: float) -> list:
                   path.read_text(encoding="utf-8").splitlines()
                   if line.strip() and not line.startswith("#")]
     if not values and os.environ.get("VT_API_KEY"):
-        values = [os.environ["VT_API_KEY"].strip()]
+        values = [value.strip() for value in
+                  os.environ["VT_API_KEY"].replace("\n", ",").split(",")
+                  if value.strip()]
     return [Key(value, interval) for value in values]
 
 
-def pick_key(keys: list) -> Key | None:
-    return next((item for item in keys
-                 if not item.exhausted and (item.remaining is None
-                                            or item.remaining > 0)), None)
+def pick_key(keys: list, position: int = 0) -> Key | None:
+    for offset in range(len(keys)):
+        item = keys[(position + offset) % len(keys)]
+        if not item.exhausted and (item.remaining is None
+                                   or item.remaining > 0):
+            return item
+    return None
 
 
 def append(path: Path, record: dict) -> None:
@@ -177,7 +182,7 @@ def phase_upload(entries: list, records: dict, keys: list, out: Path,
         todo = todo[:limit]
     print(f"[INFO] upload: {len(todo)} files", flush=True)
     for position, entry in enumerate(todo, 1):
-        key = pick_key(keys)
+        key = pick_key(keys, position)
         if key is None:
             print("[WARN] all keys exhausted", flush=True)
             break
@@ -212,7 +217,7 @@ def phase_report(entries: list, records: dict, keys: list, out: Path,
         todo = todo[:limit]
     print(f"[INFO] report: {len(todo)} files", flush=True)
     for position, entry in enumerate(todo, 1):
-        key = pick_key(keys)
+        key = pick_key(keys, position)
         if key is None:
             print("[WARN] all keys exhausted", flush=True)
             break

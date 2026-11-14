@@ -1,0 +1,67 @@
+\section{LLM-Assisted Assembly Transformation}\label{sec:llm}
+\subsection{What the Model Is Asked to Change}
+In transformation mode, the LLM receives an assembly representation and
+proposes a new instruction sequence intended to preserve the program's
+behavior. This differs from Section~\ref{sec:code_data}, where its answer
+contains only data locations. Zone supports four transformation requests:
+equal code substitution (EQ) replaces instruction sequences; NOP insertion
+adds operations intended to leave the relevant state unchanged; bogus
+control flow (BCF) adds control-flow structure without changing the intended
+outcome; and instruction block permutation (IBP) changes the placement of
+blocks while retaining their execution relationships. These are the
+families introduced in Section~\ref{sec:background}; the LLM proposes their
+application rather than introducing a fifth family. PII and assembly
+wrapping remain native engine operations.
+
+Before the request, Zone prepares a \emph{canonical assembly listing}: a
+working representation with symbolic labels for relevant locations and
+the extracted data kept separately. Labels name locations without fixing
+their final byte offsets, which will change when instruction lengths or
+block positions change. The model returns the complete proposed code
+listing. The deterministic pipeline then assembles it, restores the
+preserved data representation, and validates the result. The original
+binary, this prepared listing, and the final binary are therefore different
+representations; a similarity score between listings does not measure
+every change made since the original input.
+
+The experiments request \texttt{deepseek-flash}. The locally recorded
+version name comes from the client's alias table, rather than independent
+provider confirmation, so the requested identifier is the reproducible
+model designation available in these records.
+
+\subsection{Prompting Conditions and Repeated Attempts}
+A \emph{zero-shot} request describes the transformation and its constraints
+without a worked example. A \emph{two-shot} request adds two examples of
+input and transformed output. The number of shots thus counts examples
+inside a prompt; it does not count generated variants or execution tests.
+Each input, transformation family, and shot setting defines an experimental
+\emph{cell}.
+
+The general pipeline may send a rejected answer back with validation
+feedback and request a correction. Such a later attempt has information
+that was absent from the initial request. The benign benchmark disables
+this mechanism and performs three separate, single-generation invocations
+per cell, retaining every failure. The full-payload campaign instead
+targets one output per cell, with some retries and restarted failed runs
+present in the saved logs. Its results are reported as cell outcomes, not
+as first-generation success rates. Section~\ref{sec:methodology} gives the
+exact accounting for both protocols.
+
+\subsection{From a Proposed Listing to an Assessed Output}
+Validation checks whether the response can be assembled and decoded,
+whether tracked control-flow targets remain consistent, whether preserved
+data survives, and whether the requested transformation's structural
+requirements are met. A response can fail at any of these stages, or be
+truncated before it contains a complete listing. Passing them means that
+Zone accepts a constructed output; it does not prove behavioral equivalence.
+
+Functional assessment then uses an external \emph{test harness}, meaning
+the program that launches a test and records its observable result. For
+the benign fixtures, it compares a complete output buffer with the expected
+bytes fixed before generation. For the original payloads, it checks the
+class-specific observable described in Section~\ref{sec:methodology}.
+Neither test selects generations within these two experiments. The earlier
+MessageBox pilot did use its dialog check during generation and is therefore
+kept separate. Saved records distinguish model requests, accepted outputs,
+execution results, time, and estimated cost, allowing rejection and execution
+failure to be analyzed independently.

@@ -1,0 +1,296 @@
+[
+  {
+    "arch": "x64",
+    "name": "arith",
+    "kind": "calcolo",
+    "file": "bench/fixtures/x64/arith.bin",
+    "size": 49,
+    "sha256": "c693cae2b8e5e8097dcf4abd83573295a231ba9e169c4f02856f00f27e2c1200",
+    "expect": [
+      {
+        "offset": 0,
+        "bytes": "35d09c3600000000"
+      },
+      {
+        "offset": 8,
+        "bytes": "0f00000000000000"
+      }
+    ],
+    "requires_extract": false,
+    "data_ranges": [],
+    "notes": "aritmetica + piccolo ciclo",
+    "original_ok": true,
+    "original_detail": "",
+    "original_buffer_sha256": "21061281e4dfacc183f71a6b322fa11c3627af5a059222a9ab504902f1342993"
+  },
+  {
+    "arch": "x64",
+    "name": "branch",
+    "kind": "diramazioni",
+    "file": "bench/fixtures/x64/branch.bin",
+    "size": 68,
+    "sha256": "e53d83e56442a560f19869deba3eb60e26b692c3a55fcb53d961cfcfe681c217",
+    "expect": [
+      {
+        "offset": 0,
+        "bytes": "aaaa000000000000"
+      },
+      {
+        "offset": 8,
+        "bytes": "1111000000000000"
+      }
+    ],
+    "requires_extract": false,
+    "data_ranges": [],
+    "notes": "if/else con due condizioni",
+    "original_ok": true,
+    "original_detail": "",
+    "original_buffer_sha256": "0e1f12975cdbdec8a352944fe5ca908c8b61f4f58a8663b2098bf070e87d8cd1"
+  },
+  {
+    "arch": "x64",
+    "name": "loop",
+    "kind": "cicli",
+    "file": "bench/fixtures/x64/loop.bin",
+    "size": 22,
+    "sha256": "701f389111147d8091b84b5ee54865d0d92d26c6eea98bb73266215ca7367135",
+    "expect": [
+      {
+        "offset": 0,
+        "bytes": "ba13000000000000"
+      }
+    ],
+    "requires_extract": false,
+    "data_ranges": [],
+    "notes": "somma 1..100",
+    "original_ok": true,
+    "original_detail": "",
+    "original_buffer_sha256": "857b7d8226aa83767838921b9cb86c7dafe8961c0d5124991b8d43e2e6aca310"
+  },
+  {
+    "arch": "x64",
+    "name": "call",
+    "kind": "chiamate_locali",
+    "file": "bench/fixtures/x64/call.bin",
+    "size": 29,
+    "sha256": "ffefa2c57be7e62b9ce4ac9c45bd687ec2c19c5a29697f256a26edf2ecdd4ee9",
+    "expect": [
+      {
+        "offset": 0,
+        "bytes": "1c00000000000000"
+      }
+    ],
+    "requires_extract": false,
+    "data_ranges": [],
+    "notes": "subroutine locale chiamata 4 volte",
+    "original_ok": true,
+    "original_detail": "",
+    "original_buffer_sha256": "5e10ec8dda6a192922fd6bc9389aed00fd45434423fb10b402ac5441e67a3280"
+  },
+  {
+    "arch": "x64",
+    "name": "mixed",
+    "kind": "misto",
+    "file": "bench/fixtures/x64/mixed.bin",
+    "size": 47,
+    "sha256": "78b2db0e7cff09e5cb7eeaf3ac7f0d4b260cf8acc5c1e26b5d50fee288b72f10",
+    "expect": [
+      {
+        "offset": 0,
+        "bytes": "7900000000000000"
+      }
+    ],
+    "requires_extract": false,
+    "data_ranges": [],
+    "notes": "ciclo + branch + call locale",
+    "original_ok": true,
+    "original_detail": "",
+    "original_buffer_sha256": "b6cc80fe0694252a0779b2f58e08efcb82804b9d97bc6eb5eee3fa1216db25f1"
+  },
+  {
+    "arch": "x64",
+    "name": "strings",
+    "kind": "stringhe_dati_inline",
+    "file": "bench/fixtures/x64/strings.bin",
+    "size": 38,
+    "sha256": "b8762431367d1142de7eeaa5585c9aeea399afeca99ced17cc1b8a987b270025",
+    "expect": [
+      {
+        "offset": 0,
+        "bytes": "48656c6c6f2c205a6f6e652100"
+      }
+    ],
+    "requires_extract": true,
+    "data_ranges": [
+      {
+        "offset": 25,
+        "length": 13,
+        "text": "Hello, Zone!"
+      }
+    ],
+    "notes": "stringa inline con riferimento RIP-relative",
+    "original_ok": true,
+    "original_detail": "",
+    "original_buffer_sha256": "9aa724790a37f8ee0f1699128ea6b9aae3af1e13c45956aae6c41a5e699f3819"
+  },
+  {
+    "arch": "x64",
+    "name": "getpc",
+    "kind": "dati_inline_getpc",
+    "file": "bench/fixtures/x64/getpc.bin",
+    "size": 36,
+    "sha256": "0a2ff67cca79d32840418718dd4dec2d0e575a0ec9c098436795fb051b111b48",
+    "expect": [
+      {
+        "offset": 0,
+        "bytes": "676574706320646174612100"
+      }
+    ],
+    "requires_extract": true,
+    "data_ranges": [
+      {
+        "offset": 5,
+        "length": 12,
+        "text": "getpc data!"
+      }
+    ],
+    "notes": "call $+5 / pop, dati spostati da -xd",
+    "original_ok": true,
+    "original_detail": "",
+    "original_buffer_sha256": "225f3858babbd8b3546407b6270bdc227aa24e29b8d7a9f3416f02bc21f58e98"
+  },
+  {
+    "arch": "x86",
+    "name": "arith",
+    "kind": "calcolo",
+    "file": "bench/fixtures/x86/arith.bin",
+    "size": 40,
+    "sha256": "b2ef3f1c86e91290c8bc1d92ae623cb4aa9494fdb7892fa3cf42916a69ffb9f1",
+    "expect": [
+      {
+        "offset": 0,
+        "bytes": "35d09c36"
+      },
+      {
+        "offset": 4,
+        "bytes": "0f000000"
+      }
+    ],
+    "requires_extract": false,
+    "data_ranges": [],
+    "notes": "aritmetica 32-bit + ciclo",
+    "original_ok": true,
+    "original_detail": "",
+    "original_buffer_sha256": "4f55a2fe5b33043eb857f9cc2a576ccd8630890f59a09c83a481ddc39e9259aa"
+  },
+  {
+    "arch": "x86",
+    "name": "branch",
+    "kind": "diramazioni",
+    "file": "bench/fixtures/x86/branch.bin",
+    "size": 55,
+    "sha256": "e9ff8e423a47a23780f10a4f2bed30041ad9c77961671054eb631fcdfa8ff504",
+    "expect": [
+      {
+        "offset": 0,
+        "bytes": "aaaa0000"
+      },
+      {
+        "offset": 4,
+        "bytes": "11110000"
+      }
+    ],
+    "requires_extract": false,
+    "data_ranges": [],
+    "notes": "if/else 32-bit",
+    "original_ok": true,
+    "original_detail": "",
+    "original_buffer_sha256": "7ebf7a8fb9df5bf544d7557ec5e154e5c3d80f2775047b877b88f91582558cca"
+  },
+  {
+    "arch": "x86",
+    "name": "loop",
+    "kind": "cicli",
+    "file": "bench/fixtures/x86/loop.bin",
+    "size": 19,
+    "sha256": "2c5619527c85dd87e2f5b88d0546280bca1e43819830423b0015cf228129dc02",
+    "expect": [
+      {
+        "offset": 0,
+        "bytes": "ba130000"
+      }
+    ],
+    "requires_extract": false,
+    "data_ranges": [],
+    "notes": "somma 1..100 32-bit",
+    "original_ok": true,
+    "original_detail": "",
+    "original_buffer_sha256": "765e028a1c73ded16b69eb20e4494c6a822982f0ca18c0bf2fe59fe92c7ff6e8"
+  },
+  {
+    "arch": "x86",
+    "name": "call",
+    "kind": "chiamate_locali",
+    "file": "bench/fixtures/x86/call.bin",
+    "size": 26,
+    "sha256": "5f411bb40f6a633e8f492992d642206515e4f4fcdca84dc8cf7ec5fd2af55beb",
+    "expect": [
+      {
+        "offset": 0,
+        "bytes": "1c000000"
+      }
+    ],
+    "requires_extract": false,
+    "data_ranges": [],
+    "notes": "subroutine locale 32-bit",
+    "original_ok": true,
+    "original_detail": "",
+    "original_buffer_sha256": "d70b52efeb222084279068c4aab463b89b5285c7fa65a93e0d39c7ca9bd4d631"
+  },
+  {
+    "arch": "x86",
+    "name": "strings",
+    "kind": "stringhe_dati_inline",
+    "file": "bench/fixtures/x86/strings.bin",
+    "size": 33,
+    "sha256": "1d6a53c3bcdf5f2e84cd2f67bdff404a76eba1364982a36a1f326d463641e64e",
+    "expect": [
+      {
+        "offset": 0,
+        "bytes": "48656c6c6f2c207838362100"
+      }
+    ],
+    "requires_extract": true,
+    "data_ranges": [
+      {
+        "offset": 9,
+        "length": 12,
+        "text": "Hello, x86!"
+      }
+    ],
+    "notes": "call/pop + stringa inline 32-bit",
+    "original_ok": true,
+    "original_detail": "",
+    "original_buffer_sha256": "c4e11e7f4476d04ec0742ba88fdb7ef9a5c5f1941d1a65fe869f31ea2a41f00b"
+  },
+  {
+    "arch": "x86",
+    "name": "mixed",
+    "kind": "misto",
+    "file": "bench/fixtures/x86/mixed.bin",
+    "size": 41,
+    "sha256": "94da6a7ee8f16c20552373d51d41866e55e4516d89da4ba2eed57c7e985af770",
+    "expect": [
+      {
+        "offset": 0,
+        "bytes": "79000000"
+      }
+    ],
+    "requires_extract": false,
+    "data_ranges": [],
+    "notes": "ciclo + branch + call 32-bit",
+    "original_ok": true,
+    "original_detail": "",
+    "original_buffer_sha256": "cbd8ed07a2948e90a67984194d02b6e812d2a275528eeaae023f0640c291206d"
+  }
+]

@@ -1,0 +1,128 @@
+\section{Code--Data Identification and Data-Preserving Rewriting}
+\label{sec:code_data}
+\subsection{Problem Definition}
+Let an input payload be a byte sequence $B=(b_0,\ldots,b_{n-1})$.
+The identification task returns candidate data intervals
+$[s_j,e_j)$ in payload-relative coordinates, optionally accompanied by
+a kind such as an ASCII string, a UTF-16LE string, or another data object.
+A candidate identifies a proposed role for the bytes. Its acceptance
+for rewriting additionally depends on the available reference evidence
+and the capabilities of the data-handling layer.
+
+The original inline-data failure in Table~\ref{tab:broken-payload}
+and the immediate-operand example in Table~\ref{tab:functional-payload}
+motivate this extension. Both examples and their interpretation remain
+in Section~\ref{sec:limitations}; the added layer explicitly represents
+candidate data and the references affected by rewriting.
+
+The task also includes uncertainty. A region outside the recovered graph
+may contain data, unobserved code, or a mixture of the two. The pipeline
+retains the origin of a candidate rather than collapsing all such
+regions into the same evidential category. This permits separate
+assessment of candidate generation, filtering, and downstream outcomes.
+
+\subsection{Symbolic and Heuristic Identification}
+The non-LLM path combines static graph information with bounded symbolic
+exploration. A CFGFast pass supplies candidate code blocks and inferred
+data objects. Symbolic exploration records instruction addresses visited
+under the raw-payload model. An additional graph-recovery pass can use
+newly observed entries, so that dynamically observed code is not lost
+merely because it was absent from the first graph.
+
+The symbolic initial state models uninitialized registers and memory
+symbolically. It does not initialize a complete Windows process or
+implement all external API behavior. Exploration is bounded by a time
+budget, a state/block-step limit, a pending-state limit, and solver
+budgets. Reports record the stop reason and unresolved states. Reaching
+a resource limit, encountering an unsupported operation, and exhausting
+the current frontier have different meanings and are reported
+separately.
+
+The implementation maintains evidence at byte granularity by expanding
+observed instruction starts into their decoded spans. This avoids
+treating the interior bytes of an observed instruction as unexecuted
+data candidates. Candidate strings are then identified with printable
+ASCII and UTF-16LE patterns, including their terminators. Overlap with
+observed code prevents acceptance under this string heuristic.
+
+Static graph recovery can itself classify a string as code. For a
+string that overlaps candidate graph code, the implementation requires
+additional structural corroboration rather than relying on printability
+alone. Other proposed regions originate from graph-inferred data or
+from bytes outside recovered blocks. The latter remain uncertain and
+are distinguished from stronger data candidates.
+
+The analysis returns intervals, their kinds, and diagnostic information;
+it does not prove a complete partition of the payload into code and
+data. In particular, a byte not observed during this run is not thereby
+proven unreachable or safe to move. The experimental assessment records
+both the proposed intervals and the limits of the run that produced them.
+
+\subsection{LLM-Based Identification}
+The alternative identification path presents the input through a hex
+view, a linear disassembly, and candidate printable runs. These are
+different views of the same bytes. The disassembly is explicitly
+heuristic, and the printable runs are candidate evidence rather than
+reference labels. The model returns structured data ranges, including
+offset and length, instead of a rewritten binary.
+
+The parser checks that intervals have positive lengths, remain within
+the input bounds, and do not overlap. The engine then associates
+candidate ranges with its existing reference information. Ranges that
+cannot be accepted by the configured pipeline are reported or rejected.
+A fresh engine instance is used when applying a proposal, avoiding
+reuse of partially modified state after a rejected answer.
+
+An invalid answer can trigger another request with feedback. The
+reported outcome therefore distinguishes the first proposal, later
+proposals, and the final accepted result. This distinction is necessary
+to attribute an observation correctly: a useful final extraction may
+reflect both the model's proposal and deterministic filtering.
+
+The number of worked examples in this classification prompt is recorded
+independently of the transformation experiment. A zero-shot/two-shot
+comparison of assembly transformation does not imply that the same
+comparison has been performed for identification.
+
+\subsection{Shared Data and Reference Handling}
+Both identification paths connect to deterministic data-handling
+routines. These routines preserve the contents selected for extraction,
+track the references whose interpretation depends on the data layout,
+and finalize supported references after the code layout is known.
+Identification answers which regions are candidates; reference handling
+determines which proposed operations are supported by the implementation.
+
+Different architectures require different addressing treatment. The
+x64 and x86 implementations therefore share a conceptual contract
+without being assumed identical at operand level. A candidate accepted
+in one architecture need not be accepted in the other. The evaluation
+keeps architecture and reference category associated with the outcome.
+
+The pipeline also checks output integrity, including consistency of
+the preserved data contents and the supported references. These checks
+can prevent an invalid output from being accepted, but they cannot
+establish that all references in an arbitrary binary have been recovered.
+An unsupported case is consequently distinguished from a successfully
+handled case and from an output that is built but fails execution.
+
+Analysis caching is a practical part of the implementation. Candidate
+data can be reused for an input identity, while references are recomputed
+against the working representation. Reproducibility requires recording
+whether an identification result was computed or retrieved and the
+configuration associated with the cached entry. Timing comparisons
+separate these cases.
+
+\subsection{Classification Outputs and Residual Uncertainty}
+Three outputs are retained for analysis: raw candidate intervals,
+intervals accepted by deterministic checks, and intervals ultimately
+processed by the data layer. Equal final binaries do not establish
+equal raw classifications, because filtering can remove differences.
+Conversely, a correct candidate can be rejected because its reference
+pattern is unsupported. That rejection is an integration limitation,
+not necessarily a classification error.
+
+The additional evaluation in Section~\ref{sec:methodology} therefore separates
+classification quality from downstream functionality. Successful
+execution supplies evidence about the observed behavior after data
+handling, while reference annotations supply evidence about the byte
+roles. Neither observation can substitute for the other.

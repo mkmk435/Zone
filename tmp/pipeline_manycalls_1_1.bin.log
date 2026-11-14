@@ -9,11 +9,17 @@ CREO LABEL TABLE
 ADDRESS DEL PRIMO XOR EAX,EAX:  0x7
 vecchia istruzione:  xor r11d, r11d
 nuova istruzione:  mov r11d, 0
+ADDRESS DEL PRIMO DEC:  0xf
+vecchia istruzione:  dec r10
+nuova istruzione:  sub r10, 1
+ADDRESS DEL PRIMO ADD:  0x18
+vecchia istruzione:  add r11, 7
+nuova istruzione:  sub r11, -7
 ##########################################
-BYTES ADDED:  0x3
+BYTES ADDED:  0x4
 ##########################################
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
 UPDATE INSTR
-[wrap] 17 instruction(s) hidden in 11 container(s), 1 raw, 0 ghost, 3 junk block(s): 58 -> 142 bytes
+[wrap] 14 instruction(s) hidden in 11 container(s), 1 raw, 0 ghost, 3 junk block(s): 53 -> 142 bytes
 FINE

@@ -1,0 +1,80 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "bcf",
+  "arch": "x86",
+  "started_at": "2026-11-13T22:22:33.777016+00:00",
+  "finished_at": "2026-11-13T22:24:53.353944+00:00",
+  "ok": true,
+  "error": null,
+  "timing": {
+    "wall_seconds": 139.577,
+    "api_seconds": 139.564,
+    "local_seconds": 0.013
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 0,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 139.577,
+      "api_seconds": 139.564,
+      "accepted": true,
+      "similarity": 0.7082,
+      "code_bytes": 495,
+      "data_bytes": 0,
+      "instructions": 259,
+      "error": null
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T22:22:33.777016+00:00",
+      "seconds": 139.564,
+      "finish_reason": "stop",
+      "content_chars": 4397,
+      "usage": {
+        "prompt_tokens": 3252,
+        "completion_tokens": 34760,
+        "total_tokens": 38012,
+        "cache_hit_tokens": 1792,
+        "cache_miss_tokens": 1460,
+        "reasoning_tokens": 32713
+      },
+      "cost_usd": 0.021080376,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 3252,
+    "completion_tokens": 34760,
+    "total_tokens": 38012,
+    "cache_hit_tokens": 1792,
+    "cache_miss_tokens": 1460,
+    "reasoning_tokens": 32713
+  },
+  "cost_usd": {
+    "total": 0.021080376,
+    "cache_hit": 5.376e-06,
+    "cache_miss": 0.000219,
+    "output": 0.020856,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.551,
+  "reasoning_ratio": 0.9411,
+  "payload": {
+    "code_bytes": 495,
+    "data_bytes": 0,
+    "instructions": 259,
+    "similarity": 0.7082
+  },
+  "errors": [],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

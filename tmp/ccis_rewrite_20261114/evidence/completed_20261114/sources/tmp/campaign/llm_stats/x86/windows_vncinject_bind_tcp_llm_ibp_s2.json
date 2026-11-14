@@ -1,0 +1,80 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "ibp",
+  "arch": "x86",
+  "started_at": "2026-11-13T23:14:42.516033+00:00",
+  "finished_at": "2026-11-13T23:16:09.964038+00:00",
+  "ok": true,
+  "error": null,
+  "timing": {
+    "wall_seconds": 87.448,
+    "api_seconds": 87.437,
+    "local_seconds": 0.011
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 0,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 87.448,
+      "api_seconds": 87.437,
+      "accepted": true,
+      "similarity": 0.9895,
+      "code_bytes": 321,
+      "data_bytes": 0,
+      "instructions": 143,
+      "error": null
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T23:14:42.516033+00:00",
+      "seconds": 87.437,
+      "finish_reason": "stop",
+      "content_chars": 2626,
+      "usage": {
+        "prompt_tokens": 3676,
+        "completion_tokens": 20161,
+        "total_tokens": 23837,
+        "cache_hit_tokens": 2560,
+        "cache_miss_tokens": 1116,
+        "reasoning_tokens": 18938
+      },
+      "cost_usd": 0.01227168,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 3676,
+    "completion_tokens": 20161,
+    "total_tokens": 23837,
+    "cache_hit_tokens": 2560,
+    "cache_miss_tokens": 1116,
+    "reasoning_tokens": 18938
+  },
+  "cost_usd": {
+    "total": 0.01227168,
+    "cache_hit": 7.68e-06,
+    "cache_miss": 0.0001674,
+    "output": 0.0120966,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.6964,
+  "reasoning_ratio": 0.9393,
+  "payload": {
+    "code_bytes": 321,
+    "data_bytes": 0,
+    "instructions": 143,
+    "similarity": 0.9895
+  },
+  "errors": [],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

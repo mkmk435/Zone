@@ -1,0 +1,15 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+CREO JUMP TABLE
+CREO LABEL TABLE
+BLOCK LENGTH:  9
+Traceback (most recent call last):
+  File "C:\Users\ubu\Desktop\Zone\bench\engines\2026-11-13_block1\pobf86.py", line 4343, in <module>
+    start()
+  File "C:\Users\ubu\Desktop\Zone\bench\engines\2026-11-13_block1\pobf86.py", line 4300, in start
+    zone.shuffle_blocks()
+  File "C:\Users\ubu\Desktop\Zone\bench\engines\2026-11-13_block1\pobf86.py", line 1351, in shuffle_blocks
+    self.instr_blocks = [self.instr_blocks[0]] + blocks
+                         ~~~~~~~~~~~~~~~~~^^^
+IndexError: list index out of range

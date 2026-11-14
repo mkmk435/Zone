@@ -1,0 +1,28 @@
+{
+  "runs": 2392,
+  "campaigns": {
+    "bench_block1_native": 177,
+    "bench_block1_baseline": 3,
+    "bench_block2_wrap86": 18,
+    "bench_block2_baseline": 1,
+    "bench_block1_llm": 168,
+    "bench_block2_llm": 144,
+    "bench_block2_classifier": 9,
+    "bench_block2_classifier_fixtures": 24,
+    "baseline_original_fixtures": 13,
+    "pilot_native_smoke": 9,
+    "pilot_llm_x86": 1,
+    "prev_2026_wrap": 260,
+    "prev_2026_llm": 27,
+    "prev_2026_classifier": 15,
+    "legacy_2025_working": 1518,
+    "legacy_2025_vt": 1,
+    "legacy_2025_vt_originals": 1,
+    "legacy_2025_vt_sgn": 1,
+    "prev_2026_vt": 1,
+    "prev_2026_vt_originals": 1
+  },
+  "matrix_rows": 1768,
+  "gaps": 4,
+  "missing_cells": 0
+}

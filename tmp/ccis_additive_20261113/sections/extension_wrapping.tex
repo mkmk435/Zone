@@ -1,0 +1,58 @@
+\section{Integration of Assembly Wrapping}\label{sec:wrapping}
+\subsection{Existing Technique and Contribution}
+Assembly wrapping is an established technique based on alternative
+instruction interpretations~\cite{assembly_wrapping}. Its inclusion in
+this article does not claim invention of the underlying idea. The
+extension contributes an implementation in Zone, interaction with the
+engine's instruction and data representations, and a separate empirical
+assessment.
+
+The relevant conceptual property is that the instruction interpretation
+obtained by a particular static decoding need not be the instruction
+stream followed during execution. This property makes it especially
+important to identify which representation is used by a similarity or
+coverage measurement. A statistic from the static view and one from
+the intended execution view answer different questions.
+
+\subsection{Integration and Supported Inputs}
+Wrapping is integrated with the native rewriting infrastructure and
+depends on an instruction representation adequate for the selected
+input. It must also interact with the final data layout and the
+references affected by changes in instruction placement. Construction
+can be refused when the required input interpretation is incomplete
+or an unsupported case is encountered.
+
+Some instructions or local regions are handled differently from the
+main wrapped representation. The assessment therefore records the
+proportion represented by wrapping, retained regions, output size,
+construction failures, and functional outcomes. A claim about the
+whole output must not be inferred solely from the fraction of
+instructions accepted by one internal stage.
+
+The experiment distinguishes wrapping alone, the chosen combined
+native condition, and the corresponding preparation-only controls.
+Their names identify complete configurations, including data handling
+and architecture. Implementation availability and successful build
+are reported separately from empirical functionality.
+
+\subsection{x86 Port and Development Status}
+The x64 implementation is available for assessment. The x86 port is
+under active development at the time of this draft. Register width,
+instruction encodings, and addressing assumptions require
+architecture-specific treatment, so an x64 outcome is not transferred
+to the x86 column of a result table.
+
+The result layout reserves separate x86 entries. Those entries remain
+marked as development work until a frozen version and its assessment
+are available. If the port changes during a campaign, its new results
+are associated with the new version; they are not silently appended
+to results from an earlier implementation.
+
+\subsection{Assessment Boundary}
+Wrapping is assessed with the same separation of construction,
+functionality, and representation measurements used for other methods.
+In particular, a failure to construct an output remains part of the
+overall outcome. Reporting functionality only for constructed binaries
+can describe accepted artifacts but does not describe availability
+across all attempted cases. Section~\ref{sec:methodology} defines both
+denominators.

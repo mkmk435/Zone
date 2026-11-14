@@ -1,0 +1,250 @@
+{
+  "pages": 22,
+  "unresolved_markers": [],
+  "page_summaries": [
+    {
+      "page": 1,
+      "characters": 2314,
+      "first_lines": [
+        "Zone: Code\u2013Data Identification and LLM-Assisted",
+        "Metamorphism for Windows Payloads",
+        "Stefano Bistarelli[0000\u22120001\u22127411\u22129678], Jacopo Di Benedetto, and",
+        "Francesco Santini[0000\u22120002\u22123935\u22124696]"
+      ]
+    },
+    {
+      "page": 2,
+      "characters": 3261,
+      "first_lines": [
+        "2 S. Bistarelli et al.",
+        "transformed, whether the intended behavior was retained, and how the resulting repre-",
+        "sentation was measured. These questions become particularly difficult when executable",
+        "instructions and embedded data share a raw binary address space."
+      ]
+    },
+    {
+      "page": 3,
+      "characters": 2944,
+      "first_lines": [
+        "Code\u2013Data Identification and LLM-Assisted Metamorphism 3",
+        "also capture only the behavior observed by the chosen harness. Neither a valid assembly",
+        "listing nor an accepted raw-file scan establishes preservation of all program behaviors",
+        "or the response of a deployed endpoint product."
+      ]
+    },
+    {
+      "page": 4,
+      "characters": 2792,
+      "first_lines": [
+        "4 S. Bistarelli et al.",
+        "2.3 LLMs for Assembly Analysis and Transformation",
+        "Prior research has investigated LLM-generated metamorphic variants and assembly-",
+        "level obfuscation, including the MetamorphASM study and its evaluation set-"
+      ]
+    },
+    {
+      "page": 5,
+      "characters": 2598,
+      "first_lines": [
+        "Code\u2013Data Identification and LLM-Assisted Metamorphism 5",
+        "Call Stub 1",
+        "Wrapped Inst. / payload",
+        "PAD (NOP)"
+      ]
+    },
+    {
+      "page": 6,
+      "characters": 1650,
+      "first_lines": [
+        "6 S. Bistarelli et al.",
+        "Raw payload",
+        "and architecture",
+        "Symbolic and heuristic"
+      ]
+    },
+    {
+      "page": 7,
+      "characters": 2948,
+      "first_lines": [
+        "Code\u2013Data Identification and LLM-Assisted Metamorphism 7",
+        "Table 2. Selected bytes from the inline-data example in Table 5 of [3], reproduced as motivation",
+        "for code\u2013data identification.",
+        "Offset Bytes or characters Decoder interpretation"
+      ]
+    },
+    {
+      "page": 8,
+      "characters": 3205,
+      "first_lines": [
+        "8 S. Bistarelli et al.",
+        "observed during this run is not thereby proven unreachable or safe to move. The exper-",
+        "imental assessment records both the proposed intervals and the limits of the run that",
+        "produced them."
+      ]
+    },
+    {
+      "page": 9,
+      "characters": 2875,
+      "first_lines": [
+        "Code\u2013Data Identification and LLM-Assisted Metamorphism 9",
+        "4.5 Classification Outputs and Residual Uncertainty",
+        "Three outputs are retained for analysis: raw candidate intervals, intervals accepted by",
+        "deterministic checks, and intervals ultimately processed by the data layer. Equal final"
+      ]
+    },
+    {
+      "page": 10,
+      "characters": 2966,
+      "first_lines": [
+        "10 S. Bistarelli et al.",
+        "These labels apply to the first request in a run. After rejection, a later request may",
+        "contain the previous answer and validation feedback. Such a run remains assigned to",
+        "its initial prompting condition, but its later attempts are explicitly feedback-assisted."
+      ]
+    },
+    {
+      "page": 11,
+      "characters": 2786,
+      "first_lines": [
+        "Code\u2013Data Identification and LLM-Assisted Metamorphism 11",
+        "The relevant conceptual property is that the instruction interpretation obtained by a",
+        "particular static decoding need not be the instruction stream followed during execution.",
+        "This property makes it especially important to identify which representation is used by"
+      ]
+    },
+    {
+      "page": 12,
+      "characters": 2703,
+      "first_lines": [
+        "12 S. Bistarelli et al.",
+        "Table 3.Extendedcampaignmanifest.Pendingentriesawaitthefrozenexperimentaldatasets;the",
+        "historical corpus is specified in the text.",
+        "Campaign Inputs Architectures Replicates"
+      ]
+    },
+    {
+      "page": 13,
+      "characters": 2929,
+      "first_lines": [
+        "Code\u2013Data Identification and LLM-Assisted Metamorphism 13",
+        "byte-level measures are",
+        "Precision\ud835\udc37 = |\ud835\udc43 \u2229 \ud835\udc3a ||\ud835\udc43| , Recall\ud835\udc37 = |\ud835\udc43 \u2229 \ud835\udc3a ||\ud835\udc3a | , (1)",
+        "\ud835\udc391,\ud835\udc37 = 2 Precision\ud835\udc37 Recall\ud835\udc37Precision\ud835\udc37 + Recall\ud835\udc37 . (2)"
+      ]
+    },
+    {
+      "page": 14,
+      "characters": 2418,
+      "first_lines": [
+        "14 S. Bistarelli et al.",
+        "7.5 Static-Scan Measurements",
+        "For completed file\ud835\udc56, let \ud835\udc5a\ud835\udc56 be the number of malicious verdicts and\ud835\udc4e\ud835\udc56 the number of",
+        "enginesincludedbythestatedeligibilityrule.Theper-filemalicious-verdictfractionand"
+      ]
+    },
+    {
+      "page": 15,
+      "characters": 2985,
+      "first_lines": [
+        "Code\u2013Data Identification and LLM-Assisted Metamorphism 15",
+        "are not combined in one unqualified similarity column. With wrapping, the decoding",
+        "view used to obtain tokens is also stated.",
+        "Outputdiversityismeasuredindependentlyofsimilaritytoaninput.Thebasicexact"
+      ]
+    },
+    {
+      "page": 16,
+      "characters": 2283,
+      "first_lines": [
+        "16 S. Bistarelli et al.",
+        "Table 4.Selectedpublishedaggregatestatic-scanobservations,summarizedfrom[ 3].Percentages",
+        "describe the published malicious-verdict fractions, not deployed endpoint detection.",
+        "Published condition x64 x86"
+      ]
+    },
+    {
+      "page": 17,
+      "characters": 2072,
+      "first_lines": [
+        "Code\u2013Data Identification and LLM-Assisted Metamorphism 17",
+        "Table 6. Functional assessment structure. Report counts before percentages;\ud835\udc41, \ud835\udc35, and \ud835\udc4a are",
+        "defined in the methodology.",
+        "Condition Arch. \ud835\udc41 \ud835\udc35 \ud835\udc4a /\ud835\udc41 \ud835\udc4a /\ud835\udc35"
+      ]
+    },
+    {
+      "page": 18,
+      "characters": 2345,
+      "first_lines": [
+        "18 S. Bistarelli et al.",
+        "Table 8. LLM transformation outcomes. Initial and final acceptance refer respectively to the first",
+        "attempt and the full retry budget.",
+        "Family / shots Runs Initial acc. Final acc. Functional"
+      ]
+    },
+    {
+      "page": 19,
+      "characters": 3121,
+      "first_lines": [
+        "Code\u2013Data Identification and LLM-Assisted Metamorphism 19",
+        "9.2 Validation, Selection, and Measurement Bias",
+        "Static checks can reject malformed or inconsistent outputs without proving the behavior",
+        "of accepted ones. Functional checks narrow the uncertainty only to the observables ex-"
+      ]
+    },
+    {
+      "page": 20,
+      "characters": 2743,
+      "first_lines": [
+        "20 S. Bistarelli et al.",
+        "record makes the boundaries of an observation inspectable even if the provider or im-",
+        "plementation later changes.",
+        "Draft note. After finalizing the results, replace prospective discussion with findings supported by"
+      ]
+    },
+    {
+      "page": 21,
+      "characters": 3721,
+      "first_lines": [
+        "Code\u2013Data Identification and LLM-Assisted Metamorphism 21",
+        "4. Brezinski, K., Ferens, K.: Metamorphic malware and obfuscation: a survey of techniques,",
+        "variants, and generation kits. Security and Communication Networks 2023(1), 8227751",
+        "(2023)"
+      ]
+    },
+    {
+      "page": 22,
+      "characters": 500,
+      "first_lines": [
+        "22 S. Bistarelli et al.",
+        "24. Zeng, D., Tan, G.: From debugging-information based binary-level type inference to CFG",
+        "generation.In:ProceedingsoftheEighthACMConferenceonDataandApplicationSecurity",
+        "andPrivacy.pp.366\u2013376.CODASPY\u201918,AssociationforComputingMachinery,NewYork,"
+      ]
+    }
+  ],
+  "out_of_page_characters": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ]
+}

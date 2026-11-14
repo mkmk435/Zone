@@ -1,0 +1,82 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "eq",
+  "arch": "x86",
+  "started_at": "2026-11-13T20:25:09.442597+00:00",
+  "finished_at": "2026-11-13T20:28:12.449504+00:00",
+  "ok": false,
+  "error": "Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)",
+  "timing": {
+    "wall_seconds": 183.007,
+    "api_seconds": 183.004,
+    "local_seconds": 0.003
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 1,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 183.006,
+      "api_seconds": 183.004,
+      "accepted": false,
+      "similarity": 0.0,
+      "code_bytes": 0,
+      "data_bytes": 0,
+      "instructions": 0,
+      "error": "Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)"
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T20:25:09.442597+00:00",
+      "seconds": 183.004,
+      "finish_reason": "stop",
+      "content_chars": 3682,
+      "usage": {
+        "prompt_tokens": 4058,
+        "completion_tokens": 41975,
+        "total_tokens": 46033,
+        "cache_hit_tokens": 2304,
+        "cache_miss_tokens": 1754,
+        "reasoning_tokens": 40291
+      },
+      "cost_usd": 0.025455012,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 4058,
+    "completion_tokens": 41975,
+    "total_tokens": 46033,
+    "cache_hit_tokens": 2304,
+    "cache_miss_tokens": 1754,
+    "reasoning_tokens": 40291
+  },
+  "cost_usd": {
+    "total": 0.025455012,
+    "cache_hit": 6.912e-06,
+    "cache_miss": 0.0002631,
+    "output": 0.025185,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.5678,
+  "reasoning_ratio": 0.9599,
+  "payload": {
+    "code_bytes": 0,
+    "data_bytes": 0,
+    "instructions": 0,
+    "similarity": 0.0
+  },
+  "errors": [
+    "Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)"
+  ],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

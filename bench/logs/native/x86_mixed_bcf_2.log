@@ -1,0 +1,43 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+CREO JUMP TABLE
+CREO LABEL TABLE
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  edx
+CODE:  pushfd;push edx; mov edx, 224;neg edx;neg edx;cmp edx, 224; pop edx;popfd;je 0x32
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  ecx
+CODE:  pushfd;push ecx;mov ecx, 208;test ecx, ecx; pop ecx;popfd;je 0x42
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  esi
+CODE:  pushfd;push esi;mov esi, 250;and esi, 0xFFFFFFFF;cmp esi, 250; pop esi;popfd;je 0x6d
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  ebx
+CODE:  pushfd;push ebx;sub ebx, ebx;cmp ebx, 0; pop ebx;popfd;je 0x71
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  ecx
+CODE:  pushfd;push ecx;mov ecx, 22;and ecx, 0xFFFFFFFF;cmp ecx, 22; pop ecx;popfd;je 0x8c
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+FINE

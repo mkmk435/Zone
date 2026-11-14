@@ -1,0 +1,33 @@
+{
+  "revision": "additive manuscript updated against frozen evening evidence",
+  "cutoff_berlin": "2026-11-13T21:20:05+01:00",
+  "evidence": "evidence/SOURCES.json; evidence/SUMMARY.json; per-condition CSV tables",
+  "retained_objects": {
+    "figure": {
+      "count": 7,
+      "unchanged": true
+    },
+    "table": {
+      "count": 6,
+      "unchanged": true
+    },
+    "lstlisting": {
+      "count": 4,
+      "unchanged": true
+    },
+    "algorithm": {
+      "count": 1,
+      "unchanged": true
+    }
+  },
+  "new_calls_or_payload_tests_performed_for_paper_update": false,
+  "pdf_checks": {
+    "pages": 28,
+    "undefined_references": 0,
+    "overfull_boxes": 0,
+    "out_of_page_characters": 0,
+    "all_pages_rendered": true,
+    "visual_review": "all five contact sheets and full-size abstract/results pages inspected"
+  },
+  "pdf_sha256": "7117212d3da65790adf4e048b73104c9537673e373dc23690fa0fa34b77ab261"
+}

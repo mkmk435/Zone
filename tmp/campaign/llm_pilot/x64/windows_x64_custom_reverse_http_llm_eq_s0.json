@@ -1,0 +1,111 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "eq",
+  "arch": "x64",
+  "started_at": "2026-11-13T19:49:22.815742+00:00",
+  "finished_at": "2026-11-13T19:52:44.100451+00:00",
+  "ok": true,
+  "error": null,
+  "timing": {
+    "wall_seconds": 201.285,
+    "api_seconds": 201.18,
+    "local_seconds": 0.105
+  },
+  "attempts": 2,
+  "api_calls": 2,
+  "rejected_attempts": 1,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 156.571,
+      "api_seconds": 156.518,
+      "accepted": false,
+      "similarity": 0.0,
+      "code_bytes": 0,
+      "data_bytes": 0,
+      "instructions": 0,
+      "error": "RET_29b is not immediately after a call (previous line: 'L_29b:')"
+    },
+    {
+      "attempt": 2,
+      "seconds": 44.714,
+      "api_seconds": 44.662,
+      "accepted": true,
+      "similarity": 0.9344,
+      "code_bytes": 886,
+      "data_bytes": 262,
+      "instructions": 464,
+      "error": null
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T19:49:22.815742+00:00",
+      "seconds": 156.518,
+      "finish_reason": "stop",
+      "content_chars": 5559,
+      "usage": {
+        "prompt_tokens": 5021,
+        "completion_tokens": 41622,
+        "total_tokens": 46643,
+        "cache_hit_tokens": 2048,
+        "cache_miss_tokens": 2973,
+        "reasoning_tokens": 38929
+      },
+      "cost_usd": 0.025425294,
+      "error": null
+    },
+    {
+      "attempt": 1,
+      "generation_attempt": 2,
+      "started_at": "2026-11-13T19:51:59.386354+00:00",
+      "seconds": 44.662,
+      "finish_reason": "stop",
+      "content_chars": 5623,
+      "usage": {
+        "prompt_tokens": 10596,
+        "completion_tokens": 10949,
+        "total_tokens": 21545,
+        "cache_hit_tokens": 4992,
+        "cache_miss_tokens": 5604,
+        "reasoning_tokens": 8224
+      },
+      "cost_usd": 0.007424976,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 15617,
+    "completion_tokens": 52571,
+    "total_tokens": 68188,
+    "cache_hit_tokens": 7040,
+    "cache_miss_tokens": 8577,
+    "reasoning_tokens": 47153
+  },
+  "cost_usd": {
+    "total": 0.03285027,
+    "cache_hit": 2.112e-05,
+    "cache_miss": 0.00128655,
+    "output": 0.0315426,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 2,
+  "cache_hit_ratio": 0.4508,
+  "reasoning_ratio": 0.8969,
+  "payload": {
+    "code_bytes": 886,
+    "data_bytes": 262,
+    "instructions": 464,
+    "similarity": 0.9344
+  },
+  "errors": [
+    "RET_29b is not immediately after a call (previous line: 'L_29b:')"
+  ],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

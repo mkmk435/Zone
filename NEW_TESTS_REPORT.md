@@ -4,7 +4,7 @@ Esito dei test lanciati il 2026-11-13 sul motore Zone in `C:\Users\ubu\Desktop\Z
 
 ## 1. Assembly wrapping (`-wrap`, x64)
 
-Metodo: i 13 payload x64 a basso working rate, 10 semi indipendenti per configurazione, due configurazioni. Il motore è stato congelato in `tmp/wrap_snapshot` per non dipendere dalle modifiche concorrenti.
+Metodo: i 13 payload x64 a basso working rate, 10 run indipendenti per configurazione, due configurazioni. Il motore è stato congelato in `tmp/wrap_snapshot` per non dipendere dalle modifiche concorrenti.
 
 | Configurazione | Build riusciti | Test eseguiti | Working rate |
 |---|---:|---:|---:|
@@ -30,6 +30,8 @@ Complessivo: **198/260 = 76.2%** sui tentativi; sui soli binari costruiti **198/
 | `windows_x64_custom_reverse_http` | 10/10 | 10/10 | 10/10 | 9/10 |
 
 I 60 build falliti sono i tre payload `*_winhttps` (10 semi x 2 configurazioni): `-xd` non sposta un blocco inline a `0x169`, quindi `-wrap` non può ricoprire tutto lo stream. È un limite dell'estrazione dati, non del wrapper.
+
+Tre output `-wrap` sono byte-identici tra run diverse (97/100 SHA-256 unici); il generatore assegnava il seed dalla stessa variabile d'ambiente condivisa tra thread, quindi alcune run hanno riusato lo stesso seed. Non cambia il working rate, ma riduce di poco la diversità del campione inviato a VirusTotal.
 
 Nota tecnica: durante i test è emerso un bug reale in `asm_wrap.py`. Le istruzioni con `data_fixup` (getpc `call` riscritta in `jmp` verso lo stub nel blob) venivano ricollocate e verificate come se fossero ancora `call`, quindi il build falliva con `expected call, got jmp`. La correzione tratta queste istruzioni come opache (nessuna relocation, verifica del mnemonico saltata); senza la fix `custom_reverse_https` e `meterpreter_reverse_http` non si costruivano affatto.
 
@@ -80,7 +82,7 @@ Costo API del blocco data: $0.105; mutanti unici: 5/15 (l'estrazione è determin
 
 ## 4. VirusTotal
 
-Manifest pronto in `vt_manifest.csv` / `vt_manifest.json`: **239 file, 220 SHA-256 unici** (i duplicati sono estrazioni deterministiche e alcune risposte LLM identiche).
+Manifest in `vt_manifest.csv` / `vt_manifest.json`: **239 file, 220 SHA-256 unici** (i duplicati sono estrazioni deterministiche e alcune risposte LLM identiche).
 
 | Gruppo | File | Working locale |
 |---|---:|---:|
@@ -89,7 +91,34 @@ Manifest pronto in `vt_manifest.csv` / `vt_manifest.json`: **239 file, 220 SHA-2
 | LLM morphing | 24 | 24 |
 | LLM data | 15 | 15 |
 
-Invio **non eseguito**: manca `api_keys.txt`. Il submitter è pronto in `tmp/vt_submit.py`; appena disponibili una o più key parte in background con deduplica per SHA-256 e ripresa.
+| Tecnica | File | Analizzati | Rilevati (>0) | Detection rate | Malicious medi | Max |
+|---|---:|---:|---:|---:|---:|---:|
+| `lldata` | 4 | 4 | 4 | 100.0% | 17.50 | 20 |
+| `llm_bcf_s0` | 3 | 3 | 1 | 33.3% | 1.00 | 3 |
+| `llm_bcf_s2` | 3 | 3 | 3 | 100.0% | 5.00 | 5 |
+| `llm_eq_s0` | 2 | 2 | 0 | 0.0% | 0.00 | 0 |
+| `llm_eq_s2` | 1 | 1 | 0 | 0.0% | 0.00 | 0 |
+| `llm_ibp_s0` | 2 | 2 | 1 | 50.0% | 2.50 | 5 |
+| `llm_ibp_s2` | 2 | 2 | 2 | 100.0% | 1.00 | 1 |
+| `llm_nop_s0` | 3 | 3 | 0 | 0.0% | 0.00 | 0 |
+| `llm_nop_s2` | 3 | 3 | 1 | 33.3% | 1.67 | 5 |
+| `wrap` | 97 | 97 | 0 | 0.0% | 0.00 | 0 |
+| `wrap_full` | 100 | 100 | 0 | 0.0% | 0.00 | 0 |
+
+Totale: **12/220 rilevati (5.5%)** su 220 file unici inviati.
+
+Nota: la colonna File conta gli SHA-256 unici. Le estrazioni `--llm-data` sono deterministiche e alcune risposte LLM `eq`/`ibp` sono byte-identiche, quindi le celle con meno di 3 file sono duplicati deduplicati. `lldata` è la sola estrazione dati (codice intatto): viene rilevata come gli originali, perché non offusca il codice; non è una tecnica di evasione ma un preprocessing.
+
+Lettura dei risultati: `-wrap` e `-wrap` combinato non vengono rilevati da nessun motore (0/197, massimo 0), mentre gli stessi payload originali inviati oggi sono 13/13 rilevati con 20-29 motori. Le tecniche LLM sono funzionalmente corrette ma la copertura anti-VT è irregolare e dipende dalla tecnica e dagli shot: `eq` 0/3, `bcf` 4/6, `ibp` 3/4, `nop` 1/6 (file unici).
+
+Confronto omogeneo con gli originali, inviati oggi con la stessa key: **13/13 rilevati (100.0%)**, malicious medi 26.6/75. Gli stessi payload senza wrapping sono quindi ancora ampiamente rilevati, mentre le mutazioni `-wrap` no.
+
+
+## Conclusioni
+
+1. **Assembly wrapping**: è la tecnica più solida del lotto. Il 77% dei tentativi produce un binario (200/260) e su questi il working rate è del 99% (198/200); i 197 file unici "-wrap" non sono rilevati da nessun motore VT (0/197), contro 13/13 originali rilevati oggi. Il limite è a monte: i tre `*_winhttps` non sono costruibili perché `-xd` lascia un blocco dati inline.
+2. **LLM morphing**: 24/24 mutazioni accettate e funzionanti, costo ~$0.59. La qualità strutturale è buona (similarità 0.71-1.00), ma la diversità è limitata dalle risposte identiche e la copertura VT è irregolare (12/220 globali, quasi tutti `bcf`/`ibp`).
+3. **LLM data classifier**: 15/15 run funzionanti e output byte-identico a `-xd` sui quattro payload di confronto; costo ~$0.10. È un'alternativa valida all'estrazione simbolica, ma non aggiunge evasione: il codice resta quello originale e VT lo rileva (16-20/75).
 
 ## File prodotti
 

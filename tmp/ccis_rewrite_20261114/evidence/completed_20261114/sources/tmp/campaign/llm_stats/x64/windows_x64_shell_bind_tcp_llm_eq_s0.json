@@ -1,0 +1,80 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "eq",
+  "arch": "x64",
+  "started_at": "2026-11-13T20:18:47.849736+00:00",
+  "finished_at": "2026-11-13T20:20:04.426974+00:00",
+  "ok": true,
+  "error": null,
+  "timing": {
+    "wall_seconds": 76.577,
+    "api_seconds": 76.568,
+    "local_seconds": 0.01
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 0,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 76.577,
+      "api_seconds": 76.568,
+      "accepted": true,
+      "similarity": 0.8966,
+      "code_bytes": 589,
+      "data_bytes": 0,
+      "instructions": 180,
+      "error": null
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T20:18:47.849736+00:00",
+      "seconds": 76.568,
+      "finish_reason": "stop",
+      "content_chars": 2578,
+      "usage": {
+        "prompt_tokens": 3924,
+        "completion_tokens": 18429,
+        "total_tokens": 22353,
+        "cache_hit_tokens": 2176,
+        "cache_miss_tokens": 1748,
+        "reasoning_tokens": 17018
+      },
+      "cost_usd": 0.011326128,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 3924,
+    "completion_tokens": 18429,
+    "total_tokens": 22353,
+    "cache_hit_tokens": 2176,
+    "cache_miss_tokens": 1748,
+    "reasoning_tokens": 17018
+  },
+  "cost_usd": {
+    "total": 0.011326128,
+    "cache_hit": 6.528e-06,
+    "cache_miss": 0.0002622,
+    "output": 0.0110574,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.5545,
+  "reasoning_ratio": 0.9234,
+  "payload": {
+    "code_bytes": 589,
+    "data_bytes": 0,
+    "instructions": 180,
+    "similarity": 0.8966
+  },
+  "errors": [],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

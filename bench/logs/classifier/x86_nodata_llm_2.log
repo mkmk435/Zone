@@ -1,0 +1,31 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+[llm] technique=data-classification model=deepseek-flash
+[llm] endpoint=https://api.deepseek.com/v1/chat/completions
+[llm] classifying data with the model instead of -xd
+[llm-data] attempt 1/1: deepseek-flash
+[llm-data] attempt 1: 918 tokens (776 in / 142 out), 1.7s, $0.000202
+FINITO DI DISASSEMBLARE
+====================================================================
+[llm] run statistics
+  model:      deepseek-flash (DeepSeek-V4.1-Flash-1017)
+  technique:  data (x86)
+  attempts:   1 (1 API call(s), 0 rejected)
+  time:       1.7s total (API 1.7s, local 0.0s)
+  attempt 1: 1.7s, ok, 0 data bytes
+  tokens:     918 total = 776 input + 142 output
+              input: 0 cache hit + 776 cache miss (0.0% hit)
+              output: 142 (reasoning 135, 95.1%)
+  throughput: 82.9 output tokens/s (API time)
+  cost:       $0.000202 USD (off-peak)
+              input $0.000116 (hit $0.000000, miss $0.000116) + output $0.000085
+              prices: DeepSeek official USD/1M tokens; peak/off-peak UTC, holidays not modelled
+  payload:    17 code + 0 data bytes, 5 instructions
+  extraction: ok, 0 data bytes
+====================================================================
+[llm] data stats JSON: C:\Users\ubu\Desktop\Zone\bench\run\cls_stats\x86_nodata_llm_2.json
+[llm] data classification JSON: C:\Users\ubu\Desktop\Zone\bench\run\cls_data\x86_nodata_llm_2.json
+[llm] data classification: 0 section(s), 0 bytes
+[llm] wrote C:\Users\ubu\Desktop\Zone\bench\run\cls_outputs\x86_nodata_llm_2.bin (17 bytes, data-only mode)
+Output: C:\Users\ubu\Desktop\Zone\bench\run\cls_outputs\x86_nodata_llm_2.bin

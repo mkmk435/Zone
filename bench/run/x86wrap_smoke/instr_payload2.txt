@@ -1,0 +1,13 @@
+0x0 bytearray(b'\x8bL$\x04') 4  mov  ecx, dword ptr [esp + 4]
+0x4 bytearray(b'\xb8xV4\x12') 5  mov  eax, 0x12345678
+0x9 bytearray(b'\x05\x11\x11\x00\x00') 5  add  eax, 0x1111
+0xe bytearray(b'-""\x00\x00') 5  sub  eax, 0x2222
+0x13 bytearray(b'k\xc0\x03') 3  imul  eax, eax, 3
+0x16 bytearray(b'\x89\x01') 2  mov  dword ptr [ecx], eax
+0x18 bytearray(b'1\xc0') 2  xor  eax, eax
+0x1a bytearray(b'\xba\x05\x00\x00\x00') 5  mov  edx, 5
+0x1f bytearray(b'\x01\xd0') 2  add  eax, edx
+0x21 bytearray(b'J') 1  dec  edx
+0x22 bytearray(b'\x0f\x85\x00\x00\x00\x00') 6  jne  0x28
+0x24 bytearray(b'\x89A\x04') 3  mov  dword ptr [ecx + 4], eax
+0x27 bytearray(b'\xc3') 1  ret  

@@ -1,0 +1,42 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+[llm] technique=data-classification model=deepseek-flash
+[llm] endpoint=https://api.deepseek.com/v1/chat/completions
+[llm] classifying data with the model instead of -xd
+[llm-data] attempt 1/1: deepseek-flash
+[llm-data] attempt 1: 1,670 tokens (1,209 in / 461 out), 3.1s, $0.000458
+FINITO DI DISASSEMBLARE
+REBUILT 31 INSTRUCTIONS (55/55 bytes)
+[extract] moving 2 section(s), 11 B
+  0x9 (6 B ascii) 'alpha'
+  0x26 (5 B ascii) 'beta'
+[extract] references to rewrite: 2
+[extract] code 55 B + pad 9 B + data 21 B = 85 B
+[extract] data 0x9 -> 0x45 (6 B)
+[extract] data 0x26 -> 0x50 (5 B)
+[extract] ref 0x4 (now 0x4): jmp 0x40 -> 0x45
+[extract] ref 0x21 (now 0x21): jmp 0x4b -> 0x50
+[llm-data] accepted 2 section(s), 21 data bytes
+====================================================================
+[llm] run statistics
+  model:      deepseek-flash (DeepSeek-V4.1-Flash-1017)
+  technique:  data (x86)
+  attempts:   1 (1 API call(s), 0 rejected)
+  time:       3.1s total (API 3.1s, local 0.0s)
+  attempt 1: 3.1s, ok, 21 data bytes
+  tokens:     1,670 total = 1,209 input + 461 output
+              input: 0 cache hit + 1,209 cache miss (0.0% hit)
+              output: 461 (reasoning 418, 90.7%)
+  throughput: 149.5 output tokens/s (API time)
+  cost:       $0.000458 USD (off-peak)
+              input $0.000181 (hit $0.000000, miss $0.000181) + output $0.000277
+              prices: DeepSeek official USD/1M tokens; peak/off-peak UTC, holidays not modelled
+  payload:    55 code + 21 data bytes, 31 instructions
+  extraction: ok, 21 data bytes
+====================================================================
+[llm] data stats JSON: C:\Users\ubu\Desktop\Zone\bench\run\cls_stats\x86_multidata_llm_1.json
+[llm] data classification JSON: C:\Users\ubu\Desktop\Zone\bench\run\cls_data\x86_multidata_llm_1.json
+[llm] data classification: 2 section(s), 21 bytes
+[llm] wrote C:\Users\ubu\Desktop\Zone\bench\run\cls_outputs\x86_multidata_llm_1.bin (85 bytes, data-only mode)
+Output: C:\Users\ubu\Desktop\Zone\bench\run\cls_outputs\x86_multidata_llm_1.bin

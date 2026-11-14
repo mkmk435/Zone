@@ -1,0 +1,82 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "bcf",
+  "arch": "x64",
+  "started_at": "2026-11-13T21:19:12.093100+00:00",
+  "finished_at": "2026-11-13T21:22:23.529433+00:00",
+  "ok": false,
+  "error": "RET_36c is not immediately after a call (previous line: 'L_36c:'); data references disappeared from the payload: DATA offset 0xe2 x1; 14 original instruction(s) are missing or out of order (allowed 2); first missing: nop ; nop ; nop ; nop ",
+  "timing": {
+    "wall_seconds": 191.436,
+    "api_seconds": 191.387,
+    "local_seconds": 0.049
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 1,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 191.436,
+      "api_seconds": 191.387,
+      "accepted": false,
+      "similarity": 0.0,
+      "code_bytes": 0,
+      "data_bytes": 0,
+      "instructions": 0,
+      "error": "RET_36c is not immediately after a call (previous line: 'L_36c:'); data references disappeared from the payload: DATA offset 0xe2 x1; 14 original instruction(s) are missing or out of order (allowed 2); first missing: nop ; nop ; nop ; nop "
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T21:19:12.094100+00:00",
+      "seconds": 191.387,
+      "finish_reason": "stop",
+      "content_chars": 7103,
+      "usage": {
+        "prompt_tokens": 5356,
+        "completion_tokens": 45417,
+        "total_tokens": 50773,
+        "cache_hit_tokens": 1664,
+        "cache_miss_tokens": 3692,
+        "reasoning_tokens": 41963
+      },
+      "cost_usd": 0.027808992,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 5356,
+    "completion_tokens": 45417,
+    "total_tokens": 50773,
+    "cache_hit_tokens": 1664,
+    "cache_miss_tokens": 3692,
+    "reasoning_tokens": 41963
+  },
+  "cost_usd": {
+    "total": 0.027808992,
+    "cache_hit": 4.992e-06,
+    "cache_miss": 0.0005538,
+    "output": 0.0272502,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.3107,
+  "reasoning_ratio": 0.9239,
+  "payload": {
+    "code_bytes": 0,
+    "data_bytes": 0,
+    "instructions": 0,
+    "similarity": 0.0
+  },
+  "errors": [
+    "RET_36c is not immediately after a call (previous line: 'L_36c:'); data references disappeared from the payload: DATA offset 0xe2 x1; 14 original instruction(s) are missing or out of order (allowed 2); first missing: nop ; nop ; nop ; nop "
+  ],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

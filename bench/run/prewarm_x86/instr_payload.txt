@@ -1,0 +1,17 @@
+0x0 bytearray(b'\x8b|$\x04') 4  mov  edi, dword ptr [esp + 4]
+0x4 bytearray(b'\xe8\x0c\x00\x00\x00') 5  call  0x15
+0x9 bytearray(b'H') 1  dec  eax
+0xa bytearray(b'el') 2  insb  byte ptr es:[edi], dx
+0xc bytearray(b'l') 1  insb  byte ptr es:[edi], dx
+0xd bytearray(b'o') 1  outsd  dx, dword ptr [esi]
+0xe bytearray(b', ') 2  sub  al, 0x20
+0x10 bytearray(b'x8') 2  js  0x4a
+0x12 bytearray(b'6!\x00') 3  and  dword ptr ss:[eax], eax
+0x15 bytearray(b'^') 1  pop  esi
+0x16 bytearray(b'\x8a\x06') 2  mov  al, byte ptr [esi]
+0x18 bytearray(b'\x88\x07') 2  mov  byte ptr [edi], al
+0x1a bytearray(b'F') 1  inc  esi
+0x1b bytearray(b'G') 1  inc  edi
+0x1c bytearray(b'\x84\xc0') 2  test  al, al
+0x1e bytearray(b'u\xf6') 2  jne  0x16
+0x20 bytearray(b'\xc3') 1  ret  

@@ -1,0 +1,80 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "ibp",
+  "arch": "x86",
+  "started_at": "2026-11-13T22:14:10.688769+00:00",
+  "finished_at": "2026-11-13T22:16:23.539999+00:00",
+  "ok": true,
+  "error": null,
+  "timing": {
+    "wall_seconds": 132.851,
+    "api_seconds": 132.838,
+    "local_seconds": 0.014
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 0,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 132.851,
+      "api_seconds": 132.838,
+      "accepted": true,
+      "similarity": 0.9908,
+      "code_bytes": 369,
+      "data_bytes": 0,
+      "instructions": 163,
+      "error": null
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T22:14:10.688769+00:00",
+      "seconds": 132.838,
+      "finish_reason": "stop",
+      "content_chars": 3029,
+      "usage": {
+        "prompt_tokens": 3850,
+        "completion_tokens": 31587,
+        "total_tokens": 35437,
+        "cache_hit_tokens": 2304,
+        "cache_miss_tokens": 1546,
+        "reasoning_tokens": 30190
+      },
+      "cost_usd": 0.019191012,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 3850,
+    "completion_tokens": 31587,
+    "total_tokens": 35437,
+    "cache_hit_tokens": 2304,
+    "cache_miss_tokens": 1546,
+    "reasoning_tokens": 30190
+  },
+  "cost_usd": {
+    "total": 0.019191012,
+    "cache_hit": 6.912e-06,
+    "cache_miss": 0.0002319,
+    "output": 0.0189522,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.5984,
+  "reasoning_ratio": 0.9558,
+  "payload": {
+    "code_bytes": 369,
+    "data_bytes": 0,
+    "instructions": 163,
+    "similarity": 0.9908
+  },
+  "errors": [],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

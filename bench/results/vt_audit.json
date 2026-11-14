@@ -1,0 +1,130 @@
+{
+  "old_native": {
+    "name": "results.json",
+    "records": 15021,
+    "unique_file_paths": 15020,
+    "duplicate_records": 1,
+    "unique_artifacts": 8037,
+    "verifiable_records": 8049,
+    "unverifiable_records": 6972,
+    "missing_artifacts": 6972,
+    "missing_artifact_sample": [
+      "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_ibp_1.bin",
+      "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_bcf_6.bin",
+      "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_bcf_5.bin",
+      "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_bcf_1.bin",
+      "C:\\Users\\Utente\\Desktop\\Zone\\Zone\\Zone\\mutations\\mutations\\x64\\windows_x64_custom_bind_tcp_eq_bcf_2.bin"
+    ],
+    "unreadable_artifacts": 0,
+    "invalid_records": 0,
+    "invalid_dates": 0,
+    "date_min": "2025-04-30T05:50:48",
+    "date_max": "2025-09-17T11:37:00",
+    "zero_detections": 6026,
+    "detected": 2023,
+    "status_counts": {
+      "detected": 2023,
+      "zero_detections": 6026,
+      "missing_artifact": 6972
+    }
+  },
+  "old_originals": {
+    "name": "results_original.json",
+    "records": 102,
+    "unique_file_paths": 102,
+    "duplicate_records": 0,
+    "unique_artifacts": 90,
+    "verifiable_records": 102,
+    "unverifiable_records": 0,
+    "missing_artifacts": 0,
+    "missing_artifact_sample": [],
+    "unreadable_artifacts": 0,
+    "invalid_records": 0,
+    "invalid_dates": 0,
+    "date_min": "2025-05-06T02:54:04",
+    "date_max": "2025-05-06T03:20:42",
+    "zero_detections": 0,
+    "detected": 102,
+    "status_counts": {
+      "detected": 102
+    }
+  },
+  "old_sgn": {
+    "name": "results_sgn.json",
+    "records": 102,
+    "unique_file_paths": 102,
+    "duplicate_records": 0,
+    "unique_artifacts": 90,
+    "verifiable_records": 102,
+    "unverifiable_records": 0,
+    "missing_artifacts": 0,
+    "missing_artifact_sample": [],
+    "unreadable_artifacts": 0,
+    "invalid_records": 0,
+    "invalid_dates": 0,
+    "date_min": "2025-05-06T08:45:05",
+    "date_max": "2025-05-06T09:03:56",
+    "zero_detections": 38,
+    "detected": 64,
+    "status_counts": {
+      "zero_detections": 38,
+      "detected": 64
+    }
+  },
+  "new_mutants": {
+    "manifest_entries": 239,
+    "unique_hashes": 220,
+    "duplicate_manifest_entries": 19,
+    "missing_files": 0,
+    "hash_mismatch": 0,
+    "completed": 220,
+    "pending_or_incomplete": 0,
+    "missing_result": 0,
+    "invalid_stats": 0,
+    "zero_detections": 208,
+    "detected": 12,
+    "engine_totals": {
+      "malicious": 100,
+      "suspicious": 0,
+      "undetected": 12785,
+      "harmless": 0,
+      "timeout": 282,
+      "confirmed-timeout": 1,
+      "failure": 73,
+      "type-unsupported": 3259
+    },
+    "total_min": 75,
+    "total_max": 75,
+    "type_unsupported_mean": 14.813636363636364,
+    "date_min": "2026-11-13T12:13:41",
+    "date_max": "2026-11-13T12:50:20"
+  },
+  "new_originals": {
+    "manifest_entries": 13,
+    "unique_hashes": 13,
+    "duplicate_manifest_entries": 0,
+    "missing_files": 0,
+    "hash_mismatch": 0,
+    "completed": 13,
+    "pending_or_incomplete": 0,
+    "missing_result": 0,
+    "invalid_stats": 0,
+    "zero_detections": 0,
+    "detected": 13,
+    "engine_totals": {
+      "malicious": 346,
+      "suspicious": 0,
+      "undetected": 429,
+      "harmless": 0,
+      "timeout": 7,
+      "confirmed-timeout": 0,
+      "failure": 0,
+      "type-unsupported": 193
+    },
+    "total_min": 75,
+    "total_max": 75,
+    "type_unsupported_mean": 14.846153846153847,
+    "date_min": "2026-11-13T12:54:05",
+    "date_max": "2026-11-13T12:55:05"
+  }
+}

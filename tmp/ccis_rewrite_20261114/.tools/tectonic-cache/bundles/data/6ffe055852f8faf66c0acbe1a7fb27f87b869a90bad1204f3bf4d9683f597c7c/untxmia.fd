@@ -1,0 +1,129 @@
+%Filename: untxmia.fd
+%Created by: tex mia-drv
+%Created using fontinst v1.933
+
+%THIS FILE SHOULD BE PUT IN A TEX INPUTS DIRECTORY
+
+\ProvidesFile{untxmia.fd}
+   [2018/04/14 Fontinst v1.933 font definitions for U/ntxmia.]
+
+\expandafter\ifx\csname ntxmath@scaled\endcsname\relax
+  \let\ntxmath@scaled\@empty%
+\fi
+
+\DeclareFontFamily{U}{ntxmia}{\skewchar \font =127}
+
+\iftx@libertine
+  \DeclareFontShape{U}{ntxmia}{m}{it}{
+     <-> \ntxmath@scaled nxlmia
+  }{}
+
+  \DeclareFontShape{U}{ntxmia}{b}{it}{
+     <-> \ntxmath@scaled nxlbmia
+  }{}
+\else
+  \iftx@minion
+    \DeclareFontShape{U}{ntxmia}{m}{it}{
+      <-> \ntxmath@scaled zmnmia
+    }{}
+
+    \DeclareFontShape{U}{ntxmia}{b}{it}{
+      <-> \ntxmath@scaled zmnbmia
+    }{}
+  \else
+    \iftx@coch
+      \DeclareFontShape{U}{ntxmia}{m}{it}{
+        <-> \ntxmath@scaled zcochmia
+      }{}
+      \DeclareFontShape{U}{ntxmia}{b}{it}{
+        <-> \ntxmath@scaled zcochbmia
+      }{}
+    \else
+        \iftx@ch
+          \DeclareFontShape{U}{ntxmia}{m}{it}{
+            <-> \ntxmath@scaled zchmia
+          }{}
+          \DeclareFontShape{U}{ntxmia}{b}{it}{
+            <-> \ntxmath@scaled zchbmia
+          }{}
+        \else
+          \iftx@stxtwo
+            \DeclareFontShape{U}{ntxmia}{m}{it}{
+              <-> \ntxmath@scaled ntxstx2mia
+            }{}    
+            \DeclareFontShape{U}{ntxmia}{b}{it}{
+              <-> \ntxmath@scaled ntxstx2bmia
+            }{}
+          
+          \else
+            \iftx@ebgm
+              \DeclareFontShape{U}{ntxmia}{m}{it}{
+                <-> \ntxmath@scaled ntxebgmia
+              }{}    
+              \DeclareFontShape{U}{ntxmia}{b}{it}{
+                <-> \ntxmath@scaled ntxebgbmia
+              }{}
+            \else
+              \iftx@ut
+                \DeclareFontShape{U}{ntxmia}{m}{it}{
+                  <-> \ntxmath@scaled zutmia
+                }{}    
+                \DeclareFontShape{U}{ntxmia}{b}{it}{
+                  <-> \ntxmath@scaled zutbmia
+                }{}
+              \else
+                \iftx@nc
+                  \iftx@fourier
+                    \DeclareFontShape{U}{ntxmia}{m}{it}{
+   				    <-> \ntxmath@scaled zncfmia
+				    }{}
+				    \DeclareFontShape{U}{ntxmia}{b}{it}{
+   				    <-> \ntxmath@scaled zncfbmia
+				    }{}
+				  \else
+                    \DeclareFontShape{U}{ntxmia}{m}{it}{
+   				    <-> \ntxmath@scaled zncmia
+				    }{}
+				    \DeclareFontShape{U}{ntxmia}{b}{it}{
+   				    <-> \ntxmath@scaled zncbmia
+				    }{}
+				  \fi
+				\else
+                  \iftx@noto
+                    \DeclareFontShape{U}{ntxmia}{m}{it}{
+                     <-> \ntxmath@scaled notomia
+                    }{}    
+                    \DeclareFontShape{U}{ntxmia}{b}{it}{
+                      <-> \ntxmath@scaled notobmia
+                     }{}
+                   \else
+                     \iftx@notosans
+                       \DeclareFontShape{U}{ntxmia}{m}{it}{
+                        <-> \ntxmath@scaled notosansmia
+                       }{}    
+                       \DeclareFontShape{U}{ntxmia}{b}{it}{
+                        <-> \ntxmath@scaled notosansbmia
+                     }{}
+  					\else
+                      \DeclareFontShape{U}{ntxmia}{m}{it}{
+                        <-> \ntxmath@scaled ntxmia
+                      }{}    
+                      \DeclareFontShape{U}{ntxmia}{b}{it}{
+                        <-> \ntxmath@scaled ntxbmia
+                      }{}
+                    \fi  
+                  \fi
+				\fi
+              \fi  
+            \fi  
+          \fi
+        \fi
+    \fi
+  \fi
+\fi
+\DeclareFontShape{U}{ntxmia}{m}{sl}{<->ssub * ntxmia/m/it}{}
+\DeclareFontShape{U}{ntxmia}{bx}{it}{<->ssub * ntxmia/b/it}{}
+\DeclareFontShape{U}{ntxmia}{b}{sl}{<->ssub * ntxmia/b/it}{}
+\DeclareFontShape{U}{ntxmia}{bx}{sl}{<->ssub * ntxmia/b/sl}{}
+
+\endinput

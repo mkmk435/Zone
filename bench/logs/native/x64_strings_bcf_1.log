@@ -1,0 +1,88 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['C:\\Users\\ubu\\Desktop\\Zone\\bench\\fixtures\\x64\\strings.bin', '-xd', '-bcf', '-o', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\outputs\\x64_strings_bcf_1.bin']
+SYMBOLIC DATA ANALYSIS...
+[cache] hit b8762431367d in data_cache.json (1 sections, timeout=120.0s, created 2026-11-13T13:10:52)
+[cache] using the stored sections; --refresh-data-cache re-runs the symbolic search
+Data sections: 1
+  0x19 (13 B) ascii
+Data xrefs: 1
+  0x0 -> 0x19 (13 B)
+REBUILT 22 INSTRUCTIONS (38/38 bytes)
+[extract] moving 1 section(s), 13 B
+  0x19 (13 B ascii) 'Hello, Zone!'
+[extract] references to rewrite: 1
+CREO LABEL TABLE
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r14
+CODE:  pushf;push r14;mov r14, 222;lea r14, [r14+0];cmp r14, 222; pop r14;popf;je 0x40
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r12
+CODE:  pushf;push r12; mov r12, 138;or r12, 0;cmp r12, 138; pop r12;popf;je 0x6b
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  rdx
+CODE:  pushf;push rdx; xor rdx, rdx;cmp rdx, 0; pop rdx;popf;je 0x6f
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  rcx
+CODE:  pushf;push rcx;sub rcx, rcx;cmp rcx, 0; pop rcx;popf;je 0x84
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r8
+CODE:  pushf;push r8; xor r8, r8;cmp r8, 0; pop r8;popf;je 0x99
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  rdi
+CODE:  pushf;push rdi; mov rdi, 17;neg rdi;neg rdi;cmp rdi, 17; pop rdi;popf;je 0xbf
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  rax
+CODE:  pushf;push rax; xor rax, rax;cmp rax, 0; pop rax;popf;je 0xcd
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r15
+CODE:  pushf;push r15;mov r15, 33;cmp r15, 33;pop r15;popf;je 0xf5
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  rbx
+CODE:  pushf;push rbx; mov rbx, 11;neg rbx;neg rbx;cmp rbx, 11; pop rbx;popf;je 0x11a
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  r11
+CODE:  pushf;push r11;mov r11, 253;add r11, 0;cmp r11, 253; pop r11;popf;je 0x140
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+[extract] code 288 B + pad 0 B + data 13 B = 301 B
+[extract] data 0x19 -> 0x120 (13 B)
+[extract] ref 0x0 (now 0x20): lea rsi, [rip + 0xf9] -> 0x120
+Output: C:\Users\ubu\Desktop\Zone\bench\run\outputs\x64_strings_bcf_1.bin
+FINE

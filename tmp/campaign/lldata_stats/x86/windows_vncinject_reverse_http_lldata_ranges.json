@@ -1,0 +1,122 @@
+{
+  "sections": [
+    {
+      "offset": 180,
+      "length": 119,
+      "kind": "ascii",
+      "text": "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_7_2) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15"
+    },
+    {
+      "offset": 322,
+      "length": 224,
+      "kind": "ascii",
+      "text": "/9w6__blmoljEIsUjrClgPghDZyzvItQZooWggL2jWTUm5hp3iEJYvkMVt3dxOevlsg_-WFG_j-lvSOF4hqhk6W3PRCjdiWHamK9SFIeciAjT2RB4nmQfjv9TPUyx-4AePgVp60KNgzTuf-Ez86LHJaVHmEUM6rl0T4-w-MTMFOnuiWbA6Q5ptDh8wV7SOhkZtc5x0gBaRAqKx80p-RIE6P3GeLdwFm"
+    },
+    {
+      "offset": 675,
+      "length": 10,
+      "kind": "ascii",
+      "text": "127.0.0.1"
+    }
+  ],
+  "dropped_no_reference": [
+    {
+      "offset": 322,
+      "length": 224,
+      "kind": "ascii"
+    },
+    {
+      "offset": 675,
+      "length": 10,
+      "kind": "ascii"
+    }
+  ],
+  "xrefs": [
+    {
+      "source": 175,
+      "target": 180,
+      "length": 119
+    }
+  ],
+  "data_bytes": 124,
+  "stats": {
+    "model": "deepseek-flash",
+    "model_version": "DeepSeek-V4.1-Flash-1017",
+    "technique": "data",
+    "arch": "x86",
+    "started_at": "2026-11-13T20:04:24.249493+00:00",
+    "finished_at": "2026-11-13T20:05:20.398912+00:00",
+    "ok": true,
+    "error": null,
+    "timing": {
+      "wall_seconds": 56.149,
+      "api_seconds": 56.141,
+      "local_seconds": 0.008
+    },
+    "attempts": 1,
+    "api_calls": 1,
+    "rejected_attempts": 0,
+    "attempt_details": [
+      {
+        "attempt": 1,
+        "seconds": 56.15,
+        "api_seconds": 56.141,
+        "accepted": true,
+        "similarity": 0.0,
+        "code_bytes": 695,
+        "data_bytes": 124,
+        "instructions": 390,
+        "error": null
+      }
+    ],
+    "api_call_details": [
+      {
+        "attempt": 1,
+        "generation_attempt": 1,
+        "started_at": "2026-11-13T20:04:24.249493+00:00",
+        "seconds": 56.141,
+        "finish_reason": "stop",
+        "content_chars": 522,
+        "usage": {
+          "prompt_tokens": 8605,
+          "completion_tokens": 13128,
+          "total_tokens": 21733,
+          "cache_hit_tokens": 0,
+          "cache_miss_tokens": 8605,
+          "reasoning_tokens": 12854
+        },
+        "cost_usd": 0.00916755,
+        "error": null
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 8605,
+      "completion_tokens": 13128,
+      "total_tokens": 21733,
+      "cache_hit_tokens": 0,
+      "cache_miss_tokens": 8605,
+      "reasoning_tokens": 12854
+    },
+    "cost_usd": {
+      "total": 0.00916755,
+      "cache_hit": 0.0,
+      "cache_miss": 0.00129075,
+      "output": 0.0078768,
+      "peak": false,
+      "rate": "off-peak"
+    },
+    "peak_calls": 0,
+    "offpeak_calls": 1,
+    "cache_hit_ratio": 0.0,
+    "reasoning_ratio": 0.9791,
+    "payload": {
+      "code_bytes": 695,
+      "data_bytes": 124,
+      "instructions": 390,
+      "similarity": 0.0
+    },
+    "errors": [],
+    "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+    "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+  }
+}

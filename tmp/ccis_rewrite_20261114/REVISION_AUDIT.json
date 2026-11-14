@@ -1,0 +1,54 @@
+{
+  "revision": "Full explanatory rewrite and completed original-corpus campaign, 14 November 2026",
+  "evidence": "evidence/completed_20261114/SOURCES.json",
+  "prior_evidence_retained": "evidence/SOURCES.json",
+  "pdf_checks": {
+    "pdf_sha256": "b5cab926172355340cd596b871399bd0bd9f26bb931a4d93463dbd11a997c6b6",
+    "pages": 33,
+    "out_of_page_characters": [],
+    "replacement_character_pages": [],
+    "unresolved_markers": [],
+    "overfull_boxes": 0,
+    "undefined_references": 0,
+    "missing_glyph_warnings": 0,
+    "retained_baseline_objects": {
+      "figure": {
+        "count": 7,
+        "unchanged": true
+      },
+      "table": {
+        "count": 6,
+        "unchanged": true
+      },
+      "lstlisting": {
+        "count": 4,
+        "unchanged": true
+      },
+      "algorithm": {
+        "count": 1,
+        "unchanged": true
+      }
+    },
+    "rendered_pages": 33
+  },
+  "pdf_sha256": "b5cab926172355340cd596b871399bd0bd9f26bb931a4d93463dbd11a997c6b6",
+  "visual_review": "All 33 pages inspected in contact sheets; full-size pipeline, revised wrapping diagram, and current scan table inspected.",
+  "new_experiments_or_external_scans_performed": false,
+  "material_accounting_corrections": [
+    "830 recorded runs over 816 cells; 14 failed restarts; four multi-generation runs",
+    "835 recorded API calls; one run without usage",
+    "All-run recorded cost USD 19.625838237 versus USD 19.269954795 for retained cell records",
+    "549 completed scan records, 548 with nonempty responses; empty result excluded from measured negative scans",
+    "75 failing LLM files correspond to 60 hashes, 59 with evaluable reports"
+  ],
+  "source_files": {
+    "main.tex": "a03491583763140ec6f573ebb8f76829144e464e4120450483e8a6ba400239b1",
+    "bibliography.bib": "5778114f29492e5f7d37528e958f72f5125c2b7b0adfaa858099b175561ec0a2",
+    "sections\\extension_code_data.tex": "01ff6c9f1ba8a71978082c2381d8271ccdf098f5d1eb8ce603c51dcf507f7e79",
+    "sections\\extension_discussion.tex": "ade2da9ba91200b0200c5ae47931bf397fe0d8f9fe9cef3e1ca9fbe5d0ff3dff",
+    "sections\\extension_llm.tex": "f704c7c04fc898d0dfcc56d347334ed775a34df56b8cb9b6b266734f50383408",
+    "sections\\extension_methodology.tex": "299b518ff4a1587c286074dbd32edc3272034a9523e5ba075f591e1f3e2f53c2",
+    "sections\\extension_results.tex": "3a781fdfa77a31758817b1c41d406bc644bb0ef5f856141191fe97a58ca6f465",
+    "sections\\extension_wrapping.tex": "8d497d8c8f4298e888fd336a2667b3d9abfa6030a9d0c8f001937c8c10460044"
+  }
+}

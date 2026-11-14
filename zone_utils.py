@@ -3,13 +3,20 @@ import re
 def estrai_valore(instruzione):
     # Usa un'espressione regolare per cercare un numero esadecimale nella stringa
     match = re.search(r'0x[0-9a-fA-F]+', instruzione)
-    
+
     # Se un numero esadecimale è stato trovato, convertilo in un intero e restituiscilo
     if match:
         return int(match.group(), 16)
-    else:
-        return 0
-    
+
+    # Capstone stampa i target sotto 0x10 senza il prefisso "0x" ("loop 7",
+    # "jmp 9"): senza questo caso un salto verso i primi 10 byte del payload
+    # veniva risolto come indirizzo 0.
+    match = re.match(r'^\s*([0-9a-fA-F]+)\s*$', instruzione)
+    if match:
+        return int(match.group(1), 16)
+
+    return 0
+
 
 def get_text_section(pe, address):
     #return pe.O

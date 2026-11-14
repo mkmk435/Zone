@@ -1,0 +1,82 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "ibp",
+  "arch": "x86",
+  "started_at": "2026-11-13T22:52:49.001166+00:00",
+  "finished_at": "2026-11-13T22:56:08.368029+00:00",
+  "ok": false,
+  "error": "output code is not fully disassembled: 369/519 bytes; branch at 0x135 targets 0x1ee, which is not an instruction boundary; branch at 0x146 targets 0x17c, which is not an instruction boundary; branch at 0x14d targets 0x19f, which is not an instruction boundary; branch at 0x150 targets 0x1bd, which is not an instruction boundary; branch at 0x155 targets 0x18e, which is not an instruction boundary; branch at 0x15b targets 0x1ab, which is not an instruction boundary; branch at 0x165 targets 0x1db, which is not an instruction boundary; 6 original instruction(s) disappeared during block permutation",
+  "timing": {
+    "wall_seconds": 199.367,
+    "api_seconds": 199.348,
+    "local_seconds": 0.019
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 1,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 199.367,
+      "api_seconds": 199.348,
+      "accepted": false,
+      "similarity": 0.0,
+      "code_bytes": 0,
+      "data_bytes": 0,
+      "instructions": 0,
+      "error": "output code is not fully disassembled: 369/519 bytes; branch at 0x135 targets 0x1ee, which is not an instruction boundary; branch at 0x146 targets 0x17c, which is not an instruction boundary; branch at 0x14d targets 0x19f, which is not an instruction boundary; branch at 0x150 targets 0x1bd, which is not an instruction boundary; branch at 0x155 targets 0x18e, which is not an instruction boundary; branch at 0x15b targets 0x1ab, which is not an instruction boundary; branch at 0x165 targets 0x1db, which is not an instruction boundary; 6 original instruction(s) disappeared during block permutation"
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T22:52:49.001166+00:00",
+      "seconds": 199.348,
+      "finish_reason": "stop",
+      "content_chars": 4243,
+      "usage": {
+        "prompt_tokens": 4496,
+        "completion_tokens": 56194,
+        "total_tokens": 60690,
+        "cache_hit_tokens": 1792,
+        "cache_miss_tokens": 2704,
+        "reasoning_tokens": 53851
+      },
+      "cost_usd": 0.034127376,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 4496,
+    "completion_tokens": 56194,
+    "total_tokens": 60690,
+    "cache_hit_tokens": 1792,
+    "cache_miss_tokens": 2704,
+    "reasoning_tokens": 53851
+  },
+  "cost_usd": {
+    "total": 0.034127376,
+    "cache_hit": 5.376e-06,
+    "cache_miss": 0.0004056,
+    "output": 0.0337164,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.3986,
+  "reasoning_ratio": 0.9583,
+  "payload": {
+    "code_bytes": 0,
+    "data_bytes": 0,
+    "instructions": 0,
+    "similarity": 0.0
+  },
+  "errors": [
+    "output code is not fully disassembled: 369/519 bytes; branch at 0x135 targets 0x1ee, which is not an instruction boundary; branch at 0x146 targets 0x17c, which is not an instruction boundary; branch at 0x14d targets 0x19f, which is not an instruction boundary; branch at 0x150 targets 0x1bd, which is not an instruction boundary; branch at 0x155 targets 0x18e, which is not an instruction boundary; branch at 0x15b targets 0x1ab, which is not an instruction boundary; branch at 0x165 targets 0x1db, which is not an instruction boundary; 6 original instruction(s) disappeared during block permutation"
+  ],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

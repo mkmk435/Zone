@@ -1,0 +1,87 @@
+% CCIS extended working manuscript, revised 13 November 2026.
+% Compile main.tex. Results and x86 wrapping validation remain in progress.
+% The original sources are retained in the dated backup directory.
+\documentclass[runningheads]{llncs}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{newtxtext}
+\usepackage[varvw]{newtxmath}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\urlstyle{same}
+\providecommand{\Description}[1]{}
+\setlength{\emergencystretch}{2em}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\definecolor{draftblue}{RGB}{24,73,114}
+\newif\ifworkingdraft
+\workingdrafttrue % Set false only after completing the result tables and notes.
+\newcommand{\draftnote}[1]{\ifworkingdraft\par\smallskip\noindent
+  {\color{draftblue}\small\textbf{Draft note.} #1}\par\smallskip\fi}
+\newcommand{\pending}{\textit{pending}}
+\newcommand{\dev}{\textit{in development}}
+\begin{document}
+\title{Zone: Code--Data Identification and LLM-Assisted Metamorphism for Windows Payloads}
+\titlerunning{Code--Data Identification and LLM-Assisted Metamorphism}
+\author{Stefano~Bistarelli\orcidID{0000-0001-7411-9678} \and
+Jacopo~Di~Benedetto \and
+Francesco~Santini\orcidID{0000-0002-3935-4696}}
+\authorrunning{S. Bistarelli et al.}
+\institute{Dipartimento di Matematica e Informatica, Universit\`a degli Studi di Perugia,\\
+Via Vanvitelli 1, 06123 Perugia (PG), Italy\\
+\email{stefano.bistarelli@unipg.it}\\
+\email{jacopo.dibenedetto@studenti.unipg.it}\\
+\email{francesco.santini@unipg.it}}
+\maketitle
+\begin{abstract}
+Binary metamorphism depends on recovering executable instructions while
+preserving embedded data and the references that connect them. This article
+extends Zone, a binary-to-binary rewriting engine for compact Windows x86
+and x64 payloads, with code--data identification and LLM-assisted
+transformation. One identification path combines bounded symbolic
+exploration, control-flow recovery, and complementary heuristics; another
+uses an LLM to propose data ranges for a shared deterministic data-handling
+layer. A separate LLM pipeline transforms assembly using four established
+transformation families and supports zero-shot and two-shot prompting.
+The extension also integrates assembly wrapping, an existing technique,
+with an x86 port under development. The assessment distinguishes
+classification quality, build success, empirical functionality,
+static-scan verdicts, representation similarity, output diversity, and
+generation cost. The conference experiments provide a separately
+identified historical baseline. This separation permits analysis of
+which conclusions follow from classification, validation, and execution
+evidence, and which require further investigation.
+\keywords{Binary Rewriting \and Code--Data Identification \and
+Metamorphic Code \and Large Language Models \and Functional Preservation}
+\end{abstract}
+\draftnote{Working manuscript: extended experiments are in progress.
+New numerical results remain explicitly pending. The x86 wrapping port is
+development work, not a validated result. Add the principal verified
+findings to this abstract before submission.}
+\input{sections/01_introduction}
+\input{sections/02_background}
+\input{sections/03_architecture}
+\input{sections/04_code_data}
+\input{sections/05_llm}
+\input{sections/06_wrapping}
+\input{sections/07_methodology}
+\input{sections/08_results}
+\input{sections/09_discussion}
+\input{sections/10_conclusions}
+\begin{credits}
+\subsubsection{\ackname}
+This work was partially funded by the University of Perugia's project
+``Fighting Cybercrime with OSINT'' (FICO), Civil Safety and Security for
+Society (WP2).
+\subsubsection{\discintname}
+\emph{To be completed by the authors before submission.}
+\end{credits}
+\bibliographystyle{splncs04}
+\bibliography{bibliography}
+\end{document}

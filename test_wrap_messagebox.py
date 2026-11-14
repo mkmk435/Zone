@@ -1,5 +1,11 @@
-"""Working-rate check: wrap the MessageBox payload with several flag
-combinations and verify the dialog still appears, N runs each."""
+"""Working-rate check for both builds.
+
+Wraps the MessageBox payload of the selected architecture with several flag
+combinations and verifies that the dialog still appears, N runs each.
+
+    python test_wrap_messagebox.py x64
+    python test_wrap_messagebox.py x86
+"""
 
 import os
 import subprocess
@@ -7,7 +13,19 @@ import sys
 
 import check_messagebox
 
-PAYLOAD = "original_pl/x64/windows_x64_messagebox.bin"
+ARCHITECTURES = {
+    "x64": {
+        "payload": "original_pl/x64/windows_x64_messagebox.bin",
+        "loader": "ploader.exe",
+        "tool": "pobf.py",
+    },
+    "x86": {
+        "payload": "original_pl/x86/windows_messagebox.bin",
+        "loader": "ploader86.exe",
+        "tool": "pobf86.py",
+    },
+}
+
 RUNS = 5
 
 COMBOS = [
@@ -21,24 +39,26 @@ COMBOS = [
 ]
 
 
-def main():
+def main(arch_name):
+    arch = ARCHITECTURES[arch_name]
     total_ok = 0
     total = 0
     for combo_index, combo in enumerate(COMBOS):
         ok = 0
         sizes = []
         for run in range(RUNS):
-            output = f"tmp/msg_combo_{combo_index}_{run}.bin"
+            output = f"tmp/msg_{arch_name}_{combo_index}_{run}.bin"
             env = dict(os.environ, ZONE_WRAP_SEED=str(100 + run))
-            with open("tmp/msg_build.log", "wb") as log:
+            with open(f"tmp/msg_{arch_name}_build.log", "wb") as log:
                 built = subprocess.run(
-                    [sys.executable, "pobf.py", PAYLOAD, *combo, "-o", output],
+                    [sys.executable, arch["tool"], arch["payload"], *combo,
+                     "-o", output],
                     stdout=log, stderr=subprocess.STDOUT, env=env)
             if built.returncode != 0:
                 print(f"{' '.join(combo)} run {run}: BUILD FAILED")
                 continue
             sizes.append(os.path.getsize(output))
-            result = check_messagebox.check(output)
+            result = check_messagebox.check(output, loader=arch["loader"])
             total += 1
             if result.startswith("dialog shown"):
                 ok += 1
@@ -46,11 +66,12 @@ def main():
             else:
                 print(f"{' '.join(combo)} run {run}: {result}")
         average = sum(sizes) / len(sizes) if sizes else 0
-        print(f"{' '.join(combo):40s} {ok}/{RUNS} dialogs, "
+        print(f"{arch_name} {' '.join(combo):40s} {ok}/{RUNS} dialogs, "
               f"~{average:.0f} bytes")
-    print(f"TOTAL: {total_ok}/{total}")
+    print(f"{arch_name} TOTAL: {total_ok}/{total}")
     return 0 if total_ok == total else 1
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    name = sys.argv[1] if len(sys.argv) > 1 else "x64"
+    sys.exit(main(name))

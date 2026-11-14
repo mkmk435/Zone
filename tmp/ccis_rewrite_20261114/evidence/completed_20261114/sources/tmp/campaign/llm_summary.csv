@@ -1,0 +1,843 @@
+arch,payload,tech,shots,status,built,worked,sha256,cost_usd,attempts,similarity,elapsed_s,error
+x64,windows_x64_custom_bind_tcp,eq,0,ok,1,1,a811eb79d13d35aa89973bad987a2dd984b99566ddebbe3fa454cd750421bed8,0.021188778,1,0.7544,129.0,
+x64,windows_x64_custom_bind_tcp,eq,2,ok,1,1,66c85f952d372c987c74e9511d78373c977b2475f3990091666820f8cf6b50e9,0.022494828,1,0.8882,151.3,
+x64,windows_x64_custom_bind_tcp,nop,0,ok,1,1,b33b7d1478525f5a6cf81c5d4412a473bfb9c2c11f199a3ed7779da3eaa942df,0.014562276,1,1.0,107.5,
+x64,windows_x64_custom_bind_tcp,nop,2,ok,1,1,ed1fb0989bd65a109a9b45d882c80a16ce0d519158b9475e5a4bbfb622082773,0.01121376,1,1.0,75.6,
+x64,windows_x64_custom_bind_tcp,bcf,0,ok,1,1,78746d0d6d473a0f5c462f4ae95e96ce021402b0187c3bd5efb096d376877cac,0.017737326,1,0.8586,127.8,
+x64,windows_x64_custom_bind_tcp,bcf,2,ok,1,0,7d951b7fb9bc479a8865b1ebfbeee890bb889862e7ac813fabc5be6280f76929,0.010293444,1,0.9213,75.6,
+x64,windows_x64_custom_bind_tcp,ibp,0,ok,1,1,9cb0fb99da97f0e3402342dcf331ff5a5ff67c367666e653b803887bf9d7ff4f,0.01315446,1,0.9666,93.8,
+x64,windows_x64_custom_bind_tcp,ibp,2,ok,1,1,d14c5fc42fd5b1d3cbe02a2e937454aa02e92aac5270d09e7eafd384e247667f,0.013867062,1,0.9909,104.9,
+x64,windows_x64_custom_bind_tcp_rc4,eq,0,fail,0,0,,0.027099678,1,,173.8,"output code is not fully disassembled: 626/736 bytes; branch at 0x266 targets 0x27b, which is not an instruction boundary"
+x64,windows_x64_custom_bind_tcp_rc4,eq,2,fail,0,0,,0.019440312,1,,138.3,"output code is not fully disassembled: 620/730 bytes; branch at 0x260 targets 0x275, which is not an instruction boundary"
+x64,windows_x64_custom_bind_tcp_rc4,nop,0,fail,0,0,,0.03264396,1,,218.9,"output code is not fully disassembled: 543/653 bytes; branch at 0x213 targets 0x228, which is not an instruction boundary"
+x64,windows_x64_custom_bind_tcp_rc4,nop,2,fail,0,0,,0.02745366,1,,181.0,"output code is not fully disassembled: 541/651 bytes; branch at 0x211 targets 0x226, which is not an instruction boundary"
+x64,windows_x64_custom_bind_tcp_rc4,bcf,0,fail,0,0,,0.09145296,3,,577.3,"output code is not fully disassembled: 582/692 bytes; branch at 0x23a targets 0x24f, which is not an instruction boundary"
+x64,windows_x64_custom_bind_tcp_rc4,bcf,2,fail,0,0,,0.028914744,1,,186.6,"output code is not fully disassembled: 770/880 bytes; branch at 0x2f6 targets 0x30b, which is not an instruction boundary"
+x64,windows_x64_custom_bind_tcp_rc4,ibp,0,fail,0,0,,0.02377296,1,,168.9,"output code is not fully disassembled: 520/630 bytes; branch at 0x1fc targets 0x211, which is not an instruction boundary"
+x64,windows_x64_custom_bind_tcp_rc4,ibp,2,fail,0,0,,0.020148378,1,,141.6,output code is not fully disassembled: 525/635 bytes
+x64,windows_x64_custom_bind_tcp_uuid,eq,0,fail,0,0,,0.019939962,1,,131.5,"output code is not fully disassembled: 483/620 bytes; branch at 0x1dd targets 0x1f1, which is not an instruction boundary"
+x64,windows_x64_custom_bind_tcp_uuid,eq,2,fail,0,0,,0.024078012,1,,166.3,"output code is not fully disassembled: 483/620 bytes; branch at 0x1dd targets 0x1f2, which is not an instruction boundary"
+x64,windows_x64_custom_bind_tcp_uuid,nop,0,fail,0,0,,0.0,0,,305.7,"b'')
+http.client.IncompleteRead: IncompleteRead(0 bytes read)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File ""C:\Users\ubu\Desktop\Zone\bench\engines\2026-11-13_block3\pobf.py"", line 4209, in <module>
+    start(None)
+  File ""C:\Users\ubu\Desktop\Zone\bench\engines\2026-11-13_block3\pobf.py"", line 4033, in start
+    result = llm_engine.run(canonical, options,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""C:\Users\ubu\Desktop\Zone\bench\engines\2026-11-13_block3\llm_technique.py"", line 1065, in run
+    response, usage = client.chat(messages, on_call=record_call)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""C:\Users\ubu\Desktop\Zone\bench\engines\2026-11-13_block3\llm_technique.py"", line 658, in chat
+    payload = self._request(messages)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File ""C:\Users\ubu\Desktop\Zone\bench\engines\2026-11-13_block3\llm_technique.py"", line 629, in _request
+    return json.loads(response.read().decode(""utf-8""))
+                      ^^^^^^^^^^^^^^^
+  File ""C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\http\client.py"", line 473, in read
+    return self._read_chunked(amt)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File ""C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\http\client.py"", line 607, in _read_chunked
+    raise IncompleteRead(b''.join(value)) from exc
+http.client.IncompleteRead: IncompleteRead(3 bytes read)
+"
+x64,windows_x64_custom_bind_tcp_uuid,nop,2,fail,0,0,,0.01604256,1,,113.4,"output code is not fully disassembled: 408/545 bytes; branch at 0x192 targets 0x1a6, which is not an instruction boundary"
+x64,windows_x64_custom_bind_tcp_uuid,bcf,0,fail,0,0,,0.018135126,1,,120.7,"output code is not fully disassembled: 473/610 bytes; branch at 0x1d3 targets 0x1e7, which is not an instruction boundary"
+x64,windows_x64_custom_bind_tcp_uuid,bcf,2,fail,0,0,,0.028306644,1,,191.0,"output code is not fully disassembled: 437/574 bytes; branch at 0x1af targets 0x1c4, which is not an instruction boundary"
+x64,windows_x64_custom_bind_tcp_uuid,ibp,0,fail,0,0,,0.022503444,1,,146.5,"output code is not fully disassembled: 394/531 bytes; branch at 0x184 targets 0x199, which is not an instruction boundary"
+x64,windows_x64_custom_bind_tcp_uuid,ibp,2,fail,0,0,,0.020993262,1,,137.3,"output code is not fully disassembled: 399/536 bytes; branch at 0x189 targets 0x19e, which is not an instruction boundary"
+x64,windows_x64_custom_reverse_http,eq,0,ok,1,1,99da0ac9e9b92b17f40c44fac5026665bd7603bd31823094eb05ce8467597b40,0.035062038,2,0.9436,223.7,
+x64,windows_x64_custom_reverse_http,eq,2,fail,0,0,,0.039770928,1,,195.2,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_custom_reverse_http,nop,0,fail,0,0,,0.039758976,1,,207.4,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_custom_reverse_http,nop,2,fail,0,0,,0.039771276,1,,208.4,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_custom_reverse_http,bcf,0,fail,0,0,,0.032955042,1,,204.3,RET_29b is not immediately after a call (previous line: 'L_29b:'); 9 original instruction(s) are missing or out of order (allowed 2); first missing: nop ; nop ; nop ; nop 
+x64,windows_x64_custom_reverse_http,bcf,2,fail,0,0,,0.022796976,1,,142.5,RET_29b is not immediately after a call (previous line: 'L_29b:'); 80 original instruction(s) are missing or out of order (allowed 2); first missing: nop ; nop ; nop ; nop ; bcf did not insert any instruction; the technique was not applied
+x64,windows_x64_custom_reverse_http,ibp,0,fail,0,0,,0.084970572,3,,479.2,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_custom_reverse_http,ibp,2,fail,0,0,,0.023504178,1,,154.2,RET_29b is not immediately after a call (previous line: 'L_29b:'); 5 original instruction(s) disappeared during block permutation
+x64,windows_x64_custom_reverse_https,eq,0,fail,0,0,,0.019547778,1,,129.1,RET_2b1 is not immediately after a call (previous line: 'L_2b1:')
+x64,windows_x64_custom_reverse_https,eq,2,fail,0,0,,0.039777228,1,,178.9,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_custom_reverse_https,nop,0,fail,0,0,,0.019575876,1,,119.5,RET_2b1 is not immediately after a call (previous line: 'L_2b1:')
+x64,windows_x64_custom_reverse_https,nop,2,fail,0,0,,0.021450576,1,,140.5,RET_2b1 is not immediately after a call (previous line: 'L_2b1:')
+x64,windows_x64_custom_reverse_https,bcf,0,fail,0,0,,0.03936459,1,,213.5,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_custom_reverse_https,bcf,2,fail,0,0,,0.01959846,1,,124.0,RET_2b1 is not immediately after a call (previous line: 'L_2b1:')
+x64,windows_x64_custom_reverse_https,ibp,0,fail,0,0,,0.03976266,1,,232.7,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_custom_reverse_https,ibp,2,fail,0,0,,0.021805278,1,,140.9,RET_2b1 is not immediately after a call (previous line: 'L_2b1:')
+x64,windows_x64_custom_reverse_tcp,eq,0,fail,0,0,,0.014288778,1,,95.5,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_custom_reverse_tcp,eq,2,fail,0,0,,0.014535228,1,,94.8,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_custom_reverse_tcp,nop,0,ok,1,1,d63a1a72e9c7e2f168a1b51a95dffb69f68f9b83b245652d52a0210625c66223,0.023098278,2,1.0,157.3,
+x64,windows_x64_custom_reverse_tcp,nop,2,fail,0,0,,0.02396976,1,,164.8,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_custom_reverse_tcp,bcf,0,fail,0,0,,0.018085326,1,,113.5,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_custom_reverse_tcp,bcf,2,fail,0,0,,0.01473306,1,,101.1,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_custom_reverse_tcp,ibp,0,fail,0,0,,0.01599846,1,,111.1,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_custom_reverse_tcp,ibp,2,fail,0,0,,0.014131278,1,,99.8,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_custom_reverse_tcp_rc4,eq,0,fail,0,0,,0.028871556,1,,209.6,"output code is not fully disassembled: 553/663 bytes; branch at 0x16a targets 0x28a, which is not an instruction boundary; branch at 0x21d targets 0x232, which is not an instruction boundary"
+x64,windows_x64_custom_reverse_tcp_rc4,eq,2,fail,0,0,,0.039686262,1,,257.9,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_custom_reverse_tcp_rc4,nop,0,fail,0,0,,0.02198871,1,,155.3,"output code is not fully disassembled: 559/669 bytes; branch at 0x16d targets 0x290, which is not an instruction boundary; branch at 0x223 targets 0x238, which is not an instruction boundary"
+x64,windows_x64_custom_reverse_tcp_rc4,nop,2,fail,0,0,,0.028120794,1,,197.8,"output code is not fully disassembled: 552/662 bytes; branch at 0x168 targets 0x289, which is not an instruction boundary; branch at 0x21c targets 0x231, which is not an instruction boundary"
+x64,windows_x64_custom_reverse_tcp_rc4,bcf,0,fail,0,0,,0.023728776,1,,146.6,"output code is not fully disassembled: 608/718 bytes; branch at 0x1a1 targets 0x2c1, which is not an instruction boundary; branch at 0x254 targets 0x269, which is not an instruction boundary"
+x64,windows_x64_custom_reverse_tcp_rc4,bcf,2,fail,0,0,,0.03351651,1,,224.4,"output code is not fully disassembled: 606/716 bytes; branch at 0x19f targets 0x2bf, which is not an instruction boundary; branch at 0x252 targets 0x267, which is not an instruction boundary"
+x64,windows_x64_custom_reverse_tcp_rc4,ibp,0,fail,0,0,,0.039370638,1,,269.8,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_custom_reverse_tcp_rc4,ibp,2,fail,0,0,,0.028618128,1,,202.4,"output code is not fully disassembled: 545/655 bytes; branch at 0xa9 targets 0x282, which is not an instruction boundary; branch at 0x215 targets 0x22a, which is not an instruction boundary"
+x64,windows_x64_custom_reverse_tcp_uuid,eq,0,fail,0,0,,0.031293378,1,,196.1,"output code is not fully disassembled: 423/612 bytes; branch at 0x18f targets 0x257, which is not an instruction boundary; branch at 0x1a2 targets 0x1b7, which is not an instruction boundary"
+x64,windows_x64_custom_reverse_tcp_uuid,eq,2,fail,0,0,,0.037454412,1,,241.8,"output code is not fully disassembled: 401/590 bytes; branch at 0x180 targets 0x241, which is not an instruction boundary; branch at 0x18c targets 0x1a1, which is not an instruction boundary"
+x64,windows_x64_custom_reverse_tcp_uuid,nop,0,fail,0,0,,0.022844676,1,,159.2,"output code is not fully disassembled: 368/557 bytes; branch at 0x15f targets 0x220, which is not an instruction boundary; branch at 0x16b targets 0x180, which is not an instruction boundary"
+x64,windows_x64_custom_reverse_tcp_uuid,nop,2,fail,0,0,,0.02320356,1,,160.6,"output code is not fully disassembled: 393/582 bytes; branch at 0x174 targets 0x239, which is not an instruction boundary; branch at 0x184 targets 0x199, which is not an instruction boundary"
+x64,windows_x64_custom_reverse_tcp_uuid,bcf,0,fail,0,0,,0.030276654,1,,198.4,"output code is not fully disassembled: 478/667 bytes; branch at 0x1bf targets 0x28e, which is not an instruction boundary; branch at 0x1d9 targets 0x1ee, which is not an instruction boundary"
+x64,windows_x64_custom_reverse_tcp_uuid,bcf,2,fail,0,0,,0.032474844,1,,228.7,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x64,windows_x64_custom_reverse_tcp_uuid,ibp,0,fail,0,0,,0.019528644,1,,137.1,"output code is not fully disassembled: 186/552 bytes; branch at 0x21 targets 0x177, which is not an instruction boundary; branch at 0xa9 targets 0x16a, which is not an instruction boundary; branch at 0xb5 targets 0xca, which is not an instruction boundary; 63 original instruction(s) disappeared during block permutation"
+x64,windows_x64_custom_reverse_tcp_uuid,ibp,2,fail,0,0,,0.027506862,1,,195.7,"output code is not fully disassembled: 360/549 bytes; branch at 0x157 targets 0x218, which is not an instruction boundary; branch at 0x163 targets 0x179, which is not an instruction boundary"
+x64,windows_x64_custom_reverse_winhttp,eq,0,fail,0,0,,0.030803694,1,,209.3,RET_376 is not immediately after a call (previous line: 'L_376:'); data references disappeared from the payload: DATA offset 0xd2 x1
+x64,windows_x64_custom_reverse_winhttp,eq,2,fail,0,0,,0.022601328,1,,138.9,"RET_376 is not immediately after a call (previous line: 'L_376:'); data references disappeared from the payload: DATA offset 0xd2 x1; equal-code substitution removed 174 non-control instruction(s); transformations may only replace an instruction, not delete it"
+x64,windows_x64_custom_reverse_winhttp,nop,0,fail,0,0,,0.018601944,1,,125.7,RET_376 is not immediately after a call (previous line: 'L_376:'); data references disappeared from the payload: DATA offset 0xd2 x1
+x64,windows_x64_custom_reverse_winhttp,nop,2,fail,0,0,,0.017469876,1,,117.3,RET_376 is not immediately after a call (previous line: 'L_376:'); data references disappeared from the payload: DATA offset 0xd2 x1
+x64,windows_x64_custom_reverse_winhttp,bcf,0,fail,0,0,,0.021730842,1,,127.0,RET_376 is not immediately after a call (previous line: 'L_376:'); data references disappeared from the payload: DATA offset 0xd2 x1
+x64,windows_x64_custom_reverse_winhttp,bcf,2,fail,0,0,,0.032455176,1,,199.0,RET_376 is not immediately after a call (previous line: 'L_376:'); data references disappeared from the payload: DATA offset 0xd2 x1
+x64,windows_x64_custom_reverse_winhttp,ibp,0,fail,0,0,,0.021064776,1,,125.8,RET_376 is not immediately after a call (previous line: 'L_376:'); data references disappeared from the payload: DATA offset 0xd2 x1; 227 original instruction(s) disappeared during block permutation
+x64,windows_x64_custom_reverse_winhttp,ibp,2,fail,0,0,,0.027975378,1,,190.4,RET_376 is not immediately after a call (previous line: 'L_376:'); data references disappeared from the payload: DATA offset 0xd2 x1
+x64,windows_x64_custom_reverse_winhttps,eq,0,fail,0,0,,0.03065715,1,,195.7,"output code is not fully disassembled: 386/989 bytes; branch at 0x172 targets 0x25a, which is not an instruction boundary"
+x64,windows_x64_custom_reverse_winhttps,eq,2,fail,0,0,,0.031581912,1,,191.6,"output code is not fully disassembled: 403/1006 bytes; branch at 0x183 targets 0x26b, which is not an instruction boundary"
+x64,windows_x64_custom_reverse_winhttps,nop,0,fail,0,0,,0.035617176,1,,218.5,"output code is not fully disassembled: 344/947 bytes; branch at 0x148 targets 0x230, which is not an instruction boundary"
+x64,windows_x64_custom_reverse_winhttps,nop,2,fail,0,0,,0.03870666,1,,219.6,"output code is not fully disassembled: 351/954 bytes; branch at 0x14f targets 0x237, which is not an instruction boundary"
+x64,windows_x64_custom_reverse_winhttps,bcf,0,fail,0,0,,0.029148498,1,,183.6,"output code is not fully disassembled: 351/954 bytes; branch at 0x14f targets 0x237, which is not an instruction boundary"
+x64,windows_x64_custom_reverse_winhttps,bcf,2,fail,0,0,,0.035152776,1,,218.8,"output code is not fully disassembled: 396/999 bytes; branch at 0x17c targets 0x264, which is not an instruction boundary"
+x64,windows_x64_custom_reverse_winhttps,ibp,0,fail,0,0,,0.024571176,1,,152.2,"output code is not fully disassembled: 342/945 bytes; branch at 0x146 targets 0x22e, which is not an instruction boundary"
+x64,windows_x64_custom_reverse_winhttps,ibp,2,fail,0,0,,0.029346378,1,,186.2,"output code is not fully disassembled: 338/941 bytes; branch at 0x142 targets 0x22a, which is not an instruction boundary"
+x64,windows_x64_messagebox,eq,0,ok,1,1,755d59a937ac9cc9a08d21e671ec98880960f12e83fe6cda2890ce740469d4b8,0.014052675,1,0.9112,98.1,
+x64,windows_x64_messagebox,eq,2,ok,1,1,cfb5fe6058733271b3b86579c06c129a1216eb5ec5db3605bb72ae825aa80377,0.010072284,1,0.9189,76.0,
+x64,windows_x64_messagebox,nop,0,ok,1,1,7ada4e91156fb97c3653f0ba7ecfe117cd3efbb7e9df2b353e4db0549a4437e4,0.013026732,1,1.0,92.5,
+x64,windows_x64_messagebox,nop,2,ok,1,1,4d68073f5c8a75df0e8be7070a1eb5a2e81e2fdbcd158b5489fc92c9e22430c3,0.007528032,1,1.0,53.9,
+x64,windows_x64_messagebox,bcf,0,ok,1,1,597714d4e9ff123b0481753a3c457ce613e81d587eec7c6c06b94c5529d5ad57,0.026423517,1,0.8158,188.9,
+x64,windows_x64_messagebox,bcf,2,ok,1,1,62d5707626373ce54267657cf52bc77651609c2bdc34366272c0e2a934edf834,0.015932316,1,0.9032,116.5,
+x64,windows_x64_messagebox,ibp,0,ok,1,1,4ed2d7a2662125e4a3172487dfd9ab8464918f4a9bf5f95257509edbbacdcae9,0.012427716,1,0.9843,91.2,
+x64,windows_x64_messagebox,ibp,2,ok,1,1,f3a916c31ae6e982db20fe308a37580c0c910fc07cbff24d59b3bcce7b62ecc6,0.013925934,1,0.9647,99.6,
+x64,windows_x64_meterpreter_bind_tcp,eq,0,ok,1,1,a388d026017b70b046ed1ab0f3a65d87b4c1a1053c626bd3f53169123888d018,0.008934162,1,0.872,61.7,
+x64,windows_x64_meterpreter_bind_tcp,eq,2,ok,1,1,535da2e69cf909e57ffdc56e3aed171cd019c48dfc1184c3aee363925fbd520d,0.017229612,1,0.8363,121.9,
+x64,windows_x64_meterpreter_bind_tcp,nop,0,ok,1,1,b2919cca0a69cdebbdf7624f88b2bc67df505f33c39a04290ec471ab56b06ace,0.00889986,1,1.0,65.0,
+x64,windows_x64_meterpreter_bind_tcp,nop,2,ok,1,1,89431d81d6a631602927d0d4fea36260609230a5e3120c214a36ed83a8a8de49,0.01969716,1,1.0,132.5,
+x64,windows_x64_meterpreter_bind_tcp,bcf,0,ok,1,1,a83f620b28dd7b26cd5b5f2c4498b99850a320e13899b7a5154eb7aa96a056c5,0.015014526,1,0.8586,93.7,
+x64,windows_x64_meterpreter_bind_tcp,bcf,2,ok,1,1,53ff4e0692855e8e295acab92f868f564bcd49cfac4da34011a3e5ca8f52c486,0.01947066,1,0.82,129.5,
+x64,windows_x64_meterpreter_bind_tcp,ibp,0,ok,1,1,f82fdf7afd0d0548a54ab00d2967628cfbdd3cef029e3d519f6eb72d3ede514b,0.016030044,1,0.9909,114.4,
+x64,windows_x64_meterpreter_bind_tcp,ibp,2,ok,1,1,e2828cfede500cd43522af6f35a157b0e28ca9006b4fc56633098ef9e83b4686,0.014641278,1,0.614,100.4,
+x64,windows_x64_meterpreter_bind_tcp_rc4,eq,0,fail,0,0,,0.032107662,1,,220.1,"output code is not fully disassembled: 609/719 bytes; branch at 0x255 targets 0x26a, which is not an instruction boundary"
+x64,windows_x64_meterpreter_bind_tcp_rc4,eq,2,fail,0,0,,0.021070512,1,,141.5,"output code is not fully disassembled: 620/730 bytes; branch at 0x260 targets 0x275, which is not an instruction boundary"
+x64,windows_x64_meterpreter_bind_tcp_rc4,nop,0,fail,0,0,,0.020009376,1,,144.8,"output code is not fully disassembled: 535/645 bytes; branch at 0x20b targets 0x220, which is not an instruction boundary"
+x64,windows_x64_meterpreter_bind_tcp_rc4,nop,2,fail,0,0,,0.01721646,1,,119.5,"output code is not fully disassembled: 543/653 bytes; branch at 0x213 targets 0x228, which is not an instruction boundary"
+x64,windows_x64_meterpreter_bind_tcp_rc4,bcf,0,fail,0,0,,0.025141554,1,,170.8,"output code is not fully disassembled: 588/698 bytes; branch at 0x240 targets 0x255, which is not an instruction boundary"
+x64,windows_x64_meterpreter_bind_tcp_rc4,bcf,2,fail,0,0,,0.025747944,1,,168.6,"output code is not fully disassembled: 620/730 bytes; branch at 0x260 targets 0x275, which is not an instruction boundary"
+x64,windows_x64_meterpreter_bind_tcp_rc4,ibp,0,fail,0,0,,0.033111744,1,,220.7,"output code is not fully disassembled: 517/627 bytes; branch at 0x1f9 targets 0x20e, which is not an instruction boundary"
+x64,windows_x64_meterpreter_bind_tcp_rc4,ibp,2,fail,0,0,,0.020212146,1,,135.0,"output code is not fully disassembled: 517/627 bytes; branch at 0x1f9 targets 0x20e, which is not an instruction boundary"
+x64,windows_x64_meterpreter_bind_tcp_uuid,eq,0,fail,0,0,,0.039605178,1,,256.4,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_meterpreter_bind_tcp_uuid,eq,2,fail,0,0,,0.032590212,1,,224.9,"branch at 0x18a targets 0x19f, which is not an instruction boundary; branch at 0x194 targets 0x1e2, which is not an instruction boundary; branch at 0x1a7 targets 0x1e1, which is not an instruction boundary"
+x64,windows_x64_meterpreter_bind_tcp_uuid,nop,0,ok,1,1,9c1eca94a939a1174985168aec9fdc255d8696e8e0d91a73d0ecb3335871e753,0.030136668,1,1.0,209.4,
+x64,windows_x64_meterpreter_bind_tcp_uuid,nop,2,fail,0,0,,0.03856296,1,,285.6,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x64,windows_x64_meterpreter_bind_tcp_uuid,bcf,0,fail,0,0,,0.039603726,1,,258.3,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_meterpreter_bind_tcp_uuid,bcf,2,fail,0,0,,0.02574726,1,,182.5,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x64,windows_x64_meterpreter_bind_tcp_uuid,ibp,0,fail,0,0,,0.03960666,1,,281.1,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_meterpreter_bind_tcp_uuid,ibp,2,ok,1,1,93fa30e3b74ae5fe741c9596e4425dfb8a16187171e2f83add1e64ccd2d3c6f6,0.034644078,1,0.5938,248.5,
+x64,windows_x64_meterpreter_reverse_http,eq,0,fail,0,0,,0.033776808,1,,195.9,RET_28f is not immediately after a call (previous line: 'L_28f:')
+x64,windows_x64_meterpreter_reverse_http,eq,2,fail,0,0,,0.030388362,1,,172.6,RET_28f is not immediately after a call (previous line: 'L_28f:')
+x64,windows_x64_meterpreter_reverse_http,nop,0,fail,0,0,,0.011359626,1,,77.1,RET_28f is not immediately after a call (previous line: 'L_28f:')
+x64,windows_x64_meterpreter_reverse_http,nop,2,fail,0,0,,0.03974091,1,,201.3,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_meterpreter_reverse_http,bcf,0,fail,0,0,,0.039741876,1,,223.4,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_meterpreter_reverse_http,bcf,2,fail,0,0,,0.039762426,1,,191.5,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_meterpreter_reverse_http,ibp,0,fail,0,0,,0.02679429,1,,182.6,RET_28f is not immediately after a call (previous line: 'L_28f:')
+x64,windows_x64_meterpreter_reverse_http,ibp,2,fail,0,0,,0.022232628,1,,138.0,Keystone rejected the assembly: Invalid fixup (KS_ERR_ASM_FIXUP_INVALID)
+x64,windows_x64_meterpreter_reverse_https,eq,0,fail,0,0,,0.032850144,1,,216.9,RET_260 is not immediately after a call (previous line: 'L_260:')
+x64,windows_x64_meterpreter_reverse_https,eq,2,fail,0,0,,0.033248778,1,,194.1,RET_260 is not immediately after a call (previous line: 'L_260:')
+x64,windows_x64_meterpreter_reverse_https,nop,0,fail,0,0,,0.019329426,1,,126.7,RET_260 is not immediately after a call (previous line: 'L_260:')
+x64,windows_x64_meterpreter_reverse_https,nop,2,fail,0,0,,0.037576926,1,,241.1,RET_260 is not immediately after a call (previous line: 'L_260:')
+x64,windows_x64_meterpreter_reverse_https,bcf,0,fail,0,0,,0.039365388,1,,211.3,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_meterpreter_reverse_https,bcf,2,fail,0,0,,0.039724626,1,,210.6,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_meterpreter_reverse_https,ibp,0,fail,0,0,,0.039725826,1,,253.6,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_meterpreter_reverse_https,ibp,2,fail,0,0,,0.029928228,1,,179.5,RET_260 is not immediately after a call (previous line: 'L_260:')
+x64,windows_x64_meterpreter_reverse_tcp,eq,0,fail,0,0,,0.013189578,1,,90.0,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_meterpreter_reverse_tcp,eq,2,fail,0,0,,0.026220012,1,,179.9,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_meterpreter_reverse_tcp,nop,0,fail,0,0,,0.01427166,1,,108.5,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_meterpreter_reverse_tcp,nop,2,fail,0,0,,0.01821396,1,,128.5,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_meterpreter_reverse_tcp,bcf,0,fail,0,0,,0.02722671,1,,174.8,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_meterpreter_reverse_tcp,bcf,2,fail,0,0,,0.015754044,1,,102.7,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_meterpreter_reverse_tcp,ibp,0,fail,0,0,,0.017054244,1,,126.4,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_meterpreter_reverse_tcp,ibp,2,fail,0,0,,0.014949462,1,,106.0,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_meterpreter_reverse_tcp_rc4,eq,0,fail,0,0,,0.024276612,1,,169.7,"output code is not fully disassembled: 606/716 bytes; branch at 0x18a targets 0x2bf, which is not an instruction boundary; branch at 0x252 targets 0x267, which is not an instruction boundary"
+x64,windows_x64_meterpreter_reverse_tcp_rc4,eq,2,fail,0,0,,0.021651846,1,,140.1,"output code is not fully disassembled: 606/716 bytes; branch at 0x18a targets 0x2bf, which is not an instruction boundary; branch at 0x252 targets 0x267, which is not an instruction boundary"
+x64,windows_x64_meterpreter_reverse_tcp_rc4,nop,0,fail,0,0,,0.02019831,1,,123.8,"output code is not fully disassembled: 561/671 bytes; branch at 0x168 targets 0x292, which is not an instruction boundary; branch at 0x225 targets 0x23a, which is not an instruction boundary"
+x64,windows_x64_meterpreter_reverse_tcp_rc4,nop,2,fail,0,0,,0.030694794,1,,210.7,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x64,windows_x64_meterpreter_reverse_tcp_rc4,bcf,0,fail,0,0,,0.02378676,1,,167.8,"output code is not fully disassembled: 588/698 bytes; branch at 0x171 targets 0x2ad, which is not an instruction boundary; branch at 0x240 targets 0x255, which is not an instruction boundary"
+x64,windows_x64_meterpreter_reverse_tcp_rc4,bcf,2,fail,0,0,,0.026477094,1,,167.0,"output code is not fully disassembled: 676/786 bytes; branch at 0x1ad targets 0x305, which is not an instruction boundary; branch at 0x298 targets 0x2ad, which is not an instruction boundary"
+x64,windows_x64_meterpreter_reverse_tcp_rc4,ibp,0,fail,0,0,,0.029181294,1,,202.8,"output code is not fully disassembled: 459/647 bytes; branch at 0x5 targets 0x239, which is not an instruction boundary; branch at 0x10c targets 0x22c, which is not an instruction boundary; branch at 0x1bf targets 0x1d4, which is not an instruction boundary; 19 original instruction(s) disappeared during block permutation"
+x64,windows_x64_meterpreter_reverse_tcp_rc4,ibp,2,fail,0,0,,0.027155112,1,,186.1,"output code is not fully disassembled: 534/644 bytes; branch at 0x157 targets 0x277, which is not an instruction boundary; branch at 0x20a targets 0x21f, which is not an instruction boundary"
+x64,windows_x64_meterpreter_reverse_tcp_uuid,eq,0,fail,0,0,,0.031255428,1,,214.9,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_meterpreter_reverse_tcp_uuid,eq,2,fail,0,0,,0.028621062,1,,198.7,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_meterpreter_reverse_tcp_uuid,nop,0,fail,0,0,,0.039618726,1,,281.1,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_meterpreter_reverse_tcp_uuid,nop,2,fail,0,0,,0.02278281,1,,137.4,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_meterpreter_reverse_tcp_uuid,bcf,0,fail,0,0,,0.027329376,1,,170.7,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_meterpreter_reverse_tcp_uuid,bcf,2,fail,0,0,,0.03553731,1,,231.6,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_meterpreter_reverse_tcp_uuid,ibp,0,fail,0,0,,0.03660951,1,,258.3,"branch at 0x163 targets 0x178, which is not an instruction boundary; RET_15e is not immediately after a call (previous line: 'L_15e:')"
+x64,windows_x64_meterpreter_reverse_tcp_uuid,ibp,2,ok,1,1,fbe473a8fdf259d28d67c4c5044b5fcdfed7a8f31ad0210cb21edee923f87509,0.028034328,1,0.9918,188.9,
+x64,windows_x64_meterpreter_reverse_winhttp,eq,0,fail,0,0,,0.039881844,1,,192.0,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_meterpreter_reverse_winhttp,eq,2,fail,0,0,,0.021889278,1,,132.5,"RET_36c is not immediately after a call (previous line: 'L_36c:'); data references disappeared from the payload: DATA offset 0xe2 x1; equal-code substitution removed 106 non-control instruction(s); transformations may only replace an instruction, not delete it"
+x64,windows_x64_meterpreter_reverse_winhttp,nop,0,fail,0,0,,0.016452726,1,,106.0,RET_36c is not immediately after a call (previous line: 'L_36c:'); data references disappeared from the payload: DATA offset 0xe2 x1
+x64,windows_x64_meterpreter_reverse_winhttp,nop,2,fail,0,0,,0.020552226,1,,143.8,RET_36c is not immediately after a call (previous line: 'L_36c:'); data references disappeared from the payload: DATA offset 0xe2 x1
+x64,windows_x64_meterpreter_reverse_winhttp,bcf,0,fail,0,0,,0.027808992,1,,191.9,RET_36c is not immediately after a call (previous line: 'L_36c:'); data references disappeared from the payload: DATA offset 0xe2 x1; 14 original instruction(s) are missing or out of order (allowed 2); first missing: nop ; nop ; nop ; nop 
+x64,windows_x64_meterpreter_reverse_winhttp,bcf,2,fail,0,0,,0.026496726,1,,162.1,RET_36c is not immediately after a call (previous line: 'L_36c:'); data references disappeared from the payload: DATA offset 0xe2 x1; 237 original instruction(s) are missing or out of order (allowed 2); first missing: nop ; nop ; nop ; nop ; bcf did not insert any instruction; the technique was not applied
+x64,windows_x64_meterpreter_reverse_winhttp,ibp,0,fail,0,0,,0.030650526,1,,203.3,RET_36c is not immediately after a call (previous line: 'L_36c:'); data references disappeared from the payload: DATA offset 0xe2 x1; 218 original instruction(s) disappeared during block permutation
+x64,windows_x64_meterpreter_reverse_winhttp,ibp,2,fail,0,0,,0.039868728,1,,258.8,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_meterpreter_reverse_winhttps,eq,0,fail,0,0,,0.035847228,1,,225.1,"output code is not fully disassembled: 407/1085 bytes; branch at 0x187 targets 0x2cb, which is not an instruction boundary"
+x64,windows_x64_meterpreter_reverse_winhttps,eq,2,fail,0,0,,0.040045662,1,,253.4,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_meterpreter_reverse_winhttps,nop,0,fail,0,0,,0.039907326,1,,235.5,"output code is not fully disassembled: 352/1030 bytes; branch at 0x150 targets 0x294, which is not an instruction boundary"
+x64,windows_x64_meterpreter_reverse_winhttps,nop,2,fail,0,0,,0.03308721,1,,205.2,"output code is not fully disassembled: 358/1036 bytes; branch at 0x156 targets 0x29a, which is not an instruction boundary"
+x64,windows_x64_meterpreter_reverse_winhttps,bcf,0,fail,0,0,,0.033805776,1,,210.0,"output code is not fully disassembled: 378/1056 bytes; branch at 0x16a targets 0x2ae, which is not an instruction boundary"
+x64,windows_x64_meterpreter_reverse_winhttps,bcf,2,fail,0,0,,0.03485091,1,,192.5,"output code is not fully disassembled: 484/1162 bytes; branch at 0x1d4 targets 0x316, which is not an instruction boundary"
+x64,windows_x64_meterpreter_reverse_winhttps,ibp,0,fail,0,0,,0.02919711,1,,185.4,"output code is not fully disassembled: 335/1013 bytes; branch at 0x13f targets 0x283, which is not an instruction boundary"
+x64,windows_x64_meterpreter_reverse_winhttps,ibp,2,fail,0,0,,0.027075528,1,,171.3,"output code is not fully disassembled: 335/1013 bytes; branch at 0x13f targets 0x283, which is not an instruction boundary"
+x64,windows_x64_pingback_reverse_tcp,eq,0,fail,0,0,,0.015483078,1,,113.3,RET_167 is not immediately after a call (previous line: 'L_167:')
+x64,windows_x64_pingback_reverse_tcp,eq,2,fail,0,0,,0.021019512,1,,159.8,RET_167 is not immediately after a call (previous line: 'L_167:')
+x64,windows_x64_pingback_reverse_tcp,nop,0,fail,0,0,,0.020879976,1,,137.4,RET_167 is not immediately after a call (previous line: 'L_167:')
+x64,windows_x64_pingback_reverse_tcp,nop,2,fail,0,0,,0.01046706,1,,67.4,RET_167 is not immediately after a call (previous line: 'L_167:')
+x64,windows_x64_pingback_reverse_tcp,bcf,0,fail,0,0,,0.011432226,1,,83.8,RET_167 is not immediately after a call (previous line: 'L_167:')
+x64,windows_x64_pingback_reverse_tcp,bcf,2,fail,0,0,,0.01282416,1,,90.4,RET_167 is not immediately after a call (previous line: 'L_167:')
+x64,windows_x64_pingback_reverse_tcp,ibp,0,fail,0,0,,0.02527236,1,,182.8,RET_167 is not immediately after a call (previous line: 'L_167:')
+x64,windows_x64_pingback_reverse_tcp,ibp,2,fail,0,0,,0.022067778,1,,161.9,RET_167 is not immediately after a call (previous line: 'L_167:')
+x64,windows_x64_shell_bind_tcp,eq,0,ok,1,1,42b49ff7b84a029e5f1fd5f0734a7628cf472b5e48f28d996646aa66f61a920d,0.011326128,1,0.8966,77.0,
+x64,windows_x64_shell_bind_tcp,eq,2,ok,1,1,42b49ff7b84a029e5f1fd5f0734a7628cf472b5e48f28d996646aa66f61a920d,0.008011362,1,0.8966,53.9,
+x64,windows_x64_shell_bind_tcp,nop,0,ok,1,1,373ba5365e027764e66cb44b212bcb6a040d5303669bf5531533347507a415e6,0.016082226,1,1.0,110.6,
+x64,windows_x64_shell_bind_tcp,nop,2,ok,1,1,58711328e88a2003907b645233ca480cdd06cd5bab25f318a330cad1ab612b5e,0.00855351,1,1.0,57.0,
+x64,windows_x64_shell_bind_tcp,bcf,0,ok,1,1,f54bbfc59ebc2427e4c10241cd6a8366ddbd9e67ae2948c8dbee633190cc25f6,0.015932076,1,0.9032,119.2,
+x64,windows_x64_shell_bind_tcp,bcf,2,ok,1,1,62829e73da2f04bd50e9256dc9c9ad8389ba2c3df5a73956053db8109c1d918c,0.01607241,1,0.8615,113.9,
+x64,windows_x64_shell_bind_tcp,ibp,0,ok,1,1,bd6cfc9debf9f33cd9c97256e79d2649a1086dd0b8ec8debd5e3acfd9fbaffd2,0.02165421,1,0.7751,147.7,
+x64,windows_x64_shell_bind_tcp,ibp,2,ok,1,1,d82574d7164c7c5ca6e4c5722d4c71917f9088b0062d36d2228c433116b15f34,0.021451428,1,0.5875,148.4,
+x64,windows_x64_shell_bind_tcp_rc4,eq,0,fail,0,0,,0.030398262,1,,191.4,"output code is not fully disassembled: 620/730 bytes; branch at 0x260 targets 0x275, which is not an instruction boundary"
+x64,windows_x64_shell_bind_tcp_rc4,eq,2,fail,0,0,,0.033213312,1,,227.5,"output code is not fully disassembled: 602/712 bytes; branch at 0x24e targets 0x263, which is not an instruction boundary"
+x64,windows_x64_shell_bind_tcp_rc4,nop,0,fail,0,0,,0.02269536,1,,156.1,"output code is not fully disassembled: 537/647 bytes; branch at 0x20d targets 0x222, which is not an instruction boundary"
+x64,windows_x64_shell_bind_tcp_rc4,nop,2,fail,0,0,,0.024747444,1,,174.2,"output code is not fully disassembled: 534/644 bytes; branch at 0x20a targets 0x21f, which is not an instruction boundary"
+x64,windows_x64_shell_bind_tcp_rc4,bcf,0,fail,0,0,,0.01782501,1,,116.9,"output code is not fully disassembled: 574/684 bytes; branch at 0x232 targets 0x23e, which is not an instruction boundary"
+x64,windows_x64_shell_bind_tcp_rc4,bcf,2,fail,0,0,,0.03132936,1,,204.8,"output code is not fully disassembled: 592/702 bytes; branch at 0x244 targets 0x259, which is not an instruction boundary"
+x64,windows_x64_shell_bind_tcp_rc4,ibp,0,fail,0,0,,0.034752144,1,,255.7,"output code is not fully disassembled: 522/632 bytes; branch at 0x1fe targets 0x213, which is not an instruction boundary"
+x64,windows_x64_shell_bind_tcp_rc4,ibp,2,fail,0,0,,0.030125562,1,,195.5,Keystone rejected the assembly: Invalid fixup (KS_ERR_ASM_FIXUP_INVALID)
+x64,windows_x64_shell_bind_tcp_uuid,eq,0,fail,0,0,,0.030827112,1,,203.4,"output code is not fully disassembled: 471/603 bytes; branch at 0x1cb targets 0x1d7, which is not an instruction boundary"
+x64,windows_x64_shell_bind_tcp_uuid,eq,2,fail,0,0,,0.028706562,1,,187.1,"output code is not fully disassembled: 406/538 bytes; branch at 0x18a targets 0x19f, which is not an instruction boundary"
+x64,windows_x64_shell_bind_tcp_uuid,nop,0,fail,0,0,,0.01850301,1,,129.0,"output code is not fully disassembled: 422/554 bytes; branch at 0x19a targets 0x1af, which is not an instruction boundary"
+x64,windows_x64_shell_bind_tcp_uuid,nop,2,fail,0,0,,0.02148771,1,,140.0,output code is not fully disassembled: 415/547 bytes
+x64,windows_x64_shell_bind_tcp_uuid,bcf,0,fail,0,0,,0.01848486,1,,126.6,"output code is not fully disassembled: 457/589 bytes; branch at 0x1bd targets 0x1d2, which is not an instruction boundary"
+x64,windows_x64_shell_bind_tcp_uuid,bcf,2,fail,0,0,,0.024011394,1,,158.9,"output code is not fully disassembled: 457/589 bytes; branch at 0x1bd targets 0x1d2, which is not an instruction boundary"
+x64,windows_x64_shell_bind_tcp_uuid,ibp,0,fail,0,0,,0.021394194,1,,156.9,"output code is not fully disassembled: 411/543 bytes; branch at 0x18f targets 0x1a4, which is not an instruction boundary"
+x64,windows_x64_shell_bind_tcp_uuid,ibp,2,fail,0,0,,0.026233812,1,,162.2,"output code is not fully disassembled: 403/535 bytes; branch at 0x187 targets 0x19c, which is not an instruction boundary"
+x64,windows_x64_shell_reverse_tcp,eq,0,ok,1,1,f0f2c558782015ca42c717cdcee85f08428910abf22d331a95996b1e3acf62bb,0.013630278,1,0.9154,92.9,
+x64,windows_x64_shell_reverse_tcp,eq,2,ok,1,1,f0f2c558782015ca42c717cdcee85f08428910abf22d331a95996b1e3acf62bb,0.010501512,1,0.9154,74.2,
+x64,windows_x64_shell_reverse_tcp,nop,0,ok,1,1,610e64920289360132a13a301db796a816b4cd737b58dc15471683f9c5133b25,0.009644976,1,1.0,71.3,
+x64,windows_x64_shell_reverse_tcp,nop,2,ok,1,1,1c70d7cdc1d4cccb3ad71cb2f888aa18cf61d5845b28ea51832edd1f194e048b,0.02397726,1,1.0,175.4,
+x64,windows_x64_shell_reverse_tcp,bcf,0,ok,1,1,558d64384dbe940bc212c54319f38009f8c46c62b623630bc833b17bacf04b80,0.014858226,1,0.8732,99.8,
+x64,windows_x64_shell_reverse_tcp,bcf,2,ok,1,1,bb3c645101d411938344171d4de74ed006d40da127f00fc0bd09f48a354b4aa6,0.02237076,1,0.8115,161.8,
+x64,windows_x64_shell_reverse_tcp,ibp,0,ok,1,1,128a300f08c74bfe59aedf3b602eeb9b9affffc09f930af72de707818e309169,0.00787596,1,0.9646,55.9,
+x64,windows_x64_shell_reverse_tcp,ibp,2,ok,1,1,4ecbb94bf308b99740ebe56f5c3288f74a7b3e3b84796890fae04072da3038de,0.015133578,1,0.891,115.5,
+x64,windows_x64_shell_reverse_tcp_rc4,eq,0,fail,0,0,,0.018837612,1,,131.2,"output code is not fully disassembled: 606/716 bytes; branch at 0x18a targets 0x2bf, which is not an instruction boundary; branch at 0x252 targets 0x267, which is not an instruction boundary"
+x64,windows_x64_shell_reverse_tcp_rc4,eq,2,fail,0,0,,0.022934862,1,,154.1,"output code is not fully disassembled: 606/716 bytes; branch at 0x18a targets 0x2bf, which is not an instruction boundary; branch at 0x252 targets 0x267, which is not an instruction boundary"
+x64,windows_x64_shell_reverse_tcp_rc4,nop,0,fail,0,0,,0.02976591,1,,204.8,"output code is not fully disassembled: 544/654 bytes; branch at 0x161 targets 0x281, which is not an instruction boundary; branch at 0x214 targets 0x229, which is not an instruction boundary"
+x64,windows_x64_shell_reverse_tcp_rc4,nop,2,fail,0,0,,0.02731701,1,,185.6,"output code is not fully disassembled: 547/657 bytes; branch at 0x164 targets 0x284, which is not an instruction boundary; branch at 0x217 targets 0x22c, which is not an instruction boundary"
+x64,windows_x64_shell_reverse_tcp_rc4,bcf,0,fail,0,0,,0.02633976,1,,181.8,"output code is not fully disassembled: 596/706 bytes; branch at 0x195 targets 0x2b5, which is not an instruction boundary; branch at 0x248 targets 0x25d, which is not an instruction boundary"
+x64,windows_x64_shell_reverse_tcp_rc4,bcf,2,fail,0,0,,0.030089094,1,,192.4,"output code is not fully disassembled: 684/794 bytes; branch at 0x1cd targets 0x30d, which is not an instruction boundary; branch at 0x2a0 targets 0x2b5, which is not an instruction boundary"
+x64,windows_x64_shell_reverse_tcp_rc4,ibp,0,fail,0,0,,0.020181294,1,,148.7,"output code is not fully disassembled: 539/649 bytes; branch at 0x15c targets 0x27c, which is not an instruction boundary; branch at 0x20f targets 0x224, which is not an instruction boundary"
+x64,windows_x64_shell_reverse_tcp_rc4,ibp,2,fail,0,0,,0.020470512,1,,129.3,"output code is not fully disassembled: 534/644 bytes; branch at 0x157 targets 0x277, which is not an instruction boundary; branch at 0x20a targets 0x21f, which is not an instruction boundary"
+x64,windows_x64_shell_reverse_tcp_uuid,eq,0,fail,0,0,,0.006442362,1,,50.2,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x64,windows_x64_shell_reverse_tcp_uuid,eq,2,fail,0,0,,0.038528412,1,,266.9,"branch at 0x1a1 targets 0x1b5, which is not an instruction boundary; RET_15e is not immediately after a call (previous line: 'L_15e:')"
+x64,windows_x64_shell_reverse_tcp_uuid,nop,0,fail,0,0,,0.02389566,1,,169.3,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_shell_reverse_tcp_uuid,nop,2,fail,0,0,,0.02189796,1,,155.2,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_shell_reverse_tcp_uuid,bcf,0,fail,0,0,,0.03250491,1,,220.5,"branch at 0x199 targets 0x1ad, which is not an instruction boundary; RET_15e is not immediately after a call (previous line: 'L_15e:')"
+x64,windows_x64_shell_reverse_tcp_uuid,bcf,2,fail,0,0,,0.025403244,1,,174.0,"branch at 0x17d targets 0x191, which is not an instruction boundary; RET_15e is not immediately after a call (previous line: 'L_15e:')"
+x64,windows_x64_shell_reverse_tcp_uuid,ibp,0,fail,0,0,,0.035335044,1,,239.1,"branch at 0x163 targets 0x177, which is not an instruction boundary; RET_15e is not immediately after a call (previous line: 'L_15e:'); 1 original instruction(s) disappeared during block permutation"
+x64,windows_x64_shell_reverse_tcp_uuid,ibp,2,fail,0,0,,0.027424662,1,,188.5,"branch at 0x161 targets 0x176, which is not an instruction boundary; RET_15e is not immediately after a call (previous line: 'L_15e:')"
+x64,windows_x64_vncinject_bind_tcp,eq,0,ok,1,1,9c314d09f0997ed3f9656803fb73f9b28f3f5f171d31ddefc13f3189fcd655dd,0.012040962,1,0.872,86.3,
+x64,windows_x64_vncinject_bind_tcp,eq,2,ok,1,1,38ed8a534ea458a76e2d29fb0118e43feebb116fe6fba2357d49a45e244abe74,0.016489596,1,0.8588,112.1,
+x64,windows_x64_vncinject_bind_tcp,nop,0,ok,1,1,48f01ed9f936b67f9befce262a8bebeed60584c3f2936a43be0a5ad9ca88d9f6,0.01587486,1,1.0,116.6,
+x64,windows_x64_vncinject_bind_tcp,nop,2,ok,1,1,742f14607f74c55e56cbadd8bce6b0d193af7803dbf91ca01f09be9e80c20a72,0.018295344,1,1.0,120.2,
+x64,windows_x64_vncinject_bind_tcp,bcf,0,ok,1,1,c1ea8016024ead89bfb14364cc893d6150e938a829d171ea46a0d22ef7c9a855,0.01897911,1,0.82,130.9,
+x64,windows_x64_vncinject_bind_tcp,bcf,2,ok,1,1,a2d965ec6333a95b3796f073ca7d4b1914a92a0b0a3d33e31a5b2000bcb489ee,0.024742644,1,0.7084,160.2,
+x64,windows_x64_vncinject_bind_tcp,ibp,0,ok,1,1,3eae030546063f1d37c1cf3999ec2fc6147da36e6f9607fdf6da4d3a44c85e90,0.018289044,1,0.9666,127.6,
+x64,windows_x64_vncinject_bind_tcp,ibp,2,ok,1,1,44001f77cc43818783658215b534a40a757418afc0bd239317a17b999ccb4230,0.012442662,1,0.9301,92.0,
+x64,windows_x64_vncinject_bind_tcp_rc4,eq,0,fail,0,0,,0.020711262,1,,149.9,"output code is not fully disassembled: 602/712 bytes; branch at 0x24e targets 0x263, which is not an instruction boundary"
+x64,windows_x64_vncinject_bind_tcp_rc4,eq,2,fail,0,0,,0.026346696,1,,170.1,"output code is not fully disassembled: 620/730 bytes; branch at 0x260 targets 0x275, which is not an instruction boundary"
+x64,windows_x64_vncinject_bind_tcp_rc4,nop,0,fail,0,0,,0.033237744,1,,226.4,"output code is not fully disassembled: 557/667 bytes; branch at 0x221 targets 0x236, which is not an instruction boundary"
+x64,windows_x64_vncinject_bind_tcp_rc4,nop,2,fail,0,0,,0.015784644,1,,103.3,"output code is not fully disassembled: 534/644 bytes; branch at 0x20a targets 0x21f, which is not an instruction boundary"
+x64,windows_x64_vncinject_bind_tcp_rc4,bcf,0,fail,0,0,,0.02091621,1,,143.7,"output code is not fully disassembled: 592/702 bytes; branch at 0x244 targets 0x259, which is not an instruction boundary"
+x64,windows_x64_vncinject_bind_tcp_rc4,bcf,2,fail,0,0,,0.021127944,1,,140.2,"output code is not fully disassembled: 602/712 bytes; branch at 0x24e targets 0x263, which is not an instruction boundary"
+x64,windows_x64_vncinject_bind_tcp_rc4,ibp,0,fail,0,0,,0.031866144,1,,242.4,"output code is not fully disassembled: 517/627 bytes; branch at 0x1f9 targets 0x20e, which is not an instruction boundary"
+x64,windows_x64_vncinject_bind_tcp_rc4,ibp,2,fail,0,0,,0.024715362,1,,178.8,"output code is not fully disassembled: 528/638 bytes; branch at 0x204 targets 0x219, which is not an instruction boundary"
+x64,windows_x64_vncinject_bind_tcp_uuid,eq,0,fail,0,0,,0.025869612,1,,177.4,"output code is not fully disassembled: 449/574 bytes; branch at 0x1ae targets 0x1c3, which is not an instruction boundary; branch at 0x1b3 targets 0x1c3, which is not an instruction boundary"
+x64,windows_x64_vncinject_bind_tcp_uuid,eq,2,fail,0,0,,0.031174662,1,,214.8,"output code is not fully disassembled: 496/621 bytes; branch at 0x1dd targets 0x1f1, which is not an instruction boundary; branch at 0x1e2 targets 0x1ff, which is not an instruction boundary"
+x64,windows_x64_vncinject_bind_tcp_uuid,nop,0,fail,0,0,,0.02610591,1,,181.3,"output code is not fully disassembled: 426/551 bytes; branch at 0x19c targets 0x1b7, which is not an instruction boundary"
+x64,windows_x64_vncinject_bind_tcp_uuid,nop,2,fail,0,0,,0.014279394,1,,94.6,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x64,windows_x64_vncinject_bind_tcp_uuid,bcf,0,fail,0,0,,0.03203076,1,,219.4,"output code is not fully disassembled: 468/593 bytes; branch at 0x1c1 targets 0x1d5, which is not an instruction boundary; branch at 0x1c6 targets 0x1e3, which is not an instruction boundary"
+x64,windows_x64_vncinject_bind_tcp_uuid,bcf,2,fail,0,0,,0.031806294,1,,203.4,"output code is not fully disassembled: 422/547 bytes; branch at 0x193 targets 0x1a8, which is not an instruction boundary; branch at 0x198 targets 0x1b6, which is not an instruction boundary"
+x64,windows_x64_vncinject_bind_tcp_uuid,ibp,0,fail,0,0,,0.020288094,1,,130.8,"output code is not fully disassembled: 413/538 bytes; branch at 0xde targets 0x19d, which is not an instruction boundary; branch at 0x196 targets 0x19f, which is not an instruction boundary; branch at 0x19b targets 0x1ad, which is not an instruction boundary"
+x64,windows_x64_vncinject_bind_tcp_uuid,ibp,2,fail,0,0,,0.028021512,1,,191.7,"output code is not fully disassembled: 407/532 bytes; branch at 0x189 targets 0x1a4, which is not an instruction boundary"
+x64,windows_x64_vncinject_reverse_http,eq,0,fail,0,0,,0.029864394,1,,198.4,RET_2a2 is not immediately after a call (previous line: 'L_2a2:')
+x64,windows_x64_vncinject_reverse_http,eq,2,fail,0,0,,0.026906628,1,,170.3,RET_2a2 is not immediately after a call (previous line: 'L_2a2:')
+x64,windows_x64_vncinject_reverse_http,nop,0,fail,0,0,,0.029354676,1,,196.3,RET_2a2 is not immediately after a call (previous line: 'L_2a2:')
+x64,windows_x64_vncinject_reverse_http,nop,2,fail,0,0,,0.025446576,1,,165.4,RET_2a2 is not immediately after a call (previous line: 'L_2a2:')
+x64,windows_x64_vncinject_reverse_http,bcf,0,fail,0,0,,0.019030542,1,,127.8,RET_2a2 is not immediately after a call (previous line: 'L_2a2:'); 7 original instruction(s) are missing or out of order (allowed 2); first missing: nop ; nop ; nop ; nop 
+x64,windows_x64_vncinject_reverse_http,bcf,2,fail,0,0,,0.039774276,1,,214.8,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_vncinject_reverse_http,ibp,0,fail,0,0,,0.039775476,1,,228.9,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_vncinject_reverse_http,ibp,2,fail,0,0,,0.021168078,1,,138.8,RET_2a2 is not immediately after a call (previous line: 'L_2a2:')
+x64,windows_x64_vncinject_reverse_https,eq,0,fail,0,0,,0.039775194,1,,185.6,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_vncinject_reverse_https,eq,2,fail,0,0,,0.029519628,1,,192.5,RET_2b3 is not immediately after a call (previous line: 'L_2b3:')
+x64,windows_x64_vncinject_reverse_https,nop,0,fail,0,0,,0.014224476,1,,98.2,RET_2b3 is not immediately after a call (previous line: 'L_2b3:')
+x64,windows_x64_vncinject_reverse_https,nop,2,fail,0,0,,0.026056176,1,,170.7,RET_2b3 is not immediately after a call (previous line: 'L_2b3:')
+x64,windows_x64_vncinject_reverse_https,bcf,0,fail,0,0,,0.039773742,1,,187.5,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_vncinject_reverse_https,bcf,2,fail,0,0,,0.032369076,1,,203.1,RET_2b3 is not immediately after a call (previous line: 'L_2b3:')
+x64,windows_x64_vncinject_reverse_https,ibp,0,fail,0,0,,0.028821876,1,,190.7,RET_2b3 is not immediately after a call (previous line: 'L_2b3:'); 27 original instruction(s) disappeared during block permutation
+x64,windows_x64_vncinject_reverse_https,ibp,2,fail,0,0,,0.039762078,1,,255.0,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_vncinject_reverse_tcp,eq,0,fail,0,0,,0.019400562,1,,140.1,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_vncinject_reverse_tcp,eq,2,fail,0,0,,0.015117012,1,,99.7,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_vncinject_reverse_tcp,nop,0,fail,0,0,,0.01647786,1,,113.5,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_vncinject_reverse_tcp,nop,2,fail,0,0,,0.01679136,1,,126.7,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_vncinject_reverse_tcp,bcf,0,fail,0,0,,0.01089771,1,,78.1,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_vncinject_reverse_tcp,bcf,2,fail,0,0,,0.018764844,1,,123.3,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_vncinject_reverse_tcp,ibp,0,fail,0,0,,0.022504044,1,,150.7,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_vncinject_reverse_tcp,ibp,2,fail,0,0,,0.016222662,1,,117.2,RET_15e is not immediately after a call (previous line: 'L_15e:')
+x64,windows_x64_vncinject_reverse_tcp_rc4,eq,0,fail,0,0,,0.036023412,1,,235.4,"output code is not fully disassembled: 606/716 bytes; branch at 0x18a targets 0x2bf, which is not an instruction boundary; branch at 0x252 targets 0x267, which is not an instruction boundary"
+x64,windows_x64_vncinject_reverse_tcp_rc4,eq,2,fail,0,0,,0.026481462,1,,178.8,"output code is not fully disassembled: 606/716 bytes; branch at 0x18a targets 0x2bf, which is not an instruction boundary; branch at 0x252 targets 0x267, which is not an instruction boundary"
+x64,windows_x64_vncinject_reverse_tcp_rc4,nop,0,fail,0,0,,0.018096726,1,,135.0,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x64,windows_x64_vncinject_reverse_tcp_rc4,nop,2,fail,0,0,,0.02657961,1,,161.8,"output code is not fully disassembled: 569/679 bytes; branch at 0x17a targets 0x29a, which is not an instruction boundary; branch at 0x22d targets 0x242, which is not an instruction boundary"
+x64,windows_x64_vncinject_reverse_tcp_rc4,bcf,0,fail,0,0,,0.03966876,1,,259.9,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_vncinject_reverse_tcp_rc4,bcf,2,fail,0,0,,0.030428694,1,,185.1,"output code is not fully disassembled: 652/762 bytes; branch at 0x1cd targets 0x2ed, which is not an instruction boundary; branch at 0x280 targets 0x295, which is not an instruction boundary"
+x64,windows_x64_vncinject_reverse_tcp_rc4,ibp,0,fail,0,0,,0.021555894,1,,139.3,"output code is not fully disassembled: 542/652 bytes; branch at 0x94 targets 0x27f, which is not an instruction boundary; branch at 0x147 targets 0x227, which is not an instruction boundary; branch at 0x153 targets 0x21e, which is not an instruction boundary"
+x64,windows_x64_vncinject_reverse_tcp_rc4,ibp,2,fail,0,0,,0.027653712,1,,200.0,"output code is not fully disassembled: 538/648 bytes; branch at 0x15b targets 0x27b, which is not an instruction boundary; branch at 0x20e targets 0x223, which is not an instruction boundary"
+x64,windows_x64_vncinject_reverse_tcp_uuid,eq,0,fail,0,0,,0.033612912,1,,227.3,"output code is not fully disassembled: 399/586 bytes; branch at 0x17c targets 0x23d, which is not an instruction boundary; branch at 0x188 targets 0x19d, which is not an instruction boundary"
+x64,windows_x64_vncinject_reverse_tcp_uuid,eq,2,fail,0,0,,0.018987162,1,,130.8,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x64,windows_x64_vncinject_reverse_tcp_uuid,nop,0,fail,0,0,,0.01917621,1,,120.1,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x64,windows_x64_vncinject_reverse_tcp_uuid,nop,2,fail,0,0,,0.03967371,1,,243.6,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_vncinject_reverse_tcp_uuid,bcf,0,fail,0,0,,0.02811246,1,,202.2,"output code is not fully disassembled: 388/575 bytes; branch at 0x171 targets 0x232, which is not an instruction boundary; branch at 0x17d targets 0x192, which is not an instruction boundary"
+x64,windows_x64_vncinject_reverse_tcp_uuid,bcf,2,fail,0,0,,0.03139281,1,,191.5,"output code is not fully disassembled: 564/751 bytes; branch at 0x213 targets 0x2e2, which is not an instruction boundary; branch at 0x22d targets 0x242, which is not an instruction boundary"
+x64,windows_x64_vncinject_reverse_tcp_uuid,ibp,0,fail,0,0,,0.03967761,1,,279.4,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_vncinject_reverse_tcp_uuid,ibp,2,fail,0,0,,0.024221628,1,,157.0,"output code is not fully disassembled: 362/549 bytes; branch at 0x157 targets 0x218, which is not an instruction boundary; branch at 0x163 targets 0x178, which is not an instruction boundary; 1 original instruction(s) disappeared during block permutation"
+x64,windows_x64_vncinject_reverse_winhttp,eq,0,fail,0,0,,0.039898644,1,,193.2,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_vncinject_reverse_winhttp,eq,2,fail,0,0,,0.020981478,1,,127.8,RET_388 is not immediately after a call (previous line: 'L_388:'); data references disappeared from the payload: DATA offset 0xd2 x1
+x64,windows_x64_vncinject_reverse_winhttp,nop,0,fail,0,0,,0.039883926,1,,217.5,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x64,windows_x64_vncinject_reverse_winhttp,nop,2,fail,0,0,,0.028796226,1,,197.1,RET_388 is not immediately after a call (previous line: 'L_388:'); data references disappeared from the payload: DATA offset 0xd2 x1
+x64,windows_x64_vncinject_reverse_winhttp,bcf,0,fail,0,0,,0.025142592,1,,151.3,RET_388 is not immediately after a call (previous line: 'L_388:'); data references disappeared from the payload: DATA offset 0xd2 x1
+x64,windows_x64_vncinject_reverse_winhttp,bcf,2,fail,0,0,,0.014664126,1,,78.2,RET_388 is not immediately after a call (previous line: 'L_388:'); data references disappeared from the payload: DATA offset 0xd2 x1; 51 original instruction(s) are missing or out of order (allowed 2); first missing: nop ; nop ; nop ; nop ; bcf did not insert any instruction; the technique was not applied
+x64,windows_x64_vncinject_reverse_winhttp,ibp,0,fail,0,0,,0.019602126,1,,130.7,RET_388 is not immediately after a call (previous line: 'L_388:'); data references disappeared from the payload: DATA offset 0xd2 x1; 255 original instruction(s) disappeared during block permutation
+x64,windows_x64_vncinject_reverse_winhttp,ibp,2,fail,0,0,,0.030692328,1,,167.7,RET_388 is not immediately after a call (previous line: 'L_388:'); data references disappeared from the payload: DATA offset 0xd2 x1
+x64,windows_x64_vncinject_reverse_winhttps,eq,0,fail,0,0,,0.030038178,1,,188.0,"output code is not fully disassembled: 339/959 bytes; branch at 0x143 targets 0x24d, which is not an instruction boundary"
+x64,windows_x64_vncinject_reverse_winhttps,eq,2,fail,0,0,,0.030936228,1,,193.2,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x64,windows_x64_vncinject_reverse_winhttps,nop,0,fail,0,0,,0.022260876,1,,144.2,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x64,windows_x64_vncinject_reverse_winhttps,nop,2,fail,0,0,,0.032128176,1,,203.7,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x64,windows_x64_vncinject_reverse_winhttps,bcf,0,fail,0,0,,0.036431526,1,,207.9,"output code is not fully disassembled: 512/1132 bytes; branch at 0x1f0 targets 0x2fa, which is not an instruction boundary"
+x64,windows_x64_vncinject_reverse_winhttps,bcf,2,fail,0,0,,0.03197766,1,,197.4,"output code is not fully disassembled: 442/1062 bytes; branch at 0x1aa targets 0x2b4, which is not an instruction boundary"
+x64,windows_x64_vncinject_reverse_winhttps,ibp,0,fail,0,0,,0.02624526,1,,162.8,"output code is not fully disassembled: 340/960 bytes; branch at 0x144 targets 0x24e, which is not an instruction boundary"
+x64,windows_x64_vncinject_reverse_winhttps,ibp,2,fail,0,0,,0.026805078,1,,180.5,"output code is not fully disassembled: 338/958 bytes; branch at 0x142 targets 0x24c, which is not an instruction boundary"
+x86,windows_custom_bind_nonx_tcp,eq,0,ok,1,0,90d7093c69e020d1846efc08df50308fc848f9ac7ae180ed87dae505d3b93dc0,0.011797482,1,0.9538,91.3,
+x86,windows_custom_bind_nonx_tcp,eq,2,ok,1,0,9a48eba72edadf40c04e16a699061ab5506f08b719c0d6c7edae9d8364167685,0.012974316,1,0.9231,96.1,
+x86,windows_custom_bind_nonx_tcp,nop,0,ok,1,0,83f9225424668d13425090db8c4d46b82cef836cde679774e4517a2d5aac01c7,0.009528564,1,1.0,71.2,
+x86,windows_custom_bind_nonx_tcp,nop,2,ok,1,0,1ad959e79eda446cd7b01ca4d455c2a754c4ffcb34eafe576da59cc79792a772,0.012047064,1,1.0,85.5,
+x86,windows_custom_bind_nonx_tcp,bcf,0,ok,1,0,76916557cae7a908b78891ffb8d48c98bcabb1c060fc78012f63a3a57bbb34fe,0.015062526,1,0.8767,115.0,
+x86,windows_custom_bind_nonx_tcp,bcf,2,fail,0,0,,0.01778886,1,,129.0,"branch at 0x4 targets 0x2, which is not an instruction boundary"
+x86,windows_custom_bind_nonx_tcp,ibp,0,ok,1,0,6ac35e2201a2d0b6c27b38c437b8b360056f6972a73a5218042864e34b2bc154,0.01542186,1,0.6943,114.6,
+x86,windows_custom_bind_nonx_tcp,ibp,2,ok,1,0,6ac35e2201a2d0b6c27b38c437b8b360056f6972a73a5218042864e34b2bc154,0.012810078,1,0.6943,94.9,
+x86,windows_custom_bind_tcp,eq,0,ok,1,1,03a90861375ae9b47c25d071da22e647bc19bf8696a83e70cfe98dbb222270ea,0.012231828,1,0.9343,86.4,
+x86,windows_custom_bind_tcp,eq,2,ok,1,1,129ab07b0fd37d42bb85f876820f93fc027c30afac69cd572fc4d89d69c645c3,0.013231662,1,0.9343,95.4,
+x86,windows_custom_bind_tcp,nop,0,ok,1,1,319107cf2ccfb46b61e8eb7f20c922ef3231bf717b6fb487af5c296008cb265c,0.019528926,1,1.0,122.4,
+x86,windows_custom_bind_tcp,nop,2,ok,1,1,f1e601d9a1625363ad76dc001895568ccba12836cfb45c35ff54bbe3087a2ccd,0.01013301,1,1.0,64.9,
+x86,windows_custom_bind_tcp,bcf,0,ok,1,1,90ea442ee45941b5b0a4c1a66ca01f33a052d32d91024f953295802988639964,0.021080376,1,0.7082,140.1,
+x86,windows_custom_bind_tcp,bcf,2,ok,1,1,620d3a751530d8dd1b938d98b1f33f8140b47fefef434f70f048cedd2e867018,0.02111571,1,0.7415,140.8,
+x86,windows_custom_bind_tcp,ibp,0,ok,1,1,11c9744e2a7ca4a86950227e39859ad445ac698b959f135e1f5ac7d2aab20d27,0.01263171,1,0.9895,90.7,
+x86,windows_custom_bind_tcp,ibp,2,ok,1,1,4afe8db8565e2dfd4062752fec582f133225f9b23ac595bac35d705d954964d0,0.021439128,1,0.958,148.3,
+x86,windows_custom_bind_tcp_rc4,eq,0,fail,0,0,,0.022234428,1,,163.1,"branch at 0x172 targets 0x187, which is not an instruction boundary"
+x86,windows_custom_bind_tcp_rc4,eq,2,fail,0,0,,0.039626478,1,,281.0,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x86,windows_custom_bind_tcp_rc4,nop,0,fail,0,0,,0.029612526,1,,203.7,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_custom_bind_tcp_rc4,nop,2,fail,0,0,,0.03115461,1,,233.9,"branch at 0x167 targets 0x17c, which is not an instruction boundary"
+x86,windows_custom_bind_tcp_rc4,bcf,0,fail,0,0,,0.030665976,1,,210.0,"branch at 0x1b8 targets 0x1cd, which is not an instruction boundary"
+x86,windows_custom_bind_tcp_rc4,bcf,2,fail,0,0,,0.03953991,1,,264.2,"branch at 0x180 targets 0x195, which is not an instruction boundary"
+x86,windows_custom_bind_tcp_rc4,ibp,0,ok,1,1,55e611399ae1a67fc6ef8276e2cbe750d0a1e3a18cc4fc49396ab641cac5cf8f,0.02478351,1,0.9894,173.2,
+x86,windows_custom_bind_tcp_rc4,ibp,2,fail,0,0,,0.028467912,1,,201.3,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_custom_bind_tcp_uuid,eq,0,ok,1,1,395158f0a03b774b3bb5b3e76e4957150dda86836c596ed4edb07f3411832d2a,0.028162278,1,0.9524,192.3,
+x86,windows_custom_bind_tcp_uuid,eq,2,fail,0,0,,0.039560712,1,,240.7,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x86,windows_custom_bind_tcp_uuid,nop,0,fail,0,0,,0.03675636,1,,267.3,"branch at 0x107 targets 0x11f, which is not an instruction boundary"
+x86,windows_custom_bind_tcp_uuid,nop,2,ok,1,1,b91267cccad3197068f3152c3115e81833f2f9d1866ae1bb4e82dfe510e3d175,0.02422506,1,1.0,179.6,
+x86,windows_custom_bind_tcp_uuid,bcf,0,ok,1,1,3f219b62bc5a8e1baca57ab4346293b1e6aad9b5b2baa461ea6e90802e94f776,0.025604826,1,0.9199,193.7,
+x86,windows_custom_bind_tcp_uuid,bcf,2,ok,1,1,4c1317ff9a9dc0d096ef5a1efdce63d5536ad16f5b83dcab47d168db92b617cd,0.01563936,1,0.896,118.1,
+x86,windows_custom_bind_tcp_uuid,ibp,0,ok,1,1,b093a0daaaa34833457d37341d45a871fa0d1ef45a1b14d88f90129f489d9a26,0.02115996,1,0.9904,159.4,
+x86,windows_custom_bind_tcp_uuid,ibp,2,ok,1,1,754d901965d54cb38d775ad16232b38765b8406b87369e3a3607efe4550a3ae0,0.032216778,1,0.9677,220.9,
+x86,windows_custom_reverse_http,eq,0,fail,0,0,,0.017341509,1,,117.0,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_custom_reverse_http,eq,2,fail,0,0,,0.032785728,1,,219.9,"output code is not fully disassembled: 410/560 bytes; branch at 0x15e targets 0x217, which is not an instruction boundary; branch at 0x16f targets 0x1a5, which is not an instruction boundary; branch at 0x176 targets 0x1c8, which is not an instruction boundary; branch at 0x179 targets 0x1e6, which is not an instruction boundary; branch at 0x17e targets 0x1b7, which is not an instruction boundary; branch at 0x184 targets 0x1d4, which is not an instruction boundary; branch at 0x18e targets 0x204, which is not an instruction boundary"
+x86,windows_custom_reverse_http,nop,0,fail,0,0,,0.027953976,1,,179.6,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_custom_reverse_http,nop,2,fail,0,0,,0.039119676,1,,240.4,"output code is not fully disassembled: 398/548 bytes; branch at 0x14d targets 0x20b, which is not an instruction boundary; branch at 0x161 targets 0x199, which is not an instruction boundary; branch at 0x169 targets 0x1bc, which is not an instruction boundary; branch at 0x16c targets 0x1da, which is not an instruction boundary; branch at 0x172 targets 0x1ab, which is not an instruction boundary; branch at 0x178 targets 0x1c8, which is not an instruction boundary; branch at 0x182 targets 0x1f8, which is not an instruction boundary"
+x86,windows_custom_reverse_http,bcf,0,fail,0,0,,0.027286242,1,,168.7,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_custom_reverse_http,bcf,2,fail,0,0,,0.039731376,1,,202.1,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x86,windows_custom_reverse_http,ibp,0,fail,0,0,,0.034127376,1,,200.0,"output code is not fully disassembled: 369/519 bytes; branch at 0x135 targets 0x1ee, which is not an instruction boundary; branch at 0x146 targets 0x17c, which is not an instruction boundary; branch at 0x14d targets 0x19f, which is not an instruction boundary; branch at 0x150 targets 0x1bd, which is not an instruction boundary; branch at 0x155 targets 0x18e, which is not an instruction boundary; branch at 0x15b targets 0x1ab, which is not an instruction boundary; branch at 0x165 targets 0x1db, which is not an instruction boundary; 6 original instruction(s) disappeared during block permutation"
+x86,windows_custom_reverse_http,ibp,2,fail,0,0,,0.035673378,1,,228.5,"output code is not fully disassembled: 383/533 bytes; branch at 0x143 targets 0x1fb, which is not an instruction boundary; branch at 0x154 targets 0x189, which is not an instruction boundary; branch at 0x15b targets 0x1ac, which is not an instruction boundary; branch at 0x15e targets 0x1ca, which is not an instruction boundary; branch at 0x163 targets 0x19b, which is not an instruction boundary; branch at 0x169 targets 0x1b8, which is not an instruction boundary; branch at 0x173 targets 0x1e8, which is not an instruction boundary; 2 original instruction(s) disappeared during block permutation"
+x86,windows_custom_reverse_https,eq,0,fail,0,0,,0.028748094,1,,187.1,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_custom_reverse_https,eq,2,fail,0,0,,0.033124728,1,,222.0,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_custom_reverse_https,nop,0,fail,0,0,,0.025715976,1,,182.1,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_custom_reverse_https,nop,2,fail,0,0,,0.019643076,1,,122.0,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_custom_reverse_https,bcf,0,fail,0,0,,0.032972442,1,,221.8,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_custom_reverse_https,bcf,2,fail,0,0,,0.027059976,1,,183.5,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_custom_reverse_https,ibp,0,fail,0,0,,0.023560176,1,,161.1,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_custom_reverse_https,ibp,2,fail,0,0,,0.024251178,1,,173.3,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_custom_reverse_nonx_tcp,eq,0,ok,1,0,a64c8eea861d2e95b7b57a4634c2f45439c2d67dca0ed4fc449dd3eacda909e2,0.014158932,1,0.9455,107.8,
+x86,windows_custom_reverse_nonx_tcp,eq,2,ok,1,0,3cbbe7d83bea7fecd6d51f0bef2982fb8f441baf4412dd5d0f83352d2e778c55,0.019519782,1,0.8606,146.9,
+x86,windows_custom_reverse_nonx_tcp,nop,0,ok,1,0,6980438f5c49c9ab25a3dc57a021c3807acd075c5dec404b5d2fae1e6649f1d1,0.01089783,1,1.0,74.9,
+x86,windows_custom_reverse_nonx_tcp,nop,2,ok,1,0,225891475b6c0761589207bffcfdf11886bb0d1722b78aba603a897718dce0f7,0.008920314,1,1.0,66.9,
+x86,windows_custom_reverse_nonx_tcp,bcf,0,ok,1,0,2c29a55dc5c0df6df65251197ff4a0c2cbb13e632cb4ab8ae41cce7202ce9cc5,0.013787976,1,0.8571,105.8,
+x86,windows_custom_reverse_nonx_tcp,bcf,2,ok,1,0,e99508f28de009041f5e8bde3bd403ba1890fe6a0cb99eea2a4d4f402105ee66,0.01658331,1,0.8571,113.2,
+x86,windows_custom_reverse_nonx_tcp,ibp,0,ok,1,0,9773a109461eb4652566652ee0cbbdd098ad85801db986c6e35a3b99b35ad1cc,0.01602711,1,0.638,121.1,
+x86,windows_custom_reverse_nonx_tcp,ibp,2,ok,1,0,9773a109461eb4652566652ee0cbbdd098ad85801db986c6e35a3b99b35ad1cc,0.013735128,1,0.638,99.6,
+x86,windows_custom_reverse_tcp,eq,0,ok,1,1,53ba39c2486b504e85c5314cdf273b7d91761d290c995b6c4bd388bed553660b,0.008788428,1,0.9329,60.4,
+x86,windows_custom_reverse_tcp,eq,2,ok,1,1,53ba39c2486b504e85c5314cdf273b7d91761d290c995b6c4bd388bed553660b,0.008705262,1,0.9329,61.3,
+x86,windows_custom_reverse_tcp,nop,0,ok,1,1,383194efcd8b0cd4a3c3bba1c0d2d17eab605c85c44728bbc370caac543619c0,0.01734231,1,1.0,109.2,
+x86,windows_custom_reverse_tcp,nop,2,ok,1,1,4585f1e1d862fa19fd6f9dbe2fe100b931da7505e5f7fb9ad7c8364e07927a3b,0.01283961,1,1.0,94.0,
+x86,windows_custom_reverse_tcp,bcf,0,ok,1,1,0459ef1c24066334ceca9369ebd0802d3efb244360565ff6603587549469bff9,0.015308376,1,0.9194,113.8,
+x86,windows_custom_reverse_tcp,bcf,2,ok,1,1,8588e0adc5a93484eab48329bca36071b2aa2bc669c66b9f8258413cc8990206,0.01247331,1,0.8953,82.2,
+x86,windows_custom_reverse_tcp,ibp,0,fail,0,0,,0.01855371,1,,130.9,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_custom_reverse_tcp,ibp,2,ok,1,1,49e156aa590852ab53ed89d314c34edbaae18a1a41a39646fcd5def82857d9fc,0.014481912,1,0.9416,104.1,
+x86,windows_custom_reverse_tcp_allports,eq,0,ok,1,1,b89e5a3435ee7767c9a5dced6abc32beb285703793c662ce1fab9b6e8e48a759,0.008719278,1,0.9494,68.6,
+x86,windows_custom_reverse_tcp_allports,eq,2,ok,1,1,ee7aa71270348763f45d82429e91d8c86e0dd963ef1b5be1fd729dfe872c94bc,0.011769912,1,0.9375,90.3,
+x86,windows_custom_reverse_tcp_allports,nop,0,ok,1,1,59754edd0f91c0321e90c9faa2944e206e425444aeda2287c202418779eb5574,0.022965576,1,1.0,169.5,
+x86,windows_custom_reverse_tcp_allports,nop,2,ok,1,1,eecdd0fcdf34ef10401b0a97711e95921985c56f9d1cf97f091416f638b0543c,0.01348626,1,1.0,100.3,
+x86,windows_custom_reverse_tcp_allports,bcf,0,ok,1,1,c2a9a1daa2d3a0dc92c12af0bd301458ff54e3d00f4858335a5203b7c840ff37,0.014575482,1,0.8247,107.1,
+x86,windows_custom_reverse_tcp_allports,bcf,2,ok,1,1,ad7d91fbe4b35b807ceb5a525c91fd9093d62acd80fb9dcbaf358c7ceceed85c,0.015393216,1,0.8759,107.6,
+x86,windows_custom_reverse_tcp_allports,ibp,0,ok,1,1,f79f85b2eab65f552dcfdc15bb083b84d5e5486b837704d9d9294ee2a43a5d1f,0.010607016,1,0.7922,88.8,
+x86,windows_custom_reverse_tcp_allports,ibp,2,ok,1,1,5067c153f90f9b3b5939f7549cd00a5d2c1554177ca1af9eede9393cc460fc01,0.012353034,1,0.9882,86.1,
+x86,windows_custom_reverse_tcp_dns,eq,0,ok,1,1,90d9c26c3da1ba47cd47d5c770228d37edced0b7a342ba2d0b8831d9a9e5459c,0.014067528,1,0.9301,100.8,
+x86,windows_custom_reverse_tcp_dns,eq,2,ok,1,1,ca7a7c51c5ef5f60655c8e18d05af2cea97d5c0cac9f7269c4536a694b8005d5,0.006371562,1,0.9544,47.0,
+x86,windows_custom_reverse_tcp_dns,nop,0,ok,1,1,4a5ac1ad433eaf3ab3bd8629ee080a3e11d32b57fc95314abc39b2d275ceaeac,0.02790261,1,1.0,167.1,
+x86,windows_custom_reverse_tcp_dns,nop,2,ok,1,1,f2bc0737eb414c5612419cdb2d9a90b636733d390cf799d8fe9544712309fbd4,0.02035251,1,1.0,135.8,
+x86,windows_custom_reverse_tcp_dns,bcf,0,ok,1,1,c9604c3ab80a0f6ca9f8f8ee5b5a9303109a02b77ada9e1e6a8dbdebff110e63,0.013475676,1,0.9529,104.4,
+x86,windows_custom_reverse_tcp_dns,bcf,2,ok,1,1,2e69b6c8fd8b97fb4b9f34f5991679eadf749eff17f8c77b4e13120d62119fa9,0.02577981,1,0.8,177.4,
+x86,windows_custom_reverse_tcp_dns,ibp,0,ok,1,1,a089cf68a86eeef6309b2204f58c09e25e4c9c972cb69c194acce1c91f995a0a,0.01804521,1,0.9571,139.7,
+x86,windows_custom_reverse_tcp_dns,ibp,2,ok,1,1,65300d5d543b176c72a0a2c12580f4d5efe30e2ea87233921f84344c12a7f275,0.022692228,1,0.9258,152.8,
+x86,windows_custom_reverse_tcp_rc4,eq,0,fail,0,0,,0.031334328,1,,218.5,"branch at 0x18a targets 0x19f, which is not an instruction boundary"
+x86,windows_custom_reverse_tcp_rc4,eq,2,fail,0,0,,0.035584962,1,,248.9,"branch at 0x187 targets 0x19c, which is not an instruction boundary"
+x86,windows_custom_reverse_tcp_rc4,nop,0,fail,0,0,,0.03356361,1,,258.7,"branch at 0x16b targets 0x180, which is not an instruction boundary"
+x86,windows_custom_reverse_tcp_rc4,nop,2,fail,0,0,,0.02785191,1,,195.9,"branch at 0x17f targets 0x194, which is not an instruction boundary"
+x86,windows_custom_reverse_tcp_rc4,bcf,0,fail,0,0,,0.02539386,1,,178.9,"branch at 0x1a2 targets 0x1b7, which is not an instruction boundary"
+x86,windows_custom_reverse_tcp_rc4,bcf,2,fail,0,0,,0.035221194,1,,243.6,"branch at 0x16b targets 0x180, which is not an instruction boundary"
+x86,windows_custom_reverse_tcp_rc4,ibp,0,ok,1,1,8e4d7b148237c79dcc9b04a5540473fec1fb1406b299493fe4596c085767abaa,0.032232594,1,0.9724,210.9,
+x86,windows_custom_reverse_tcp_rc4,ibp,2,fail,0,0,,0.034484412,1,,235.9,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_custom_reverse_tcp_rc4_dns,eq,0,fail,0,0,,0.025931028,1,,198.2,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_custom_reverse_tcp_rc4_dns,eq,2,fail,0,0,,0.031996662,1,,212.7,"branch at 0x19c targets 0x1b1, which is not an instruction boundary"
+x86,windows_custom_reverse_tcp_rc4_dns,nop,0,fail,0,0,,0.026099526,1,,202.4,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_custom_reverse_tcp_rc4_dns,nop,2,fail,0,0,,0.03559701,1,,241.4,2 original instruction(s) are missing or out of order (allowed 0); first missing: call #; call #
+x86,windows_custom_reverse_tcp_rc4_dns,bcf,0,ok,1,1,c1069a58b2cff2f7a45fd82bbb913eeee146f6dd13b38fa419ecd083322fcf81,0.026843376,1,0.92,185.7,
+x86,windows_custom_reverse_tcp_rc4_dns,bcf,2,fail,0,0,,0.03773811,1,,249.2,"branch at 0x1c2 targets 0x1d7, which is not an instruction boundary"
+x86,windows_custom_reverse_tcp_rc4_dns,ibp,0,fail,0,0,,0.03963831,1,,285.2,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x86,windows_custom_reverse_tcp_rc4_dns,ibp,2,fail,0,0,,0.030557712,1,,220.2,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_custom_reverse_tcp_uuid,eq,0,fail,0,0,,0.026666562,1,,187.8,"branch at 0x111 targets 0x126, which is not an instruction boundary; branch at 0x11d targets 0x127, which is not an instruction boundary"
+x86,windows_custom_reverse_tcp_uuid,eq,2,fail,0,0,,0.030758196,1,,220.6,"branch at 0xf2 targets 0x10a, which is not an instruction boundary; branch at 0xfe targets 0x10b, which is not an instruction boundary"
+x86,windows_custom_reverse_tcp_uuid,nop,0,fail,0,0,,0.01883886,1,,130.1,"branch at 0x102 targets 0x117, which is not an instruction boundary; branch at 0x10e targets 0x118, which is not an instruction boundary"
+x86,windows_custom_reverse_tcp_uuid,nop,2,fail,0,0,,0.019342944,1,,147.3,"branch at 0x102 targets 0x117, which is not an instruction boundary; branch at 0x10e targets 0x118, which is not an instruction boundary"
+x86,windows_custom_reverse_tcp_uuid,bcf,0,fail,0,0,,0.020501526,1,,149.2,"branch at 0x136 targets 0x14b, which is not an instruction boundary; branch at 0x142 targets 0x14c, which is not an instruction boundary"
+x86,windows_custom_reverse_tcp_uuid,bcf,2,fail,0,0,,0.03033966,1,,210.1,"branch at 0x129 targets 0x13e, which is not an instruction boundary; branch at 0x135 targets 0x13f, which is not an instruction boundary"
+x86,windows_custom_reverse_tcp_uuid,ibp,0,fail,0,0,,0.02023326,1,,144.3,"branch at 0xf4 targets 0x109, which is not an instruction boundary; branch at 0x100 targets 0x10a, which is not an instruction boundary"
+x86,windows_custom_reverse_tcp_uuid,ibp,2,fail,0,0,,0.023183478,1,,164.3,"branch at 0xf6 targets 0x10b, which is not an instruction boundary; branch at 0x102 targets 0x10c, which is not an instruction boundary"
+x86,windows_custom_reverse_winhttp,eq,0,fail,0,0,,0.021280044,1,,136.0,"branch at 0x337 targets 0x3a8, which is not an instruction boundary; data references disappeared from the payload: DATA offset 0x132 x1; equal-code substitution removed 2 non-control instruction(s); transformations may only replace an instruction, not delete it"
+x86,windows_custom_reverse_winhttp,eq,2,fail,0,0,,0.039925878,1,,257.3,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x86,windows_custom_reverse_winhttp,nop,0,fail,0,0,,0.020128926,1,,126.3,data references disappeared from the payload: DATA offset 0x132 x1; nop did not insert any instruction; the technique was not applied
+x86,windows_custom_reverse_winhttp,nop,2,fail,0,0,,0.027353226,1,,170.6,"branch at 0x332 targets 0x39e, which is not an instruction boundary; data references disappeared from the payload: DATA offset 0x132 x1"
+x86,windows_custom_reverse_winhttp,bcf,0,fail,0,0,,0.039927192,1,,211.0,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x86,windows_custom_reverse_winhttp,bcf,2,fail,0,0,,0.039928926,1,,210.8,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x86,windows_custom_reverse_winhttp,ibp,0,fail,0,0,,0.031485726,1,,204.0,"branch at 0x369 targets 0x3d5, which is not an instruction boundary; data references disappeared from the payload: DATA offset 0x132 x1"
+x86,windows_custom_reverse_winhttp,ibp,2,fail,0,0,,0.025613328,1,,177.2,data references disappeared from the payload: DATA offset 0x132 x1; 416 original instruction(s) disappeared during block permutation
+x86,windows_custom_reverse_winhttps,eq,0,fail,0,0,,0.039850278,1,,254.6,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x86,windows_custom_reverse_winhttps,eq,2,fail,0,0,,0.024782928,1,,161.8,"branch at 0x2bb targets 0x327, which is not an instruction boundary"
+x86,windows_custom_reverse_winhttps,nop,0,fail,0,0,,0.038936376,1,,248.6,"branch at 0x2cc targets 0x342, which is not an instruction boundary; 1 original instruction(s) are missing or out of order (allowed 0); first missing: add byte ptr ss:[ebp], ah"
+x86,windows_custom_reverse_winhttps,nop,2,fail,0,0,,0.03323526,1,,211.1,"branch at 0x2b6 targets 0x322, which is not an instruction boundary; 1 original instruction(s) are missing or out of order (allowed 0); first missing: add byte ptr ss:[ebp], ah"
+x86,windows_custom_reverse_winhttps,bcf,0,fail,0,0,,0.028181826,1,,185.0,"branch at 0x2d0 targets 0x33c, which is not an instruction boundary"
+x86,windows_custom_reverse_winhttps,bcf,2,fail,0,0,,0.02860596,1,,180.7,"branch at 0x2ea targets 0x356, which is not an instruction boundary"
+x86,windows_custom_reverse_winhttps,ibp,0,fail,0,0,,0.02506536,1,,158.7,"branch at 0x29d targets 0x309, which is not an instruction boundary; 1 original instruction(s) disappeared during block permutation"
+x86,windows_custom_reverse_winhttps,ibp,2,fail,0,0,,0.026561178,1,,196.9,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_messagebox,eq,0,ok,1,1,63bba2b992b19c1a6ad68f611afae7ffb6110db8867486938341832177bf36cb,0.0103398,1,0.915,73.0,
+x86,windows_messagebox,eq,2,ok,1,1,a9aadc14656f9c7d7ae5fd685c506f20cea2b653498e08cb628d17e6cc6b761d,0.011072034,1,0.9752,80.2,
+x86,windows_messagebox,nop,0,ok,1,1,72e255b00396782e25b35d5ae7823b73901099b1aa4a7b401e0d82ba30c39a8a,0.011131026,1,1.0,87.2,
+x86,windows_messagebox,nop,2,ok,1,1,63f4a7be4af23251d2d65ec8f9f36d1dc9c0cfb5dc823df237491b509b558569,0.017136726,1,1.0,131.1,
+x86,windows_messagebox,bcf,0,ok,1,1,69eb78ed37235a518e8ec3c833b468f34b4f8477cdbce8d1fcee11c1e92df217,0.010885692,1,0.8176,82.9,
+x86,windows_messagebox,bcf,2,ok,1,1,1936897fb74ca188edbf699d217e703477ba0b7b111a9941638254ea3c4dd9e0,0.017820426,1,0.8705,132.6,
+x86,windows_messagebox,ibp,0,ok,1,1,278e5ca5b5c66a5d8a10c7df1fb7ca5026a4d36558e6b6b4d56413581e9b27c5,0.017527626,1,0.9224,136.9,
+x86,windows_messagebox,ibp,2,ok,1,1,93351c1b4eb4f5fb7c3f15e6033f3138ea6eaff27bc2d4762c17f9844d2daa0c,0.023355228,1,0.8745,152.7,
+x86,windows_meterpreter_bind_nonx_tcp,eq,0,ok,1,0,3eb85ac07421daea3e39242bdf0afeecc5821dd2500fda197622523d438bf73d,0.013842978,1,0.8718,104.5,
+x86,windows_meterpreter_bind_nonx_tcp,eq,2,fail,0,0,,0.022078212,1,,167.2,"branch at 0x4 targets 0x2, which is not an instruction boundary"
+x86,windows_meterpreter_bind_nonx_tcp,nop,0,ok,1,0,471c595e860fa78ef7d0cc37929d1550b29f407eeef683305360730b969a68ea,0.012472476,1,1.0,88.7,
+x86,windows_meterpreter_bind_nonx_tcp,nop,2,fail,0,0,,0.01532496,1,,112.8,"branch at 0x4 targets 0x2, which is not an instruction boundary"
+x86,windows_meterpreter_bind_nonx_tcp,bcf,0,ok,1,0,9218f1e03dadec4296fd8b7da97a3768890370c8bbe265d5c1f259c4c056b8de,0.01327923,1,0.8767,93.9,
+x86,windows_meterpreter_bind_nonx_tcp,bcf,2,ok,1,0,eac7c8630700609616a02b71711e3dcaf2a2d2cd9aa64e5b0478cc10271ea55a,0.015121164,1,0.7273,108.6,
+x86,windows_meterpreter_bind_nonx_tcp,ibp,0,ok,1,0,566a432d9ce0a7661319c2bfff311489969c126f122ae17264788c2c645a0226,0.023782764,1,0.8923,179.2,
+x86,windows_meterpreter_bind_nonx_tcp,ibp,2,ok,1,0,570d75519561e39a9bbdfeffc2fdabd8f724fdaffb177f73c5d2aab78d6f1346,0.016949166,1,0.8247,118.1,
+x86,windows_meterpreter_bind_tcp_rc4,eq,0,fail,0,0,,0.031926828,1,,235.0,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_meterpreter_bind_tcp_rc4,eq,2,fail,0,0,,0.039607662,1,,290.0,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x86,windows_meterpreter_bind_tcp_rc4,nop,0,ok,1,1,f15f7ce6119065771b3a5f38995b57c476a12759296355b9f0bce30f94ec97e6,0.02580591,1,1.0,167.0,
+x86,windows_meterpreter_bind_tcp_rc4,nop,2,fail,0,0,,0.02599821,1,,177.4,"branch at 0x16c targets 0x181, which is not an instruction boundary"
+x86,windows_meterpreter_bind_tcp_rc4,bcf,0,ok,1,1,a72098ba8410e6c2cf3fd2cb0c58e561513ffd337962447ad0e44a4d1a7a7ffe,0.03132996,1,0.7759,219.9,
+x86,windows_meterpreter_bind_tcp_rc4,bcf,2,fail,0,0,,0.036006294,1,,237.0,"branch at 0x18a targets 0x19f, which is not an instruction boundary"
+x86,windows_meterpreter_bind_tcp_rc4,ibp,0,fail,0,0,,0.034081494,1,,247.5,"branch at 0x158 targets 0x16d, which is not an instruction boundary"
+x86,windows_meterpreter_bind_tcp_rc4,ibp,2,fail,0,0,,0.039597312,1,,268.1,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x86,windows_meterpreter_bind_tcp_uuid,eq,0,fail,0,0,,0.016041762,1,,108.3,"output code is not fully disassembled: 287/380 bytes; branch at 0xf7 targets 0x172, which is not an instruction boundary; branch at 0x116 targets 0x12b, which is not an instruction boundary"
+x86,windows_meterpreter_bind_tcp_uuid,eq,2,fail,0,0,,0.028854996,1,,193.0,"output code is not fully disassembled: 289/382 bytes; branch at 0xf9 targets 0x174, which is not an instruction boundary; branch at 0x118 targets 0x121, which is not an instruction boundary"
+x86,windows_meterpreter_bind_tcp_uuid,nop,0,fail,0,0,,0.02519766,1,,174.8,"output code is not fully disassembled: 272/365 bytes; branch at 0xe8 targets 0x163, which is not an instruction boundary; branch at 0x107 targets 0x11c, which is not an instruction boundary"
+x86,windows_meterpreter_bind_tcp_uuid,nop,2,fail,0,0,,0.027162744,1,,183.2,"output code is not fully disassembled: 279/372 bytes; branch at 0xef targets 0x16a, which is not an instruction boundary; branch at 0x10e targets 0x123, which is not an instruction boundary"
+x86,windows_meterpreter_bind_tcp_uuid,bcf,0,fail,0,0,,0.025591326,1,,186.7,"output code is not fully disassembled: 327/420 bytes; branch at 0x11f targets 0x19a, which is not an instruction boundary; branch at 0x13e targets 0x153, which is not an instruction boundary"
+x86,windows_meterpreter_bind_tcp_uuid,bcf,2,fail,0,0,,0.02266386,1,,154.1,"output code is not fully disassembled: 314/407 bytes; branch at 0x112 targets 0x191, which is not an instruction boundary; branch at 0x131 targets 0x14a, which is not an instruction boundary"
+x86,windows_meterpreter_bind_tcp_uuid,ibp,0,fail,0,0,,0.02966946,1,,196.6,"output code is not fully disassembled: 267/360 bytes; branch at 0xb5 targets 0x162, which is not an instruction boundary; branch at 0xd8 targets 0x11b, which is not an instruction boundary; branch at 0xe1 targets 0x10b, which is not an instruction boundary"
+x86,windows_meterpreter_bind_tcp_uuid,ibp,2,fail,0,0,,0.027611262,1,,185.2,"output code is not fully disassembled: 263/356 bytes; branch at 0xdd targets 0x15a, which is not an instruction boundary; branch at 0xfc targets 0x113, which is not an instruction boundary; branch at 0x105 targets 0x107, which is not an instruction boundary"
+x86,windows_meterpreter_reverse_nonx_tcp,eq,0,ok,1,0,a64c8eea861d2e95b7b57a4634c2f45439c2d67dca0ed4fc449dd3eacda909e2,0.012720132,1,0.9455,94.6,
+x86,windows_meterpreter_reverse_nonx_tcp,eq,2,ok,1,0,703e2234f244fe4d40c4883b1ec64b66688aa11fa456f3259b41fd719a2b8878,0.011853582,1,0.8848,82.3,
+x86,windows_meterpreter_reverse_nonx_tcp,nop,0,ok,1,0,247ddd604ad73882d8878d57d388520989e150b66d26be4950428a05b0b2e06a,0.00965163,1,1.0,74.7,
+x86,windows_meterpreter_reverse_nonx_tcp,nop,2,ok,1,0,10abd0dd656b636f6e3930bfbeafdb21cea76ec10793b617e5327c33846c0d7b,0.013184514,1,1.0,95.5,
+x86,windows_meterpreter_reverse_nonx_tcp,bcf,0,ok,1,0,65280bda1449188478134cd01ceafa225937654ba6d6f6733bdc89c9927e57a1,0.01639968,1,0.75,117.9,
+x86,windows_meterpreter_reverse_nonx_tcp,bcf,2,ok,1,0,72766879f6ea4ce94d071e3d039c2c6324ad93326e98bcef78ae996514d9be03,0.017467014,1,0.6923,124.1,
+x86,windows_meterpreter_reverse_nonx_tcp,ibp,0,ok,1,0,33d63e34d09aeb81a738a0136190f2745d04b1f98356ca99831c1ace913c146a,0.012080814,1,0.6341,95.8,
+x86,windows_meterpreter_reverse_nonx_tcp,ibp,2,ok,1,0,166d425a3043dda615501af6112e55e87e9bbaf0d0f595b0d6f8531a3df5e2ff,0.021872832,1,0.4756,151.1,
+x86,windows_meterpreter_reverse_tcp_allports,eq,0,ok,1,1,32829d9ff60da74ea321c8d9964cf2eb8a6b5421a5eada657fa8c4f26c2db97a,0.009899934,1,0.965,79.9,
+x86,windows_meterpreter_reverse_tcp_allports,eq,2,ok,1,1,f5e78c3af596b8233c43eef844385815afdaf9427c1eb3f77c65abe6fdc65581,0.012144168,1,0.9339,92.2,
+x86,windows_meterpreter_reverse_tcp_allports,nop,0,ok,1,1,e68f5bbbfa6b84edc8da7645c25b467d2cf7e13f2e9fcb53bfb30e2a39cd5f07,0.017025432,1,1.0,127.1,
+x86,windows_meterpreter_reverse_tcp_allports,nop,2,ok,1,1,137e171b7710e8fd923b93255ff76f8803cfd31e181beba01812aadbafb5ab4d,0.021437916,1,1.0,160.8,
+x86,windows_meterpreter_reverse_tcp_allports,bcf,0,ok,1,1,585ce64c0650132ee937d060dc1d198abf71f5c39da8181121fc0766ee9fe6a3,0.012084882,1,0.8013,85.5,
+x86,windows_meterpreter_reverse_tcp_allports,bcf,2,ok,1,1,73fc8e3e478fd27aca1150391db969297677523a2d9a1e3fabca1c1148bf24b2,0.019482216,1,0.8247,134.4,
+x86,windows_meterpreter_reverse_tcp_allports,ibp,0,ok,1,1,b0950d10b251f80fde65edeb4b4c8e214c59f52902aeacf54c43dcea10184125,0.015755016,1,0.5333,108.8,
+x86,windows_meterpreter_reverse_tcp_allports,ibp,2,ok,1,1,b0950d10b251f80fde65edeb4b4c8e214c59f52902aeacf54c43dcea10184125,0.015081834,1,0.5333,106.0,
+x86,windows_meterpreter_reverse_tcp_dns,eq,0,ok,1,1,7ccac19f0d0ee1106a300bb2593cccb84bc18681e3f30d52f238592fc11c360f,0.017223312,1,0.9544,121.6,
+x86,windows_meterpreter_reverse_tcp_dns,eq,2,ok,1,1,69548faf87d2a2ea8f6cc5597e7c1a650d868e9fb969a78da8933a2c55a9282a,0.017630346,1,0.9179,116.7,
+x86,windows_meterpreter_reverse_tcp_dns,nop,0,ok,1,1,78f17677633235f00ab4c92c6f34feaadfea11fc7dac87a450e72bdf16ed2e90,0.01165401,1,1.0,82.0,
+x86,windows_meterpreter_reverse_tcp_dns,nop,2,ok,1,1,1cb38e0e512dfd1aa2dc074badaf1980a7a3863d2b8dae0bdc10480c86187f9e,0.020457294,1,1.0,119.3,
+x86,windows_meterpreter_reverse_tcp_dns,bcf,0,ok,1,1,c89ef5d38efc09991c64bcc11cf9b6f6f93b3a3675fdf2ed4ede15d4538627c2,0.016951476,1,0.7826,120.1,
+x86,windows_meterpreter_reverse_tcp_dns,bcf,2,ok,1,1,ff4d11d0c1d21af242c0a50006f65aab78ff60812995b1a7675478cd0045b18f,0.01234341,1,0.878,80.4,
+x86,windows_meterpreter_reverse_tcp_dns,ibp,0,ok,1,1,30c4b80123f090a4d67092dac20ac84b344bd02c6142c1e72ffcc8eef7a12262,0.01469841,1,0.8554,108.9,
+x86,windows_meterpreter_reverse_tcp_dns,ibp,2,ok,1,1,ccc2d1eb7b1ae03bf7682ce060d5d216fe43c27a428d9017a3d701b158385d13,0.022893612,1,0.5951,164.6,
+x86,windows_meterpreter_reverse_tcp_rc4,eq,0,fail,0,0,,0.028390128,1,,199.9,"branch at 0x17f targets 0x194, which is not an instruction boundary"
+x86,windows_meterpreter_reverse_tcp_rc4,eq,2,ok,1,1,3cda2353c2945e68aa1ea47553c6fbc3026f2b9c2c28b4280ea97be313648b20,0.032257962,1,0.9529,224.9,
+x86,windows_meterpreter_reverse_tcp_rc4,nop,0,fail,0,0,,0.02946801,1,,224.8,"branch at 0x17a targets 0x18f, which is not an instruction boundary"
+x86,windows_meterpreter_reverse_tcp_rc4,nop,2,fail,0,0,,0.02316231,1,,166.8,"branch at 0x17a targets 0x18f, which is not an instruction boundary; 1 original instruction(s) are missing or out of order (allowed 0); first missing: xor al, #"
+x86,windows_meterpreter_reverse_tcp_rc4,bcf,0,fail,0,0,,0.028584876,1,,196.6,"branch at 0x19f targets 0x1b4, which is not an instruction boundary"
+x86,windows_meterpreter_reverse_tcp_rc4,bcf,2,fail,0,0,,0.03005241,1,,204.0,"branch at 0x185 targets 0x19a, which is not an instruction boundary"
+x86,windows_meterpreter_reverse_tcp_rc4,ibp,0,fail,0,0,,0.03962601,1,,273.7,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x86,windows_meterpreter_reverse_tcp_rc4,ibp,2,ok,1,1,0d67b796bd9bebfb666fcf9ceec8af825b4e2af19c652e16302c055c629d01d0,0.038414412,1,0.9925,251.3,
+x86,windows_meterpreter_reverse_tcp_rc4_dns,eq,0,fail,0,0,,0.038787996,1,,269.5,"branch at 0x19c targets 0x1b1, which is not an instruction boundary"
+x86,windows_meterpreter_reverse_tcp_rc4_dns,eq,2,ok,1,1,28daa337624c7b71e7eac59b402a81b0ec80fbefb8345cf24212a597a974cbc3,0.02916663,1,0.9687,226.9,
+x86,windows_meterpreter_reverse_tcp_rc4_dns,nop,0,fail,0,0,,0.030036894,1,,190.0,"branch at 0x195 targets 0x1aa, which is not an instruction boundary"
+x86,windows_meterpreter_reverse_tcp_rc4_dns,nop,2,fail,0,0,,0.031422978,1,,214.9,"branch at 0x18a targets 0x19f, which is not an instruction boundary"
+x86,windows_meterpreter_reverse_tcp_rc4_dns,bcf,0,fail,0,0,,0.030726144,1,,206.6,"branch at 0x198 targets 0x1ad, which is not an instruction boundary"
+x86,windows_meterpreter_reverse_tcp_rc4_dns,bcf,2,ok,1,1,d65c3e0669a82f0582cb0ed9c3de18296dcdd2acbc63b5017355fb3973d17705,0.026963478,1,0.92,174.4,
+x86,windows_meterpreter_reverse_tcp_rc4_dns,ibp,0,fail,0,0,,0.020515878,1,,146.9,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_meterpreter_reverse_tcp_rc4_dns,ibp,2,fail,0,0,,0.023873496,1,,171.6,"branch at 0x180 targets 0x195, which is not an instruction boundary"
+x86,windows_meterpreter_reverse_tcp_uuid,eq,0,fail,0,0,,0.019685478,1,,139.0,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_meterpreter_reverse_tcp_uuid,eq,2,fail,0,0,,0.020622312,1,,146.7,"output code is not fully disassembled: 275/412 bytes; branch at 0x105 targets 0x192, which is not an instruction boundary; branch at 0x10e targets 0x123, which is not an instruction boundary"
+x86,windows_meterpreter_reverse_tcp_uuid,nop,0,fail,0,0,,0.02572536,1,,162.9,"output code is not fully disassembled: 268/405 bytes; branch at 0xfd targets 0x18b, which is not an instruction boundary; branch at 0x107 targets 0x11c, which is not an instruction boundary"
+x86,windows_meterpreter_reverse_tcp_uuid,nop,2,fail,0,0,,0.02218806,1,,145.4,"output code is not fully disassembled: 265/402 bytes; branch at 0xfa targets 0x188, which is not an instruction boundary; branch at 0x104 targets 0x119, which is not an instruction boundary"
+x86,windows_meterpreter_reverse_tcp_uuid,bcf,0,fail,0,0,,0.021752226,1,,136.7,"output code is not fully disassembled: 302/439 bytes; branch at 0x120 targets 0x1ad, which is not an instruction boundary; branch at 0x129 targets 0x13e, which is not an instruction boundary"
+x86,windows_meterpreter_reverse_tcp_uuid,bcf,2,fail,0,0,,0.02431596,1,,172.1,"output code is not fully disassembled: 345/482 bytes; branch at 0x14b targets 0x1d8, which is not an instruction boundary; branch at 0x154 targets 0x169, which is not an instruction boundary"
+x86,windows_meterpreter_reverse_tcp_uuid,ibp,0,fail,0,0,,0.02841696,1,,187.8,"output code is not fully disassembled: 249/386 bytes; branch at 0xeb targets 0x178, which is not an instruction boundary; branch at 0xf4 targets 0x109, which is not an instruction boundary"
+x86,windows_meterpreter_reverse_tcp_uuid,ibp,2,fail,0,0,,0.026994762,1,,180.0,"output code is not fully disassembled: 249/386 bytes; branch at 0xeb targets 0x178, which is not an instruction boundary; branch at 0xf4 targets 0x109, which is not an instruction boundary"
+x86,windows_meterpreter_reverse_winhttp,eq,0,fail,0,0,,0.020793144,1,,145.4,"branch at 0x396 targets 0x3f9, which is not an instruction boundary; data references disappeared from the payload: DATA offset 0x152 x1"
+x86,windows_meterpreter_reverse_winhttp,eq,2,fail,0,0,,0.034973178,1,,226.6,"branch at 0x47c targets 0x4df, which is not an instruction boundary; data references disappeared from the payload: DATA offset 0x152 x1"
+x86,windows_meterpreter_reverse_winhttp,nop,0,fail,0,0,,0.039896826,1,,181.8,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x86,windows_meterpreter_reverse_winhttp,nop,2,fail,0,0,,0.032953326,1,,236.0,data references disappeared from the payload: DATA offset 0x152 x1; nop did not insert any instruction; the technique was not applied
+x86,windows_meterpreter_reverse_winhttp,bcf,0,fail,0,0,,0.029919492,1,,191.4,"branch at 0x27a targets 0x2f6, which is not an instruction boundary; data references disappeared from the payload: DATA offset 0x152 x1; 310 original instruction(s) are missing or out of order (allowed 2); first missing: nop ; nop ; nop ; nop ; bcf did not insert any instruction; the technique was not applied"
+x86,windows_meterpreter_reverse_winhttp,bcf,2,fail,0,0,,0.038480226,1,,262.1,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_meterpreter_reverse_winhttp,ibp,0,fail,0,0,,0.028242426,1,,176.9,"branch at 0x4f2 targets 0x554, which is not an instruction boundary; data references disappeared from the payload: DATA offset 0x152 x1"
+x86,windows_meterpreter_reverse_winhttp,ibp,2,fail,0,0,,0.034113228,1,,244.3,"branch at 0x159 targets 0x1bb, which is not an instruction boundary; data references disappeared from the payload: DATA offset 0x152 x1; 440 original instruction(s) disappeared during block permutation"
+x86,windows_meterpreter_reverse_winhttps,eq,0,fail,0,0,,0.039744378,1,,287.8,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x86,windows_meterpreter_reverse_winhttps,eq,2,fail,0,0,,0.032574612,1,,237.9,"branch at 0x22d targets 0x28f, which is not an instruction boundary; branch at 0x276 targets 0x182, which is not an instruction boundary"
+x86,windows_meterpreter_reverse_winhttps,nop,0,fail,0,0,,0.029445276,1,,206.5,"branch at 0x21f targets 0x281, which is not an instruction boundary; branch at 0x268 targets 0x173, which is not an instruction boundary"
+x86,windows_meterpreter_reverse_winhttps,nop,2,fail,0,0,,0.03974196,1,,272.4,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x86,windows_meterpreter_reverse_winhttps,bcf,0,fail,0,0,,0.022593726,1,,143.1,"branch at 0x24f targets 0x2b1, which is not an instruction boundary; branch at 0x298 targets 0x1a4, which is not an instruction boundary"
+x86,windows_meterpreter_reverse_winhttps,bcf,2,fail,0,0,,0.03767826,1,,238.9,"branch at 0x235 targets 0x297, which is not an instruction boundary; branch at 0x27e targets 0x18b, which is not an instruction boundary"
+x86,windows_meterpreter_reverse_winhttps,ibp,0,fail,0,0,,0.02786406,1,,198.3,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_meterpreter_reverse_winhttps,ibp,2,ok,1,0,670f898bb95fab9d836a56e4912f1c5685e2009f7568d1d170bb0e2f6957dfe9,0.034323678,1,0.9949,260.3,
+x86,windows_patchupmeterpreter_bind_nonx_tcp,eq,0,ok,1,0,3748d82b1ea27ac95d720b4629336199ccbf3b9a8c925336371797dfa88600fd,0.016409682,1,0.8718,128.3,
+x86,windows_patchupmeterpreter_bind_nonx_tcp,eq,2,ok,1,0,3748d82b1ea27ac95d720b4629336199ccbf3b9a8c925336371797dfa88600fd,0.017849916,1,0.8718,136.3,
+x86,windows_patchupmeterpreter_bind_nonx_tcp,nop,0,ok,1,0,deb4704806faa8bcaec0efae1372065acfd3b8e719f739cce8afe92aec12fdd5,0.013649964,1,1.0,100.1,
+x86,windows_patchupmeterpreter_bind_nonx_tcp,nop,2,ok,1,0,c473d3f4f0d09ae8c23ebcb036f98003334128c78b4cc2f58ac968a948402ea3,0.012001464,1,1.0,84.6,
+x86,windows_patchupmeterpreter_bind_nonx_tcp,bcf,0,ok,1,0,4d7ddb053e7f2234c392c9f6ad3cf7d019941b99535c1b949ca2e315dcc4e007,0.02036343,1,0.7273,150.7,
+x86,windows_patchupmeterpreter_bind_nonx_tcp,bcf,2,ok,1,0,ae1d17c122ff1444e0abd30fe8ea86f62e40c4a4f44d7c9a6770cc8d799b47b1,0.014439564,1,0.8421,103.5,
+x86,windows_patchupmeterpreter_bind_nonx_tcp,ibp,0,ok,1,0,6ac35e2201a2d0b6c27b38c437b8b360056f6972a73a5218042864e34b2bc154,0.014285364,1,0.6943,111.1,
+x86,windows_patchupmeterpreter_bind_nonx_tcp,ibp,2,ok,1,0,1da785c830c2716da86f52ed75f48ccc53212b9be07780520cf2c84fb1b3c6de,0.012508566,1,0.9223,97.5,
+x86,windows_patchupmeterpreter_bind_tcp,eq,0,ok,1,1,6d396cb62778bfcef9c52f712e54c30565387035619dd14fee0b23cac51d8c5b,0.011592012,1,0.9204,206.4,
+x86,windows_patchupmeterpreter_bind_tcp,eq,2,ok,1,1,dc02cf10fc980b6f726bc8366c74bf145037a1c1736938e7545806d1052fffac,0.013324446,1,0.9481,220.7,
+x86,windows_patchupmeterpreter_bind_tcp,nop,0,ok,1,1,d25d8eacfe52046018ba571c75d3a22d0654cd9f276beda63ba92f910500e714,0.00695031,1,1.0,172.7,
+x86,windows_patchupmeterpreter_bind_tcp,nop,2,ok,1,1,e1df67412b58ad8fb62cf6a0243e16e5a64c77dac411198fd88981cc7cf400bf,0.015680394,1,1.0,239.7,
+x86,windows_patchupmeterpreter_bind_tcp,bcf,0,ok,1,1,a0c1bbddf3a27515ba3ba36a808c5a693140bbdf3e25468b2583019ea3055979,0.01595676,1,0.8402,243.1,
+x86,windows_patchupmeterpreter_bind_tcp,bcf,2,ok,1,1,725bf1b25c2f0a2d3080edd8e2a6b3407e687b50db20de6d5f958ce16aa1a992,0.019250694,1,0.7415,265.9,
+x86,windows_patchupmeterpreter_bind_tcp,ibp,0,ok,1,1,2fe2c175543caff5c6d88d43194b8543a16769e8fcc0a1b9a0c85b754ecf2ba1,0.014354694,1,0.9895,224.9,
+x86,windows_patchupmeterpreter_bind_tcp,ibp,2,ok,1,1,8b477414fa9e7f0b45fe2392bfd121b1bcbec758f4a6edbcac3a5b8c37f39d55,0.012638112,1,0.5754,212.8,
+x86,windows_patchupmeterpreter_bind_tcp_rc4,eq,0,fail,0,0,,0.025455012,1,,183.4,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_patchupmeterpreter_bind_tcp_rc4,eq,2,ok,1,1,63ebf2e0f400046239003653a1fb4737175bf17a3155541350044c9b9f357804,0.028894446,1,0.9547,212.3,
+x86,windows_patchupmeterpreter_bind_tcp_rc4,nop,0,fail,0,0,,0.03037671,1,,219.7,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_patchupmeterpreter_bind_tcp_rc4,nop,2,fail,0,0,,0.028139994,1,,195.8,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_patchupmeterpreter_bind_tcp_rc4,bcf,0,ok,1,1,7a51d900c8f4d4504e78d3ff864318c5ea07def846eac028f30515dcf611587e,0.03042996,1,0.8558,196.8,
+x86,windows_patchupmeterpreter_bind_tcp_rc4,bcf,2,fail,0,0,,0.039591894,1,,273.1,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x86,windows_patchupmeterpreter_bind_tcp_rc4,ibp,0,fail,0,0,,0.033580494,1,,261.0,IBP did not permute blocks: the original instruction order is unchanged (the tool requires at least two non-entry blocks to be reordered)
+x86,windows_patchupmeterpreter_bind_tcp_rc4,ibp,2,fail,0,0,,0.039597312,1,,279.2,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x86,windows_patchupmeterpreter_bind_tcp_uuid,eq,0,ok,1,1,3de4e48d184c22b59d3ee5c9e8137aa9e3673c7ca43c3c30289a8e3628c183f1,0.011115612,1,0.9389,77.0,
+x86,windows_patchupmeterpreter_bind_tcp_uuid,eq,2,ok,1,1,666a64ea554a6aae2e9673b6df48943a83d54bb4152f4087800f68d9e662e03d,0.008851446,1,0.9518,65.2,
+x86,windows_patchupmeterpreter_bind_tcp_uuid,nop,0,ok,1,1,7282b0da13dbc573c8fab61425163421a2a3e0af3c3f26a6c563a27566b64e2c,0.01507371,1,1.0,104.4,
+x86,windows_patchupmeterpreter_bind_tcp_uuid,nop,2,ok,1,1,d0702d9144b2e7b01bf4d5380393f444be8f16273fb38b9bab6e062e0fbaa5b4,0.011791194,1,1.0,78.9,
+x86,windows_patchupmeterpreter_bind_tcp_uuid,bcf,0,ok,1,1,5ac258eceb8a59dd66cacc603fba11e8222bbd67dbc859615252cbc64e24a6f2,0.02448276,1,0.8947,170.4,
+x86,windows_patchupmeterpreter_bind_tcp_uuid,bcf,2,ok,1,1,8e041db47f0ee09554e027f8e9a8bfe8faadd6a50e553970bd9454a890dba834,0.016906494,1,0.85,120.8,
+x86,windows_patchupmeterpreter_bind_tcp_uuid,ibp,0,ok,1,1,de78daeb7b21fb2d9dc3d98c701768a494e87bab43b4ec9915798ab631342d07,0.012461094,1,0.9902,89.7,
+x86,windows_patchupmeterpreter_bind_tcp_uuid,ibp,2,ok,1,1,bd034335abb46f2dfb7ab2cab6352cb458ad783bf7acbb481559e0765dd1d7e4,0.014204712,1,0.9673,104.3,
+x86,windows_patchupmeterpreter_reverse_nonx_tcp,eq,0,ok,1,0,a64c8eea861d2e95b7b57a4634c2f45439c2d67dca0ed4fc449dd3eacda909e2,0.010364532,1,0.9455,81.7,
+x86,windows_patchupmeterpreter_reverse_nonx_tcp,eq,2,ok,1,0,a64c8eea861d2e95b7b57a4634c2f45439c2d67dca0ed4fc449dd3eacda909e2,0.009295782,1,0.9455,70.8,
+x86,windows_patchupmeterpreter_reverse_nonx_tcp,nop,0,ok,1,0,0951a928cf38a82a4b271acdbfcd25b0bca751ca3608a800dde080ef5f54d3d9,0.01641363,1,1.0,128.4,
+x86,windows_patchupmeterpreter_reverse_nonx_tcp,nop,2,ok,1,0,8ae8743650dced2df6ad597783da1e571567b670aaf2eaa0c75716dcc100fa33,0.011964714,1,1.0,84.3,
+x86,windows_patchupmeterpreter_reverse_nonx_tcp,bcf,0,ok,1,0,67a0f702314f0dddcb7b9d284cdaed0523295b6d82931779da127395a73cf4a6,0.01600488,1,0.7826,120.6,
+x86,windows_patchupmeterpreter_reverse_nonx_tcp,bcf,2,ok,1,0,39fbc227f2a83741a37912727839c8ae268c0d4894da117ef9631b958c18b5fb,0.023039214,1,0.6429,161.8,
+x86,windows_patchupmeterpreter_reverse_nonx_tcp,ibp,0,ok,1,0,93c4a103c57fbb1bab09a85aca564ecd796f5c8f541e33bf51f9da0e2fe0e7d1,0.012257214,1,0.6503,92.5,
+x86,windows_patchupmeterpreter_reverse_nonx_tcp,ibp,2,ok,1,0,a16c3593ff109475dc811e130cda850e36eb3db48c550d080ccfa70b84bf3064,0.020392032,1,0.6341,152.8,
+x86,windows_patchupmeterpreter_reverse_tcp,eq,0,ok,1,1,9fc631f87f1b2dc300b34e1547651755a6b46e36d44d3d21467c4c91460f69e2,0.012896628,1,0.9201,92.5,
+x86,windows_patchupmeterpreter_reverse_tcp,eq,2,ok,1,1,00cac2e9da024e22e44b5d730d6aee0cc2498d1586310dd72267fb8e11794dd1,0.011323662,1,0.9329,82.4,
+x86,windows_patchupmeterpreter_reverse_tcp,nop,0,ok,1,1,71266f26aecb85ba389df071b4e6498c0c86973b0abfc31db5de8d7d847e5e53,0.010252926,1,1.0,70.6,
+x86,windows_patchupmeterpreter_reverse_tcp,nop,2,ok,1,1,b76e0e4355429ac2cc4ec5cbb7f49b7ad24f08a3596b0cb4561c049d187ac20e,0.01553301,1,1.0,101.9,
+x86,windows_patchupmeterpreter_reverse_tcp,bcf,0,ok,1,1,f06f8b6d47377e926c728f1bee4919d7bbfa88910f14bdfe7dd76b785ac7c923,0.01568016,1,0.8725,105.4,
+x86,windows_patchupmeterpreter_reverse_tcp,bcf,2,ok,1,1,1f3db5b8d405554aeefec48bb07fcf1a589950dbdb0cfaf8004bb2eade8c4db0,0.020256894,1,0.8725,141.0,
+x86,windows_patchupmeterpreter_reverse_tcp,ibp,0,ok,1,1,2fd8e92c0ce1ae2aeaf84b643f9b096f4d7360aeaf41732cbb515a0d29edb707,0.014752494,1,0.9032,106.2,
+x86,windows_patchupmeterpreter_reverse_tcp,ibp,2,ok,1,1,234391e97343c0f2c78854cf000346cce6f1e167e40d0501866a53e5f2547add,0.020735112,1,0.8805,134.8,
+x86,windows_patchupmeterpreter_reverse_tcp_allports,eq,0,ok,1,1,b89e5a3435ee7767c9a5dced6abc32beb285703793c662ce1fab9b6e8e48a759,0.010276734,1,0.9494,72.8,
+x86,windows_patchupmeterpreter_reverse_tcp_allports,eq,2,ok,1,1,b89e5a3435ee7767c9a5dced6abc32beb285703793c662ce1fab9b6e8e48a759,0.010199568,1,0.9494,76.0,
+x86,windows_patchupmeterpreter_reverse_tcp_allports,nop,0,ok,1,1,1fb80bd5383f1ed3d2c9220236164336a25c79fe2bbd55dc7030be1c43478fb4,0.009576432,1,1.0,69.6,
+x86,windows_patchupmeterpreter_reverse_tcp_allports,nop,2,ok,1,1,8dfc294f181798c9e0c64275ddf1ff64ef0f6b5a901ead99b078062afbefb948,0.016394316,1,1.0,113.4,
+x86,windows_patchupmeterpreter_reverse_tcp_allports,bcf,0,ok,1,1,7cc712148c2c6c71776b026211ed37430b69e9ed7ca54c4bacb894eefb1ed4b1,0.014516226,1,0.9039,107.8,
+x86,windows_patchupmeterpreter_reverse_tcp_allports,bcf,2,ok,1,1,0887a91dd762743a1d3152b843042c6e7582222aa95e9b65c00af1d5377638c6,0.01398276,1,0.9039,104.3,
+x86,windows_patchupmeterpreter_reverse_tcp_allports,ibp,0,ok,1,1,4389c03dd3d3799e1449ccdceee18442c4e59350b7d4f67a680691e163fcdc7c,0.02766456,1,0.9618,189.5,
+x86,windows_patchupmeterpreter_reverse_tcp_allports,ibp,2,ok,1,1,903fe22b463bfb12c9f562563280a2bf3f933126e022e74e781678d97faf84e9,0.016223178,1,0.5725,104.4,
+x86,windows_patchupmeterpreter_reverse_tcp_dns,eq,0,ok,1,1,2efc2608da9d6f6c8d88769cb2546d2e486d8d5c24ff84103946db9144c9ea40,0.005920512,1,0.9544,41.2,
+x86,windows_patchupmeterpreter_reverse_tcp_dns,eq,2,ok,1,1,24f511deee235743a95401ffb34e6bdc677f45e6847a02f5189cd44e019064c5,0.018947346,1,0.9119,132.3,
+x86,windows_patchupmeterpreter_reverse_tcp_dns,nop,0,ok,1,1,c3e40c11963cd87b7c6a583140f838e7f94d6c798beacc6712e7c598e27a1b09,0.01367061,1,1.0,90.6,
+x86,windows_patchupmeterpreter_reverse_tcp_dns,nop,2,ok,1,1,586fa9a8f153f5b4f2b75f91d847d27f9b556420df2b842e1a80ceef03d3fcce,0.014749494,1,1.0,100.1,
+x86,windows_patchupmeterpreter_reverse_tcp_dns,bcf,0,ok,1,1,9fa625308c671e81e9c51d4a871524802f46273a61ee93e72757ca743e61f55c,0.02209986,1,0.8571,156.4,
+x86,windows_patchupmeterpreter_reverse_tcp_dns,bcf,2,ok,1,0,417cf5a3fe0c235ddddd7a2af6c9643fff74d83d409351ba33c34d2bf818e919,0.017553594,1,0.8526,125.2,
+x86,windows_patchupmeterpreter_reverse_tcp_dns,ibp,0,ok,1,1,52b3e15988be1daa7b980775e0354a56d8f690d726e4f281079ca56a4fd8f343,0.013611594,1,0.9908,87.8,
+x86,windows_patchupmeterpreter_reverse_tcp_dns,ibp,2,ok,1,1,42e7f1cb50dfd7b41fa29a0b654fc093878ca30bf0fa52ffb625e42b0d4a74de,0.012436212,1,0.9444,87.9,
+x86,windows_patchupmeterpreter_reverse_tcp_rc4,eq,0,fail,0,0,,0.031357128,1,,224.2,"branch at 0x16b targets 0x180, which is not an instruction boundary"
+x86,windows_patchupmeterpreter_reverse_tcp_rc4,eq,2,fail,0,0,,0.034618962,1,,240.8,"branch at 0x187 targets 0x19c, which is not an instruction boundary"
+x86,windows_patchupmeterpreter_reverse_tcp_rc4,nop,0,ok,1,1,71d15aac77b2362bca11269d2c92201f5ff7fc59023558eaa99d88d12123a7da,0.038563626,1,1.0,264.0,
+x86,windows_patchupmeterpreter_reverse_tcp_rc4,nop,2,fail,0,0,,0.02030751,1,,144.3,1 original instruction(s) are missing or out of order (allowed 0); first missing: call #
+x86,windows_patchupmeterpreter_reverse_tcp_rc4,bcf,0,ok,1,1,3d8cca5e60487439e772d23959f481af626969456164ec36123741edf1a14c09,0.02277726,1,0.8984,144.6,
+x86,windows_patchupmeterpreter_reverse_tcp_rc4,bcf,2,fail,0,0,,0.030262194,1,,215.6,"branch at 0x178 targets 0x18d, which is not an instruction boundary"
+x86,windows_patchupmeterpreter_reverse_tcp_rc4,ibp,0,fail,0,0,,0.020715594,1,,155.0,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_patchupmeterpreter_reverse_tcp_rc4,ibp,2,fail,0,0,,0.027586212,1,,199.4,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_patchupmeterpreter_reverse_tcp_rc4_dns,eq,0,fail,0,0,,0.033314628,1,,222.7,"branch at 0x19a targets 0x1af, which is not an instruction boundary"
+x86,windows_patchupmeterpreter_reverse_tcp_rc4_dns,eq,2,fail,0,0,,0.028387062,1,,201.2,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_patchupmeterpreter_reverse_tcp_rc4_dns,nop,0,fail,0,0,,0.03108771,1,,210.2,"branch at 0x17e targets 0x193, which is not an instruction boundary"
+x86,windows_patchupmeterpreter_reverse_tcp_rc4_dns,nop,2,fail,0,0,,0.03172101,1,,209.2,"branch at 0x191 targets 0x1a6, which is not an instruction boundary"
+x86,windows_patchupmeterpreter_reverse_tcp_rc4_dns,bcf,0,fail,0,0,,0.027829776,1,,192.8,"branch at 0x19b targets 0x1b0, which is not an instruction boundary"
+x86,windows_patchupmeterpreter_reverse_tcp_rc4_dns,bcf,2,fail,0,0,,0.02234691,1,,158.7,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_patchupmeterpreter_reverse_tcp_rc4_dns,ibp,0,fail,0,0,,0.02920191,1,,191.6,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_patchupmeterpreter_reverse_tcp_rc4_dns,ibp,2,ok,1,1,44b36043bef0c6c56ed1b39c9141c82d2615c6af050c9a34d0ebe0d17f6aef9a,0.035698128,1,0.9783,257.9,
+x86,windows_patchupmeterpreter_reverse_tcp_uuid,eq,0,ok,1,1,f8ea9934949bd23dc6b976fef518ed2b30c2240e5210a3386addb8feff8798a6,0.014812212,1,0.9388,96.1,
+x86,windows_patchupmeterpreter_reverse_tcp_uuid,eq,2,ok,1,1,f8ea9934949bd23dc6b976fef518ed2b30c2240e5210a3386addb8feff8798a6,0.010169046,1,0.9388,72.1,
+x86,windows_patchupmeterpreter_reverse_tcp_uuid,nop,0,ok,1,1,295a761ed50130d7d46a7f2f079f75a2a074bf6f55069f0e45172402acdb4795,0.01548951,1,1.0,101.7,
+x86,windows_patchupmeterpreter_reverse_tcp_uuid,nop,2,ok,1,1,7f5a213b446d515d6137f164cc06893adba3c26a3fd1b46fd6a4ce203abf1a8c,0.019657194,1,1.0,129.6,
+x86,windows_patchupmeterpreter_reverse_tcp_uuid,bcf,0,ok,1,1,399729bc6c304b450a319457cf43d3a23448734b5f7ccc08b05d9afb1a406adc,0.01989156,1,0.9037,144.7,
+x86,windows_patchupmeterpreter_reverse_tcp_uuid,bcf,2,ok,1,1,873752c8f6f345860b4b7a738e8998fea4ddd9f40f4f79a57b870c015d9428a2,0.011166294,1,0.8825,80.5,
+x86,windows_patchupmeterpreter_reverse_tcp_uuid,ibp,0,ok,1,1,2ecbd0ae1f60cd3c3b3a56c6a4e5f791d3d597471c81d3a5e609178ab6c2bb51,0.014027094,1,0.9676,101.3,
+x86,windows_patchupmeterpreter_reverse_tcp_uuid,ibp,2,ok,1,1,933e864d914a3847a8dbc9060117d820b9d6697f7e0e7fb4f9eb623e9e0e2fc4,0.023119512,1,0.9763,176.7,
+x86,windows_pingback_bind_tcp,eq,0,fail,0,0,,0.027492078,1,,197.3,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_pingback_bind_tcp,eq,2,ok,1,1,f7f4a5b88e718f1d51c42b132f2ce494a6469245c94ca87ac896b4ae6abce28f,0.022885512,1,0.947,164.7,
+x86,windows_pingback_bind_tcp,nop,0,ok,1,1,fa89f494d9bd8b7d990fb4748a17e95bb949628be6bdec3de32d58e951d68565,0.023249976,1,1.0,163.9,
+x86,windows_pingback_bind_tcp,nop,2,ok,1,1,069411e0ca8fcb67ccbe949a2ebfae6213d6113cd170b91f88d77e2596148a73,0.02086866,1,1.0,147.2,
+x86,windows_pingback_bind_tcp,bcf,0,ok,1,1,3ac336e3ae9d77708dc5b5bf0bf78bb8b081db8caab8c686ae2ad1c5eed05e6b,0.021618426,1,0.8607,150.4,
+x86,windows_pingback_bind_tcp,bcf,2,ok,1,1,a871beb8d774aaf780d8148871e4da71ae82754fd55457313d7054e85c173068,0.01961016,1,0.9115,143.1,
+x86,windows_pingback_bind_tcp,ibp,0,ok,1,1,c7769012c7f7bfca95e4d17d5507ab817ff4a25a5b0a80a24bc8f9954df4f98b,0.01733556,1,0.9892,123.5,
+x86,windows_pingback_bind_tcp,ibp,2,ok,1,1,c7769012c7f7bfca95e4d17d5507ab817ff4a25a5b0a80a24bc8f9954df4f98b,0.018206178,1,0.9892,127.5,
+x86,windows_pingback_reverse_tcp,eq,0,ok,1,1,20676871a62a04e364fb3be2f74e1d2267c488931ed17121bd69fc992914f4c1,0.011631078,1,0.9923,90.1,
+x86,windows_pingback_reverse_tcp,eq,2,ok,1,1,b675aa0762f635dd3b047bd05135ab1890d54c0d71f00c9c05c9d511610956ef,0.014942112,1,0.9283,107.0,
+x86,windows_pingback_reverse_tcp,nop,0,ok,1,1,7750c1e7de6c1f323f918403736d5361c67f9f08a2500e385e82531025c41ba0,0.023443176,1,1.0,161.5,
+x86,windows_pingback_reverse_tcp,nop,2,ok,1,1,9f33a8d1595615b9b15877101904918c1c687f2b91345de2775457820da1b1e0,0.01467546,1,1.0,107.5,
+x86,windows_pingback_reverse_tcp,bcf,0,ok,1,1,d6e0ac1742172910c8a80efbef2f3ba57170368decf4a9fd790b20bdd401eded,0.016889826,1,0.9059,118.0,
+x86,windows_pingback_reverse_tcp,bcf,2,ok,1,1,7b5b5f2b32cfdf51efd25d42de74e570465ee2852d79cfba1b8718cf7dd65e79,0.01794876,1,0.8784,127.1,
+x86,windows_pingback_reverse_tcp,ibp,0,ok,1,1,ea34a7e3e7f30b26a78c6451c481c7fca5bc45550d59458d875d0825bf72c9c8,0.01790736,1,0.9579,131.3,
+x86,windows_pingback_reverse_tcp,ibp,2,ok,1,1,122bcf771b67f6c4e69d61f31a34dc38654939c9419c6642c7d9361c629fa464,0.019988778,1,0.9466,154.9,
+x86,windows_shell_bind_nonx_tcp,eq,0,fail,0,0,,0.019172682,1,,153.0,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_shell_bind_nonx_tcp,eq,2,ok,1,0,90d7093c69e020d1846efc08df50308fc848f9ac7ae180ed87dae505d3b93dc0,0.012158316,1,0.9538,92.2,
+x86,windows_shell_bind_nonx_tcp,nop,0,ok,1,0,515d15664c5549d01e1dbc84df2dd7c40c34caa6d74a1988a0d00337fee56131,0.010445364,1,1.0,77.1,
+x86,windows_shell_bind_nonx_tcp,nop,2,ok,1,0,88266c87121b4c8caf6967acf286814d8693fda9875cfab31d1da6f0ac5a17d9,0.008962464,1,1.0,66.7,
+x86,windows_shell_bind_nonx_tcp,bcf,0,ok,1,0,a0101c1358d0d037d1f4f0bffac7de66e71a59db2eb5d2eae2180f6567476541,0.01958283,1,0.7805,135.5,
+x86,windows_shell_bind_nonx_tcp,bcf,2,ok,1,0,41942d502e656cea5bb4a6d89f43ffe7a7a9e1c09db1a479cb5ecdebaae71493,0.016764564,1,0.7805,121.9,
+x86,windows_shell_bind_nonx_tcp,ibp,0,ok,1,0,6ac8ef16771edc0bbfc4de4437f3c08e3081fa4bb9a419ef0bcaf9dcce238015,0.015112764,1,0.7047,107.3,
+x86,windows_shell_bind_nonx_tcp,ibp,2,fail,0,0,,0.028790166,1,,214.6,"branch at 0x4 targets 0x2, which is not an instruction boundary"
+x86,windows_shell_bind_tcp,eq,0,ok,1,1,e4803c53d973c4b7f49af1c6172e5422d543d8baab86ed7020cfe931df36d738,0.013132578,1,0.9333,91.8,
+x86,windows_shell_bind_tcp,eq,2,ok,1,1,26c88d7f0c4362472a86bfebcb62ca0863e49aea853bc22a39337cc7a83256c6,0.006487212,1,0.96,45.2,
+x86,windows_shell_bind_tcp,nop,0,ok,1,1,a7d11a1332ba943179d2cb246bf27fa55305b9a9a27b3caf01cfea8beb3cef79,0.011430876,1,1.0,84.2,
+x86,windows_shell_bind_tcp,nop,2,ok,1,1,e92036448e5ac586cd6a3202f0b237f5604102ce2f87bb9116a5ecc90ac44a80,0.01302156,1,1.0,81.0,
+x86,windows_shell_bind_tcp,bcf,0,ok,1,1,c8961c14fe651c64e811b7efc85e72c77072be802faaa039143fddfb17acb3ac,0.008043126,1,0.9164,58.5,
+x86,windows_shell_bind_tcp,bcf,2,ok,1,1,06da6bbaf6daab52136b901ecfaa0bf8c4f94881fc1e9b5f3ddb23e7848c67b0,0.01115106,1,0.8916,79.6,
+x86,windows_shell_bind_tcp,ibp,0,ok,1,1,00fe1816346782ed591dafa100c617e76077191364c9b15bcbdec1c90502ab51,0.01450146,1,0.9899,108.6,
+x86,windows_shell_bind_tcp,ibp,2,ok,1,1,f0e405981cd772a44aebd94376c6a2ff2840a301f9470d68b74ccc7a13bc5144,0.020056878,1,0.9733,148.5,
+x86,windows_shell_bind_tcp_rc4,eq,0,fail,0,0,,0.025666812,1,,176.5,"branch at 0x174 targets 0x189, which is not an instruction boundary"
+x86,windows_shell_bind_tcp_rc4,eq,2,fail,0,0,,0.039012462,1,,265.8,"branch at 0x156 targets 0x16b, which is not an instruction boundary"
+x86,windows_shell_bind_tcp_rc4,nop,0,fail,0,0,,0.02827491,1,,188.7,"branch at 0x16a targets 0x17f, which is not an instruction boundary; 4 original instruction(s) are missing or out of order (allowed 0); first missing: shr byte ptr [edx - #], #; out dx, eax; add byte ptr [ecx], al; add byte ptr [eax], al"
+x86,windows_shell_bind_tcp_rc4,nop,2,fail,0,0,,0.03327561,1,,222.0,"branch at 0x16a targets 0x17f, which is not an instruction boundary"
+x86,windows_shell_bind_tcp_rc4,bcf,0,fail,0,0,,0.011428176,1,,74.6,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_shell_bind_tcp_rc4,bcf,2,ok,1,1,f1a1920f7389f186c3e4ec0d97d864a63efb61780a796b7734d8d2951e020c10,0.02901411,1,0.8386,190.7,
+x86,windows_shell_bind_tcp_rc4,ibp,0,fail,0,0,,0.02707731,1,,185.2,"branch at 0x165 targets 0x17a, which is not an instruction boundary"
+x86,windows_shell_bind_tcp_rc4,ibp,2,fail,0,0,,0.039616128,1,,282.8,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x86,windows_shell_bind_tcp_uuid,eq,0,ok,1,1,79b3c0cbbbad7a88c293a84e7b157207e6f5d8c6802e825b8048afd3fb73c34d,0.021469578,1,0.9206,147.4,
+x86,windows_shell_bind_tcp_uuid,eq,2,fail,0,0,,0.033085812,1,,245.6,"branch at 0x134 targets 0x16e, which is not an instruction boundary"
+x86,windows_shell_bind_tcp_uuid,nop,0,fail,0,0,,0.032223276,1,,239.3,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_shell_bind_tcp_uuid,nop,2,fail,0,0,,0.02830176,1,,199.3,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_shell_bind_tcp_uuid,bcf,0,ok,1,1,a91adabec8399cabb9de71746d99a174c26958469c409f9deae8c80d99b3c874,0.03284991,1,0.8732,217.7,
+x86,windows_shell_bind_tcp_uuid,bcf,2,fail,0,0,,0.033306444,1,,221.9,"branch at 0x181 targets 0x1d5, which is not an instruction boundary"
+x86,windows_shell_bind_tcp_uuid,ibp,0,ok,1,1,887257403214de91d75e8ca4b5027fdfd3f76e1782d6f7685693f8bee418ba19,0.035465244,1,0.949,235.5,
+x86,windows_shell_bind_tcp_uuid,ibp,2,ok,1,1,3353e8e231984f3f83c87d5e8b9c76ad919bfb9032d5045159891958cceeffc1,0.029272662,1,0.9711,203.6,
+x86,windows_shell_reverse_nonx_tcp,eq,0,ok,1,0,703e2234f244fe4d40c4883b1ec64b66688aa11fa456f3259b41fd719a2b8878,0.016072428,1,0.8848,119.4,
+x86,windows_shell_reverse_nonx_tcp,eq,2,ok,1,0,3cbbe7d83bea7fecd6d51f0bef2982fb8f441baf4412dd5d0f83352d2e778c55,0.015578262,1,0.8606,117.4,
+x86,windows_shell_reverse_nonx_tcp,nop,0,ok,1,0,0227f19c9a4e5d8cca90e4e893b01635ce01964b4e2e97314e55f287539bd96e,0.012115926,1,1.0,85.2,
+x86,windows_shell_reverse_nonx_tcp,nop,2,ok,1,0,8fa8877a98ce80bd03911d3d6d393b9085a8fd610e5e64bd2efc983c69fb9cca,0.01418001,1,1.0,100.3,
+x86,windows_shell_reverse_nonx_tcp,bcf,0,ok,1,0,ff79980f3e1a3b25ffa32bdfd161f53f5755cbf4efca64540e805bd41547248c,0.01651428,1,0.7826,121.1,
+x86,windows_shell_reverse_nonx_tcp,bcf,2,ok,1,0,23db8faa8515e9aee231669505601cad21da089df292538cafdf6c89c22ab1e9,0.018641214,1,0.8223,135.9,
+x86,windows_shell_reverse_nonx_tcp,ibp,0,ok,1,0,9773a109461eb4652566652ee0cbbdd098ad85801db986c6e35a3b99b35ad1cc,0.011395014,1,0.638,88.4,
+x86,windows_shell_reverse_nonx_tcp,ibp,2,ok,1,0,9773a109461eb4652566652ee0cbbdd098ad85801db986c6e35a3b99b35ad1cc,0.012965232,1,0.638,98.2,
+x86,windows_shell_reverse_tcp,eq,0,ok,1,1,f94902790a07cbe126feec85a39589505d70ce3b2060afa0cea35803c909431f,0.017952828,1,0.9595,123.9,
+x86,windows_shell_reverse_tcp,eq,2,ok,1,1,25523a4328729f989574e9958f7a29c1de22ef6d29c20dcd8924f7c0bc5a7962,0.018091062,1,0.9356,129.1,
+x86,windows_shell_reverse_tcp,nop,0,ok,1,1,ec8bbe639ef4802e9a3df32a822cd82d875f75d5bcc49ec7a8deba05ac339c29,0.016335126,1,1.0,111.7,
+x86,windows_shell_reverse_tcp,nop,2,ok,1,1,0fb47067e8393ebac6020e96a7fa11eac97a16917cbfe41e5912050150c55194,0.01762221,1,1.0,133.3,
+x86,windows_shell_reverse_tcp,bcf,0,ok,1,1,d759e5cc50192ea6b7e0e2f6ca8ef971670c9d80eb76337631c4b5af7bb9e852,0.019257576,1,0.9154,133.0,
+x86,windows_shell_reverse_tcp,bcf,2,ok,1,1,6f31c68c80d95211d72e508139df0199970ed99449837867b726fc8b4606b57a,0.01645431,1,0.9154,105.9,
+x86,windows_shell_reverse_tcp,ibp,0,ok,1,1,315e8dc9da9d995d2840109af2426bb882bc6c279d3d78185a7bde4f90b1a780,0.01340151,1,0.9898,98.2,
+x86,windows_shell_reverse_tcp,ibp,2,ok,1,1,2c6bd1f0c5818f7703efd8e9b11c740953d2b4b651468527f26c04c583b7b8c7,0.013653528,1,0.8912,98.8,
+x86,windows_shell_reverse_tcp_allports,eq,0,ok,1,1,32829d9ff60da74ea321c8d9964cf2eb8a6b5421a5eada657fa8c4f26c2db97a,0.010100334,1,0.965,75.8,
+x86,windows_shell_reverse_tcp_allports,eq,2,ok,1,1,b89e5a3435ee7767c9a5dced6abc32beb285703793c662ce1fab9b6e8e48a759,0.015921168,1,0.9494,125.3,
+x86,windows_shell_reverse_tcp_allports,nop,0,ok,1,1,7d5acd955ac6dcfdf4cf530072107db67f993894dd101a416e09162630a35b68,0.013846632,1,1.0,115.1,
+x86,windows_shell_reverse_tcp_allports,nop,2,ok,1,1,ff58f1f02dac4ee5e1cd366c1894f932bd3006972b4edef393ea3c7a5060083f,0.015238716,1,1.0,100.8,
+x86,windows_shell_reverse_tcp_allports,bcf,0,ok,1,1,606f17c2c53c091b5f1e7e6be68da57a4cb2fa5e4a64114080bd3f0604606044,0.012110682,1,0.9039,82.7,
+x86,windows_shell_reverse_tcp_allports,bcf,2,fail,0,0,,0.013257216,1,,85.1,"branch at 0x86 targets 0x11, which is not an instruction boundary"
+x86,windows_shell_reverse_tcp_allports,ibp,0,ok,1,1,903fe22b463bfb12c9f562563280a2bf3f933126e022e74e781678d97faf84e9,0.009318216,1,0.5725,68.7,
+x86,windows_shell_reverse_tcp_allports,ibp,2,ok,1,1,73e1e02fcea9a6942acc738ba39edea3e328f9077420d9e9cb05fc337826bcbf,0.016835634,1,0.8779,123.8,
+x86,windows_shell_reverse_tcp_dns,eq,0,ok,1,1,f2db4217a95395b0a270cd41ce152005adc3a49775f3ce614df0a2c70adcc1ba,0.008291328,1,0.9422,55.9,
+x86,windows_shell_reverse_tcp_dns,eq,2,ok,1,1,f0690d954247a5988899ed5ab0a3207552a86a8be1edc74b19085adab1c1d1a4,0.028786962,1,0.9544,210.5,
+x86,windows_shell_reverse_tcp_dns,nop,0,ok,1,1,922b85c38902923246c3ae5f27005fabc388d993fd612bfcf757e00266196725,0.018932826,1,1.0,132.2,
+x86,windows_shell_reverse_tcp_dns,nop,2,ok,1,1,ad1ac3276f4d36d9c10020017239c162491b75b6a0682d7b8777c6cc944242cc,0.02501931,1,1.0,166.2,
+x86,windows_shell_reverse_tcp_dns,bcf,0,ok,1,1,fa13254bce58e6e88406be2b7537e41478d5adf597781a3927c9fe158bebb78e,0.01627266,1,0.9,112.9,
+x86,windows_shell_reverse_tcp_dns,bcf,2,ok,1,1,86cfe56e1a6a281ef0d6b1c051b8ea3f2d22db62979221cb535bd365d591e297,0.023304594,1,0.7347,164.0,
+x86,windows_shell_reverse_tcp_dns,ibp,0,ok,1,1,4a043fe5803f47cd498edd49e01801f540f6186ef227845da628d557876e65d4,0.021908994,1,0.6031,171.5,
+x86,windows_shell_reverse_tcp_dns,ibp,2,ok,1,1,c993d19f46b4faa184079ad3a354864158dec657b86543e7d9bea9289f6be55e,0.019191012,1,0.9908,133.3,
+x86,windows_shell_reverse_tcp_rc4,eq,0,fail,0,0,,0.030801312,1,,222.5,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_shell_reverse_tcp_rc4,eq,2,fail,0,0,,0.026669946,1,,191.7,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_shell_reverse_tcp_rc4,nop,0,ok,1,1,d037214f9b13e690f5a8daa0a1f960d13438a65f9c471d646d26c270820f9f1c,0.02783721,1,1.0,195.7,
+x86,windows_shell_reverse_tcp_rc4,nop,2,fail,0,0,,0.028181094,1,,207.2,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_shell_reverse_tcp_rc4,bcf,0,fail,0,0,,0.028087476,1,,185.5,"branch at 0x198 targets 0x1ad, which is not an instruction boundary"
+x86,windows_shell_reverse_tcp_rc4,bcf,2,fail,0,0,,0.03667881,1,,259.2,"branch at 0x1b2 targets 0x1c7, which is not an instruction boundary"
+x86,windows_shell_reverse_tcp_rc4,ibp,0,fail,0,0,,0.03147621,1,,236.9,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_shell_reverse_tcp_rc4,ibp,2,ok,1,1,8867e2126ca482628535a88fda1a68796e80a8716a53604dbc5dbe3a42c2f353,0.023931228,1,0.9548,162.7,
+x86,windows_shell_reverse_tcp_rc4_dns,eq,0,fail,0,0,,0.029400612,1,,210.7,"branch at 0x17e targets 0x193, which is not an instruction boundary"
+x86,windows_shell_reverse_tcp_rc4_dns,eq,2,fail,0,0,,0.025523046,1,,195.8,"branch at 0x19a targets 0x1af, which is not an instruction boundary"
+x86,windows_shell_reverse_tcp_rc4_dns,nop,0,fail,0,0,,0.03074811,1,,228.9,"branch at 0x17e targets 0x193, which is not an instruction boundary"
+x86,windows_shell_reverse_tcp_rc4_dns,nop,2,fail,0,0,,0.023866194,1,,169.8,"branch at 0x190 targets 0x1a5, which is not an instruction boundary"
+x86,windows_shell_reverse_tcp_rc4_dns,bcf,0,fail,0,0,,0.02758116,1,,196.1,"branch at 0x17e targets 0x193, which is not an instruction boundary"
+x86,windows_shell_reverse_tcp_rc4_dns,bcf,2,fail,0,0,,0.033185694,1,,226.8,"branch at 0x1a5 targets 0x1ba, which is not an instruction boundary"
+x86,windows_shell_reverse_tcp_rc4_dns,ibp,0,fail,0,0,,0.033014094,1,,231.0,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_shell_reverse_tcp_rc4_dns,ibp,2,fail,0,0,,0.034637112,1,,233.7,"branch at 0x180 targets 0x195, which is not an instruction boundary"
+x86,windows_shell_reverse_tcp_uuid,eq,0,fail,0,0,,0.021772878,1,,169.1,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_shell_reverse_tcp_uuid,eq,2,ok,1,1,7164dc872cc3954fb8f68686730b0a1cf745ac1c6a44dee93385b07f988be32b,0.018652512,1,0.9353,139.5,
+x86,windows_shell_reverse_tcp_uuid,nop,0,fail,0,0,,0.029153976,1,,221.2,1 original instruction(s) are missing or out of order (allowed 0); first missing: call #
+x86,windows_shell_reverse_tcp_uuid,nop,2,fail,0,0,,0.02868246,1,,198.3,"branch at 0x100 targets 0x116, which is not an instruction boundary"
+x86,windows_shell_reverse_tcp_uuid,bcf,0,fail,0,0,,0.035126226,1,,241.6,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_shell_reverse_tcp_uuid,bcf,2,fail,0,0,,0.03477336,1,,248.7,"branch at 0x126 targets 0x13c, which is not an instruction boundary"
+x86,windows_shell_reverse_tcp_uuid,ibp,0,fail,0,0,,0.02809896,1,,208.8,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_shell_reverse_tcp_uuid,ibp,2,fail,0,0,,0.034924362,1,,246.3,"branch at 0xf4 targets 0x109, which is not an instruction boundary"
+x86,windows_vncinject_bind_nonx_tcp,eq,0,ok,1,0,9a48eba72edadf40c04e16a699061ab5506f08b719c0d6c7edae9d8364167685,0.012380682,1,0.9231,97.1,
+x86,windows_vncinject_bind_nonx_tcp,eq,2,ok,1,0,7ccde8c3540725a9e9883125bc7051b9c3ffceb2a4536764188c248714f58abc,0.016153116,1,0.8821,128.0,
+x86,windows_vncinject_bind_nonx_tcp,nop,0,ok,1,0,97ec2f06ebaba8f681122ad6d44cdb63690ae625a236cb0aec9b8384ac831afd,0.013132164,1,1.0,90.6,
+x86,windows_vncinject_bind_nonx_tcp,nop,2,fail,0,0,,0.019181064,1,,138.9,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_vncinject_bind_nonx_tcp,bcf,0,ok,1,0,19cfae630bba3d85b82e7d5c597c73d654a8c2a7cb9f3feeb8a09243645b81c2,0.01377543,1,0.7805,88.0,
+x86,windows_vncinject_bind_nonx_tcp,bcf,2,ok,1,0,c154e26b47c6bd12a2aab2c4e5d8ede9ed151ef9fe72b6669976febac5dc56b5,0.018425364,1,0.8101,144.6,
+x86,windows_vncinject_bind_nonx_tcp,ibp,0,ok,1,0,6ac35e2201a2d0b6c27b38c437b8b360056f6972a73a5218042864e34b2bc154,0.011461164,1,0.6943,89.8,
+x86,windows_vncinject_bind_nonx_tcp,ibp,2,fail,0,0,,0.029346966,1,,208.9,"branch at 0x4 targets 0x2, which is not an instruction boundary"
+x86,windows_vncinject_bind_tcp,eq,0,ok,1,1,f2ac6a348fe7fa07ca12e66f3a0a997b0cf6feea9dd008173dc5b027163cad32,0.00802278,1,0.9343,61.1,
+x86,windows_vncinject_bind_tcp,eq,2,ok,1,1,8f71fac20b85b9cc41cf6c7a8ac9d69577b456ea7b0e1629a3f2dbc079377ef3,0.01403943,1,0.9135,98.3,
+x86,windows_vncinject_bind_tcp,nop,0,ok,1,1,a89e43aac1074e75a1cafcdc3c1ab7da1cee2175e96d682fa1b012189a4c7880,0.011517078,1,1.0,82.8,
+x86,windows_vncinject_bind_tcp,nop,2,ok,1,1,d7e833a15db5d0984ce2e8abb9ffacfe20cac9d79f2f9a694393344934d75c9c,0.019917378,1,1.0,139.1,
+x86,windows_vncinject_bind_tcp,bcf,0,ok,1,1,407038159f7b99aa3629a078f9ee1782f2046c3f50549410a2c699a7722bc151,0.012338328,1,0.7978,81.0,
+x86,windows_vncinject_bind_tcp,bcf,2,ok,1,1,666094c367b5549c113d12ae7c26ae50e7cea0549a9934e1592d53d6615dab65,0.026773062,1,0.6499,189.9,
+x86,windows_vncinject_bind_tcp,ibp,0,ok,1,1,25858561d0b8129e8d1f25fbd1368db5c07f4fe90ede07a8b36777af67092225,0.018920262,1,0.8842,128.9,
+x86,windows_vncinject_bind_tcp,ibp,2,ok,1,1,cd66d1d1d04cacd1a820138b64b0add714a0eea758dce39885a6dca17388596f,0.01227168,1,0.9895,87.9,
+x86,windows_vncinject_bind_tcp_rc4,eq,0,fail,0,0,,0.032165028,1,,212.7,"branch at 0x174 targets 0x189, which is not an instruction boundary"
+x86,windows_vncinject_bind_tcp_rc4,eq,2,fail,0,0,,0.031936062,1,,248.1,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_vncinject_bind_tcp_rc4,nop,0,fail,0,0,,0.03102231,1,,223.6,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_vncinject_bind_tcp_rc4,nop,2,ok,1,1,d397d5185afc0a7acc8f9432072b23f800521a7baad4801b1d57f67942660826,0.03118101,1,1.0,210.1,
+x86,windows_vncinject_bind_tcp_rc4,bcf,0,fail,0,0,,0.034633776,1,,233.5,"branch at 0x1b4 targets 0x1c9, which is not an instruction boundary"
+x86,windows_vncinject_bind_tcp_rc4,bcf,2,fail,0,0,,0.03377151,1,,243.0,"branch at 0x18a targets 0x19f, which is not an instruction boundary"
+x86,windows_vncinject_bind_tcp_rc4,ibp,0,ok,1,0,b42f891946b730c162e0a8965ab8b5ffb1b17a2947abb89da469e344b1569204,0.02707371,1,0.9547,189.7,
+x86,windows_vncinject_bind_tcp_rc4,ibp,2,ok,1,1,8058dd390428bfc7dbaaef933e587a0431e3f3585c86de74780c626ef0d59cb7,0.025905312,1,0.9761,183.9,
+x86,windows_vncinject_bind_tcp_uuid,eq,0,ok,1,1,35db75e1df37479ecd99cff58209416db0e77789fdf8d5bd299a9e6c1e31c5db,0.02375013,1,0.9279,162.1,
+x86,windows_vncinject_bind_tcp_uuid,eq,2,ok,1,1,ab11ccfe56cfffea576e43fa69feecec43482027f37efe41b930917f53883754,0.01374618,1,0.9279,94.4,
+x86,windows_vncinject_bind_tcp_uuid,nop,0,ok,1,1,c291a95dcaadc0779c5fe5f0afe95f5b4cb44c6b76f298dded6da02adc36706c,0.031874028,1,1.0,206.8,
+x86,windows_vncinject_bind_tcp_uuid,nop,2,ok,1,1,f70a8755fadf0b9eb2a32bb7fd9cb6716891766a69fee6404d48112994d7da75,0.027014328,1,1.0,181.2,
+x86,windows_vncinject_bind_tcp_uuid,bcf,0,ok,1,1,f65532df8d7e5418bd71c660d51bfeef4f6102fb2e8f6a216e1f577765c7c17a,0.018903678,1,0.7603,128.0,
+x86,windows_vncinject_bind_tcp_uuid,bcf,2,ok,1,1,2b5ca1d6b75d5fecc0c6553545f04cf98f862bcc8d4fdd1f648d88eac09a44f0,0.029091012,1,0.8747,213.3,
+x86,windows_vncinject_bind_tcp_uuid,ibp,0,ok,1,1,d8d2d0636c37d58d5908af99d56c8dfcb6cdc43213f9db2e420af0e0593e7e13,0.032567412,1,0.956,237.9,
+x86,windows_vncinject_bind_tcp_uuid,ibp,2,fail,0,0,,0.03951783,1,,274.1,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x86,windows_vncinject_reverse_http,eq,0,fail,0,0,,0.023665194,1,,160.4,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_vncinject_reverse_http,eq,2,fail,0,0,,0.029615628,1,,192.4,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_vncinject_reverse_http,nop,0,fail,0,0,,0.024242676,1,,155.8,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_vncinject_reverse_http,nop,2,fail,0,0,,0.021717576,1,,132.7,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_vncinject_reverse_http,bcf,0,fail,0,0,,0.020946942,1,,142.0,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_vncinject_reverse_http,bcf,2,fail,0,0,,0.027587676,1,,180.1,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_vncinject_reverse_http,ibp,0,fail,0,0,,0.039842076,1,,251.3,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x86,windows_vncinject_reverse_http,ibp,2,fail,0,0,,0.035337678,1,,226.1,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_vncinject_reverse_nonx_tcp,eq,0,ok,1,0,3cbbe7d83bea7fecd6d51f0bef2982fb8f441baf4412dd5d0f83352d2e778c55,0.013161732,1,0.8606,94.6,
+x86,windows_vncinject_reverse_nonx_tcp,eq,2,fail,0,0,,0.017275782,1,,137.4,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_vncinject_reverse_nonx_tcp,nop,0,ok,1,0,9507429cf150e20eb4503c2b388d371e770aa99de05ada0b8ca6a6c69f5cdbd2,0.00819903,1,1.0,61.5,
+x86,windows_vncinject_reverse_nonx_tcp,nop,2,ok,1,0,b91a18873d5bcb7668e8f069b19c02f4571388c4858a177c51562dd75ecb0eeb,0.011059914,1,1.0,88.4,
+x86,windows_vncinject_reverse_nonx_tcp,bcf,0,fail,0,0,,0.03481548,1,,235.1,"branch at 0x4 targets 0x2, which is not an instruction boundary"
+x86,windows_vncinject_reverse_nonx_tcp,bcf,2,ok,1,0,91f54c085af475227b9d53b5bdbd4f10180439f56c38c7d9ea7371dab0d6cb18,0.009623214,1,0.8571,73.4,
+x86,windows_vncinject_reverse_nonx_tcp,ibp,0,ok,1,0,f6f4ee86dc98f0ba0585d83a17c9cec3f18c2d922716aba12199928405a96a0c,0.016714614,1,0.6228,131.8,
+x86,windows_vncinject_reverse_nonx_tcp,ibp,2,ok,1,0,394edf59e64aa2157e0304b1d2a0b0f8039a65118559e0edd3e53ec7a3143f22,0.019983432,1,0.9024,143.5,
+x86,windows_vncinject_reverse_tcp,eq,0,ok,1,1,00f72f4fc76ab58aee7a398e6b1b3a241925c22ce7d2592a8025a771ee8411bb,0.012357612,1,0.9644,89.4,
+x86,windows_vncinject_reverse_tcp,eq,2,ok,1,1,3496d120bba70d63fa6508fe8b2ff060abe60db3e1ce2f9227284aabe6bc9750,0.010440846,1,0.9521,75.7,
+x86,windows_vncinject_reverse_tcp,nop,0,ok,1,1,6b3499ed3ab29eb0c26fcb494fee79a6dc3a92e26efb081145fa8fe4a98ec560,0.01617471,1,1.0,116.6,
+x86,windows_vncinject_reverse_tcp,nop,2,ok,1,1,06be7e654f5044a02026f00052a145c60fc02e32d78dec4856c578ac0e65d99b,0.021331194,1,1.0,148.5,
+x86,windows_vncinject_reverse_tcp,bcf,0,ok,1,1,7e266aed68385c22e53d664951c9d4e125a19520c30542a0c4497e8facd7c46c,0.018061776,1,0.7404,122.2,
+x86,windows_vncinject_reverse_tcp,bcf,2,ok,1,1,366fbe9cfec8b5f28314868e0b3cb986ffa49bd539c61beb2d0c0103381c65ae,0.01407351,1,0.8508,96.9,
+x86,windows_vncinject_reverse_tcp,ibp,0,ok,1,1,2e90d6684761e732ea4246f0a03a665e6304039b2f5c987178e4442629a5b647,0.01129731,1,0.9903,77.9,
+x86,windows_vncinject_reverse_tcp,ibp,2,ok,1,1,84d6c0786a46667a72f6ee520096ccb62f51eb49629dfef597f8b21b397bab58,0.022828128,1,0.879,151.3,
+x86,windows_vncinject_reverse_tcp_allports,eq,0,ok,1,1,f5e78c3af596b8233c43eef844385815afdaf9427c1eb3f77c65abe6fdc65581,0.018620934,1,0.9339,138.3,
+x86,windows_vncinject_reverse_tcp_allports,eq,2,ok,1,1,13257b03fef79ff8027e8956538f3cfeaa315ca34e902b85f6593eb816948abd,0.013996368,1,0.9416,107.3,
+x86,windows_vncinject_reverse_tcp_allports,nop,0,ok,1,1,9f295b3e894aa0282ca9777e9f271648cd72d96db1d17b9f910ca7ab4e772905,0.020450232,1,1.0,148.4,
+x86,windows_vncinject_reverse_tcp_allports,nop,2,ok,1,1,b553fa69cf6e89e6fa032f9c9eb99acbe9d494942f05624a1efe3d2365b55e89,0.011713716,1,1.0,86.1,
+x86,windows_vncinject_reverse_tcp_allports,bcf,0,ok,1,1,a915676d8b73ac9d2b440d2834a7edf0df34b3dfbb02bde1125664cd30322960,0.009997482,1,0.8495,73.0,
+x86,windows_vncinject_reverse_tcp_allports,bcf,2,ok,1,1,7a05fd7e0e5a9edd7dc5a78ed9264354c94ecc53e5ac4ad5cf59ef42e106a6fa,0.013285416,1,0.9039,96.2,
+x86,windows_vncinject_reverse_tcp_allports,ibp,0,ok,1,1,18fccd71528d59d69126372fd4e61f8d1bcba25752f64215590c120d6c81a059,0.014214216,1,0.902,106.7,
+x86,windows_vncinject_reverse_tcp_allports,ibp,2,ok,1,1,75cf18a4fb3d1e9f1efe41532980efc1050c7ad1f88fe093d9d67f3713187e31,0.012371034,1,0.902,95.0,
+x86,windows_vncinject_reverse_tcp_dns,eq,0,ok,1,1,64fcfd94272ecab20109d9261a9bd41767bf92586dd09eda57a1046056ce9d70,0.018480096,1,0.9723,136.5,
+x86,windows_vncinject_reverse_tcp_dns,eq,2,ok,1,1,5b7bda2427adcc92ff63f5b82a62936f84ec08a2349207ef30770df9d722de94,0.00758853,1,0.9422,54.6,
+x86,windows_vncinject_reverse_tcp_dns,nop,0,ok,1,1,c55d74f7cff4f2efeeb584e93d8c601d2045f3808148dfeba50d793543454e76,0.012873594,1,1.0,88.5,
+x86,windows_vncinject_reverse_tcp_dns,nop,2,ok,1,1,853f2e050ca3b7cb62e5eda0fd95132faabb64374a7e66c9b31bcec52db61338,0.021738078,1,1.0,142.6,
+x86,windows_vncinject_reverse_tcp_dns,bcf,0,ok,1,1,8697f14d217c4823cc6fde491aabde25a3f8df05bc4faa45f4697cb7a1ac50e6,0.017287044,1,0.9231,126.1,
+x86,windows_vncinject_reverse_tcp_dns,bcf,2,ok,1,1,b5096a3ee994b949526739eca8cd65e24f9e219cb1cf0e67083c5965fbcc943f,0.024200178,1,0.7826,160.1,
+x86,windows_vncinject_reverse_tcp_dns,ibp,0,ok,1,1,ad2bcbc4dba7afba70e35e7c90aea7619be9dd3899c7931d5671121d8f3eaf8d,0.017628978,1,0.9662,131.9,
+x86,windows_vncinject_reverse_tcp_dns,ibp,2,ok,1,1,9f2f189b8421f557146314cc2281d170ebfc58f70808adfa8df484409ba47b71,0.021479196,1,0.9753,150.7,
+x86,windows_vncinject_reverse_tcp_rc4,eq,0,fail,0,0,,0.028374912,1,,209.1,"branch at 0x187 targets 0x19c, which is not an instruction boundary"
+x86,windows_vncinject_reverse_tcp_rc4,eq,2,fail,0,0,,0.038801346,1,,259.0,"branch at 0x190 targets 0x1a5, which is not an instruction boundary"
+x86,windows_vncinject_reverse_tcp_rc4,nop,0,fail,0,0,,0.02343741,1,,166.4,"branch at 0x16b targets 0x180, which is not an instruction boundary"
+x86,windows_vncinject_reverse_tcp_rc4,nop,2,fail,0,0,,0.030966294,1,,212.8,"branch at 0x16b targets 0x180, which is not an instruction boundary"
+x86,windows_vncinject_reverse_tcp_rc4,bcf,0,fail,0,0,,0.025631076,1,,182.2,"branch at 0x1a2 targets 0x1b7, which is not an instruction boundary"
+x86,windows_vncinject_reverse_tcp_rc4,bcf,2,fail,0,0,,0.03528561,1,,255.9,"branch at 0x1a2 targets 0x1b7, which is not an instruction boundary"
+x86,windows_vncinject_reverse_tcp_rc4,ibp,0,fail,0,0,,0.03469401,1,,270.7,"branch at 0x180 targets 0x195, which is not an instruction boundary"
+x86,windows_vncinject_reverse_tcp_rc4,ibp,2,fail,0,0,,0.032775612,1,,231.5,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_vncinject_reverse_tcp_rc4_dns,eq,0,fail,0,0,,0.020359212,1,,152.6,Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)
+x86,windows_vncinject_reverse_tcp_rc4_dns,eq,2,fail,0,0,,0.039455046,1,,267.7,"branch at 0x1a4 targets 0x1b9, which is not an instruction boundary"
+x86,windows_vncinject_reverse_tcp_rc4_dns,nop,0,fail,0,0,,0.02857851,1,,211.3,"branch at 0x193 targets 0x1a8, which is not an instruction boundary"
+x86,windows_vncinject_reverse_tcp_rc4_dns,nop,2,ok,1,1,1b184fef1fd0e0d007f3e0db80f1c93fc81fbbb65a8f70e85f4c108893bf4f3c,0.019107594,1,1.0,127.4,
+x86,windows_vncinject_reverse_tcp_rc4_dns,bcf,0,ok,1,1,399127aa6ed5c06da1b23dd81565c92c653f56da911538f10d93b4205403acb3,0.03955176,1,0.8214,282.1,
+x86,windows_vncinject_reverse_tcp_rc4_dns,bcf,2,fail,0,0,,0.029520294,1,,196.9,"branch at 0x1dc targets 0x1f1, which is not an instruction boundary"
+x86,windows_vncinject_reverse_tcp_rc4_dns,ibp,0,fail,0,0,,0.033758094,1,,255.8,"branch at 0x180 targets 0x195, which is not an instruction boundary"
+x86,windows_vncinject_reverse_tcp_rc4_dns,ibp,2,fail,0,0,,0.029882712,1,,210.6,"branch at 0x17e targets 0x193, which is not an instruction boundary"
+x86,windows_vncinject_reverse_tcp_uuid,eq,0,fail,0,0,,0.030181278,1,,211.5,"branch at 0x10e targets 0x123, which is not an instruction boundary"
+x86,windows_vncinject_reverse_tcp_uuid,eq,2,fail,0,0,,0.032985312,1,,238.2,"branch at 0x10e targets 0x124, which is not an instruction boundary"
+x86,windows_vncinject_reverse_tcp_uuid,nop,0,ok,1,1,9f34078b002d7c35dd8b21e53b98e5ec0d29daf9a0436728ab6a4b05ac3e6343,0.02812116,1,1.0,209.2,
+x86,windows_vncinject_reverse_tcp_uuid,nop,2,fail,0,0,,0.03584946,1,,242.4,"branch at 0x101 targets 0x117, which is not an instruction boundary"
+x86,windows_vncinject_reverse_tcp_uuid,bcf,0,fail,0,0,,0.03930561,1,,260.8,"branch at 0x11c targets 0x132, which is not an instruction boundary"
+x86,windows_vncinject_reverse_tcp_uuid,bcf,2,ok,1,1,be5c4dcc9b906c8b73a44667a82347830749bae2369b385b381db60fafb8a837,0.025348944,1,0.9443,181.3,
+x86,windows_vncinject_reverse_tcp_uuid,ibp,0,ok,1,1,a6d5bd4bf55ddad374f99b557cc83bcc27bfbced3167e09a2f4e740a03581cf5,0.032213544,1,0.908,251.0,
+x86,windows_vncinject_reverse_tcp_uuid,ibp,2,ok,1,1,3e510f83af7f7be311c21b511f695de0f91dba82a97bfd7b1fea5363a9621900,0.029445762,1,0.9693,219.8,
+x86,windows_vncinject_reverse_winhttp,eq,0,fail,0,0,,0.035557578,1,,238.0,"branch at 0x320 targets 0x382, which is not an instruction boundary; branch at 0x369 targets 0x292, which is not an instruction boundary"
+x86,windows_vncinject_reverse_winhttp,eq,2,fail,0,0,,0.031897212,1,,216.6,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)
+x86,windows_vncinject_reverse_winhttp,nop,0,fail,0,0,,0.039909876,1,,231.6,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x86,windows_vncinject_reverse_winhttp,nop,2,fail,0,0,,0.03990336,1,,249.1,"the model output was truncated (finish_reason=length); ask for a shorter assembly (no comments, no blank lines) or raise --llm-max-tokens"
+x86,windows_vncinject_reverse_winhttp,bcf,0,fail,0,0,,0.037995726,1,,225.8,"branch at 0x31c targets 0x37e, which is not an instruction boundary; branch at 0x365 targets 0x28e, which is not an instruction boundary"
+x86,windows_vncinject_reverse_winhttp,bcf,2,fail,0,0,,0.03254766,1,,201.4,"branch at 0x336 targets 0x3a5, which is not an instruction boundary; branch at 0x37f targets 0x2a8, which is not an instruction boundary"
+x86,windows_vncinject_reverse_winhttp,ibp,0,fail,0,0,,0.03357546,1,,231.8,"branch at 0x304 targets 0x26b, which is not an instruction boundary; branch at 0x34d targets 0x276, which is not an instruction boundary; 4 original instruction(s) disappeared during block permutation"
+x86,windows_vncinject_reverse_winhttp,ibp,2,fail,0,0,,0.031894278,1,,219.4,Keystone rejected the assembly: Invalid operand (KS_ERR_ASM_INVALIDOPERAND)

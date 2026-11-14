@@ -6,15 +6,27 @@ OPT_ARGS:  ['tmp/pipeline_manycalls_3_0.bin.in', '-wrap', '-eq', '-nop', '-bcf',
 CREO JUMP TABLE
 CREO LABEL TABLE
 [bad] expanded 0 short branch(es)
+ADDRESS DEL PRIMO XOR EAX,EAX:  0x7
+vecchia istruzione:  xor r11d, r11d
+nuova istruzione:  mov r11d, 0
+ADDRESS DEL PRIMO DEC:  0xf
+vecchia istruzione:  dec r10
+nuova istruzione:  sub r10, 1
 ##########################################
-BYTES ADDED:  0x0
+BYTES ADDED:  0x4
 ##########################################
 UPDATE INSTR
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
 UPDATE INSTR
-REG:  rdi
-CODE:  pushf;push rdi;push 234;pop rdi;cmp rdi, 234; pop rdi;popf;je 0x35
+REG:  rbx
+CODE:  pushf;push rbx;push 243;pop rbx;cmp rbx, 243; pop rbx;popf;je 0x46
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  rax
+CODE:  pushf;push rax; mov rax, 240;neg rax;neg rax;cmp rax, 240; pop rax;popf;je 0x6e
 UPDATE INSTR
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
@@ -22,5 +34,5 @@ UPDATE INSTR
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
 UPDATE INSTR
-[wrap] 33 instruction(s) hidden in 21 container(s), 2 raw, 2 ghost, 3 junk block(s): 101 -> 273 bytes
+[wrap] 40 instruction(s) hidden in 26 container(s), 3 raw, 2 ghost, 4 junk block(s): 129 -> 332 bytes
 FINE

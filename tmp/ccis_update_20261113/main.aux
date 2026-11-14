@@ -1,0 +1,255 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
+\HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
+\global\let\oldcontentsline\contentsline
+\gdef\contentsline#1#2#3#4{\oldcontentsline{#1}{#2}{#3}}
+\global\let\oldnewlabel\newlabel
+\gdef\newlabel#1#2{\newlabelxx{#1}#2}
+\gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
+\AtEndDocument{\ifx\hyper@anchor\@undefined
+\let\contentsline\oldcontentsline
+\let\newlabel\oldnewlabel
+\fi}
+\fi}
+\global\let\hyper@last\relax 
+\gdef\HyperFirstAtBeginDocument#1{#1}
+\providecommand*\HyPL@Entry[1]{}
+\citation{PEsurveybible}
+\citation{metamorphic1,metamorphic2}
+\HyPL@Entry{0<</S/D>>}
+\providecommand \oddpage@label [2]{}
+\@writefile{toc}{\contentsline {title}{Zone: Extending a bin2bin Metamorphic Engine with Code--Data Identification and LLM Assistance}{1}{chapter.1}\protected@file@percent }
+\@writefile{toc}{\authcount {3}}
+\@writefile{toc}{\contentsline {author}{Stefano\nobreakspace  {}Bistarelli \and Jacopo\nobreakspace  {}Di\nobreakspace  {}Benedetto \and Francesco\nobreakspace  {}Santini}{1}{chapter.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1.1}\protected@file@percent }
+\newlabel{sec:introduction}{{1}{1}{Introduction}{section.1.1}{}}
+\citation{zone_secrypt_2026}
+\citation{sigdetPEnoncode}
+\@writefile{toc}{\contentsline {paragraph}{Relationship to the Conference Paper and Extensions.}{2}{section*.2}\protected@file@percent }
+\citation{historycodeobf}
+\citation{identifyingmeth}
+\citation{identifyingmeth,metworm}
+\citation{PEsurveybible}
+\citation{historycodeobf}
+\citation{sgnstrong}
+\citation{codeExtraction}
+\citation{zone_secrypt_2026}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Background}{3}{section.1.2}\protected@file@percent }
+\newlabel{sec:background}{{2}{3}{Background}{section.1.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Metamorphic Engines}{3}{subsection.1.2.1}\protected@file@percent }
+\newlabel{sub:meth}{{2.1}{3}{Metamorphic Engines}{subsection.1.2.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Comparison with Polymorphism.}{3}{section*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Morphing Techniques}{3}{subsection.1.2.2}\protected@file@percent }
+\citation{desai2008towards,desai2010highly,szor2001hunting}
+\citation{zone_secrypt_2026}
+\citation{zone_secrypt_2026}
+\citation{pushfmeth}
+\citation{zone_secrypt_2026}
+\citation{zone_secrypt_2026}
+\citation{bin2binobf,llvmobf}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Instruction substitutions and corresponding encodings (x86). Reproduced from Table\nobreakspace  {}1 of\nobreakspace  {}\cite  {zone_secrypt_2026}.}}{4}{table.1.1}\protected@file@percent }
+\newlabel{tab:instruction_substitutions_x86}{{1}{4}{Instruction substitutions and corresponding encodings (x86). Reproduced from Table~1 of~\cite {zone_secrypt_2026}}{table.1.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Equal Code Substitution.}{4}{section*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{NOP/Dead Code Insertion.}{4}{section*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Instruction Block Permutation.}{4}{section*.6}\protected@file@percent }
+\citation{zone_secrypt_2026}
+\citation{zone_secrypt_2026}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces NOP-like operations and their encodings. Reproduced from Table\nobreakspace  {}2 of\nobreakspace  {}\cite  {zone_secrypt_2026}.}}{5}{table.1.2}\protected@file@percent }
+\newlabel{tab:nop_instructions}{{2}{5}{NOP-like operations and their encodings. Reproduced from Table~2 of~\cite {zone_secrypt_2026}}{table.1.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Flag-preserving insertion example. Reproduced from Table\nobreakspace  {}3 of\nobreakspace  {}\cite  {zone_secrypt_2026}.}}{5}{table.1.3}\protected@file@percent }
+\newlabel{tab:flag_preserving_nop}{{3}{5}{Flag-preserving insertion example. Reproduced from Table~3 of~\cite {zone_secrypt_2026}}{table.1.3}{}}
+\@writefile{toc}{\contentsline {paragraph}{Bogus Control Flow.}{5}{section*.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Zone Architecture}{5}{section.1.3}\protected@file@percent }
+\newlabel{sec:developing_meth}{{3}{5}{Zone Architecture}{section.1.3}{}}
+\citation{zone_secrypt_2026}
+\citation{zone_secrypt_2026}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Illustrative BCF block. Reproduced from Table\nobreakspace  {}4 of\nobreakspace  {}\cite  {zone_secrypt_2026}.}}{6}{table.1.4}\protected@file@percent }
+\newlabel{table:bcf_code}{{4}{6}{Illustrative BCF block. Reproduced from Table~4 of~\cite {zone_secrypt_2026}}{table.1.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces PII payload layout. Adapted from Fig.\nobreakspace  {}1 of\nobreakspace  {}\cite  {zone_secrypt_2026}.}}{6}{figure.1.1}\protected@file@percent }
+\newlabel{fig:pii_layout}{{1}{6}{PII payload layout. Adapted from Fig.~1 of~\cite {zone_secrypt_2026}}{figure.1.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Position-Independent Instruction}{6}{subsection.1.3.1}\protected@file@percent }
+\newlabel{sec:pii}{{3.1}{6}{Position-Independent Instruction}{subsection.1.3.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Organization.}{6}{section*.8}\protected@file@percent }
+\citation{zone_secrypt_2026}
+\citation{zone_secrypt_2026}
+\citation{zone_secrypt_2026}
+\@writefile{toc}{\contentsline {paragraph}{Execution Sequence.}{7}{section*.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Physical Placement.}{7}{section*.10}\protected@file@percent }
+\newlabel{lst:stub1}{{1}{7}{Base-address component. Reproduced from Listing~1 of~\cite {zone_secrypt_2026}}{lstlisting.1.1}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}Base-address component. Reproduced from Listing\nobreakspace  {}1 of\nobreakspace  {}\cite  {zone_secrypt_2026}.}{7}{lstlisting.1.1}\protected@file@percent }
+\newlabel{lst:instrWrap}{{2}{7}{Instruction wrapper. Reproduced from Listing~2 of~\cite {zone_secrypt_2026}}{lstlisting.1.2}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {2}Instruction wrapper. Reproduced from Listing\nobreakspace  {}2 of\nobreakspace  {}\cite  {zone_secrypt_2026}.}{7}{lstlisting.1.2}\protected@file@percent }
+\newlabel{lst:stub2red}{{3}{7}{x64 redirector. Reproduced from Listing~3 of~\cite {zone_secrypt_2026}}{lstlisting.1.3}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {3}x64 redirector. Reproduced from Listing\nobreakspace  {}3 of\nobreakspace  {}\cite  {zone_secrypt_2026}.}{7}{lstlisting.1.3}\protected@file@percent }
+\citation{zone_secrypt_2026}
+\citation{zone_secrypt_2026}
+\citation{zone_secrypt_2026}
+\citation{bin2binobf}
+\@writefile{toc}{\contentsline {paragraph}{Architectural Variants.}{8}{section*.11}\protected@file@percent }
+\newlabel{lst:stub286}{{4}{8}{x86 redirector. Reproduced from Listing~4 of~\cite {zone_secrypt_2026}}{lstlisting.1.4}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4}x86 redirector. Reproduced from Listing\nobreakspace  {}4 of\nobreakspace  {}\cite  {zone_secrypt_2026}.}{8}{lstlisting.1.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}How Instructions Are Patched}{8}{subsection.1.3.2}\protected@file@percent }
+\newlabel{sec:instr_patch}{{3.2}{8}{How Instructions Are Patched}{subsection.1.3.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Transformation Pipeline}{8}{subsection.1.3.3}\protected@file@percent }
+\citation{zone_secrypt_2026}
+\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces High-level Zone workflow. Reproduced from Algorithm\nobreakspace  {}1 of\nobreakspace  {}\cite  {zone_secrypt_2026}.}}{9}{algocf.1}\protected@file@percent }
+\newlabel{alg:zonealg}{{1}{9}{How Instructions Are Patched}{algocf.1}{}}
+\newlabel{fun:disas}{{4}{9}{How Instructions Are Patched}{AlgoLine.1.4}{}}
+\newlabel{fun:skipdata}{{5}{9}{How Instructions Are Patched}{AlgoLine.1.5}{}}
+\newlabel{fun:update_instr}{{12}{9}{How Instructions Are Patched}{AlgoLine.1.12}{}}
+\newlabel{fun:morph}{{19}{9}{How Instructions Are Patched}{AlgoLine.1.19}{}}
+\newlabel{fun:adj_lab_tab}{{25}{9}{How Instructions Are Patched}{AlgoLine.1.25}{}}
+\newlabel{fun:writefile}{{36}{9}{How Instructions Are Patched}{AlgoLine.1.36}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Published Experimental Baseline}{9}{section.1.4}\protected@file@percent }
+\newlabel{sec:results}{{4}{9}{Published Experimental Baseline}{section.1.4}{}}
+\citation{zone_secrypt_2026}
+\citation{zone_secrypt_2026}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Malicious-verdict fractions in raw-file scans. Dashed reference lines show the reported architecture averages (x64: 0.57\%; x86: 0.25\%). Data from Fig.\nobreakspace  {}2 of\nobreakspace  {}\cite  {zone_secrypt_2026}; redrawn for the present format.}}{10}{figure.1.2}\protected@file@percent }
+\newlabel{fig:all_payloads}{{2}{10}{Malicious-verdict fractions in raw-file scans. Dashed reference lines show the reported architecture averages (x64: 0.57\%; x86: 0.25\%). Data from Fig.~2 of~\cite {zone_secrypt_2026}; redrawn for the present format}{figure.1.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Testing Method.}{10}{section*.12}\protected@file@percent }
+\citation{zone_secrypt_2026}
+\citation{zone_secrypt_2026}
+\citation{zone_secrypt_2026}
+\citation{zone_secrypt_2026}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Variants passing the published functional checks. Dashed reference lines show the reported architecture averages (x64: 55.6\%; x86: 45.0\%). Data from Fig.\nobreakspace  {}3 of\nobreakspace  {}\cite  {zone_secrypt_2026}; redrawn for the present format.}}{11}{figure.1.3}\protected@file@percent }
+\newlabel{fig:working_rate}{{3}{11}{Variants passing the published functional checks. Dashed reference lines show the reported architecture averages (x64: 55.6\%; x86: 45.0\%). Data from Fig.~3 of~\cite {zone_secrypt_2026}; redrawn for the present format}{figure.1.3}{}}
+\newlabel{par:working_rate}{{4}{11}{Testing Method}{figure.1.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Evaluation Limitations.}{11}{section*.13}\protected@file@percent }
+\citation{zone_secrypt_2026}
+\citation{zone_secrypt_2026}
+\citation{llmobf}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Mean transformed-file length. Reference lines indicate the original-file means (x64: 652.632 bytes; x86: 400.750 bytes). Data from Fig.\nobreakspace  {}4 of\nobreakspace  {}\cite  {zone_secrypt_2026}; redrawn for the present format.}}{12}{figure.1.4}\protected@file@percent }
+\newlabel{fig:length_comparison}{{4}{12}{Mean transformed-file length. Reference lines indicate the original-file means (x64: 652.632 bytes; x86: 400.750 bytes). Data from Fig.~4 of~\cite {zone_secrypt_2026}; redrawn for the present format}{figure.1.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Size and Statistical Measurements}{12}{section.1.5}\protected@file@percent }
+\newlabel{sect:var_metrics}{{5}{12}{Size and Statistical Measurements}{section.1.5}{}}
+\@writefile{toc}{\contentsline {paragraph}{Payload Length Variation.}{12}{section*.14}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Delta Entropy.}{12}{section*.15}\protected@file@percent }
+\citation{zone_secrypt_2026}
+\citation{zone_secrypt_2026}
+\citation{zone_secrypt_2026}
+\citation{zone_secrypt_2026}
+\citation{llmobf}
+\citation{zone_secrypt_2026}
+\citation{zone_secrypt_2026}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Percentage entropy change for tokenized assembly; the reference level is zero. Data from Fig.\nobreakspace  {}5 of\nobreakspace  {}\cite  {zone_secrypt_2026}; redrawn for the present format.}}{13}{figure.1.5}\protected@file@percent }
+\newlabel{fig:shan_entropy}{{5}{13}{Percentage entropy change for tokenized assembly; the reference level is zero. Data from Fig.~5 of~\cite {zone_secrypt_2026}; redrawn for the present format}{figure.1.5}{}}
+\@writefile{toc}{\contentsline {paragraph}{Cosine Similarity.}{13}{section*.16}\protected@file@percent }
+\citation{zone_secrypt_2026}
+\citation{staticdisasmTuringComplete}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Percentage entropy change for raw bytes; the reference level is zero. Data from Fig.\nobreakspace  {}6 of\nobreakspace  {}\cite  {zone_secrypt_2026}; redrawn for the present format.}}{14}{figure.1.6}\protected@file@percent }
+\newlabel{fig:shan_entropy_bytes}{{6}{14}{Percentage entropy change for raw bytes; the reference level is zero. Data from Fig.~6 of~\cite {zone_secrypt_2026}; redrawn for the present format}{figure.1.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Limitations and Defensive Implications}{14}{section.1.6}\protected@file@percent }
+\newlabel{sec:limitations}{{6}{14}{Limitations and Defensive Implications}{section.1.6}{}}
+\citation{zone_secrypt_2026}
+\citation{zone_secrypt_2026}
+\citation{sgnstrong}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Cosine similarity between original and transformed opcode-frequency vectors; the reference level is one. Data from Fig.\nobreakspace  {}7 of\nobreakspace  {}\cite  {zone_secrypt_2026}; redrawn for the present format.}}{15}{figure.1.7}\protected@file@percent }
+\newlabel{fig:cosine_similarity}{{7}{15}{Cosine similarity between original and transformed opcode-frequency vectors; the reference level is one. Data from Fig.~7 of~\cite {zone_secrypt_2026}; redrawn for the present format}{figure.1.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Inline-data example affected by rewriting. Reproduced from Table\nobreakspace  {}5 of\nobreakspace  {}\cite  {zone_secrypt_2026}.}}{15}{table.1.5}\protected@file@percent }
+\newlabel{tab:broken-payload}{{5}{15}{Inline-data example affected by rewriting. Reproduced from Table~5 of~\cite {zone_secrypt_2026}}{table.1.5}{}}
+\citation{zone_secrypt_2026}
+\citation{sgnarticle}
+\citation{sgn64}
+\citation{sgnstrong}
+\citation{zone_secrypt_2026}
+\citation{codeExtraction}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Immediate-operand example. Reproduced from Table\nobreakspace  {}6 of\nobreakspace  {}\cite  {zone_secrypt_2026}.}}{16}{table.1.6}\protected@file@percent }
+\newlabel{tab:functional-payload}{{6}{16}{Immediate-operand example. Reproduced from Table~6 of~\cite {zone_secrypt_2026}}{table.1.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Mitigations and Countermeasures}{16}{subsection.1.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}Comparison with Shikata Ga Nai}{16}{section.1.7}\protected@file@percent }
+\newlabel{sec:comparison}{{7}{16}{Comparison with Shikata Ga Nai}{section.1.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Code--Data Identification and Data-Preserving Rewriting}{17}{section.1.8}\protected@file@percent }
+\newlabel{sec:code_data}{{8}{17}{Code--Data Identification and Data-Preserving Rewriting}{section.1.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Problem and Representations}{17}{subsection.1.8.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Symbolic and Heuristic Identification}{17}{subsection.1.8.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}LLM Identification and Deterministic Handling}{17}{subsection.1.8.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9}LLM-Assisted Assembly Transformation}{18}{section.1.9}\protected@file@percent }
+\newlabel{sec:llm}{{9}{18}{LLM-Assisted Assembly Transformation}{section.1.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Task, Representation, and Model Role}{18}{subsection.1.9.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Zero-Shot, Two-Shot, and Call Budgets}{18}{subsection.1.9.2}\protected@file@percent }
+\citation{assembly_wrapping}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Validation and Independent Functional Assessment}{19}{subsection.1.9.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {10}Integration of Assembly Wrapping}{19}{section.1.10}\protected@file@percent }
+\newlabel{sec:wrapping}{{10}{19}{Integration of Assembly Wrapping}{section.1.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}Existing Technique and Implementation Scope}{19}{subsection.1.10.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.2}Integration and Assessment Boundary}{19}{subsection.1.10.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {11}Additional Experimental Methodology}{19}{section.1.11}\protected@file@percent }
+\newlabel{sec:methodology}{{11}{19}{Additional Experimental Methodology}{section.1.11}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.1}Corpora, Frozen Versions, and Observables}{19}{subsection.1.11.1}\protected@file@percent }
+\citation{python_difflib}
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.2}Counting, Classification, and Functional Measures}{20}{subsection.1.11.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.3}Similarity, Static Verdicts, and Cost}{20}{subsection.1.11.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.4}Validity of the Extensions}{21}{subsection.1.11.4}\protected@file@percent }
+\newlabel{sec:extension_limits}{{11.4}{21}{Validity of the Extensions}{subsection.1.11.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {12}Additional Experimental Results}{21}{section.1.12}\protected@file@percent }
+\newlabel{sec:extended_results}{{12}{21}{Additional Experimental Results}{section.1.12}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.1}Benign Functional Benchmark}{21}{subsection.1.12.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.2}DeepSeek Transformation on the Benign Corpus}{21}{subsection.1.12.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces New native fixture results. $N$: attempts; $B$: builds; $W$: correct complete buffers; $U$: distinct built-output hashes. B1/B2 identify different frozen engine versions.}}{22}{table.1.7}\protected@file@percent }
+\newlabel{tab:new_native}{{7}{22}{New native fixture results. $N$: attempts; $B$: builds; $W$: correct complete buffers; $U$: distinct built-output hashes. B1/B2 identify different frozen engine versions}{table.1.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.3}Reference-Based Code--Data Identification}{22}{subsection.1.12.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.4}Wrapping on the Original 102 Payloads}{22}{subsection.1.12.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Benign DeepSeek transformation. $W/N$ includes rejected and failed invocations. $S$ is mean sequence similarity over accepted outputs; $U/B$ is unique hashes per built output within the condition. Time is mean invocation seconds; cost is the sum of local USD estimates.}}{23}{table.1.8}\protected@file@percent }
+\newlabel{tab:new_llm_benign}{{8}{23}{Benign DeepSeek transformation. $W/N$ includes rejected and failed invocations. $S$ is mean sequence similarity over accepted outputs; $U/B$ is unique hashes per built output within the condition. Time is mean invocation seconds; cost is the sum of local USD estimates}{table.1.8}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Independent classifier fixtures. $D$ is annotated data bytes. Exact interval sets are compared against predeclared references. Mean times are per run in seconds.}}{23}{table.1.9}\protected@file@percent }
+\newlabel{tab:new_classifier}{{9}{23}{Independent classifier fixtures. $D$ is annotated data bytes. Exact interval sets are compared against predeclared references. Mean times are per run in seconds}{table.1.9}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces Full original-corpus wrapping campaign, B3. The harness observables are distinct from the benign exact-buffer oracle. $U$ counts distinct constructed hashes.}}{24}{table.1.10}\protected@file@percent }
+\newlabel{tab:new_wrap_full}{{10}{24}{Full original-corpus wrapping campaign, B3. The harness observables are distinct from the benign exact-buffer oracle. $U$ counts distinct constructed hashes}{table.1.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.5}Identification on Nineteen Selected Payloads}{24}{subsection.1.12.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.6}Completed Earlier Static-Scan Cohort}{24}{subsection.1.12.6}\protected@file@percent }
+\citation{survey1,survey2}
+\citation{desai2010highly}
+\citation{MetaPHOR}
+\citation{desai2008towards,desai2010highly,szor2001hunting,bin2binobf,llvmobf}
+\citation{sgn64,sgnstrong}
+\citation{codeExtraction}
+\citation{wong2006hunting,desai2010highly}
+\citation{identifyingmeth}
+\citation{methgenetic}
+\@writefile{lot}{\contentsline {table}{\numberline {11}{\ignorespaces Completed earlier 2026 raw-file cohort. $q$ is detected hashes over completed hashes; $\overline  d$ is the percentage of all reported engine responses that are malicious, averaged per file. $\overline  m$ is mean malicious-engine count. These are separate measures.}}{25}{table.1.11}\protected@file@percent }
+\newlabel{tab:new_vt_cohort}{{11}{25}{Completed earlier 2026 raw-file cohort. $q$ is detected hashes over completed hashes; $\overline d$ is the percentage of all reported engine responses that are malicious, averaged per file. $\overline m$ is mean malicious-engine count. These are separate measures}{table.1.11}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.7}Ongoing DeepSeek Campaign: Snapshot Only}{25}{subsection.1.12.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {13}Related Work}{25}{section.1.13}\protected@file@percent }
+\newlabel{sect:related_work}{{13}{25}{Related Work}{section.1.13}{}}
+\citation{llmobf,llm2}
+\citation{llvmobf}
+\citation{zone_secrypt_2026}
+\citation{angr_cfg_docs}
+\citation{assembly_wrapping}
+\bibstyle{splncs04}
+\bibdata{bibliography}
+\bibcite{assembly_wrapping}{1}
+\@writefile{toc}{\contentsline {section}{\numberline {14}Conclusions}{26}{section.1.14}\protected@file@percent }
+\newlabel{sec:conclusion3}{{14}{26}{Conclusions}{section.1.14}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Acknowledgments.}{26}{section*.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Disclosure of Interests.}{26}{section*.18}\protected@file@percent }
+\bibcite{angr_cfg_docs}{2}
+\bibcite{pushfmeth}{3}
+\bibcite{zone_secrypt_2026}{4}
+\bibcite{metamorphic1}{5}
+\bibcite{survey2}{6}
+\bibcite{desai2008towards}{7}
+\bibcite{desai2010highly}{8}
+\bibcite{sgn64}{9}
+\bibcite{bin2binobf}{10}
+\bibcite{codeExtraction}{11}
+\bibcite{PEsurveybible}{12}
+\bibcite{sgnarticle}{13}
+\bibcite{methgenetic}{14}
+\bibcite{llvmobf}{15}
+\bibcite{llm2}{16}
+\bibcite{metworm}{17}
+\bibcite{sgnstrong}{18}
+\bibcite{llmobf}{19}
+\bibcite{metamorphic2}{20}
+\bibcite{python_difflib}{21}
+\bibcite{sigdetPEnoncode}{22}
+\bibcite{szor2001hunting}{23}
+\bibcite{MetaPHOR}{24}
+\bibcite{historycodeobf}{25}
+\bibcite{survey1}{26}
+\bibcite{wong2006hunting}{27}
+\bibcite{staticdisasmTuringComplete}{28}
+\bibcite{identifyingmeth}{29}
+\gdef \@abspage@last{28}

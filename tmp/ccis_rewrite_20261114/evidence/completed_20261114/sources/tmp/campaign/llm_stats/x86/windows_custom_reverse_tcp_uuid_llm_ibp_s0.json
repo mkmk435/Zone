@@ -1,0 +1,82 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "ibp",
+  "arch": "x86",
+  "started_at": "2026-11-13T20:53:29.487171+00:00",
+  "finished_at": "2026-11-13T20:55:53.394000+00:00",
+  "ok": false,
+  "error": "branch at 0xf4 targets 0x109, which is not an instruction boundary; branch at 0x100 targets 0x10a, which is not an instruction boundary",
+  "timing": {
+    "wall_seconds": 143.907,
+    "api_seconds": 143.898,
+    "local_seconds": 0.009
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 1,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 143.907,
+      "api_seconds": 143.898,
+      "accepted": false,
+      "similarity": 0.0,
+      "code_bytes": 0,
+      "data_bytes": 0,
+      "instructions": 0,
+      "error": "branch at 0xf4 targets 0x109, which is not an instruction boundary; branch at 0x100 targets 0x10a, which is not an instruction boundary"
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T20:53:29.487171+00:00",
+      "seconds": 143.898,
+      "finish_reason": "stop",
+      "content_chars": 3112,
+      "usage": {
+        "prompt_tokens": 3594,
+        "completion_tokens": 33294,
+        "total_tokens": 36888,
+        "cache_hit_tokens": 1920,
+        "cache_miss_tokens": 1674,
+        "reasoning_tokens": 31833
+      },
+      "cost_usd": 0.02023326,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 3594,
+    "completion_tokens": 33294,
+    "total_tokens": 36888,
+    "cache_hit_tokens": 1920,
+    "cache_miss_tokens": 1674,
+    "reasoning_tokens": 31833
+  },
+  "cost_usd": {
+    "total": 0.02023326,
+    "cache_hit": 5.76e-06,
+    "cache_miss": 0.0002511,
+    "output": 0.0199764,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.5342,
+  "reasoning_ratio": 0.9561,
+  "payload": {
+    "code_bytes": 0,
+    "data_bytes": 0,
+    "instructions": 0,
+    "similarity": 0.0
+  },
+  "errors": [
+    "branch at 0xf4 targets 0x109, which is not an instruction boundary; branch at 0x100 targets 0x10a, which is not an instruction boundary"
+  ],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

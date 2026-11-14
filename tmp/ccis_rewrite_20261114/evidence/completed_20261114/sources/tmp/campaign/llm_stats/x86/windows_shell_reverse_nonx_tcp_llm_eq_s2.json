@@ -1,0 +1,80 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "eq",
+  "arch": "x86",
+  "started_at": "2026-11-13T20:42:35.883118+00:00",
+  "finished_at": "2026-11-13T20:44:32.950686+00:00",
+  "ok": true,
+  "error": null,
+  "timing": {
+    "wall_seconds": 117.068,
+    "api_seconds": 117.063,
+    "local_seconds": 0.004
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 0,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 117.068,
+      "api_seconds": 117.063,
+      "accepted": true,
+      "similarity": 0.8606,
+      "code_bytes": 206,
+      "data_bytes": 0,
+      "instructions": 84,
+      "error": null
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T20:42:35.883118+00:00",
+      "seconds": 117.063,
+      "finish_reason": "stop",
+      "content_chars": 1255,
+      "usage": {
+        "prompt_tokens": 3197,
+        "completion_tokens": 25729,
+        "total_tokens": 28926,
+        "cache_hit_tokens": 2304,
+        "cache_miss_tokens": 893,
+        "reasoning_tokens": 25085
+      },
+      "cost_usd": 0.015578262,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 3197,
+    "completion_tokens": 25729,
+    "total_tokens": 28926,
+    "cache_hit_tokens": 2304,
+    "cache_miss_tokens": 893,
+    "reasoning_tokens": 25085
+  },
+  "cost_usd": {
+    "total": 0.015578262,
+    "cache_hit": 6.912e-06,
+    "cache_miss": 0.00013395,
+    "output": 0.0154374,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.7207,
+  "reasoning_ratio": 0.975,
+  "payload": {
+    "code_bytes": 206,
+    "data_bytes": 0,
+    "instructions": 84,
+    "similarity": 0.8606
+  },
+  "errors": [],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

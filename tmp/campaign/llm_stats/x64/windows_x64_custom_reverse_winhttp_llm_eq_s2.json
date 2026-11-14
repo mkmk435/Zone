@@ -1,0 +1,82 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "eq",
+  "arch": "x64",
+  "started_at": "2026-11-13T20:17:00.550479+00:00",
+  "finished_at": "2026-11-13T20:19:18.862946+00:00",
+  "ok": false,
+  "error": "RET_376 is not immediately after a call (previous line: 'L_376:'); data references disappeared from the payload: DATA offset 0xd2 x1; equal-code substitution removed 174 non-control instruction(s); transformations may only replace an instruction, not delete it",
+  "timing": {
+    "wall_seconds": 138.312,
+    "api_seconds": 138.274,
+    "local_seconds": 0.038
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 1,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 138.312,
+      "api_seconds": 138.274,
+      "accepted": false,
+      "similarity": 0.0,
+      "code_bytes": 0,
+      "data_bytes": 0,
+      "instructions": 0,
+      "error": "RET_376 is not immediately after a call (previous line: 'L_376:'); data references disappeared from the payload: DATA offset 0xd2 x1; equal-code substitution removed 174 non-control instruction(s); transformations may only replace an instruction, not delete it"
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T20:17:00.550479+00:00",
+      "seconds": 138.274,
+      "finish_reason": "stop",
+      "content_chars": 5773,
+      "usage": {
+        "prompt_tokens": 5928,
+        "completion_tokens": 36720,
+        "total_tokens": 42648,
+        "cache_hit_tokens": 2176,
+        "cache_miss_tokens": 3752,
+        "reasoning_tokens": 33880
+      },
+      "cost_usd": 0.022601328,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 5928,
+    "completion_tokens": 36720,
+    "total_tokens": 42648,
+    "cache_hit_tokens": 2176,
+    "cache_miss_tokens": 3752,
+    "reasoning_tokens": 33880
+  },
+  "cost_usd": {
+    "total": 0.022601328,
+    "cache_hit": 6.528e-06,
+    "cache_miss": 0.0005628,
+    "output": 0.022032,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.3671,
+  "reasoning_ratio": 0.9227,
+  "payload": {
+    "code_bytes": 0,
+    "data_bytes": 0,
+    "instructions": 0,
+    "similarity": 0.0
+  },
+  "errors": [
+    "RET_376 is not immediately after a call (previous line: 'L_376:'); data references disappeared from the payload: DATA offset 0xd2 x1; equal-code substitution removed 174 non-control instruction(s); transformations may only replace an instruction, not delete it"
+  ],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

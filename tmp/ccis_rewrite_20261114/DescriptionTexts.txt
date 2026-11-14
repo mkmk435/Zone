@@ -1,0 +1,7 @@
+1 (Fig. 1) - A schematic separates the initial call, instruction wrappers, redirector components, padding, offset information, and memory region.
+2 (Fig. 2) - Malicious-verdict fractions in raw-file scans. Dashed reference lines show the reported architecture averages (x64: 0.57\%; x86: 0.25\%). Orange circles identify x64 and blue squares identify x86.
+3 (Fig. 3) - Variants passing the published functional checks. Dashed reference lines show the reported architecture averages (x64: 55.6\%; x86: 45.0\%). Orange circles identify x64 and blue squares identify x86.
+4 (Fig. 4) - Mean transformed-file length. Reference lines indicate the original-file means (x64: 652.632 bytes; x86: 400.750 bytes). Orange circles identify x64 and blue squares identify x86.
+5 (Fig. 5) - Percentage entropy change for tokenized assembly; the reference level is zero. Orange circles identify x64 and blue squares identify x86.
+6 (Fig. 6) - Percentage entropy change for raw bytes; the reference level is zero. Orange circles identify x64 and blue squares identify x86.
+7 (Fig. 7) - Cosine similarity between original and transformed opcode-frequency vectors; the reference level is one. Orange circles identify x64 and blue squares identify x86.

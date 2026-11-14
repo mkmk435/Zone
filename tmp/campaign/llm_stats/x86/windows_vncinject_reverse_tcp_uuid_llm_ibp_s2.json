@@ -1,0 +1,80 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "ibp",
+  "arch": "x86",
+  "started_at": "2026-11-13T22:15:59.037026+00:00",
+  "finished_at": "2026-11-13T22:19:38.256480+00:00",
+  "ok": true,
+  "error": null,
+  "timing": {
+    "wall_seconds": 219.219,
+    "api_seconds": 219.209,
+    "local_seconds": 0.01
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 0,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 219.22,
+      "api_seconds": 219.209,
+      "accepted": true,
+      "similarity": 0.9693,
+      "code_bytes": 388,
+      "data_bytes": 0,
+      "instructions": 164,
+      "error": null
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T22:15:59.037026+00:00",
+      "seconds": 219.209,
+      "finish_reason": "stop",
+      "content_chars": 3085,
+      "usage": {
+        "prompt_tokens": 3875,
+        "completion_tokens": 48672,
+        "total_tokens": 52547,
+        "cache_hit_tokens": 2304,
+        "cache_miss_tokens": 1571,
+        "reasoning_tokens": 47238
+      },
+      "cost_usd": 0.029445762,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 3875,
+    "completion_tokens": 48672,
+    "total_tokens": 52547,
+    "cache_hit_tokens": 2304,
+    "cache_miss_tokens": 1571,
+    "reasoning_tokens": 47238
+  },
+  "cost_usd": {
+    "total": 0.029445762,
+    "cache_hit": 6.912e-06,
+    "cache_miss": 0.00023565,
+    "output": 0.0292032,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.5946,
+  "reasoning_ratio": 0.9705,
+  "payload": {
+    "code_bytes": 388,
+    "data_bytes": 0,
+    "instructions": 164,
+    "similarity": 0.9693
+  },
+  "errors": [],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

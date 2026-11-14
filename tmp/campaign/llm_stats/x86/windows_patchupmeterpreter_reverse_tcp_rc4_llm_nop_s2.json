@@ -1,0 +1,82 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "nop",
+  "arch": "x86",
+  "started_at": "2026-11-13T21:12:05.590626+00:00",
+  "finished_at": "2026-11-13T21:14:29.495721+00:00",
+  "ok": false,
+  "error": "1 original instruction(s) are missing or out of order (allowed 0); first missing: call #",
+  "timing": {
+    "wall_seconds": 143.905,
+    "api_seconds": 143.889,
+    "local_seconds": 0.017
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 1,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 143.904,
+      "api_seconds": 143.889,
+      "accepted": false,
+      "similarity": 0.0,
+      "code_bytes": 0,
+      "data_bytes": 0,
+      "instructions": 0,
+      "error": "1 original instruction(s) are missing or out of order (allowed 0); first missing: call #"
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T21:12:05.590626+00:00",
+      "seconds": 143.889,
+      "finish_reason": "stop",
+      "content_chars": 3128,
+      "usage": {
+        "prompt_tokens": 3885,
+        "completion_tokens": 33345,
+        "total_tokens": 37230,
+        "cache_hit_tokens": 1920,
+        "cache_miss_tokens": 1965,
+        "reasoning_tokens": 31744
+      },
+      "cost_usd": 0.02030751,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 3885,
+    "completion_tokens": 33345,
+    "total_tokens": 37230,
+    "cache_hit_tokens": 1920,
+    "cache_miss_tokens": 1965,
+    "reasoning_tokens": 31744
+  },
+  "cost_usd": {
+    "total": 0.02030751,
+    "cache_hit": 5.76e-06,
+    "cache_miss": 0.00029475,
+    "output": 0.020007,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.4942,
+  "reasoning_ratio": 0.952,
+  "payload": {
+    "code_bytes": 0,
+    "data_bytes": 0,
+    "instructions": 0,
+    "similarity": 0.0
+  },
+  "errors": [
+    "1 original instruction(s) are missing or out of order (allowed 0); first missing: call #"
+  ],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

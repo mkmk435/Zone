@@ -1,0 +1,24 @@
+0x0 bytearray(b'H\x8d5+\x00\x00\x00') 7  lea  rsi, [rip + 0x2b]
+0x7 bytearray(b'H\x89\xcf') 3  mov  rdi, rcx
+0xa bytearray(b'\x8a\x06') 2  mov  al, byte ptr [rsi]
+0xc bytearray(b'\x88\x07') 2  mov  byte ptr [rdi], al
+0xe bytearray(b'H\xff\xc6') 3  inc  rsi
+0x11 bytearray(b'H\xff\xc7') 3  inc  rdi
+0x14 bytearray(b'\x84\xc0') 2  test  al, al
+0x16 bytearray(b'u\xf2') 2  jne  0xa
+0x18 bytearray(b'H\x8d5\x19\x00\x00\x00') 7  lea  rsi, [rip + 0x19]
+0x1f bytearray(b'H\x8dy\x10') 4  lea  rdi, [rcx + 0x10]
+0x23 bytearray(b'\x8a\x06') 2  mov  al, byte ptr [rsi]
+0x25 bytearray(b'\x88\x07') 2  mov  byte ptr [rdi], al
+0x27 bytearray(b'H\xff\xc6') 3  inc  rsi
+0x2a bytearray(b'H\xff\xc7') 3  inc  rdi
+0x2d bytearray(b'\x84\xc0') 2  test  al, al
+0x2f bytearray(b'u\xf2') 2  jne  0x23
+0x31 bytearray(b'\xc3') 1  ret  
+0x32 bytearray(b'a') 1  .byte  0x61
+0x33 bytearray(b'l') 1  insb  byte ptr [rdi], dx
+0x34 bytearray(b'ph') 2  jo  0x9e
+0x36 bytearray(b'a') 1  .byte  0x61
+0x37 bytearray(b'\x00be') 3  add  byte ptr [rdx + 0x65], ah
+0x3a bytearray(b'ta') 2  je  0x9d
+0x3c bytearray(b'\x00') 1  .byte  0x00

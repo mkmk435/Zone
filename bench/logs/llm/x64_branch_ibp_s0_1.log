@@ -1,0 +1,38 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['C:\\Users\\ubu\\Desktop\\Zone\\bench\\fixtures\\x64\\branch.bin', '--llm', '-ibp', '--llm-shots', '0', '--llm-retries', '1', '--llm-stats', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\llm_stats\\x64_branch_ibp_s0_1.json', '--llm-failed-output', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\llm_failed\\x64_branch_ibp_s0_1.asm', '-o', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\llm_outputs\\x64_branch_ibp_s0_1.bin']
+[llm] technique=ibp model=deepseek-flash
+[llm] endpoint=https://api.deepseek.com/v1/chat/completions
+[llm] extracting data before canonicalisation (use --llm-no-extract-data to skip)
+SYMBOLIC DATA ANALYSIS...
+[cache] hit e53d83e56442 in data_cache.json (0 sections, timeout=120.0s, created 2026-11-13T13:17:25)
+[cache] using the stored sections; --refresh-data-cache re-runs the symbolic search
+Data sections: 0
+Data xrefs: 0
+[extract] no movable data sections
+[llm] canonical listing: 68 code bytes, 0 data bytes, 0 getpc site(s)
+[llm] attempt 1/1: deepseek-flash / Instruction block permutation
+[llm] attempt 1: 8,590 tokens (2,331 in / 6,259 out), 28.6s, $0.003823
+[llm] static validation ok, 72 code bytes, 16 instructions, similarity 0.87
+[llm] accepted 72 bytes (72 code + 0 data)
+[llm] wrote C:\Users\ubu\Desktop\Zone\bench\run\llm_outputs\x64_branch_ibp_s0_1.bin (72 bytes, 1 attempt(s))
+Output: C:\Users\ubu\Desktop\Zone\bench\run\llm_outputs\x64_branch_ibp_s0_1.bin
+====================================================================
+[llm] run statistics
+  model:      deepseek-flash (DeepSeek-V4.1-Flash-1017)
+  technique:  ibp (x64)
+  attempts:   1 (1 API call(s), 0 rejected)
+  time:       28.6s total (API 28.6s, local 0.0s)
+  attempt 1: 28.6s, ok, similarity 0.87
+  tokens:     8,590 total = 2,331 input + 6,259 output
+              input: 1,920 cache hit + 411 cache miss (82.4% hit)
+              output: 6,259 (reasoning 6,080, 97.1%)
+  throughput: 218.6 output tokens/s (API time)
+  cost:       $0.003823 USD (off-peak)
+              input $0.000067 (hit $0.000006, miss $0.000062) + output $0.003755
+              prices: DeepSeek official USD/1M tokens; peak/off-peak UTC, holidays not modelled
+  payload:    72 code + 0 data bytes, 16 instructions
+  validation: ok, similarity 0.87
+====================================================================
+[llm] stats JSON: C:\Users\ubu\Desktop\Zone\bench\run\llm_stats\x64_branch_ibp_s0_1.json

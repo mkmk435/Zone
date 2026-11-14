@@ -1,0 +1,82 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "nop",
+  "arch": "x86",
+  "started_at": "2026-11-13T22:08:27.353358+00:00",
+  "finished_at": "2026-11-13T22:11:17.467659+00:00",
+  "ok": false,
+  "error": "branch at 0x332 targets 0x39e, which is not an instruction boundary; data references disappeared from the payload: DATA offset 0x132 x1",
+  "timing": {
+    "wall_seconds": 170.114,
+    "api_seconds": 170.075,
+    "local_seconds": 0.039
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 1,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 170.114,
+      "api_seconds": 170.075,
+      "accepted": false,
+      "similarity": 0.0,
+      "code_bytes": 0,
+      "data_bytes": 0,
+      "instructions": 0,
+      "error": "branch at 0x332 targets 0x39e, which is not an instruction boundary; data references disappeared from the payload: DATA offset 0x132 x1"
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T22:08:27.353358+00:00",
+      "seconds": 170.075,
+      "finish_reason": "stop",
+      "content_chars": 4178,
+      "usage": {
+        "prompt_tokens": 5787,
+        "completion_tokens": 44581,
+        "total_tokens": 50368,
+        "cache_hit_tokens": 1792,
+        "cache_miss_tokens": 3995,
+        "reasoning_tokens": 42694
+      },
+      "cost_usd": 0.027353226,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 5787,
+    "completion_tokens": 44581,
+    "total_tokens": 50368,
+    "cache_hit_tokens": 1792,
+    "cache_miss_tokens": 3995,
+    "reasoning_tokens": 42694
+  },
+  "cost_usd": {
+    "total": 0.027353226,
+    "cache_hit": 5.376e-06,
+    "cache_miss": 0.00059925,
+    "output": 0.0267486,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.3097,
+  "reasoning_ratio": 0.9577,
+  "payload": {
+    "code_bytes": 0,
+    "data_bytes": 0,
+    "instructions": 0,
+    "similarity": 0.0
+  },
+  "errors": [
+    "branch at 0x332 targets 0x39e, which is not an instruction boundary; data references disappeared from the payload: DATA offset 0x132 x1"
+  ],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

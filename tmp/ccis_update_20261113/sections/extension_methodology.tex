@@ -1,0 +1,90 @@
+\section{Additional Experimental Methodology}\label{sec:methodology}
+\subsection{Corpora, Frozen Versions, and Observables}
+Three additional cohorts complement the original study. The benign
+functional corpus contains seven x64 and six x86 fixtures covering
+arithmetic, branches, loops, local calls, mixed control flow, strings,
+and an x64 address-acquisition case. Expected writes are declared
+before transformation in a 256-byte buffer; all remaining bytes must
+retain their \texttt{0xCC} sentinel. A separate C runner executes the
+code and returns the complete buffer. All thirteen originals pass
+their checks before transformation.
+
+Six further classifier fixtures have independent data-range annotations:
+two multi-region cases (one per architecture), an x64 binary table,
+two inputs without data, and an x64 case containing ASCII-like code
+that must not be classified as data. The model receives neither these
+annotations nor the other method's answer. These fixtures support
+reference-based assessment; they do not represent the diversity of
+arbitrary Windows payloads.
+
+Snapshot B1 (13 November, 13:07 CET) is used for the benign native
+matrix and x64 LLM runs. Snapshot B2 (14:05 CET) is used for the
+x86 LLM and wrapping tests and the classifier evaluation.
+The payload campaign uses the separately named B3 copy, whose hashed
+rewriting and LLM modules match B2. Snapshot identity, architecture,
+corpus, and call policy remain associated with each result. B1/B2
+architecture comparisons consequently do not isolate architecture
+alone. The current full-payload matrix comprises 38 x64 and 64 x86
+inputs with three wrapping runs each; all 102 originals pass the
+stated current harness checks. Its network, port, dialog, or clean-exit
+observables are weaker than the benign buffer oracle.
+
+\subsection{Counting, Classification, and Functional Measures}
+For $N$ planned cases, $B$ constructed outputs, and $W$ successful
+functional checks, we report $B/N$, $W/N$, and $W/B$ separately.
+Unbuilt cases remain in planned-case denominators. Repeated tests of
+one failed output do not become independent variants. The benign LLM
+matrix uses three single-generation invocations per cell; rejected
+answers and transport failures remain in its denominator. The ongoing
+payload driver has a separate retry policy, with completed cells and
+generation attempts counted independently.
+
+Identification uses exact equality of annotated and reported interval
+sets, complemented by missed data bytes and code bytes classified
+as data. Data-positive precision and recall are $|P\cap G|/|P|$
+and $|P\cap G|/|G|$ for predicted and reference byte sets $P,G$.
+Empty-data cases are assessed through exact empty-set decisions;
+undefined precision/recall are not assigned favorable numerical values.
+For real payloads without independent labels, the comparison is
+agreement and downstream functionality. Reported LLM proposals,
+symbolically extracted regions, and final binary hashes are different
+output stages and are not treated as interchangeable annotations.
+
+\subsection{Similarity, Static Verdicts, and Cost}
+The additional LLM score is the normalized instruction-sequence
+matching ratio from \texttt{SequenceMatcher}, $2M/(u+v)$ for $M$
+matched elements and sequence lengths $u,v$~\cite{python_difflib}.
+NOP-like operations are filtered in that condition, so a value of one
+does not imply byte identity. Table~\ref{tab:new_llm_benign} averages
+this score over accepted outputs only. Exact diversity counts unique
+hashes, both within conditions and across the cohort. Neither score
+establishes semantic equivalence. The historical cosine and entropy
+measurements remain in Section~\ref{sect:var_metrics}.
+
+For completed static scans, $d_i=m_i/a_i$ is the per-file fraction of
+malicious verdicts, and $q$ is the fraction of files with any malicious
+verdict. The completed earlier 2026 cohort below uses all 75 reported
+engine responses in $a_i$; unsupported formats, timeouts, and failures
+are separately disclosed. These are not benign verdicts. A pending
+scan has neither a measured $d_i$ nor a zero detection result.
+Scan deduplication is per hash, while a shared hash retains membership
+in every experimental group to which it belongs. Group counts are
+therefore not summed to obtain the union.
+
+Time and cost are taken from the saved records. Costs are local tariff
+estimates rather than invoices; failed invocations are included.
+The classifier payload-arm medians include different preparation and
+analysis work and are not a controlled claim of general speedup.
+Evidence tables, source hashes, and experiment settings are frozen
+at 21:20 CET on 13 November 2026. Later writes to active campaign
+logs are outside this manuscript snapshot.
+
+\subsection{Validity of the Extensions}\label{sec:extension_limits}
+Bounded exploration, missing environment behavior, reference support,
+and shared deterministic filtering limit attribution to the classifier
+alone. Buffer equality exercises a specified observable, while a
+successful connection or dialog supplies narrower evidence. Different
+snapshots, input selection, model aliases, and scan dates limit causal
+comparisons. The benign corpus is deliberately small and structured;
+its outcomes are not extrapolated to the unfinished payload LLM
+matrix or to deployed endpoint products.

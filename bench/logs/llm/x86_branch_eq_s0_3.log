@@ -1,0 +1,38 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+[llm] technique=eq model=deepseek-flash
+[llm] endpoint=https://api.deepseek.com/v1/chat/completions
+[llm] extracting data before canonicalisation (use --llm-no-extract-data to skip)
+SYMBOLIC DATA ANALYSIS...
+[cache] hit e9ff8e423a47 in data_cache.json (0 sections, timeout=120.0s, created 2026-11-13T17:17:56)
+[cache] using the stored sections; --refresh-data-cache re-runs the symbolic search
+Data sections: 0
+Data xrefs: 0
+[extract] no movable data sections
+[llm] canonical listing: 55 code bytes, 0 data bytes, 0 getpc site(s)
+[llm] attempt 1/1: deepseek-flash / Equal code substitution
+[llm] attempt 1: 4,408 tokens (2,576 in / 1,832 out), 10.4s, $0.001128
+[llm] static validation ok, 55 code bytes, 14 instructions, similarity 1.00
+[llm] warning: eq did not change any instruction; the technique may not have been applied
+[llm] accepted 55 bytes (55 code + 0 data)
+[llm] wrote C:\Users\ubu\Desktop\Zone\bench\run\llm_outputs\x86_branch_eq_s0_3.bin (55 bytes, 1 attempt(s))
+Output: C:\Users\ubu\Desktop\Zone\bench\run\llm_outputs\x86_branch_eq_s0_3.bin
+====================================================================
+[llm] run statistics
+  model:      deepseek-flash (DeepSeek-V4.1-Flash-1017)
+  technique:  eq (x86)
+  attempts:   1 (1 API call(s), 0 rejected)
+  time:       10.4s total (API 10.4s, local 0.0s)
+  attempt 1: 10.4s, ok, similarity 1.00
+  tokens:     4,408 total = 2,576 input + 1,832 output
+              input: 2,432 cache hit + 144 cache miss (94.4% hit)
+              output: 1,832 (reasoning 1,662, 90.7%)
+  throughput: 175.9 output tokens/s (API time)
+  cost:       $0.001128 USD (off-peak)
+              input $0.000029 (hit $0.000007, miss $0.000022) + output $0.001099
+              prices: DeepSeek official USD/1M tokens; peak/off-peak UTC, holidays not modelled
+  payload:    55 code + 0 data bytes, 14 instructions
+  validation: ok, similarity 1.00
+====================================================================
+[llm] stats JSON: C:\Users\ubu\Desktop\Zone\bench\run\llm_stats\x86_branch_eq_s0_3.json

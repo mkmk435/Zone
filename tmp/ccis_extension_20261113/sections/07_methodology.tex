@@ -1,0 +1,211 @@
+\section{Experimental Methodology}\label{sec:methodology}
+\subsection{Research Questions and Experimental Units}
+The extended assessment addresses four questions:
+\begin{description}
+\item[RQ1:] How do the symbolic/heuristic and LLM identification paths
+compare in candidate quality, agreement, coverage, and analysis cost?
+\item[RQ2:] What construction and functional outcomes are observed
+after data handling and transformation, and which failure stages
+account for unsuccessful cases?
+\item[RQ3:] What are the observed outcomes and representation changes
+for assembly wrapping in each assessed architecture?
+\item[RQ4:] How do zero-shot and two-shot LLM transformation differ
+in initial and final acceptance, functional outcomes, similarity,
+diversity, time, and cost?
+\end{description}
+
+The input payload is the unit for comparisons across methods. A run
+identifies one input and one configuration, while an attempt is a
+generation or validation step within that run. Multiple variants of
+one payload are repeated observations of the same input rather than
+independent samples of the Windows software population. Scan engines
+and repeated submissions of identical bytes are also not treated as
+independent payloads.
+
+\subsection{Corpora, Versions, and Configuration Matrix}
+The conference corpus consists of 102 inputs, divided into 38 x64 and
+64 x86 payloads~\cite{zone_secrypt_2026}. Extended campaigns are described
+by their own manifests. A subset selected for poor historical outcomes
+is identified as such; its aggregate result is not presented as a new
+measurement on all 102 inputs.
+
+Table~\ref{tab:campaign_manifest} reserves the information needed to
+reconstruct each campaign. Distinct payload count, repeated runs,
+constructed files, and unique output hashes remain separate counts.
+The final record includes input hashes, engine version or snapshot
+hash, architecture, prompt version, model configuration, and dependency
+versions. For identification, the analysis limits and cache status are
+also recorded.
+
+\begin{table}[t]
+\caption{Extended campaign manifest. Pending entries await the frozen
+experimental datasets; the historical corpus is specified in the text.}
+\label{tab:campaign_manifest}
+\centering\small
+\begin{tabularx}{\linewidth}{@{}Ylll@{}}
+\toprule
+Campaign & Inputs & Architectures & Replicates \\
+\midrule
+Code--data identification & \pending & x64/x86 & \pending \\
+Data handling and native methods & \pending & x64/x86 & \pending \\
+Assembly wrapping & \pending & x64 & \pending \\
+Assembly wrapping port & \pending & x86 (development) & \pending \\
+LLM transformation, 0/2 shot & \pending & \pending & \pending \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Model aliases can change independently of the client. The identifier
+sent in a request, the version returned by the service when available,
+and any version label assigned locally are therefore distinguished.
+A locally maintained tariff or alias table is not independent
+confirmation of the model version used by the provider.
+
+\subsection{Identification Quality and Reference Annotations}
+Where reference annotations are available, data is treated as the
+positive class. Let $G$ be the set of annotated data-byte offsets and
+$P$ the set predicted by the method. The byte-level measures are
+\begin{align}
+\mathrm{Precision}_{D} &= \frac{|P\cap G|}{|P|}, &
+\mathrm{Recall}_{D} &= \frac{|P\cap G|}{|G|},\\
+F_{1,D} &= \frac{2\,\mathrm{Precision}_{D}\,\mathrm{Recall}_{D}}
+ {\mathrm{Precision}_{D}+\mathrm{Recall}_{D}}.
+\end{align}
+Undefined cases, including inputs without reference data, are reported
+explicitly rather than assigned a favorable score. Code bytes predicted
+as data are counted as false positives and examined separately because
+their treatment can invalidate execution.
+
+Interval-level assessment complements byte-level scores. An exact
+boundary match and partial overlap are distinguished; the chosen
+overlap rule is stated with the results. Any reference bytes left
+unresolved by annotation are excluded from binary classification
+scores and their coverage is reported. The same treatment is used
+for all methods.
+
+Reference labels must be established independently of the evaluated
+method and associated with the original input offsets. The assessment
+retains raw candidates and post-filtering results separately. It can
+therefore attribute an error to identification or to acceptance and
+integration, rather than assigning every final outcome to the model.
+
+If independent labels are unavailable, the comparison is reported as
+agreement and a case study. Pairwise agreement between two methods,
+or byte identity of their final outputs, does not establish accuracy.
+Functionality after extraction is likewise reported as a downstream
+check rather than used to construct reference labels.
+
+\subsection{Build Success and Functional Outcomes}
+Let $N$ be the number of planned cases, $B$ the number producing an
+accepted binary, and $W$ the number passing the stated functional check.
+The assessment reports
+\begin{equation}
+\mathrm{BuildRate}=B/N,\qquad
+\mathrm{WorkingRate}_{\mathrm{all}}=W/N,\qquad
+\mathrm{WorkingRate}_{\mathrm{built}}=W/B.
+\end{equation}
+All three counts accompany the percentages. An unbuilt case is not
+removed from the first two denominators. An incomplete or unexecuted
+case remains distinguishable from a completed failing test.
+
+The functional oracle is specified by payload class. An observed
+connection, an opened port, a dialog, and exception-free termination
+are different observables with different evidential strength. The
+harness version, architecture, observation window, and relevant
+configuration are recorded. Original inputs are checked under the
+same current harness to characterize its baseline behavior.
+
+These observations do not prove complete semantic equivalence. A
+connection can occur before later execution fails; clean termination
+may not exercise the intended operation; and a dialog verifies only
+the behavior observed by that test. Conclusions retain the scope of
+the oracle actually used.
+
+For LLM runs, the record additionally distinguishes initial acceptance,
+acceptance within the retry budget, and the outcome of each functional
+check. If execution is part of generation-time acceptance, a subsequent
+pass rate on selected outputs is labeled accordingly. Exhausted runs
+remain in the run-level denominator.
+
+\subsection{Static-Scan Measurements}
+For completed file $i$, let $m_i$ be the number of malicious verdicts
+and $a_i$ the number of engines included by the stated eligibility rule.
+The per-file malicious-verdict fraction and its macro average are
+\begin{equation}
+d_i=m_i/a_i,\qquad
+\overline d=\frac{1}{F}\sum_{i=1}^{F}d_i.
+\end{equation}
+The file-level detected fraction is a separate measure,
+\begin{equation}
+q=\frac{1}{F}\sum_{i=1}^{F}\mathbf{1}[m_i>0].
+\end{equation}
+The term detection rate is not used to interchange these quantities.
+The report specifies whether unsupported engines, failed analyses,
+and timeouts enter $a_i$, and provides their counts. A pending
+analysis has no measured verdict fraction and is not recorded as zero.
+
+Files are submitted or retrieved by content identity. Repeated outputs
+with one hash can reuse a scan, while that hash can still belong to
+several experimental conditions. Deduplication of scanning is separated
+from membership in result groups. The analysis states whether summaries
+weight unique binaries, generation runs, or payloads equally.
+
+Scan dates and service metadata are retained. Historical and current
+campaigns may use different engine versions and submission contexts.
+Differences across such campaigns are not attributed solely to the
+transformation. Raw-binary verdicts are interpreted within their file
+format and service setting, without extrapolation to deployed endpoint
+detection.
+
+\subsection{Similarity, Diversity, and Representation Size}
+Every similarity score specifies its representation and reference.
+The sequence-based validation score in the current LLM path uses
+normalized instruction signatures and the matching-block ratio exposed
+by \texttt{SequenceMatcher}~\cite{python_difflib}. If $M$ signature
+elements occur in the selected matching blocks and the sequence lengths
+are $u$ and $v$, the ratio is $2M/(u+v)$. This is not cosine similarity.
+
+Normalization removes selected literal differences. In the NOP
+condition the implementation also removes recognized no-op operations
+before comparison. A score of one after that filtering indicates
+agreement under the defined representation; it does not indicate
+byte-identical files. The exact normalization version is retained with
+the experiment.
+
+For frequency-based comparison, let $A$ and $B$ be nonzero vectors
+under a common token vocabulary. Cosine similarity is
+\begin{equation}
+\mathrm{CosSim}(A,B)=\frac{A\cdot B}{\|A\|\,\|B\|}.
+\end{equation}
+The report states whether tokens are mnemonics alone or include
+operands, and whether the vectors describe an original/output pair
+or pooled corpus text. These constructions are not combined in one
+unqualified similarity column. With wrapping, the decoding view used
+to obtain tokens is also stated.
+
+Output diversity is measured independently of similarity to an input.
+The basic exact measure reports distinct hashes among completed
+outputs, both within a condition and across conditions. Repeated
+generation does not imply distinct bytes. Size is recorded as bytes
+and, for matched pairs, as $(L_{\mathrm{out}}-L_{\mathrm{in}})/L_{\mathrm{in}}$.
+Any entropy statistic identifies whether its symbols are raw bytes or
+assembly tokens; it remains descriptive rather than evidence of
+functional preservation.
+
+\subsection{Time, Cost, and Aggregation}
+The timing record separates analysis, preparation, model calls, local
+validation, and the stated total where these are available. Cached
+analysis and reused outputs are distinguished from newly computed
+runs. Costs include failed generation attempts as well as final
+accepted artifacts. Their currency, tariff date, and estimation rule
+are specified.
+
+Results are stratified by architecture and input population before
+aggregation. Repeated variants of the same input remain grouped when
+estimating uncertainty. For small pilots, individual counts and
+distributions are reported and broad population-level claims are
+avoided. Any statistical comparison is accompanied by its unit of
+analysis, uncertainty method, and treatment of missing observations.
+\draftnote{Finalize the campaign manifests, reference annotations,
+harness configuration, scan eligibility rule, model settings, and
+aggregation policy from the frozen experiment records.}

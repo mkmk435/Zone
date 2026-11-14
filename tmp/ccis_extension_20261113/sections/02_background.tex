@@ -1,0 +1,83 @@
+\section{Background and Related Work}\label{sec:background}
+\subsection{Metamorphism and Binary Rewriting}
+Metamorphic transformation changes the program body rather than merely
+changing an encoded copy and a decoder. Earlier engines explored
+register substitution, instruction replacement, and code reorganization;
+their development and detection are discussed
+in~\cite{historycodeobf,desai2008towards,desai2010highly,szor2001hunting}.
+Surveys place these approaches within the broader space of obfuscation
+and malware transformation~\cite{survey1,brezinski2023metamorphic,PEsurveybible}.
+
+Zone uses four established transformation families in addition to PII.
+Equal code substitution (EQ) changes the instruction representation of
+an operation. NOP insertion adds operations intended to leave relevant
+state unchanged. Instruction block permutation (IBP) changes the physical
+order of blocks while retaining their logical succession. Bogus control
+flow (BCF) adds paths with predetermined outcomes and regions excluded
+from the intended execution. These names describe transformation goals;
+correctness depends on the treatment of flags, registers, memory, and
+control-flow references in each implementation.
+
+Compiler-based obfuscation, exemplified by
+Obfuscator-LLVM~\cite{llvmobf}, operates with intermediate representations
+and information unavailable to a raw-binary rewriter. Native binary
+rewriting must first recover the instructions and references that it
+will modify~\cite{bin2binobf}. This difference is central to the
+code--data problem examined here.
+
+\subsection{Code--Data Identification}
+A disassembler assigns an instruction interpretation to byte sequences;
+that interpretation need not reflect the role of the bytes during
+execution. Linear decoding can traverse embedded strings, whereas
+control-flow recovery can miss paths that depend on unresolved values.
+The difficulties of recovering control flow from binaries have been
+studied beyond the payload setting~\cite{staticdisasmTuringComplete}.
+
+The angr framework exposes static control-flow recovery and symbolic
+execution as distinct forms of analysis~\cite{angr_cfg_docs}. The former
+provides candidate blocks; the latter can provide evidence of addresses
+visited under a model and resource budget. Missing environmental behavior
+and incomplete exploration limit both the recovered graph and the
+interpretation of unvisited addresses. The identification layer in this
+article combines these sources of evidence with explicit heuristics.
+It does not equate an unvisited byte with a proven data byte.
+
+\subsection{LLMs for Assembly Analysis and Transformation}
+Prior research has investigated LLM-generated metamorphic variants and
+assembly-level obfuscation, including the MetamorphASM study and its
+evaluation setting~\cite{llm2,llmobf}. Such work motivates examining model
+outputs as structured artifacts that require assembly and validation.
+The ability to produce plausible assembly is distinct from preserving
+the behavior of a particular input.
+
+Our extension separates two applications. The identification task asks
+for candidate data ranges. The transformation task asks for a modified
+assembly program under a specified transformation family. Deterministic
+checks surround both tasks, so the evaluated object is a complete
+pipeline as well as the model's initial proposal. The number of examples
+in the first prompt and the presence of subsequent feedback are reported
+separately.
+
+\subsection{Assembly Wrapping and Related Representations}
+Assembly wrapping exploits the possibility of overlapping instruction
+interpretations. The technique and its antecedents are discussed
+in~\cite{assembly_wrapping}. We adopt its established name and attribute
+the underlying idea; the contribution here is its implementation and
+assessment within Zone. It also exposes a measurement issue: a
+disassembly obtained from one entry interpretation may differ from the
+instruction stream actually followed during execution.
+
+Polymorphic encoding provides a complementary comparison. Shikata Ga Nai
+(SGN) combines an encoded body with a variable decoding
+routine~\cite{sgnarticle,sgn64,sgnstrong}. The recovered body can be
+examined after decoding, a scenario related to attack-code extraction
+from memory~\cite{codeExtraction}. This distinction concerns the
+representation presented to analysis; it does not imply a general
+ranking of endpoint defenses.
+
+Defensive research includes statistical sequence models, behavior-based
+identification, and learned signatures for metamorphic
+programs~\cite{wong2006hunting,identifyingmeth,methgenetic,metamorphic1}.
+Accordingly, the static-scan observations considered in this article
+represent one measurement setting among several relevant forms of
+analysis.

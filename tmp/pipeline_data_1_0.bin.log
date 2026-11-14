@@ -6,14 +6,11 @@ OPT_ARGS:  ['tmp/pipeline_data_1_0.bin.in', '-wrap', '-eq', '-nop', '-o', 'tmp/p
 CREO JUMP TABLE
 CREO LABEL TABLE
 [bad] expanded 0 short branch(es)
-ADDRESS DEL PRIMO DEC:  0x2d
-vecchia istruzione:  dec r10
-nuova istruzione:  sub r10, 1
 ##########################################
-BYTES ADDED:  0x1
+BYTES ADDED:  0x0
 ##########################################
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
 UPDATE INSTR
-[wrap] 29 instruction(s) hidden in 18 container(s), 4 raw, 2 ghost, 3 junk block(s): 106 -> 261 bytes
+[wrap] 18 instruction(s) hidden in 11 container(s), 4 raw, 3 ghost, 3 junk block(s): 81 -> 197 bytes
 FINE

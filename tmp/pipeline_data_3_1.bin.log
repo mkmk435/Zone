@@ -6,24 +6,27 @@ OPT_ARGS:  ['tmp/pipeline_data_3_1.bin.in', '-wrap', '-eq', '-nop', '-bcf', '-o'
 CREO JUMP TABLE
 CREO LABEL TABLE
 [bad] expanded 0 short branch(es)
-ADDRESS DEL PRIMO DEC:  0x2d
-vecchia istruzione:  dec r10
-nuova istruzione:  sub r10, 1
 ##########################################
-BYTES ADDED:  0x1
+BYTES ADDED:  0x0
 ##########################################
 UPDATE INSTR
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
 UPDATE INSTR
-REG:  rsi
-CODE:  pushf;push rsi;mov rsi, 227;add rsi, 0;cmp rsi, 227; pop rsi;popf;je 0x43
+REG:  r10
+CODE:  pushf;push r10; xor r10, r10;cmp r10, 0; pop r10;popf;je 0x2f
 UPDATE INSTR
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
 UPDATE INSTR
-REG:  rdi
-CODE:  pushf;push rdi;push 1;pop rdi;cmp rdi, 1; pop rdi;popf;je 0x62
+REG:  rcx
+CODE:  pushf;push rcx;mov rcx, 207;cmp rcx, 207;pop rcx;popf;je 0x56
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  rdx
+CODE:  pushf;push rdx;mov rdx, 222;test rdx, rdx; pop rdx;popf;je 0x70
 UPDATE INSTR
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
@@ -31,5 +34,5 @@ UPDATE INSTR
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
 UPDATE INSTR
-[wrap] 74 instruction(s) hidden in 45 container(s), 6 raw, 10 ghost, 8 junk block(s): 227 -> 642 bytes
+[wrap] 81 instruction(s) hidden in 51 container(s), 7 raw, 10 ghost, 7 junk block(s): 246 -> 704 bytes
 FINE

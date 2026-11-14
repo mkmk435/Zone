@@ -1,0 +1,12 @@
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['C:\\Users\\ubu\\Desktop\\Zone\\original_pl\\x64\\windows_x64_custom_bind_tcp.bin', '-xd', '--data-timeout', '20', '-o', 'C:\\Users\\ubu\\Desktop\\Zone\\tmp\\campaign\\probe1\\out.bin']
+SYMBOLIC DATA ANALYSIS...
+[cache] data_cache.json: unsupported schema; ignoring it
+[cache] saved 93687fa5d79b to data_cache.json
+Data sections: 1
+  0x1e6 (13 B) outside_cfg
+Data xrefs: 0
+[extract] skip outside_cfg range 0x1e6+13 (pass --extract-unknown to move it)
+[extract] no movable data sections
+Output: C:\Users\ubu\Desktop\Zone\tmp\campaign\probe1\out.bin
+FINE

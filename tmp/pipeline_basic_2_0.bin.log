@@ -10,32 +10,32 @@ UPDATE INSTR
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
 UPDATE INSTR
-REG:  r9
-CODE:  pushf;push r9;mov r9, 173;sub r9, 0;cmp r9, 173; pop r9;popf;je 0x4c
+REG:  r13
+CODE:  pushf;push r13;mov r13, 56;test r13, r13; pop r13;popf;je 0x38
 UPDATE INSTR
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
 UPDATE INSTR
-REG:  rax
-CODE:  pushf;push rax;sub rax, rax;cmp rax, 0; pop rax;popf;je 0x63
+REG:  r8
+CODE:  pushf;push r8;mov r8, 110;cmp r8, 110;pop r8;popf;je 0x52
 UPDATE INSTR
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
 UPDATE INSTR
-REG:  r10
-CODE:  pushf;cmp r10, r10;popf;je 0x7c
+REG:  rsi
+CODE:  pushf;push rsi;mov rsi, 199;and rsi, 0xffffffffffffffff;cmp rsi, 199; pop rsi;popf;je 0x89
 UPDATE INSTR
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
 UPDATE INSTR
 REG:  rbx
-CODE:  pushf;push rbx;mov rbx, 49;sub rbx, 0;cmp rbx, 49; pop rbx;popf;je 0xae
+CODE:  pushf;push rbx; xor rbx, rbx;cmp rbx, 0; pop rbx;popf;je 0x9e
 UPDATE INSTR
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
 UPDATE INSTR
-REG:  rdx
-CODE:  pushf;push rdx;push 39;pop rdx;cmp rdx, 39; pop rdx;popf;je 0xb8
+REG:  r14
+CODE:  pushf;push r14;push 248;pop r14;cmp r14, 248; pop r14;popf;je 0xd4
 UPDATE INSTR
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
@@ -43,5 +43,5 @@ UPDATE INSTR
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
 UPDATE INSTR
-[wrap] 61 instruction(s) hidden in 34 container(s), 8 raw, 6 ghost, 7 junk block(s): 208 -> 512 bytes
+[wrap] 63 instruction(s) hidden in 36 container(s), 10 raw, 9 ghost, 5 junk block(s): 226 -> 575 bytes
 FINE

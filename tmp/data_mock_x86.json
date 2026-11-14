@@ -1,0 +1,5 @@
+{"sections":[
+ {"offset":155,"length":11,"kind":"ascii","text":"user32.dll"},
+ {"offset":180,"length":11,"kind":"ascii","text":"MessageBox"},
+ {"offset":196,"length":17,"kind":"ascii","text":"Hello, from MSF!"}
+]}

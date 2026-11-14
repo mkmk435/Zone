@@ -1,0 +1,305 @@
+{
+  "pages": 27,
+  "unresolved_markers": [],
+  "page_summaries": [
+    {
+      "page": 1,
+      "characters": 2554,
+      "first_lines": [
+        "Zone: Extending a bin2bin Metamorphic Engine with",
+        "Code\u2013Data Identification and LLM Assistance",
+        "Stefano Bistarelli[0000\u22120001\u22127411\u22129678], Jacopo Di Benedetto, and",
+        "Francesco Santini[0000\u22120002\u22123935\u22124696]"
+      ]
+    },
+    {
+      "page": 2,
+      "characters": 3185,
+      "first_lines": [
+        "2 S. Bistarelli et al.",
+        "decoding routine. Both approaches challenge byte-pattern recognition, but they have",
+        "different implications for the representation available during execution [5,20].",
+        "ZoneprovidesamodularenvironmentforexaminingtheseeffectsoncompiledWin-"
+      ]
+    },
+    {
+      "page": 3,
+      "characters": 2857,
+      "first_lines": [
+        "Zone: An Extended bin2bin Metamorphic Engine 3",
+        "Sections2and3retain the background and engine design. The original experiments",
+        "and representation measurements appear in Sections4 and 5, followed by their limita-",
+        "tions and the SGN comparison (Sections6 and 7). Sections8, 9, and10 describe the"
+      ]
+    },
+    {
+      "page": 4,
+      "characters": 2173,
+      "first_lines": [
+        "4 S. Bistarelli et al.",
+        "Table 1. Instruction substitutions and corresponding encodings (x86). Reproduced from Table 1",
+        "of [4].",
+        "Original Inst. Morphed Inst. Orig. Bytes Morphed Bytes"
+      ]
+    },
+    {
+      "page": 5,
+      "characters": 1903,
+      "first_lines": [
+        "Zone: An Extended bin2bin Metamorphic Engine 5",
+        "Table 3. Flag-preserving insertion example. Reproduced from Table 3 of [4].",
+        "Instruction Compiled Opcode",
+        "PUSHF 0x9C"
+      ]
+    },
+    {
+      "page": 6,
+      "characters": 1939,
+      "first_lines": [
+        "6 S. Bistarelli et al.",
+        "Call Stub 1",
+        "Wrapped Inst. / payload",
+        "PAD (NOP)"
+      ]
+    },
+    {
+      "page": 7,
+      "characters": 2750,
+      "first_lines": [
+        "Zone: An Extended bin2bin Metamorphic Engine 7",
+        "2. Redirector Stub (Stub2). This component obtains the next logical instruction lo-",
+        "cation from the offset table and dispatches execution to it.",
+        "3. Offset Table.Thiscontiguoustablecontainstheinstructionoffsetsusedbytheredi-"
+      ]
+    },
+    {
+      "page": 8,
+      "characters": 2484,
+      "first_lines": [
+        "8 S. Bistarelli et al.",
+        "Architectural Variants. Listings 3 and 4 show the published x64 and x86 redirectors.",
+        "In addition to the different register widths, they differ in how the required address is",
+        "obtained: the x86 version uses the call-based mechanism documented in the original"
+      ]
+    },
+    {
+      "page": 9,
+      "characters": 2322,
+      "first_lines": [
+        "Zone: An Extended bin2bin Metamorphic Engine 9",
+        "Algorithm 1:High-levelZoneworkflow.ReproducedfromAlgorithm1of[ 4].",
+        "Data: raw_bytes",
+        "Result:Transformed binary"
+      ]
+    },
+    {
+      "page": 10,
+      "characters": 1875,
+      "first_lines": [
+        "10 S. Bistarelli et al.",
+        "nop eq pii bcf ibp",
+        "eq_nop_piieq_nop_bcfeq_nop_ibp",
+        "eq_nop eq_piieq_bcfeq_ibpnop_piinop_bcfnop_ibp"
+      ]
+    },
+    {
+      "page": 11,
+      "characters": 2102,
+      "first_lines": [
+        "Zone: An Extended bin2bin Metamorphic Engine 11",
+        "nop eq pii bcf ibp",
+        "eq_nop_piieq_nop_bcfeq_nop_ibp",
+        "eq_nop eq_piieq_bcfeq_ibpnop_piinop_bcfnop_ibp"
+      ]
+    },
+    {
+      "page": 12,
+      "characters": 1500,
+      "first_lines": [
+        "12 S. Bistarelli et al.",
+        "nop eq pii bcf ibp",
+        "eq_nop_piieq_nop_bcfeq_nop_ibp",
+        "eq_nop eq_piieq_bcfeq_ibpnop_piinop_bcfnop_ibp"
+      ]
+    },
+    {
+      "page": 13,
+      "characters": 1832,
+      "first_lines": [
+        "Zone: An Extended bin2bin Metamorphic Engine 13",
+        "nop eq pii bcf ibp",
+        "eq_nop_piieq_nop_bcfeq_nop_ibp",
+        "eq_nop eq_piieq_bcfeq_ibpnop_piinop_bcfnop_ibp"
+      ]
+    },
+    {
+      "page": 14,
+      "characters": 1876,
+      "first_lines": [
+        "14 S. Bistarelli et al.",
+        "nop eq pii bcf ibp",
+        "eq_nop_piieq_nop_bcfeq_nop_ibp",
+        "eq_nop eq_piieq_bcfeq_ibpnop_piinop_bcfnop_ibp"
+      ]
+    },
+    {
+      "page": 15,
+      "characters": 1884,
+      "first_lines": [
+        "Zone: An Extended bin2bin Metamorphic Engine 15",
+        "nop eq pii bcf ibp",
+        "eq_nop_piieq_nop_bcfeq_nop_ibp",
+        "eq_nop eq_piieq_bcfeq_ibpnop_piinop_bcfnop_ibp"
+      ]
+    },
+    {
+      "page": 16,
+      "characters": 2263,
+      "first_lines": [
+        "16 S. Bistarelli et al.",
+        "Table 6. Immediate-operand example. Reproduced from Table 6 of [4].",
+        "Bytes Instruction",
+        "0x8d b'Q' push rcx"
+      ]
+    },
+    {
+      "page": 17,
+      "characters": 3056,
+      "first_lines": [
+        "Zone: An Extended bin2bin Metamorphic Engine 17",
+        "8 Code\u2013Data Identification and Data-Preserving Rewriting",
+        "8.1 Problem Definition",
+        "Let an input payload be a byte sequence\ud835\udc35 = (\ud835\udc4f0, . . . , \ud835\udc4f\ud835\udc5b\u22121). The identification task"
+      ]
+    },
+    {
+      "page": 18,
+      "characters": 3206,
+      "first_lines": [
+        "18 S. Bistarelli et al.",
+        "observed during this run is not thereby proven unreachable or safe to move. The exper-",
+        "imental assessment records both the proposed intervals and the limits of the run that",
+        "produced them."
+      ]
+    },
+    {
+      "page": 19,
+      "characters": 2888,
+      "first_lines": [
+        "Zone: An Extended bin2bin Metamorphic Engine 19",
+        "8.5 Classification Outputs and Residual Uncertainty",
+        "Three outputs are retained for analysis: raw candidate intervals, intervals accepted by",
+        "deterministic checks, and intervals ultimately processed by the data layer. Equal final"
+      ]
+    },
+    {
+      "page": 20,
+      "characters": 2968,
+      "first_lines": [
+        "20 S. Bistarelli et al.",
+        "These labels apply to the first request in a run. After rejection, a later request may",
+        "contain the previous answer and validation feedback. Such a run remains assigned to",
+        "its initial prompting condition, but its later attempts are explicitly feedback-assisted."
+      ]
+    },
+    {
+      "page": 21,
+      "characters": 2907,
+      "first_lines": [
+        "Zone: An Extended bin2bin Metamorphic Engine 21",
+        "The relevant conceptual property is that the instruction interpretation obtained by a",
+        "particular static decoding need not be the instruction stream followed during execution.",
+        "This property makes it especially important to identify which representation is used by"
+      ]
+    },
+    {
+      "page": 22,
+      "characters": 2937,
+      "first_lines": [
+        "22 S. Bistarelli et al.",
+        "construction and functional outcomes after data handling, (iii) architecture-specific",
+        "wrapping outcomes, and (iv) zero-shot versus two-shot LLM transformation. The",
+        "original corpus and its measurements remain those of Sections4 and 5."
+      ]
+    },
+    {
+      "page": 23,
+      "characters": 3076,
+      "first_lines": [
+        "Zone: An Extended bin2bin Metamorphic Engine 23",
+        "Unsupported engines, errors, timeouts, scan dates, and pending analyses are accounted",
+        "for explicitly. Pending is not zero detection. Identical hashes may reuse a scan while",
+        "retaining their membership in several experimental conditions. The aggregation states"
+      ]
+    },
+    {
+      "page": 24,
+      "characters": 2357,
+      "first_lines": [
+        "24 S. Bistarelli et al.",
+        "Table 7. Additional code\u2013data assessment; entries await finalized experiments. Use",
+        "agreement/case-study reporting if independent labels are unavailable.",
+        "Method Inputs Precision \ud835\udc37 Recall\ud835\udc37 \ud835\udc391,\ud835\udc37"
+      ]
+    },
+    {
+      "page": 25,
+      "characters": 2735,
+      "first_lines": [
+        "Zone: An Extended bin2bin Metamorphic Engine 25",
+        "Table 9. Additional LLM transformation results. Similarity denotes the normalized sequence",
+        "score, distinct from the historical cosine measure. Pending scans have no measured detection",
+        "fraction."
+      ]
+    },
+    {
+      "page": 26,
+      "characters": 3108,
+      "first_lines": [
+        "26 S. Bistarelli et al.",
+        "replace the original evaluation. Their interpretation remains tied to the tested inputs,",
+        "analysis limits, functional observables, and scan conditions. Complete semantic equiv-",
+        "alence and general endpoint behavior require evidence beyond those observations."
+      ]
+    },
+    {
+      "page": 27,
+      "characters": 3260,
+      "first_lines": [
+        "Zone: An Extended bin2bin Metamorphic Engine 27",
+        "14. Javaheri, D., Lalbakhsh, P., Hosseinzadeh, M.: A novel method for detecting future gener-",
+        "ations of targeted and metamorphic malware based on genetic algorithm. IEEE Access9,",
+        "69951\u201369970 (2021)"
+      ]
+    }
+  ],
+  "out_of_page_characters": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ]
+}

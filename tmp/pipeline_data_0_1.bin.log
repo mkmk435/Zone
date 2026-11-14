@@ -9,5 +9,5 @@ CREO LABEL TABLE
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
 UPDATE INSTR
-[wrap] 9 instruction(s) hidden in 7 container(s), 4 raw, 1 ghost, 1 junk block(s): 59 -> 132 bytes
+[wrap] 9 instruction(s) hidden in 7 container(s), 4 raw, 0 ghost, 1 junk block(s): 59 -> 122 bytes
 FINE

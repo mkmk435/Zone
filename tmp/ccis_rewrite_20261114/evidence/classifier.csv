@@ -1,0 +1,13 @@
+arch,case,method,n,exact,false_positive_bytes,data_bytes,working,mean_seconds,cost_usd
+x64,databait,llm,3,3,0,0,3,4.633333333333333,0.001352322
+x64,databait,symbolic,1,1,0,0,1,2.4,0
+x64,multidata,llm,3,3,0,11,3,4.199999999999999,0.0014059440000000001
+x64,multidata,symbolic,1,1,0,11,1,2.6,0
+x64,nodata,llm,3,3,0,0,3,2.1,0.000447672
+x64,nodata,symbolic,1,1,0,0,1,2.4,0
+x64,table,llm,3,3,0,16,3,2.6333333333333333,0.000726708
+x64,table,symbolic,1,1,0,16,1,2.4,0
+x86,multidata,llm,3,3,0,11,3,4.4,0.001477794
+x86,multidata,symbolic,1,1,0,11,1,2.5,0
+x86,nodata,llm,3,3,0,0,3,1.8666666666666667,0.00050592
+x86,nodata,symbolic,1,1,0,0,1,2.3,0

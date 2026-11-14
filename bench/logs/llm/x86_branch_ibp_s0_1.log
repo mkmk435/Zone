@@ -1,0 +1,36 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+[llm] technique=ibp model=deepseek-flash
+[llm] endpoint=https://api.deepseek.com/v1/chat/completions
+[llm] extracting data before canonicalisation (use --llm-no-extract-data to skip)
+SYMBOLIC DATA ANALYSIS...
+[cache] hit e9ff8e423a47 in data_cache.json (0 sections, timeout=120.0s, created 2026-11-13T17:17:46)
+[cache] using the stored sections; --refresh-data-cache re-runs the symbolic search
+Data sections: 0
+Data xrefs: 0
+[extract] no movable data sections
+[llm] canonical listing: 55 code bytes, 0 data bytes, 0 getpc site(s)
+[llm] attempt 1/1: deepseek-flash / Instruction block permutation
+[llm] attempt 1: 10,376 tokens (2,335 in / 8,041 out), 39.2s, $0.004893
+[llm] static validation failed, 63 code bytes, 18 instructions, similarity 0.88
+[llm] rejected: IBP did not permute blocks: the original instruction order is unchanged (the tool requires at least two non-entry blocks to be reordered)
+[llm] last rejected answer saved to C:\Users\ubu\Desktop\Zone\bench\run\llm_failed\x86_branch_ibp_s0_1.asm
+====================================================================
+[llm] run statistics
+  model:      deepseek-flash (DeepSeek-V4.1-Flash-1017)
+  technique:  ibp (x86)
+  attempts:   1 (1 API call(s), 1 rejected)
+  time:       39.2s total (API 39.2s, local 0.0s)
+  attempt 1: 39.2s, rejected, IBP did not permute blocks: the original instruction orde...
+  tokens:     10,376 total = 2,335 input + 8,041 output
+              input: 1,920 cache hit + 415 cache miss (82.2% hit)
+              output: 8,041 (reasoning 7,851, 97.6%)
+  throughput: 205.3 output tokens/s (API time)
+  cost:       $0.004893 USD (off-peak)
+              input $0.000068 (hit $0.000006, miss $0.000062) + output $0.004825
+              prices: DeepSeek official USD/1M tokens; peak/off-peak UTC, holidays not modelled
+  errors:     IBP did not permute blocks: the original instruction order is unchanged (the tool requires at least two non-entry blocks to be reordered)
+====================================================================
+[llm] stats JSON: C:\Users\ubu\Desktop\Zone\bench\run\llm_stats\x86_branch_ibp_s0_1.json
+ERROR: the model did not produce a valid ibp listing after 1 attempt(s): IBP did not permute blocks: the original instruction order is unchanged (the tool requires at least two non-entry blocks to be reordered)

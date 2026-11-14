@@ -1,0 +1,70 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+SYMBOLIC DATA ANALYSIS...
+[cache] hit 1d6a53c3bcdf in data_cache.json (1 sections, timeout=120.0s, created 2026-11-13T13:10:58)
+[cache] using the stored sections; --refresh-data-cache re-runs the symbolic search
+Data sections: 1
+  0x9 (12 B) ascii
+Data xrefs: 1
+  0x4 -> 0x9 (12 B)
+REBUILT 22 INSTRUCTIONS (33/33 bytes)
+[extract] moving 1 section(s), 12 B
+  0x9 (12 B ascii) 'Hello, x86!'
+[extract] references to rewrite: 1
+CREO JUMP TABLE
+CREO LABEL TABLE
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  edi
+CODE:  pushfd;push edi;sub edi, edi;cmp edi, 0; pop edi;popfd;je 0x22
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  edx
+CODE:  pushfd;push edx;mov edx, 26;sub edx, 0;cmp edx, 26; pop edx;popfd;je 0x44
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  eax
+CODE:  pushfd;push eax; xor eax, eax;cmp eax, 0; pop eax;popfd;je 0x4e
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  ebx
+CODE:  pushfd;push ebx;mov ebx, 240;cmp ebx, 240;pop ebx;popfd;je 0x70
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  eax
+CODE:  pushfd;cmp eax, eax;popfd;je 0x76
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  ebx
+CODE:  pushfd;push ebx;mov ebx, 106;add ebx, 0;cmp ebx, 106; pop ebx;popfd;je 0x96
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  ecx
+CODE:  pushfd;push ecx; mov ecx, 173;or ecx, 0;cmp ecx, 173; pop ecx;popfd;je 0xb2
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+[extract] code 160 B + pad 0 B + data 17 B = 177 B
+[extract] data 0x9 -> 0xa5 (12 B)
+[extract] ref 0x4 (now 0x4): jmp 0xa0 -> 0xa5
+Output: C:\Users\ubu\Desktop\Zone\bench\run\outputs\x86_strings_bcf_3.bin
+FINE

@@ -1,0 +1,316 @@
+{
+  "pages": 28,
+  "unresolved_markers": [],
+  "page_summaries": [
+    {
+      "page": 1,
+      "characters": 2457,
+      "first_lines": [
+        "Zone: Extending a bin2bin Metamorphic Engine with",
+        "Code\u2013Data Identification and LLM Assistance",
+        "Stefano Bistarelli[0000\u22120001\u22127411\u22129678], Jacopo Di Benedetto, and",
+        "Francesco Santini[0000\u22120002\u22123935\u22124696]"
+      ]
+    },
+    {
+      "page": 2,
+      "characters": 3101,
+      "first_lines": [
+        "2 S. Bistarelli et al.",
+        "decoding routine. Both approaches challenge byte-pattern recognition, but they have",
+        "different implications for the representation available during execution [5,20].",
+        "ZoneprovidesamodularenvironmentforexaminingtheseeffectsoncompiledWin-"
+      ]
+    },
+    {
+      "page": 3,
+      "characters": 2713,
+      "first_lines": [
+        "Zone: An Extended bin2bin Metamorphic Engine 3",
+        "thatremainfunctional.SomeconfigurationsreceivednomaliciousverdictsintheVirus-",
+        "Total scans, but such observations are specific to the file format and testing conditions;",
+        "they do not establish general resistance to deployed endpoint products."
+      ]
+    },
+    {
+      "page": 4,
+      "characters": 2893,
+      "first_lines": [
+        "4 S. Bistarelli et al.",
+        "Table 1. Instruction substitutions and corresponding encodings (x86). Reproduced from Table 1",
+        "of [4].",
+        "Original Inst. Morphed Inst. Orig. Bytes Morphed Bytes"
+      ]
+    },
+    {
+      "page": 5,
+      "characters": 1907,
+      "first_lines": [
+        "Zone: An Extended bin2bin Metamorphic Engine 5",
+        "Table 2. NOP-like operations and their encodings. Reproduced from Table 2 of [4].",
+        "Example Compiled Opcode",
+        "NOP 0x90"
+      ]
+    },
+    {
+      "page": 6,
+      "characters": 1600,
+      "first_lines": [
+        "6 S. Bistarelli et al.",
+        "Table 4. Illustrative BCF block. Reproduced from Table 4 of [4].",
+        "Address Instruction",
+        "0x0 mov rax, 0x1"
+      ]
+    },
+    {
+      "page": 7,
+      "characters": 2750,
+      "first_lines": [
+        "Zone: An Extended bin2bin Metamorphic Engine 7",
+        "2. Redirector Stub (Stub2). This component obtains the next logical instruction lo-",
+        "cation from the offset table and dispatches execution to it.",
+        "3. Offset Table.Thiscontiguoustablecontainstheinstructionoffsetsusedbytheredi-"
+      ]
+    },
+    {
+      "page": 8,
+      "characters": 2484,
+      "first_lines": [
+        "8 S. Bistarelli et al.",
+        "Architectural Variants. Listings 3 and 4 show the published x64 and x86 redirectors.",
+        "In addition to the different register widths, they differ in how the required address is",
+        "obtained: the x86 version uses the call-based mechanism documented in the original"
+      ]
+    },
+    {
+      "page": 9,
+      "characters": 2322,
+      "first_lines": [
+        "Zone: An Extended bin2bin Metamorphic Engine 9",
+        "Algorithm 1:High-levelZoneworkflow.ReproducedfromAlgorithm1of[ 4].",
+        "Data: raw_bytes",
+        "Result:Transformed binary"
+      ]
+    },
+    {
+      "page": 10,
+      "characters": 1875,
+      "first_lines": [
+        "10 S. Bistarelli et al.",
+        "nop eq pii bcf ibp",
+        "eq_nop_piieq_nop_bcfeq_nop_ibp",
+        "eq_nop eq_piieq_bcfeq_ibpnop_piinop_bcfnop_ibp"
+      ]
+    },
+    {
+      "page": 11,
+      "characters": 2102,
+      "first_lines": [
+        "Zone: An Extended bin2bin Metamorphic Engine 11",
+        "nop eq pii bcf ibp",
+        "eq_nop_piieq_nop_bcfeq_nop_ibp",
+        "eq_nop eq_piieq_bcfeq_ibpnop_piinop_bcfnop_ibp"
+      ]
+    },
+    {
+      "page": 12,
+      "characters": 1500,
+      "first_lines": [
+        "12 S. Bistarelli et al.",
+        "nop eq pii bcf ibp",
+        "eq_nop_piieq_nop_bcfeq_nop_ibp",
+        "eq_nop eq_piieq_bcfeq_ibpnop_piinop_bcfnop_ibp"
+      ]
+    },
+    {
+      "page": 13,
+      "characters": 1832,
+      "first_lines": [
+        "Zone: An Extended bin2bin Metamorphic Engine 13",
+        "nop eq pii bcf ibp",
+        "eq_nop_piieq_nop_bcfeq_nop_ibp",
+        "eq_nop eq_piieq_bcfeq_ibpnop_piinop_bcfnop_ibp"
+      ]
+    },
+    {
+      "page": 14,
+      "characters": 1876,
+      "first_lines": [
+        "14 S. Bistarelli et al.",
+        "nop eq pii bcf ibp",
+        "eq_nop_piieq_nop_bcfeq_nop_ibp",
+        "eq_nop eq_piieq_bcfeq_ibpnop_piinop_bcfnop_ibp"
+      ]
+    },
+    {
+      "page": 15,
+      "characters": 1884,
+      "first_lines": [
+        "Zone: An Extended bin2bin Metamorphic Engine 15",
+        "nop eq pii bcf ibp",
+        "eq_nop_piieq_nop_bcfeq_nop_ibp",
+        "eq_nop eq_piieq_bcfeq_ibpnop_piinop_bcfnop_ibp"
+      ]
+    },
+    {
+      "page": 16,
+      "characters": 2263,
+      "first_lines": [
+        "16 S. Bistarelli et al.",
+        "Table 6. Immediate-operand example. Reproduced from Table 6 of [4].",
+        "Bytes Instruction",
+        "0x8d b'Q' push rcx"
+      ]
+    },
+    {
+      "page": 17,
+      "characters": 2947,
+      "first_lines": [
+        "Zone: An Extended bin2bin Metamorphic Engine 17",
+        "8 Code\u2013Data Identification and Data-Preserving Rewriting",
+        "8.1 Problem and Representations",
+        "For an input byte sequence\ud835\udc35 = (\ud835\udc4f0, . . . , \ud835\udc4f\ud835\udc5b\u22121), identification returns candidate data"
+      ]
+    },
+    {
+      "page": 18,
+      "characters": 2681,
+      "first_lines": [
+        "18 S. Bistarelli et al.",
+        "require separate x64 and x86 implementations even though the conceptual contract is",
+        "shared.",
+        "Aninvalidproposal cantriggerfeedbackandanotherrequestinthe generalpipeline."
+      ]
+    },
+    {
+      "page": 19,
+      "characters": 2936,
+      "first_lines": [
+        "Zone: An Extended bin2bin Metamorphic Engine 19",
+        "9.3 Validation and Independent Functional Assessment",
+        "Structural checks cover assembly, decoding coverage, tracked control flow, data consis-",
+        "tency, and family-specific requirements. A proposal can be rejected because it is mal-"
+      ]
+    },
+    {
+      "page": 20,
+      "characters": 3228,
+      "first_lines": [
+        "20 S. Bistarelli et al.",
+        "mixed control flow, strings, and an x64 address-acquisition case. Expected writes are",
+        "declaredbeforetransformationina256-bytebuffer;allremainingbytesmustretaintheir",
+        "0xCC sentinel. A separate C runner executes the code and returns the complete buffer."
+      ]
+    },
+    {
+      "page": 21,
+      "characters": 2689,
+      "first_lines": [
+        "Zone: An Extended bin2bin Metamorphic Engine 21",
+        "For completed static scans,\ud835\udc51\ud835\udc56 = \ud835\udc5a\ud835\udc56/\ud835\udc4e\ud835\udc56 is the per-file fraction of malicious verdicts,",
+        "and \ud835\udc5e is the fraction of files with any malicious verdict. The completed earlier 2026",
+        "cohortbelowusesall75reportedengineresponsesin \ud835\udc4e\ud835\udc56;unsupportedformats,timeouts,"
+      ]
+    },
+    {
+      "page": 22,
+      "characters": 2499,
+      "first_lines": [
+        "22 S. Bistarelli et al.",
+        "Table 7.Newnativefixtureresults. \ud835\udc41:attempts; \ud835\udc35:builds; \ud835\udc4a:correctcompletebuffers; \ud835\udc48:distinct",
+        "built-output hashes. B1/B2 identify different frozen engine versions.",
+        "Arch. Family Version \ud835\udc41 \ud835\udc35 \ud835\udc4a \ud835\udc48"
+      ]
+    },
+    {
+      "page": 23,
+      "characters": 2191,
+      "first_lines": [
+        "Zone: An Extended bin2bin Metamorphic Engine 23",
+        "Table 8. Benign DeepSeek transformation.\ud835\udc4a/\ud835\udc41 includes rejected and failed invocations.\ud835\udc46 is",
+        "mean sequence similarity over accepted outputs;\ud835\udc48/\ud835\udc35 is unique hashes per built output within the",
+        "condition. Time is mean invocation seconds; cost is the sum of local USD estimates."
+      ]
+    },
+    {
+      "page": 24,
+      "characters": 2869,
+      "first_lines": [
+        "24 S. Bistarelli et al.",
+        "Table 10.Fulloriginal-corpuswrappingcampaign,B3.Theharnessobservablesaredistinctfrom",
+        "the benign exact-buffer oracle.\ud835\udc48 counts distinct constructed hashes.",
+        "Arch. Inputs \ud835\udc35/\ud835\udc41 \ud835\udc4a /\ud835\udc41 \ud835\udc4a /\ud835\udc35 \ud835\udc48"
+      ]
+    },
+    {
+      "page": 25,
+      "characters": 2395,
+      "first_lines": [
+        "Zone: An Extended bin2bin Metamorphic Engine 25",
+        "Table 11. Completed earlier 2026 raw-file cohort.\ud835\udc5e is detected hashes over completed hashes;\ud835\udc51",
+        "is the percentage of all reported engine responses that are malicious, averaged per file.\ud835\udc5a is mean",
+        "malicious-engine count. These are separate measures."
+      ]
+    },
+    {
+      "page": 26,
+      "characters": 2955,
+      "first_lines": [
+        "26 S. Bistarelli et al.",
+        "tion[11].Formetamorphicprograms,detectionstudieshaveconsideredHiddenMarkov",
+        "Models [27,8], API-trace similarity [29], and genetic-algorithm-based methods [14].",
+        "More recent work examines LLM-based assembly transformation, including the"
+      ]
+    },
+    {
+      "page": 27,
+      "characters": 3447,
+      "first_lines": [
+        "Zone: An Extended bin2bin Metamorphic Engine 27",
+        "References",
+        "1. 0x4ndr3: Assembly wrapping: A technique for anti-disassembly. Author\u2019s technical article,",
+        "June 8 (2020),https://0x4ndr3.github.io/posts/assembly-wrapping-a-new-technique-for-ant"
+      ]
+    },
+    {
+      "page": 28,
+      "characters": 2249,
+      "first_lines": [
+        "28 S. Bistarelli et al.",
+        "19. Mohseni, S., Mohammadi, S., Tilwani, D., Saxena, Y., Ndawula, G.K., Vema, S., Raff, E.,",
+        "Gaur, M.: Can LLMs obfuscate code? a systematic analysis of large language models into as-",
+        "sembly code obfuscation. In: Proceedings of the AAAI Conference on Artificial Intelligence."
+      ]
+    }
+  ],
+  "out_of_page_characters": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ]
+}

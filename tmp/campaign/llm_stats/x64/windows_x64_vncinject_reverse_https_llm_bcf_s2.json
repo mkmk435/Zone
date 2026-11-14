@@ -1,0 +1,82 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "bcf",
+  "arch": "x64",
+  "started_at": "2026-11-13T20:35:14.573672+00:00",
+  "finished_at": "2026-11-13T20:38:37.330613+00:00",
+  "ok": false,
+  "error": "RET_2b3 is not immediately after a call (previous line: 'L_2b3:')",
+  "timing": {
+    "wall_seconds": 202.757,
+    "api_seconds": 202.722,
+    "local_seconds": 0.034
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 1,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 202.757,
+      "api_seconds": 202.723,
+      "accepted": false,
+      "similarity": 0.0,
+      "code_bytes": 0,
+      "data_bytes": 0,
+      "instructions": 0,
+      "error": "RET_2b3 is not immediately after a call (previous line: 'L_2b3:')"
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T20:35:14.573672+00:00",
+      "seconds": 202.722,
+      "finish_reason": "stop",
+      "content_chars": 5845,
+      "usage": {
+        "prompt_tokens": 4782,
+        "completion_tokens": 53192,
+        "total_tokens": 57974,
+        "cache_hit_tokens": 1792,
+        "cache_miss_tokens": 2990,
+        "reasoning_tokens": 50352
+      },
+      "cost_usd": 0.032369076,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 4782,
+    "completion_tokens": 53192,
+    "total_tokens": 57974,
+    "cache_hit_tokens": 1792,
+    "cache_miss_tokens": 2990,
+    "reasoning_tokens": 50352
+  },
+  "cost_usd": {
+    "total": 0.032369076,
+    "cache_hit": 5.376e-06,
+    "cache_miss": 0.0004485,
+    "output": 0.0319152,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.3747,
+  "reasoning_ratio": 0.9466,
+  "payload": {
+    "code_bytes": 0,
+    "data_bytes": 0,
+    "instructions": 0,
+    "similarity": 0.0
+  },
+  "errors": [
+    "RET_2b3 is not immediately after a call (previous line: 'L_2b3:')"
+  ],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

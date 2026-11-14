@@ -1,0 +1,79 @@
+\section{Introduction}\label{sec:introduction}
+Rewriting a binary changes the evidence available to an analyst without
+necessarily changing the computation that the binary performs. This
+distinction motivates the study of metamorphic transformations, both as
+a software-protection mechanism and as a challenge for malware
+analysis~\cite{PEsurveybible,metamorphic1,metamorphic2}. A useful assessment
+must establish what was transformed, whether the intended behavior was
+retained, and how the resulting representation was measured. These
+questions become particularly difficult when executable instructions and
+embedded data share a raw binary address space.
+
+Zone provides a payload-level setting in which to investigate these
+questions. Its binary-to-binary interface accepts compact Windows x86
+and x64 inputs without source code or debugging information. The original
+engine implements instruction substitution, insertion, and control-flow
+transformations, including the Position-Independent Instruction (PII)
+representation introduced in our SECRYPT 2026
+paper~\cite{zone_secrypt_2026}. The present work retains that scope while
+expanding the analysis and transformation paths.
+
+\paragraph{Motivation.}
+A sequence of bytes can be both a valid instruction encoding and part of
+a string or another data object. Successful decoding therefore provides
+insufficient evidence that the bytes should be rewritten as instructions.
+The conference study identified this ambiguity as a source of functional
+failures. Addressing it requires more than a different transformation:
+the engine must identify candidate data, preserve its contents, and
+maintain the references through subsequent layout changes. Failures at
+any of these stages can invalidate an otherwise well-formed output.
+
+LLMs introduce two further questions. They can be used to classify
+regions of a binary, and they can be asked to transform an assembly
+representation. The first task produces candidate labels or intervals;
+the second produces a new instruction sequence. They have different
+outputs, validation requirements, and failure modes. We consequently
+study them as separate components, even though both interact with the
+same data-handling infrastructure.
+
+\paragraph{Relationship to the Conference Paper and Contributions.}
+The original engine, PII design, and initial experiments appeared
+in~\cite{zone_secrypt_2026}. The present article synthesizes that material
+as a historical baseline and adds the following work:
+\begin{enumerate}
+\item A code--data identification layer combining bounded symbolic
+exploration, static control-flow recovery, and complementary heuristics,
+with an alternative LLM-based identification path and shared deterministic
+data handling.
+\item An LLM-assisted assembly-transformation pipeline for four
+transformation families, with explicit zero-shot and two-shot conditions,
+structural validation, and feedback after rejected attempts.
+\item Integration of assembly wrapping, an existing technique, into Zone,
+with the x64 implementation distinguished from the x86 port currently
+under development.
+\item An expanded assessment framework separating identification quality,
+construction success, functional outcomes, static-scan observations,
+similarity, diversity, and computational cost.
+\end{enumerate}
+The results of the additional campaigns are kept separate from the
+published measurements. Reused visual material is attributed at its
+point of use. The statement accompanying the submission details these
+differences for the editors.
+
+\paragraph{Scope.}
+The subject is raw payload rewriting rather than complete Portable
+Executable (PE) transformation. PE sections, imports, relocations, and
+loader behavior introduce dependencies outside the experiments considered
+here. Payload-level functional checks also capture only the behavior
+observed by the chosen harness. Neither a valid assembly listing nor an
+accepted raw-file scan establishes preservation of all program behaviors
+or the response of a deployed endpoint product.
+
+The article first introduces the relevant work
+(Section~\ref{sec:background}) and Zone's architecture
+(Section~\ref{sec:architecture}). Sections~\ref{sec:code_data},
+\ref{sec:llm}, and~\ref{sec:wrapping} describe the extensions.
+Section~\ref{sec:methodology} defines the assessment, and
+Section~\ref{sec:results} separates historical and extended results.
+Section~\ref{sec:discussion} discusses validity and remaining limitations;
+Section~\ref{sec:conclusions} concludes.

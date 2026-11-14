@@ -1,0 +1,82 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "nop",
+  "arch": "x86",
+  "started_at": "2026-11-13T22:10:34.273084+00:00",
+  "finished_at": "2026-11-13T22:14:29.779817+00:00",
+  "ok": false,
+  "error": "data references disappeared from the payload: DATA offset 0x152 x1; nop did not insert any instruction; the technique was not applied",
+  "timing": {
+    "wall_seconds": 235.507,
+    "api_seconds": 235.483,
+    "local_seconds": 0.024
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 1,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 235.507,
+      "api_seconds": 235.483,
+      "accepted": false,
+      "similarity": 0.0,
+      "code_bytes": 0,
+      "data_bytes": 0,
+      "instructions": 0,
+      "error": "data references disappeared from the payload: DATA offset 0x152 x1; nop did not insert any instruction; the technique was not applied"
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T22:10:34.273084+00:00",
+      "seconds": 235.483,
+      "finish_reason": "stop",
+      "content_chars": 4055,
+      "usage": {
+        "prompt_tokens": 5673,
+        "completion_tokens": 53943,
+        "total_tokens": 59616,
+        "cache_hit_tokens": 1792,
+        "cache_miss_tokens": 3881,
+        "reasoning_tokens": 52103
+      },
+      "cost_usd": 0.032953326,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 5673,
+    "completion_tokens": 53943,
+    "total_tokens": 59616,
+    "cache_hit_tokens": 1792,
+    "cache_miss_tokens": 3881,
+    "reasoning_tokens": 52103
+  },
+  "cost_usd": {
+    "total": 0.032953326,
+    "cache_hit": 5.376e-06,
+    "cache_miss": 0.00058215,
+    "output": 0.0323658,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.3159,
+  "reasoning_ratio": 0.9659,
+  "payload": {
+    "code_bytes": 0,
+    "data_bytes": 0,
+    "instructions": 0,
+    "similarity": 0.0
+  },
+  "errors": [
+    "data references disappeared from the payload: DATA offset 0x152 x1; nop did not insert any instruction; the technique was not applied"
+  ],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

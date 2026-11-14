@@ -1,0 +1,2392 @@
+[
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_http_wrap_1.bin",
+    "sha256": "25e5e70adb43dd49f85dd0431279a7be85bb71af4f9e31228447bd25cf0d9480",
+    "size": 2486,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_http_wrap_10.bin",
+    "sha256": "2e7fb1fa635eca0ceedb28eb40691b0eec62779916a9051abf7d75b86fa63d6f",
+    "size": 2390,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_http_wrap_2.bin",
+    "sha256": "c2f0aa3e3fb232fdf997b47fd23ee75b6382d53ee115c36d0b3e3579d44afc3d",
+    "size": 2438,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_http_wrap_3.bin",
+    "sha256": "cd0e8d7f1f88963fc3f3418dc6076ef8c15a03b466b4723862bad664f1bc74f8",
+    "size": 2406,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_http_wrap_4.bin",
+    "sha256": "b249d4cb79d1f8a913630a28d092a3456c7713d029e8cb699c92feabd6fcdfd3",
+    "size": 2342,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_http_wrap_5.bin",
+    "sha256": "91d91bc698110dfd352f1d2362d2dddcf04239550ef55902e5f59cc3e52c4f67",
+    "size": 2534,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_http_wrap_6.bin",
+    "sha256": "af4f3f698f5ba1d815e2c9aad707869d1398f32c347e39ab418682d3a2cb3ff8",
+    "size": 2278,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_http_wrap_7.bin",
+    "sha256": "e29304d2bf0bf8aecf2eee5c5eeffc124a46fb952d905ff2b616239b80af1dbf",
+    "size": 2310,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_http_wrap_8.bin",
+    "sha256": "60b50de5beacee8985568b90d12178616fce764d9d0b0a3f92e7821a57ee3442",
+    "size": 2390,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_http_wrap_9.bin",
+    "sha256": "5a4fa07ba13e952c5ee8153f789c8ad2684cf56944571e92cadc60bc6a1e0aa3",
+    "size": 2422,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_http_wrap_full_1.bin",
+    "sha256": "06585150e2812bb16c50c62e2fd5b13682383aa42231a298eac01417d840dd06",
+    "size": 21190,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_http_wrap_full_10.bin",
+    "sha256": "1aac7e889acc8ee6289ae4535515c8dc600b609174c704b51f8ebc0371869fea",
+    "size": 21222,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_http",
+    "working": "FAIL",
+    "detail": "exited rc=3221225477"
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_http_wrap_full_2.bin",
+    "sha256": "1f72e7aeaecbbee0c262f33beb3d38142200df0b5f6696c7c2ad8de765971bb4",
+    "size": 25814,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_http_wrap_full_3.bin",
+    "sha256": "29eefb16b48be237e2d2277e8edc5232115853c4894d05e47306a9f7025892d0",
+    "size": 23398,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_http_wrap_full_4.bin",
+    "sha256": "eb8580890cf13b6bc733a33bd987b327080e21c3df0b2c9004cbc26f6bb1cba0",
+    "size": 22790,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_http_wrap_full_5.bin",
+    "sha256": "b8a95a3a4f52ec16d0649f8a3bdb892a7e182f2fe88dd4e785b16cd407b58e83",
+    "size": 21286,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_http_wrap_full_6.bin",
+    "sha256": "8ad4454dc5a903da06f1bdc710a327e2984c2a36b9ab311a085975f7f24e286e",
+    "size": 18582,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_http_wrap_full_7.bin",
+    "sha256": "fc32c49987b3f9b3ff8bdef92faa122b5862284ecc6c51389a376f73fe1e3ee3",
+    "size": 17158,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_http_wrap_full_8.bin",
+    "sha256": "812e2b983602f6824e4e75e6cc8b0937fbbdabe64697b8ef3dbb6142818580d4",
+    "size": 23142,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_http_wrap_full_9.bin",
+    "sha256": "bdde0cdc2855c46faa017167ff4b7aa0d29d487f66ed66dbda92b05ac51ce0ff",
+    "size": 21430,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_https_wrap_1.bin",
+    "sha256": "048e36dee43bfbff1efe09178892cd747bdf08c96e3b3753f1b629b8e7ec3cad",
+    "size": 2538,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_https_wrap_10.bin",
+    "sha256": "1d0a7eb75280d47ecec176294d498a4df781cff1eb065a0ad262fc2a3d2415b1",
+    "size": 2538,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_https_wrap_2.bin",
+    "sha256": "fb52c6bbb613baa83c9876b107acfdeda033763f85541589a8df4b5c42cdea04",
+    "size": 2426,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_https_wrap_3.bin",
+    "sha256": "fb52c6bbb613baa83c9876b107acfdeda033763f85541589a8df4b5c42cdea04",
+    "size": 2426,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_https_wrap_4.bin",
+    "sha256": "fb52c6bbb613baa83c9876b107acfdeda033763f85541589a8df4b5c42cdea04",
+    "size": 2426,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_https_wrap_5.bin",
+    "sha256": "6b3c78952629ff4dab9ac928a7a675aa881c72aa8816d01b3f93a342978df434",
+    "size": 2554,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_https_wrap_6.bin",
+    "sha256": "e84f3199a69c7706d849f45db0e824e81bce28648ec6129aee473c9396049426",
+    "size": 2282,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_https_wrap_7.bin",
+    "sha256": "95b84bcfb242a18df51bd65d00f9b4b4384baa9d87bcdb87cd1a9bd4d90d4510",
+    "size": 2426,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_https_wrap_8.bin",
+    "sha256": "95b84bcfb242a18df51bd65d00f9b4b4384baa9d87bcdb87cd1a9bd4d90d4510",
+    "size": 2426,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_https_wrap_9.bin",
+    "sha256": "607ceaecb303c22f61ab51efcfb0b111b82f6a7748308f485fadcb7ac0611554",
+    "size": 2490,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_https_wrap_full_1.bin",
+    "sha256": "65ff60a4e809343f981e5b3da8903cf83c5c477c52bec6b8983c6582da9d35ab",
+    "size": 22074,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_https_wrap_full_10.bin",
+    "sha256": "00ea3cbaddf1ea46f1a0458276e61ee2e50155aaa1f1e563b6b7588c24c3ebe8",
+    "size": 22106,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_https_wrap_full_2.bin",
+    "sha256": "c50fe562cbd80f14e3bab65691e3098f834eb32a3c2445de2aecf69c045a8418",
+    "size": 21034,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_https_wrap_full_3.bin",
+    "sha256": "b5f8a1bc3fb55a08f722292d39289e22f1d06d5f645651e9ba9e934d72f5b5fe",
+    "size": 22170,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_https_wrap_full_4.bin",
+    "sha256": "499db0f5194ae13fbfe2987ed49694f5576cdf37ee865bcca8393079b5f77b71",
+    "size": 20842,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_https_wrap_full_5.bin",
+    "sha256": "fdf798ee787cc447d78a3bc48f9b3091786c3c937969edf35a4ac376ec9030e3",
+    "size": 20666,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_https_wrap_full_6.bin",
+    "sha256": "6c57f850c8edf6bc3566a3ed1687b36bf08909567ff130cab82db1f0ad150ee7",
+    "size": 23050,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_https_wrap_full_7.bin",
+    "sha256": "8fcb1ad7e919b43e181afff66fbead728f6cae3218101b187775027379bd70ec",
+    "size": 22714,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_https_wrap_full_8.bin",
+    "sha256": "9894c61fcca97df2f498ae412970951da128c1ad34f2cc991ce3eed80a8b7746",
+    "size": 22346,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_https_wrap_full_9.bin",
+    "sha256": "994c93d272d139c35156b7cd10c0a25ffbca4fd0113b09ad178877224510c041",
+    "size": 24250,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_winhttp_wrap_1.bin",
+    "sha256": "e1422dd05591a3671fbee4a2b490e9c4dc52b168c6f2e0a043995da45d2fa346",
+    "size": 3179,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_winhttp_wrap_10.bin",
+    "sha256": "c834f9882a8fe8b5073397b53b5833cd0b3db8fa6a828f3a371863aa5e3136a0",
+    "size": 3227,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_winhttp_wrap_2.bin",
+    "sha256": "14d4567041ededa00abcd61a7e04909dcfce16b4d31d4e58adf69c652d2782e2",
+    "size": 3243,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_winhttp_wrap_3.bin",
+    "sha256": "cefcbd64ac51790e19e15539ff7e42f027e385a23cb30f17afdf3559deddd634",
+    "size": 3291,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_winhttp_wrap_4.bin",
+    "sha256": "92227c1484062d033c0eec5cf4ccf2dc0948565a3c8db9c8838e2662bc582b40",
+    "size": 3163,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_winhttp_wrap_5.bin",
+    "sha256": "3722f8b5e4321d9faf71f2e9472c66c0e1a8dad82c1661a6e3b3f56b2d3d54a2",
+    "size": 3291,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_winhttp_wrap_6.bin",
+    "sha256": "c52ce376a31268e78a5395b4f0ab1c807b314ba3e9315f6eac3c761e723cd81d",
+    "size": 3163,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_winhttp_wrap_7.bin",
+    "sha256": "72b66b9b2b4c9c3c7f860a62cf881ca2ccc916b57cdc02852984562950b8d014",
+    "size": 3147,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_winhttp_wrap_8.bin",
+    "sha256": "28b8b61877b3375eb685d4399593cbd6cf79b5d0aec728b1aafe1d88d5e77e3e",
+    "size": 3179,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_winhttp_wrap_9.bin",
+    "sha256": "28cad5795d88203a16cf370cdd3f96099319f10d9b915623379ac4874228f65f",
+    "size": 3115,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_custom_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_winhttp_wrap_full_1.bin",
+    "sha256": "449788163828ca9e6ea5e13707786a342763a2f1e15c687d76843c770188ac0a",
+    "size": 33931,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_winhttp_wrap_full_10.bin",
+    "sha256": "4b85eca4bb4e0bad8c3abae676f1005200b5caf09d90634c021b54f529cd9c3e",
+    "size": 28443,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_winhttp_wrap_full_2.bin",
+    "sha256": "34463dcd9a8e2084edd6d7d9121bfd79eccdd064a3459a6ae074d2746a711746",
+    "size": 29883,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_winhttp_wrap_full_3.bin",
+    "sha256": "6cf54e65e8cb6bab68cb2d92f263463e31001906f7c181f7bf7ce9ed46e5aa38",
+    "size": 30731,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_winhttp_wrap_full_4.bin",
+    "sha256": "a631b62ca85009f348b20c4a922bf0b23392fc8bcff18912e6a1739ecda3cd59",
+    "size": 32363,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_winhttp_wrap_full_5.bin",
+    "sha256": "0900d4e36b2de5e1ce8bae829f7f7d683f6b6ed87a43b6c6eebaea7084328ea7",
+    "size": 27051,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_winhttp_wrap_full_6.bin",
+    "sha256": "b1a299b3483527228f8fa226b9920cf09e77e57709d4e4ae8b4b1c70bedbc1da",
+    "size": 25147,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_winhttp_wrap_full_7.bin",
+    "sha256": "fa31b611b8b02e14782917cf66cfe0fd123ddcee4842c64239ade3db995d4aaf",
+    "size": 32299,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_winhttp_wrap_full_8.bin",
+    "sha256": "37442563711dd048b8be213932c9a65134f1c537fba379de3ed2be1b46ff27a8",
+    "size": 30539,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_custom_reverse_winhttp_wrap_full_9.bin",
+    "sha256": "7d1a0fcab4b0be021e09ff44136c8c228d1110f7101015c2bd1c561f79a5f7e1",
+    "size": 29499,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_custom_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_messagebox_wrap_1.bin",
+    "sha256": "835342b3ad2d5aadf12dd405edfb3dc40d0dd823212094e10e5206959b69df2f",
+    "size": 983,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_messagebox_wrap_10.bin",
+    "sha256": "08b8b0f77f9037fbc6f7734e41dab7201bf24b9c14baf03c5e964799ecf2feb3",
+    "size": 935,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_messagebox_wrap_2.bin",
+    "sha256": "7fa1cf240ff921e93c8e9b11496d813dac59cfd3fb2b4dbd6dabdc57d08f1568",
+    "size": 1063,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_messagebox_wrap_3.bin",
+    "sha256": "144836881efeb4ff683f677b01c6f0f0c734117f6123e8113da103b865d9a1dc",
+    "size": 1015,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_messagebox_wrap_4.bin",
+    "sha256": "3665534aa30a2e55b19700cc88b90e9907a7b33d0525376334e5d487d67f6f75",
+    "size": 1047,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_messagebox_wrap_5.bin",
+    "sha256": "8fdc300c916361f454d159c3654f4e19616586c7183d21ce451a65d108ab26da",
+    "size": 951,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_messagebox_wrap_6.bin",
+    "sha256": "1fbf62ba378fe6b3c344e8b7803854be0f7caecddcfffbd583d0d3098e98d4b6",
+    "size": 1063,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_messagebox_wrap_7.bin",
+    "sha256": "4defc1377a17389cb5eb2d0ba4e92fef130c579686de91eb4334c8b6a9e0a14a",
+    "size": 999,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_messagebox_wrap_8.bin",
+    "sha256": "0e7b37f6ce3b2ef19b21c00ea565292700e71a8bafbd74dd641b38a458498698",
+    "size": 1031,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_messagebox_wrap_9.bin",
+    "sha256": "0078d1343b155b123e6a174e8663fee68bba21c7c7a99954651daf2e6ed9fb2a",
+    "size": 1095,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_messagebox_wrap_full_1.bin",
+    "sha256": "c93c3bc7d750d251c0b146e0a22a9fe58867009def936aafd5b3ab11cb4cfd75",
+    "size": 7351,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_messagebox_wrap_full_10.bin",
+    "sha256": "42722f6ae64748a0672d7baca75b8a92c45575c6009221bf5fd56487f06c363b",
+    "size": 6551,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_messagebox_wrap_full_2.bin",
+    "sha256": "867ddf79e08b242d851c9a09e894e601ba8ed797437feba04d422d27fdd0ecd3",
+    "size": 8343,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_messagebox_wrap_full_3.bin",
+    "sha256": "9cf2d76b4bed7b690732f22cc77297f7c9755a45ff13480d4f218cf6f6870a23",
+    "size": 6887,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_messagebox_wrap_full_4.bin",
+    "sha256": "4d8c946c4f8ae7a229adf51b38bcf86702b70dba322221669f55a71e333a5fe3",
+    "size": 7447,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_messagebox_wrap_full_5.bin",
+    "sha256": "667d8b29ef94ab6c41aaf2a5ec4d827bff991d0904cf2ddbbe7968142191d5d0",
+    "size": 6743,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_messagebox_wrap_full_6.bin",
+    "sha256": "1bacf4bc7f3fce7f5dbcef4cb29aef10689cc236dd887c2bf958fdb5840f1501",
+    "size": 6727,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_messagebox_wrap_full_7.bin",
+    "sha256": "dd5058c5cb23c05de27f8734ddec1fd73165860bcb01b2ec5c492a2673ced5d1",
+    "size": 5495,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_messagebox_wrap_full_8.bin",
+    "sha256": "5414175b5c17ae32ccd833170471ad317e73989f6c729801a5f48a2ca73d3dd1",
+    "size": 7863,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_messagebox_wrap_full_9.bin",
+    "sha256": "a3cfe007dc2d889074267849b9c310d0beeca6ed3973f77ca784a46d0e5a0f88",
+    "size": 5847,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_http_wrap_1.bin",
+    "sha256": "6e122fa8211b01963d17ebf0491a67f5689911ea6ea4324bf7fc78f4d3d9f636",
+    "size": 2330,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_http_wrap_10.bin",
+    "sha256": "5162df04412d8cc1a22dd5ae7bd7f6b4b3096342d5f0b9f72c13fd6e44a74f2e",
+    "size": 2282,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_http_wrap_2.bin",
+    "sha256": "ac4cb5174b5c830d860fd393cfea7e164bd2844234b1bf9a731df76726489cc4",
+    "size": 2362,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_http_wrap_3.bin",
+    "sha256": "5f05d6628610913ff8d3a389383f12d1a41c81d8eed340c1c25e8142984bf6e2",
+    "size": 2330,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_http_wrap_4.bin",
+    "sha256": "52610870506c389422a3dcc5764164220395c9609f52c2c775c18cdd768dff4a",
+    "size": 2250,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_http_wrap_5.bin",
+    "sha256": "89f68015ccc5e5b1214751cc8c9f84c7cf97f2b88ce00960e4149b71c86b507d",
+    "size": 2442,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_http_wrap_6.bin",
+    "sha256": "d003094b1e0e66bf35e6aae8d3105bffdf5a7d09e2ac931ec47c83306e5dfcce",
+    "size": 2218,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_http_wrap_7.bin",
+    "sha256": "25000f72db3a9579b5233e41fabcccfd5b235496014a8aff0143bdcad8a8f442",
+    "size": 2250,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_http_wrap_8.bin",
+    "sha256": "4eaf1eb7e271c3c48b0bf7666d0e609eefc733deedb91da4beee3f90cb14557c",
+    "size": 2282,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_http_wrap_9.bin",
+    "sha256": "338b805025c54bac96071ffe991537091a600ce19fab5bbdcba5d2ea493e2040",
+    "size": 2362,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_http_wrap_full_1.bin",
+    "sha256": "be08fbfbcd79216d24f2921c093e81b83ed15dbfc93731f6838d6354dd5bb91d",
+    "size": 22682,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_http_wrap_full_10.bin",
+    "sha256": "1122e5ca1a5bcc5ba51e04d246a4bf93fa7e434cad8f52e1f4a6187f60e4e077",
+    "size": 19226,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_http_wrap_full_2.bin",
+    "sha256": "6df0d1c822cbce8eabefdbc9bd840f691d6c46d0194cf5692b500c9916d08a39",
+    "size": 19178,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_http_wrap_full_3.bin",
+    "sha256": "5666b7a4b6ad21d4c9c2410fe836f848b98b98fe93a22cfc27d8f467a488ce4f",
+    "size": 22058,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_http_wrap_full_4.bin",
+    "sha256": "ffce5477d618dca632467a13246c2b656aff65f9ee3187687c822b2ba9887871",
+    "size": 21722,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_http_wrap_full_5.bin",
+    "sha256": "52dc676207da39c992a0df05860b75cb1bbae360f26a0c84da065aff2b2ade19",
+    "size": 17242,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_http_wrap_full_6.bin",
+    "sha256": "f003bfdfddf1272f1ac429af1285d1d902c8a3eb2858746aebf2ff3e8a588229",
+    "size": 19130,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_http_wrap_full_7.bin",
+    "sha256": "04d14ccefc473491b04d58750dec81cf7a125d492278223fdea7fabc1e721e05",
+    "size": 21674,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_http_wrap_full_8.bin",
+    "sha256": "e332f9ce1c410163ca184b49aaa20c9a637c2ead1a9fa39f7851707d20946eb7",
+    "size": 21418,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_http_wrap_full_9.bin",
+    "sha256": "db5ff00fa4367d4508641c59e49a5cf4665d1790961f6475cc2947cf78c4aaa9",
+    "size": 18730,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_https_wrap_1.bin",
+    "sha256": "2ac8e87840889c2edf6861e8111bd7be7a1441088acf324492e2c36ff8513f22",
+    "size": 2137,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_https_wrap_10.bin",
+    "sha256": "a4da41170df3fc379aedb458b781ad63c6fea176303695540ea2a68461e2c90d",
+    "size": 2073,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_https_wrap_2.bin",
+    "sha256": "8b62cc9545769c3e6df195485a9183ea76645199ec69859c9a705ed7cf41b1e8",
+    "size": 2185,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_https_wrap_3.bin",
+    "sha256": "7ec4e83c7a677911f53e8760361c5b525835a9207417d17818b02f93e6df73f7",
+    "size": 2121,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_https_wrap_4.bin",
+    "sha256": "38f45e8e1e607a05c277f1945c29eb4ba2a24c0e8824cabeddcf00f21271dffd",
+    "size": 2089,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_https_wrap_5.bin",
+    "sha256": "493364a0d138f245de19f78aae537d3d476c97cb4aca03926fcfc97e2f145d88",
+    "size": 2201,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_https_wrap_6.bin",
+    "sha256": "dd563588cb05d14c32ed46f90efe7a49c9a8ecad92bb932da465edcd2a7d6b4c",
+    "size": 2057,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_https_wrap_7.bin",
+    "sha256": "6810c480753caffbf406c55ad3ba454384bce9a3f5add25af39f6dfdfae1c1db",
+    "size": 2089,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_https_wrap_8.bin",
+    "sha256": "469dfb2e0ba266f2f6105cf11388684d1f28b302ed69674662e31a8dd3c6ee73",
+    "size": 2121,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_https_wrap_9.bin",
+    "sha256": "e175fb38e8d8c4250886d09b3b0dc2a93abc87207e1fe832b9617ce32633da8b",
+    "size": 2137,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_https_wrap_full_1.bin",
+    "sha256": "7fe0cada348387ac4c334ab0e47f539f48df98af1a44bcd16ac9ce5ea976b95f",
+    "size": 17769,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_https_wrap_full_10.bin",
+    "sha256": "03fef51ff1a62b5b6fd5c4a94372ef207bb0201f833ca6dc3f690083f39f4d79",
+    "size": 18217,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_https_wrap_full_2.bin",
+    "sha256": "f3c8107659755121e26fd2d9382aa3475fb79212b791a2a75faa530caa4ed6c9",
+    "size": 20137,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_https_wrap_full_3.bin",
+    "sha256": "043913ddd563375720f392149f80188ff9ba75e179cce960910b01875eb51a75",
+    "size": 18729,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_https_wrap_full_4.bin",
+    "sha256": "f107acef890b4e9d0eb967e9d2b1ecbc6a81054d2db8ad278c8d6e37f8b23fce",
+    "size": 16457,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_https_wrap_full_5.bin",
+    "sha256": "1204989dd30b6bfabb357c780a8738e16be8b8bbd7819debb8a121d0a99a5ed7",
+    "size": 15625,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_https_wrap_full_6.bin",
+    "sha256": "8ba24de4336f84c79d5ea1c3a9666d3cbb766e41172c21abb671918cf63d489b",
+    "size": 17465,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_https_wrap_full_7.bin",
+    "sha256": "846b36785ab28c667175bb5173bae762590f9d6d1dd2f9da02085af3ee657b8d",
+    "size": 20073,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_https_wrap_full_8.bin",
+    "sha256": "935e4007501e1cb626e1cc8968c1996514ac848eedacd87f652daaf092a8ebeb",
+    "size": 16793,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_https_wrap_full_9.bin",
+    "sha256": "84d630ec663f7e6ef14788b50fda1530e82bbe45103f23bbe7ffda3d47487d19",
+    "size": 17241,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_winhttp_wrap_1.bin",
+    "sha256": "9bca65c4b9f0876930649723816835ebb8d59981d8249923490669bc3fc45298",
+    "size": 3121,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_winhttp_wrap_10.bin",
+    "sha256": "e835526a0adaaa982780563154da32477d84d9f928d07dd9644dfb2b16aeae66",
+    "size": 3121,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_winhttp_wrap_2.bin",
+    "sha256": "5e553d8785e1b64af20d62a75d07033c8ebc977c53c545c0ec244d4fd75a9e06",
+    "size": 3041,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_winhttp_wrap_3.bin",
+    "sha256": "8ce628dea2ba0fab9ee2dfc4216d06edc50817ac39215ffa311efd14ed19faff",
+    "size": 3153,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_winhttp_wrap_4.bin",
+    "sha256": "a92a738efdcb9cbdf4ba108b79e4499459acaca43e32df24ce26ce43c00f1fae",
+    "size": 3121,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_winhttp_wrap_5.bin",
+    "sha256": "0cb263b14be922cc3fc60df96d47bf67044dd255c808b5e51c7d33141eaa3c35",
+    "size": 3249,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_winhttp_wrap_6.bin",
+    "sha256": "d6dc0ee0bf971c135d047d843511c225d2379c93009cba1e6d617120bf171317",
+    "size": 3073,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_winhttp_wrap_7.bin",
+    "sha256": "692dd926ec7456e238a5c95382bacd2b4212192fd831ca546a94680a4e7235d0",
+    "size": 3089,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_winhttp_wrap_8.bin",
+    "sha256": "29c7498e092a09d2033f3dd0aafa8795090aa773e6b718644d5da6adeb666c30",
+    "size": 3057,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_winhttp_wrap_9.bin",
+    "sha256": "cca64b390c0ce02d3dfb46cfd93fe20267174b6f2847bd107d3dc6273dde0c68",
+    "size": 3041,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_meterpreter_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_winhttp_wrap_full_1.bin",
+    "sha256": "637ce8b56adc54ae015ac84400556419cecb3406bb6ba82dbdf9ea6e365cc653",
+    "size": 29665,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_winhttp_wrap_full_10.bin",
+    "sha256": "fdbd977e146095012752c32a83fdb14471aac9c03b0f6aee49dc7096d87e42f5",
+    "size": 28609,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_winhttp_wrap_full_2.bin",
+    "sha256": "098d6cd85ac283c642db030beef61f306a75f4d9017539ea46b906564994e547",
+    "size": 25617,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_winhttp_wrap_full_3.bin",
+    "sha256": "33bc8a9f33719b6e0ed7bd5c5376eebc048c6095c9b5d1a5fc561ec58eaaa386",
+    "size": 28225,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_winhttp_wrap_full_4.bin",
+    "sha256": "c43c2e8b6bc13e9d3b0bcd7fff3e9a4e4b03a2ebb30a28202219dd421c53584e",
+    "size": 28097,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_winhttp_wrap_full_5.bin",
+    "sha256": "96346a91c46c8d51fdc3ab117c03430b0d6fd42ab988c66590c64e3feac1a4c1",
+    "size": 29025,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_winhttp_wrap_full_6.bin",
+    "sha256": "8fef23befca4e9bfec8f9ba5d7faeaf6a10ea1e7289d10f6f69cfd67ef9adcb7",
+    "size": 26513,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_winhttp_wrap_full_7.bin",
+    "sha256": "732f8cb98e341d1b39318bd6b9eaa88fb2a03f4f0717ad3f8df03f14c0554fb3",
+    "size": 29553,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_winhttp_wrap_full_8.bin",
+    "sha256": "4749b5d6cf216d060dabf66619890ba1670151654aa6dbfa6319ce63523f7d05",
+    "size": 25505,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_meterpreter_reverse_winhttp_wrap_full_9.bin",
+    "sha256": "63def2494dab4ed1b3b95af452def2a85a8b6075ccbe0ce19f7318153900234c",
+    "size": 28497,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_meterpreter_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_http_wrap_1.bin",
+    "sha256": "f72d51254c9280fbdae45769f20c231c26f22afd29d4bcc37286cf36e55a781f",
+    "size": 2397,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_http_wrap_10.bin",
+    "sha256": "1e887699dbb70338c5685cf8460d80723dcd3bea5fae6d9ac7529eb577910e96",
+    "size": 2381,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_http_wrap_2.bin",
+    "sha256": "83a6f51a486632d316718dd7b5736448323fcc6f05e1f2360c330c0770ae8233",
+    "size": 2413,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_http_wrap_3.bin",
+    "sha256": "0047030e3794686fbbd1a8d55fa99fb5dce0a9dc0f4c3af1d14533158152dd6f",
+    "size": 2349,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_http_wrap_4.bin",
+    "sha256": "a5c20611ec815196f51888ea388495947a820d9ca95dec4d93eb1da2720d271c",
+    "size": 2301,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_http_wrap_5.bin",
+    "sha256": "307c7f584e8b1996ac4f0ddbf47d25027afc9f356c544d8519bb7b90203213fa",
+    "size": 2461,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_http_wrap_6.bin",
+    "sha256": "e96809d86682dd3e32d2c33835a6465d9aa3bf2d082f71f966209c77fb596cb0",
+    "size": 2237,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_http_wrap_7.bin",
+    "sha256": "f163509f6b9a6685c98c27bce2b212450c045a77a3092dc778d160ed8c481c7d",
+    "size": 2317,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_http_wrap_8.bin",
+    "sha256": "2f9cd7eb9bf24c5a122688e7e3082dca844f2ae02d2488f4f84d9c187d1636d5",
+    "size": 2365,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_http_wrap_9.bin",
+    "sha256": "e47a3fa1208784725380c34d87b124e653d5728aaab9d1b8d6380b89cd637ff7",
+    "size": 2429,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_http_wrap_full_1.bin",
+    "sha256": "06591ee009715ab9a6ef809ad57c6d0d55213ad70f8218a5bbe219ea4405a04a",
+    "size": 23181,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_http_wrap_full_10.bin",
+    "sha256": "5dd7caad259674d88ab18707e82f6b1198286ab5c26d57b10d02fa42860714c4",
+    "size": 22973,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_http_wrap_full_2.bin",
+    "sha256": "97149a5d9c54a86a12bccdf08c03aa5d4f9b5ca0b12214273957d7858ebd247c",
+    "size": 21613,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_http_wrap_full_3.bin",
+    "sha256": "8c0df7100073172ac122738110d16229bf647c831720692a2555c4406e867cba",
+    "size": 20989,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_http_wrap_full_4.bin",
+    "sha256": "b5802ded13f17927a514e0212cd09a1b68d1fc8a4d03bd960f945bd9c59fae42",
+    "size": 21229,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_http_wrap_full_5.bin",
+    "sha256": "9b305903abd4ae5c35843cc3afa7399f36784b08468100b4f66f5eb4e290262e",
+    "size": 21229,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_http_wrap_full_6.bin",
+    "sha256": "563fe70390aeed5c1cbde03879ae6ec34c08e26b0573b20e735e3396eeb9f5d1",
+    "size": 20525,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_http_wrap_full_7.bin",
+    "sha256": "fcf077e0586f895a83b773e3b6435a76749c0a376b4fe9e5941d0b055d7eb9b0",
+    "size": 20493,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_http_wrap_full_8.bin",
+    "sha256": "bdabf465234e7dfd64a09750fa2cfa0d64f59fa0b59abc771fadc7858ee4c1ea",
+    "size": 20013,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_http_wrap_full_9.bin",
+    "sha256": "20b7126988a96b8599236f78f42483f8bf8b196726d6048d1eef0d2b3da982dc",
+    "size": 21069,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_https_wrap_1.bin",
+    "sha256": "ef3684c32b18726f89b9531db1805b4ee248ec7b6c219e74d7f0a401ecf10af4",
+    "size": 2508,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_https_wrap_10.bin",
+    "sha256": "874f50524324fe6524dc9e55e275e7c96ba3cd25187cd706e96aeafe5156514b",
+    "size": 2396,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_https_wrap_2.bin",
+    "sha256": "e2c28db58e829852c8574318bae096aa1c00bec88b63a09fc2abc76885e5eba3",
+    "size": 2460,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_https_wrap_3.bin",
+    "sha256": "599bffaeccb1f8004682754833f32853285e1b64716ce7fcc33046d5634eebf2",
+    "size": 2364,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_https_wrap_4.bin",
+    "sha256": "6e1b501567d67103b9fddfb47befc21bd8e972291ecc1a977fa9e64ad65c257d",
+    "size": 2348,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_https_wrap_5.bin",
+    "sha256": "7fd2bedffea511388b1880ba072acb3637185e8fa30a91f65b0321348efdb7f6",
+    "size": 2540,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_https_wrap_6.bin",
+    "sha256": "003a2b91eb3fbd80d70d81e57a5dc1946dae64dd81928407ec60124e58bc51bb",
+    "size": 2332,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_https_wrap_7.bin",
+    "sha256": "8f4b576bb70e6487e4e17ce573c9c84275dd2b073bdb9c83649dea503e36ad97",
+    "size": 2364,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_https_wrap_8.bin",
+    "sha256": "4fa63bbd9fb25391e1b94ca48d346811d5c79627de8e2df682498ac2eec7575c",
+    "size": 2396,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_https_wrap_9.bin",
+    "sha256": "f15164e26520ba191c18a746eac75f734815186682d1af34b725f4ba18ac76a6",
+    "size": 2444,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_https_wrap_full_1.bin",
+    "sha256": "84cb554cc60451626665b45241ddc8c4779fe096baaa441d9292c801db437e7f",
+    "size": 25276,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_https_wrap_full_10.bin",
+    "sha256": "cd599282110fb8933ad43a6626539513a7a17e813f8252afa373a1482d4a5a4c",
+    "size": 23980,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_https_wrap_full_2.bin",
+    "sha256": "bc9d4f6ab6217baa55c364b4867b3740a3a36edb876543bbd733b3e7cbde97b9",
+    "size": 21436,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_https_wrap_full_3.bin",
+    "sha256": "009c9fe64d143adc19af098a20b2f98879f869c8bf68ee616e9abe9bca7d6b84",
+    "size": 22188,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_https_wrap_full_4.bin",
+    "sha256": "0854cd77dc99f2637ff63dd09c522a74286a2cbb50c03a5deec6164a7cb33be1",
+    "size": 22844,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_https_wrap_full_5.bin",
+    "sha256": "c708e0b71c95e0fc60152854697bc167d1b012587207d34f734b70a44578df98",
+    "size": 20412,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_https_wrap_full_6.bin",
+    "sha256": "cfc3e12ef90fc9ece1508c1bf84cfba619022bf095a391af2fca4c1fe469fc78",
+    "size": 22428,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_https_wrap_full_7.bin",
+    "sha256": "0b362d29038ed9e2822402f1cdef6c288d7412e9bc6212c25348e9e9dc81d5de",
+    "size": 20956,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_https_wrap_full_8.bin",
+    "sha256": "b75b983be9a0c92c947a6f513c893453062bd51ea880c7cdd1abeae7b7b18d59",
+    "size": 23020,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_https_wrap_full_9.bin",
+    "sha256": "9d00a54e8dbfc62b3ed82ad51a7f82519f76dbee90377dd7958fd5a272c9e792",
+    "size": 22396,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_winhttp_wrap_1.bin",
+    "sha256": "48954cf9df9f22211653a8679f759c02ba305f522be78bda85c9981a7c79917e",
+    "size": 3229,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_winhttp_wrap_10.bin",
+    "sha256": "1eba35eb02b56271e8dde18e2355d5ec7ec0cf2750bce01678d95d0741a6e812",
+    "size": 3245,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_winhttp_wrap_2.bin",
+    "sha256": "fe23bed13dfc1419a95f156843fa9fdc65fc347f70d833802ed47315a21ccc30",
+    "size": 3261,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_winhttp_wrap_3.bin",
+    "sha256": "adb2bb24b1e3d4e0c7899b3427a6d236549d7a32d86944449407ca337af488a3",
+    "size": 3245,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_winhttp_wrap_4.bin",
+    "sha256": "041b058b6d46b5b7e4e89662adb018886cb3a63d364a1d5c07b473084a9f96d5",
+    "size": 3197,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_winhttp_wrap_5.bin",
+    "sha256": "3325660e4ace634a70d62685cb42e5f17dbbd5e7789911409616646d6b7d8864",
+    "size": 3277,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_winhttp_wrap_6.bin",
+    "sha256": "a7b0da2879e68b8a2957e2290a7c5bef12ae537224f902521d0fb7f68de17b03",
+    "size": 3261,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_winhttp_wrap_7.bin",
+    "sha256": "1d6fe64e3350fdd27cf6c8475e29020c004cf7f246527723ea333126440238f2",
+    "size": 3149,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_winhttp_wrap_8.bin",
+    "sha256": "184cb5cce0455d0eae6b309240edecb43e62702570e28269e43c53ff3c74e935",
+    "size": 3181,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_winhttp_wrap_9.bin",
+    "sha256": "bff052fb29e05392d10011b4a1851dd658f36fc7126224783ddcdbc652d628d1",
+    "size": 3133,
+    "arch": "x64",
+    "technique": "wrap",
+    "payload": "windows_x64_vncinject_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_winhttp_wrap_full_1.bin",
+    "sha256": "86f1a6911642ca1ef1e2a6237fb49ea8564af427473c6a08dc9eef2a846087d3",
+    "size": 33981,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_winhttp_wrap_full_10.bin",
+    "sha256": "2de2943b966e240d928f79a4160890e4bd2fe37b5336fac549618e89a0721029",
+    "size": 27293,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_winhttp_wrap_full_2.bin",
+    "sha256": "b49196ae167a0996678b7709dea30fbec13c7ce6c0f6a11a184d352f4f53a916",
+    "size": 31869,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_winhttp_wrap_full_3.bin",
+    "sha256": "033fbbd7d8e279bfe09af5ac6dab4e7b034212517253326a4427e0a14ef73b35",
+    "size": 32461,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_winhttp_wrap_full_4.bin",
+    "sha256": "fe57baac5434b138b4f70d18eef02af6b6d470a7427eb7c4c4f1e627086fb94d",
+    "size": 31773,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_winhttp_wrap_full_5.bin",
+    "sha256": "0c25150f989850cfa76ec715d63e824d0b99e160c8f48db6cd0fd0697cc39db4",
+    "size": 31837,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_winhttp_wrap_full_6.bin",
+    "sha256": "ad45761d8323c453cfd2e7d0306c9f7a0cd0b67d2f11b0130359c7ca0235a415",
+    "size": 29645,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_winhttp_wrap_full_7.bin",
+    "sha256": "7b81bdc112a6a778cd68c16e9514a47136516628d6417182bf05556bc2a4325c",
+    "size": 31229,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_winhttp_wrap_full_8.bin",
+    "sha256": "1aa2a689fa476fac8c2138725dfd00e1f49a2968021874c7d57e67e0932b56f9",
+    "size": 31373,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_winhttp",
+    "working": "FAIL",
+    "detail": "exited rc=3221225477"
+  },
+  {
+    "path": "mutations_wrap/x64/windows_x64_vncinject_reverse_winhttp_wrap_full_9.bin",
+    "sha256": "202a2fe8f988e1bd46c112dc79e3fc5d17a942e062adede33a532e140d5a786e",
+    "size": 31037,
+    "arch": "x64",
+    "technique": "wrap_full",
+    "payload": "windows_x64_vncinject_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_llm/x64/windows_x64_messagebox_llm_bcf_s0_1.bin",
+    "sha256": "d1d89609531f03cb23f368b03089d5b007ca34cc0f7409e795e98faa1e4863ca",
+    "size": 391,
+    "arch": "x64",
+    "technique": "llm_bcf_s0",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm/x64/windows_x64_messagebox_llm_bcf_s0_2.bin",
+    "sha256": "be737266eaac31361c56fd9913d744a72d967ec63a7a3d016e2f3a86ef567214",
+    "size": 405,
+    "arch": "x64",
+    "technique": "llm_bcf_s0",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm/x64/windows_x64_messagebox_llm_bcf_s0_3.bin",
+    "sha256": "dd457087a7a8ae36134e11b31803de8d99d79a27cf4ac23d101a942c8c9a6cc9",
+    "size": 401,
+    "arch": "x64",
+    "technique": "llm_bcf_s0",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm/x64/windows_x64_messagebox_llm_bcf_s2_1.bin",
+    "sha256": "6d971b41a5acce9be2eb60478d6b5908b7fa6668f38ba1d8ae2c47090b8568f6",
+    "size": 415,
+    "arch": "x64",
+    "technique": "llm_bcf_s2",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm/x64/windows_x64_messagebox_llm_bcf_s2_2.bin",
+    "sha256": "3a631499e93cf60ab22cd2d912ec5f391fad3ac711896666ed792e4462c0ae25",
+    "size": 401,
+    "arch": "x64",
+    "technique": "llm_bcf_s2",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm/x64/windows_x64_messagebox_llm_bcf_s2_3.bin",
+    "sha256": "dcce3af29c44de9790d2a479ec99a06a05c220f0b8bdc18dcd551b828246a247",
+    "size": 401,
+    "arch": "x64",
+    "technique": "llm_bcf_s2",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm/x64/windows_x64_messagebox_llm_eq_s0_1.bin",
+    "sha256": "cfb5fe6058733271b3b86579c06c129a1216eb5ec5db3605bb72ae825aa80377",
+    "size": 398,
+    "arch": "x64",
+    "technique": "llm_eq_s0",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm/x64/windows_x64_messagebox_llm_eq_s0_2.bin",
+    "sha256": "755d59a937ac9cc9a08d21e671ec98880960f12e83fe6cda2890ce740469d4b8",
+    "size": 399,
+    "arch": "x64",
+    "technique": "llm_eq_s0",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm/x64/windows_x64_messagebox_llm_eq_s0_3.bin",
+    "sha256": "cfb5fe6058733271b3b86579c06c129a1216eb5ec5db3605bb72ae825aa80377",
+    "size": 398,
+    "arch": "x64",
+    "technique": "llm_eq_s0",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm/x64/windows_x64_messagebox_llm_eq_s2_1.bin",
+    "sha256": "755d59a937ac9cc9a08d21e671ec98880960f12e83fe6cda2890ce740469d4b8",
+    "size": 399,
+    "arch": "x64",
+    "technique": "llm_eq_s2",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm/x64/windows_x64_messagebox_llm_eq_s2_2.bin",
+    "sha256": "cb9ee2253088aef25e147ee1f769194bac3755ed3824191575b1e4ee756c06ac",
+    "size": 367,
+    "arch": "x64",
+    "technique": "llm_eq_s2",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm/x64/windows_x64_messagebox_llm_eq_s2_3.bin",
+    "sha256": "755d59a937ac9cc9a08d21e671ec98880960f12e83fe6cda2890ce740469d4b8",
+    "size": 399,
+    "arch": "x64",
+    "technique": "llm_eq_s2",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm/x64/windows_x64_messagebox_llm_ibp_s0_1.bin",
+    "sha256": "e605b68d1969532491eaf0fb8fe3929819cedc3b10a0129c615b891da91d22c5",
+    "size": 347,
+    "arch": "x64",
+    "technique": "llm_ibp_s0",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm/x64/windows_x64_messagebox_llm_ibp_s0_2.bin",
+    "sha256": "e605b68d1969532491eaf0fb8fe3929819cedc3b10a0129c615b891da91d22c5",
+    "size": 347,
+    "arch": "x64",
+    "technique": "llm_ibp_s0",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm/x64/windows_x64_messagebox_llm_ibp_s0_3.bin",
+    "sha256": "805e560a6aceb542eb7e78526b7f31b7e164f1235f1adee7ab3f7c8feaf34136",
+    "size": 368,
+    "arch": "x64",
+    "technique": "llm_ibp_s0",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm/x64/windows_x64_messagebox_llm_ibp_s2_1.bin",
+    "sha256": "5399a4c27fdfaf6988d74d28086aee24a1c8ae110d5df0da57809bd6dcbcfade",
+    "size": 347,
+    "arch": "x64",
+    "technique": "llm_ibp_s2",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm/x64/windows_x64_messagebox_llm_ibp_s2_2.bin",
+    "sha256": "b4162f456c5fc228fa6244a13c406e3a7e207e71b93e45654e95721c99f65d65",
+    "size": 344,
+    "arch": "x64",
+    "technique": "llm_ibp_s2",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm/x64/windows_x64_messagebox_llm_ibp_s2_3.bin",
+    "sha256": "e605b68d1969532491eaf0fb8fe3929819cedc3b10a0129c615b891da91d22c5",
+    "size": 347,
+    "arch": "x64",
+    "technique": "llm_ibp_s2",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm/x64/windows_x64_messagebox_llm_nop_s0_1.bin",
+    "sha256": "194fec3076684219e2e2a110a76a180ad786afa826f777e4e1fd86f157529548",
+    "size": 363,
+    "arch": "x64",
+    "technique": "llm_nop_s0",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm/x64/windows_x64_messagebox_llm_nop_s0_2.bin",
+    "sha256": "c150f9dc8f722f8cc5916f49a8384684b17e5b8ab0ee50809e942ba51ce42639",
+    "size": 357,
+    "arch": "x64",
+    "technique": "llm_nop_s0",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm/x64/windows_x64_messagebox_llm_nop_s0_3.bin",
+    "sha256": "de7c0aa8ca5f318da4d13eec82d33c01d02f0307975280496a49c1bdcd0fdb2d",
+    "size": 367,
+    "arch": "x64",
+    "technique": "llm_nop_s0",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm/x64/windows_x64_messagebox_llm_nop_s2_1.bin",
+    "sha256": "8d9dbacad46ade8aa5702557a463eec44d43b3953fded70d39a0f0bbbe4f55db",
+    "size": 360,
+    "arch": "x64",
+    "technique": "llm_nop_s2",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm/x64/windows_x64_messagebox_llm_nop_s2_2.bin",
+    "sha256": "3d2fe32beb48d15ff4ebde7caf6ec978bc694d32ba1f1fc950bac96ca5270903",
+    "size": 362,
+    "arch": "x64",
+    "technique": "llm_nop_s2",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm/x64/windows_x64_messagebox_llm_nop_s2_3.bin",
+    "sha256": "6940d159b42b8b1aaffa20aa0814a206e374dc180e00d7a6758e8138fb8bdc6f",
+    "size": 375,
+    "arch": "x64",
+    "technique": "llm_nop_s2",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm_data/x64/windows_x64_custom_reverse_http_lldata_1.bin",
+    "sha256": "553b46d3bf28950a1a17a2b54ae2297b35673557fa8c041128475173f515bdcf",
+    "size": 1062,
+    "arch": "x64",
+    "technique": "lldata",
+    "payload": "windows_x64_custom_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_llm_data/x64/windows_x64_custom_reverse_http_lldata_2.bin",
+    "sha256": "553b46d3bf28950a1a17a2b54ae2297b35673557fa8c041128475173f515bdcf",
+    "size": 1062,
+    "arch": "x64",
+    "technique": "lldata",
+    "payload": "windows_x64_custom_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_llm_data/x64/windows_x64_custom_reverse_http_lldata_3.bin",
+    "sha256": "553b46d3bf28950a1a17a2b54ae2297b35673557fa8c041128475173f515bdcf",
+    "size": 1062,
+    "arch": "x64",
+    "technique": "lldata",
+    "payload": "windows_x64_custom_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_llm_data/x64/windows_x64_messagebox_lldata_1.bin",
+    "sha256": "a713efe0c60c3cdf67898cd987e1afc81833efdd2c9c4dc9fdd05eecf92644c0",
+    "size": 359,
+    "arch": "x64",
+    "technique": "lldata",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm_data/x64/windows_x64_messagebox_lldata_2.bin",
+    "sha256": "a713efe0c60c3cdf67898cd987e1afc81833efdd2c9c4dc9fdd05eecf92644c0",
+    "size": 359,
+    "arch": "x64",
+    "technique": "lldata",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm_data/x64/windows_x64_messagebox_lldata_3.bin",
+    "sha256": "a713efe0c60c3cdf67898cd987e1afc81833efdd2c9c4dc9fdd05eecf92644c0",
+    "size": 359,
+    "arch": "x64",
+    "technique": "lldata",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm_data/x64/windows_x64_messagebox_lldata_eq_1.bin",
+    "sha256": "cfb5fe6058733271b3b86579c06c129a1216eb5ec5db3605bb72ae825aa80377",
+    "size": 398,
+    "arch": "x64",
+    "technique": "lldata_eq",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm_data/x64/windows_x64_messagebox_lldata_eq_2.bin",
+    "sha256": "cfb5fe6058733271b3b86579c06c129a1216eb5ec5db3605bb72ae825aa80377",
+    "size": 398,
+    "arch": "x64",
+    "technique": "lldata_eq",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm_data/x64/windows_x64_messagebox_lldata_eq_3.bin",
+    "sha256": "cfb5fe6058733271b3b86579c06c129a1216eb5ec5db3605bb72ae825aa80377",
+    "size": 398,
+    "arch": "x64",
+    "technique": "lldata_eq",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm_data/x86/windows_custom_reverse_http_lldata_1.bin",
+    "sha256": "b0915f02bb162099c22bac7336fb2f7a696a94f2002d85e00d78dba00b4b58c5",
+    "size": 651,
+    "arch": "x86",
+    "technique": "lldata",
+    "payload": "windows_custom_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_llm_data/x86/windows_custom_reverse_http_lldata_2.bin",
+    "sha256": "b0915f02bb162099c22bac7336fb2f7a696a94f2002d85e00d78dba00b4b58c5",
+    "size": 651,
+    "arch": "x86",
+    "technique": "lldata",
+    "payload": "windows_custom_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_llm_data/x86/windows_custom_reverse_http_lldata_3.bin",
+    "sha256": "b0915f02bb162099c22bac7336fb2f7a696a94f2002d85e00d78dba00b4b58c5",
+    "size": 651,
+    "arch": "x86",
+    "technique": "lldata",
+    "payload": "windows_custom_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "mutations_llm_data/x86/windows_messagebox_lldata_1.bin",
+    "sha256": "311a6b78a9f06533ba3d3281d9f8dec69a84450922afb70ff3601bcd4ef50226",
+    "size": 294,
+    "arch": "x86",
+    "technique": "lldata",
+    "payload": "windows_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm_data/x86/windows_messagebox_lldata_2.bin",
+    "sha256": "311a6b78a9f06533ba3d3281d9f8dec69a84450922afb70ff3601bcd4ef50226",
+    "size": 294,
+    "arch": "x86",
+    "technique": "lldata",
+    "payload": "windows_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  },
+  {
+    "path": "mutations_llm_data/x86/windows_messagebox_lldata_3.bin",
+    "sha256": "311a6b78a9f06533ba3d3281d9f8dec69a84450922afb70ff3601bcd4ef50226",
+    "size": 294,
+    "arch": "x86",
+    "technique": "lldata",
+    "payload": "windows_messagebox",
+    "working": "OK",
+    "detail": "dialog class=#32770 closed=True rc=0"
+  }
+]

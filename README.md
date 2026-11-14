@@ -106,14 +106,27 @@ which byte ranges are data, then the existing xref scanner and
 # classify + extract only (like -xd, but LLM-classified)
 python pobf.py payload.bin --llm-data -o out.bin
 
-# classify + extract, then morph with an LLM technique
+# classify + extract, then run the NATIVE Zone technique
 python pobf.py payload.bin --llm-data -eq -o out.bin
+
+# classify + extract, then use the LLM for the morphing as well
+python pobf.py payload.bin --llm --llm-data -eq -o out.bin
+
+# native techniques that the LLM morph mode does not implement
+python pobf.py payload.bin --llm-data -pii -o out.bin
 
 # x86
 python pobf86.py payload86.bin --llm-data -o out86.bin
 ```
 
-`--llm-data` implies `--llm`; it cannot be combined with `-xd`, `-fd` or
+`--llm-data` implies `--llm` for API access, but it does **not** enable LLM
+morphing.  With `--llm-data` and native flags (`-eq`, `-nop`, `-bcf`, `-ibp`,
+`-pii`, `-ip`, `-wrap`, ...), the LLM only classifies data and the normal Zone
+engine performs the morphing.  Add `--llm` explicitly to also delegate the
+morphing to the model.  Without `--llm`, `-pii`/`-ip`/`-wrap` are available
+after LLM data extraction just as they are after `-xd`.
+
+`--llm-data` cannot be combined with `-xd`, `-fd` or
 `--llm-no-extract-data`.  It and `-xd` are alternatives, not a pipeline.
 
 The prompt contains a hex dump with ASCII, a linear disassembly, and
@@ -417,6 +430,19 @@ This is a conservative static heuristic, not a full x86 CFG classifier. `-pii`
 and `-ip` still move the inline data and therefore remain **experimental** on
 data-bearing 32-bit payloads; use `-xd` to move the data out first.
 
+The build also carries `-wrap` (assembly wrapping, section 6). Two latent bugs
+that the 32-bit wrapping work exposed are fixed in this build:
+
+- `insert_instruction()` appended a new instruction without wiring its
+  `prev_instruction`, so `update_instr()` skipped it and left a stale address
+  (`-eq`/`-nop` could end with an instruction list that was not monotonic and
+  whose branches did not match the byte layout);
+- `zone_utils.estrai_valore()` only accepted `0x`-prefixed numbers, but
+  Capstone prints targets below `0x10` as bare digits (`loop 7`). Any branch
+  into the first ten bytes of the payload was resolved to address 0, which
+  broke `loop` expansion (`-ebi`), `-bcf` insertion points and the label table
+  of both builds.
+
 The dispatcher itself uses `pushad`/`popad` plus a saved-flags slot and `ret`,
 so all general registers and flags are preserved; the earlier register-pressure
 fallback to `ebx` is gone.
@@ -514,11 +540,14 @@ into a shuffled block. `-ibp -xd -ebi` on the messagebox sample was verified
 
 This technique is novel and is a ultra granular VM-like technique which allows to shuffle EVERY SINGLE INSTRUCTION. Please refer only to `pobf.py` and `pobf86.py` for this technique.
 
-### 6. Assembly Wrapping (`-wrap`, x64 only)
+### 6. Assembly Wrapping (`-wrap`, x64 and x86)
 
 Assembly wrapping hides the real instructions inside the immediate operand of a
-benign `mov r64, imm64`. A linear or recursive disassembler keeps decoding the
+benign `mov reg, imm`. A linear or recursive disassembler keeps decoding the
 `mov`, while the CPU is sent one byte *inside* the immediate.
+
+**x86-64** (`pobf.py`): a container is a 10-byte `mov r64, imm64`, and the glue
+lives inside the immediate.
 
 ```
 entry:  push reg
@@ -530,19 +559,36 @@ entry:  push reg
 0x0a:   49 b9 <6 bytes of code> <EB dist> <junk>     ; static view: mov rcx, imm64
 ```
 
-Each 8-byte immediate holds up to six bytes of original code, a two-byte
-`jmp short` and some junk. The jump lands on the immediate of the next
-container, so execution chains through the payload while every byte stays
-covered by a legal instruction. The entry stub is position independent and
-restores the scratch register through the stack, so no register and no flag is
-clobbered.
+**x86** (`pobf86.py`): the largest immediate is 32 bits, so a container is a
+7-byte `mov r32, imm32` followed by the glue, and only four bytes of code fit.
+Unused immediate bytes are filled with harmless instructions because they are
+executed.
 
-Some instructions do not fit (a `mov rax, 0x...` is ten bytes) or must keep a
-byte-exact local layout (the `-ebi` trampolines, `loop`/`jrcxz`): they are
-copied verbatim into "raw" blocks. Control flow through them is still glued
-with the same short jumps, so semantics are preserved, but those bytes stay
-visible to a disassembler. On the Metasploit x64 payloads about 95% of the
-instructions fit in a container.
+```
+entry:  push reg
+        call $+5                    ; pushes the address of the following pop
+        pop  reg
+        lea  reg, [reg + disp]      ; target address
+        xchg reg, [esp]             ; stack slot -> target, reg -> original
+        ret                         ; jump there (flags untouched)
+
+0x00:   b8 <4 bytes of code> EB 01   ; static view: mov eax, imm32 ; jmp +1
+0x07:   b9 <4 bytes of code> EB 01   ; entry is at the immediate (+1)
+```
+
+Each container holds a piece of original code, a two-byte `jmp short` and (on
+x86-64) some junk. The jump lands on the immediate of the next container, so
+execution chains through the payload while every byte stays covered by a legal
+instruction. Both entry stubs are position independent; the scratch register is
+restored through the stack and no flag is clobbered.
+
+Some instructions do not fit (a `mov rax, 0x...` is ten bytes, `call rel32` is
+five) or must keep a byte-exact local layout (the `-ebi` trampolines,
+`loop`/`jcxz`/`jrcxz`): they are copied verbatim into "raw" blocks. Control flow
+through them is still glued with the same short jumps, so semantics are
+preserved, but those bytes stay visible to a disassembler. On the Metasploit
+payloads about 95% of the x64 instructions fit in a container, and about 88% of
+the x86 ones (the 4-byte ceiling is the main cost of the 32-bit variant).
 
 Options that shape the output (environment variables, useful for experiments):
 
@@ -557,27 +603,45 @@ Constraints:
 - the payload must be fully disassembled: a skipped tail is refused;
 - inline data (getpc `call`/`pop` strings) must be moved first with
   `--extract-data`; `-wrap` refuses with a clear error otherwise;
-- `-wrap` implies `-ebi` (a `loop`/`jrcxz` a few bytes away would leave `rel8`
+- `-wrap` implies `-ebi` (a `loop`/`jcxz` a few bytes away would leave `rel8`
   range once its code is moved inside a container);
 - it cannot be combined with `-pii` or `-ip`: those techniques already own the
   final layout;
 - jump tables that store code addresses are not relocated;
-- only `pobf.py` implements it (x86-64); the 32-bit build is unchanged.
+- on x86 the 4-byte capacity is a hard ISA limit: instructions longer than four
+  bytes (`call`, `push imm32`, `mov r32, imm32`, `add esp, imm32`, ...) stay
+  in raw blocks, so a 32-bit payload is wrapped less densely than a 64-bit one.
 
 The implementation lives in `asm_wrap.py` and is independent from the rest of
 the engine, so it can be tested alone. Test entry points:
 
 ```sh
-python test_asm_wrap.py          # chunking + real-CPU execution, 30 runs
-python test_wrap_pipeline.py     # end-to-end through pobf.py, 40 cases
-python test_wrap_messagebox.py   # MessageBox payload, 7 flag combinations x5
+python test_asm_wrap.py            # x64 chunking + real-CPU execution
+python test_asm_wrap32.py          # x86 chunking + ploader86 execution
+python test_wrap_pipeline.py       # x64 end-to-end through pobf.py
+python test_wrap_pipeline32.py     # x86 end-to-end through pobf86.py
+python test_wrap_messagebox.py x64 # MessageBox payload, 7 combinations x5
+python test_wrap_messagebox.py x86
 python check_messagebox.py <payload.bin>
 ```
 
-Measured working rate on the x64 MessageBox payload with `--extract-data`:
-5/5 dialogs for `-wrap`, `-wrap -eq`, `-wrap -nop`, `-wrap -bcf`,
-`-wrap -eq -nop -bcf`, `-wrap -ibp` and `-wrap -eq -nop -bcf -ibp`
-(average output 1.0-6.8 KB).
+Measured working rate with `--extract-data` (5 runs per combination):
+
+| combination | x64 | x86 |
+|---|---|---|
+| `-wrap` | 5/5 | 5/5 |
+| `-wrap -eq` | 5/5 | 5/5 |
+| `-wrap -nop` | 5/5 | 5/5 |
+| `-wrap -bcf` | 5/5 | 5/5 |
+| `-wrap -eq -nop -bcf` | 5/5 | 5/5 |
+| `-wrap -ibp` | 5/5 | 5/5 |
+| `-wrap -eq -nop -bcf -ibp` | 5/5 | 3/5 |
+
+The heaviest x86 combination is fragile by itself: over 10 independent runs,
+`-xd -eq -nop -bcf -ibp` shows the dialog 8/10 times without `-wrap` and 7/10
+with it (n=10, the difference is inside the noise). The other six combinations
+are stable on both architectures.
+
 
 
 ## Implementation Details

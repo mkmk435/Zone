@@ -1,0 +1,82 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "ibp",
+  "arch": "x64",
+  "started_at": "2026-11-13T20:17:00.519969+00:00",
+  "finished_at": "2026-11-13T20:19:21.556663+00:00",
+  "ok": false,
+  "error": "output code is not fully disassembled: 525/635 bytes",
+  "timing": {
+    "wall_seconds": 141.037,
+    "api_seconds": 141.027,
+    "local_seconds": 0.009
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 1,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 141.037,
+      "api_seconds": 141.028,
+      "accepted": false,
+      "similarity": 0.0,
+      "code_bytes": 0,
+      "data_bytes": 0,
+      "instructions": 0,
+      "error": "output code is not fully disassembled: 525/635 bytes"
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T20:17:00.519969+00:00",
+      "seconds": 141.027,
+      "finish_reason": "stop",
+      "content_chars": 3867,
+      "usage": {
+        "prompt_tokens": 4555,
+        "completion_tokens": 32975,
+        "total_tokens": 37530,
+        "cache_hit_tokens": 2176,
+        "cache_miss_tokens": 2379,
+        "reasoning_tokens": 30869
+      },
+      "cost_usd": 0.020148378,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 4555,
+    "completion_tokens": 32975,
+    "total_tokens": 37530,
+    "cache_hit_tokens": 2176,
+    "cache_miss_tokens": 2379,
+    "reasoning_tokens": 30869
+  },
+  "cost_usd": {
+    "total": 0.020148378,
+    "cache_hit": 6.528e-06,
+    "cache_miss": 0.00035685,
+    "output": 0.019785,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.4777,
+  "reasoning_ratio": 0.9361,
+  "payload": {
+    "code_bytes": 0,
+    "data_bytes": 0,
+    "instructions": 0,
+    "similarity": 0.0
+  },
+  "errors": [
+    "output code is not fully disassembled: 525/635 bytes"
+  ],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

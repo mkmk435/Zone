@@ -30,8 +30,8 @@ def windows_for(pid):
     return found
 
 
-def check(payload, timeout=3.0):
-    process = subprocess.Popen(["ploader.exe", payload],
+def check(payload, timeout=3.0, loader="ploader.exe"):
+    process = subprocess.Popen([loader, payload],
                                stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL)
     deadline = time.time() + timeout

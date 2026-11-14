@@ -1,0 +1,244 @@
+note: Running TeX ...
+warning: algorithm2e.sty:284: 
+Invalid UTF-8 byte or sequence at line 284 replaced by U+FFFD.
+warning: algorithm2e.sty:299: Invalid UTF-8 byte or sequence at line 299 replaced by U+FFFD.
+warning: algorithm2e.sty:550: Invalid UTF-8 byte or sequence at line 550 replaced by U+FFFD.
+warning: hyperref.sty:4873: Requested font "pzdr" at 0.00002pt
+warning: hyperref.sty:4873:  -> pzdr
+warning: main.tex:47: 
+Requested font "[TeXGyreTermesX-Regular.otf]/OT" at 9.99997pt
+warning: main.tex:47: Requested font "[TeXGyreTermesX-Regular.otf]/OT" at 10.00003pt
+warning: main.tex:47: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: main.tex:47: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: main.tex:47: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: main.tex:47: Requested font "[TeXGyreTermesX-Slanted.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: main.tex:47: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: main.tex:47: Requested font "[TeXGyreTermesX-BoldSlanted.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: main.tex:47: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 10.0pt
+warning: main.tex:60: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 14.4pt
+warning: main.tex:60: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 14.4pt
+warning: main.tex:60: 
+Requested font "ntx-Regular-tlf-ot1" at 10.0pt
+warning: main.tex:60:  -> ntx-Regular-tlf-ot1
+warning: main.tex:60: Requested font "ntx-Regular-tlf-ot1" at 7.3pt
+warning: main.tex:60:  -> ntx-Regular-tlf-ot1
+warning: main.tex:60: Requested font "ntx-Regular-tlf-ot1" at 5.5pt
+warning: main.tex:60:  -> ntx-Regular-tlf-ot1
+warning: main.tex:60: Requested font "ntxmi0" at 10.0pt
+warning: main.tex:60:  -> ntxmi0
+warning: main.tex:60: Requested font "ntxmi07" at 7.3pt
+warning: main.tex:60:  -> ntxmi07
+warning: main.tex:60: Requested font "ntxmi05" at 5.5pt
+warning: main.tex:60:  -> ntxmi05
+warning: main.tex:60: Requested font "ntxsy" at 10.0pt
+warning: main.tex:60:  -> ntxsy
+warning: main.tex:60: Requested font "ntxsy7" at 7.3pt
+warning: main.tex:60:  -> ntxsy7
+warning: main.tex:60: Requested font "ntxsy5" at 5.5pt
+warning: main.tex:60:  -> ntxsy5
+warning: main.tex:60: Requested font "ntxexx" at 10.0pt
+warning: main.tex:60:  -> ntxexx
+warning: main.tex:60: Requested font "ntxexx" at 7.3pt
+warning: main.tex:60:  -> ntxexx
+warning: main.tex:60: Requested font "ntxexx" at 5.5pt
+warning: main.tex:60:  -> ntxexx
+warning: main.tex:60: 
+Requested font "ntxmia" at 10.0pt
+warning: main.tex:60:  -> ntxmia
+warning: main.tex:60: Requested font "ntxmia" at 7.3pt
+warning: main.tex:60:  -> ntxmia
+warning: main.tex:60: Requested font "ntxmia" at 5.5pt
+warning: main.tex:60:  -> ntxmia
+warning: main.tex:60: 
+Requested font "ntxsym" at 10.0pt
+warning: main.tex:60:  -> ntxsym
+warning: main.tex:60: Requested font "ntxsym" at 7.3pt
+warning: main.tex:60:  -> ntxsym
+warning: main.tex:60: Requested font "ntxsym" at 5.5pt
+warning: main.tex:60:  -> ntxsym
+warning: main.tex:60: 
+Requested font "ntxsyc" at 10.0pt
+warning: main.tex:60:  -> ntxsyc
+warning: main.tex:60: Requested font "ntxsyc" at 7.3pt
+warning: main.tex:60:  -> ntxsyc
+warning: main.tex:60: Requested font "ntxsyc" at 5.5pt
+warning: main.tex:60:  -> ntxsyc
+warning: main.tex:60: Requested font "ntxexa" at 10.0pt
+warning: main.tex:60:  -> ntxexa
+warning: main.tex:60: Requested font "ntxexa" at 7.3pt
+warning: main.tex:60:  -> ntxexa
+warning: main.tex:60: Requested font "ntxexa" at 5.5pt
+warning: main.tex:60:  -> ntxexa
+warning: main.tex:60: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 9.0pt
+warning: main.tex:60: Requested font "[lmmono9-regular]:" at 9.0pt
+warning: main.tex:61: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 9.0pt
+warning: main.tex:91: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 12.0pt
+warning: main.tex:91: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 12.0pt
+warning: main.tex:95: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 10.0pt
+warning: main.tex:105: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 10.0pt
+warning: main.tex:158: 
+Requested font "[lmmono10-regular]:" at 10.0pt
+warning: main.tex:168: Requested font "ntx-Regular-tlf-ot1" at 9.0pt
+warning: main.tex:168:  -> ntx-Regular-tlf-ot1
+warning: main.tex:168: Requested font "ntxmi0" at 9.0pt
+warning: main.tex:168:  -> ntxmi0
+warning: main.tex:168: Requested font "ntxsy" at 9.0pt
+warning: main.tex:168:  -> ntxsy
+warning: main.tex:168: Requested font "ntxexx" at 9.0pt
+warning: main.tex:168:  -> ntxexx
+warning: main.tex:168: Requested font "ntxmia" at 9.0pt
+warning: main.tex:168:  -> ntxmia
+warning: main.tex:168: Requested font "ntxsym" at 9.0pt
+warning: main.tex:168:  -> ntxsym
+warning: main.tex:168: Requested font "ntxsyc" at 9.0pt
+warning: main.tex:168:  -> ntxsyc
+warning: main.tex:168: Requested font "ntxexa" at 9.0pt
+warning: main.tex:168:  -> ntxexa
+warning: main.tex:274: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;+sups;mapping=tex-text;" at 10.0pt
+warning: main.tex:274: Requested font "[TeXGyreTermesX-Regular.otf]/OT" at 8.99997pt
+warning: main.tex:274: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: main.tex:274: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;+sups;mapping=tex-text;" at 9.0pt
+warning: main.tex:302: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 7.0pt
+warning: main.tex:347: Requested font "[lmmono8-regular]:" at 7.0pt
+warning: main.tex:348: Requested font "[lmmonolt10-bold]:" at 7.0pt
+warning: main.tex:348: Requested font "[lmmono10-italic]:" at 7.0pt
+warning: main.tex:417: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 7.0pt
+warning: main.tex:420: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 5.0pt
+warning: main.tex:440: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 7.0pt
+warning: main.tex:440: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 7.0pt
+warning: main.tex:502: Underfull \hbox (badness 2495) in paragraph at lines 500--502
+warning: main.tex:596: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 6.0pt
+warning: main.tex:675: Underfull \vbox (badness 5771) has occurred while \output is active
+warning: main.tex:759: Underfull \hbox (badness 1810) in paragraph at lines 758--759
+warning: main.tex:881: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 7.3pt
+warning: main.tex:881: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 5.5pt
+warning: sections/extension_code_data:58: Underfull \hbox (badness 1454) in paragraph at lines 51--58
+warning: sections/extension_results:174: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: main.tex:1077: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 9.0pt
+note: Running BibTeX on main.aux ...
+note: Rerunning TeX because bibtex was run ...
+warning: algorithm2e.sty:284: 
+Invalid UTF-8 byte or sequence at line 284 replaced by U+FFFD.
+warning: algorithm2e.sty:299: Invalid UTF-8 byte or sequence at line 299 replaced by U+FFFD.
+warning: algorithm2e.sty:550: Invalid UTF-8 byte or sequence at line 550 replaced by U+FFFD.
+warning: hyperref.sty:4873: Requested font "pzdr" at 0.00002pt
+warning: hyperref.sty:4873:  -> pzdr
+warning: main.tex:47: 
+Requested font "[TeXGyreTermesX-Regular.otf]/OT" at 9.99997pt
+warning: main.tex:47: Requested font "[TeXGyreTermesX-Regular.otf]/OT" at 10.00003pt
+warning: main.tex:47: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: main.tex:47: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: main.tex:47: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: main.tex:47: Requested font "[TeXGyreTermesX-Slanted.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: main.tex:47: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: main.tex:47: Requested font "[TeXGyreTermesX-BoldSlanted.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: main.tex:47: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 10.0pt
+warning: main.tex:60: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 14.4pt
+warning: main.tex:60: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 14.4pt
+warning: main.tex:60: 
+Requested font "ntx-Regular-tlf-ot1" at 10.0pt
+warning: main.tex:60:  -> ntx-Regular-tlf-ot1
+warning: main.tex:60: Requested font "ntx-Regular-tlf-ot1" at 7.3pt
+warning: main.tex:60:  -> ntx-Regular-tlf-ot1
+warning: main.tex:60: Requested font "ntx-Regular-tlf-ot1" at 5.5pt
+warning: main.tex:60:  -> ntx-Regular-tlf-ot1
+warning: main.tex:60: Requested font "ntxmi0" at 10.0pt
+warning: main.tex:60:  -> ntxmi0
+warning: main.tex:60: Requested font "ntxmi07" at 7.3pt
+warning: main.tex:60:  -> ntxmi07
+warning: main.tex:60: Requested font "ntxmi05" at 5.5pt
+warning: main.tex:60:  -> ntxmi05
+warning: main.tex:60: Requested font "ntxsy" at 10.0pt
+warning: main.tex:60:  -> ntxsy
+warning: main.tex:60: Requested font "ntxsy7" at 7.3pt
+warning: main.tex:60:  -> ntxsy7
+warning: main.tex:60: Requested font "ntxsy5" at 5.5pt
+warning: main.tex:60:  -> ntxsy5
+warning: main.tex:60: Requested font "ntxexx" at 10.0pt
+warning: main.tex:60:  -> ntxexx
+warning: main.tex:60: Requested font "ntxexx" at 7.3pt
+warning: main.tex:60:  -> ntxexx
+warning: main.tex:60: Requested font "ntxexx" at 5.5pt
+warning: main.tex:60:  -> ntxexx
+warning: main.tex:60: 
+Requested font "ntxmia" at 10.0pt
+warning: main.tex:60:  -> ntxmia
+warning: main.tex:60: Requested font "ntxmia" at 7.3pt
+warning: main.tex:60:  -> ntxmia
+warning: main.tex:60: Requested font "ntxmia" at 5.5pt
+warning: main.tex:60:  -> ntxmia
+warning: main.tex:60: 
+Requested font "ntxsym" at 10.0pt
+warning: main.tex:60:  -> ntxsym
+warning: main.tex:60: Requested font "ntxsym" at 7.3pt
+warning: main.tex:60:  -> ntxsym
+warning: main.tex:60: Requested font "ntxsym" at 5.5pt
+warning: main.tex:60:  -> ntxsym
+warning: main.tex:60: 
+Requested font "ntxsyc" at 10.0pt
+warning: main.tex:60:  -> ntxsyc
+warning: main.tex:60: Requested font "ntxsyc" at 7.3pt
+warning: main.tex:60:  -> ntxsyc
+warning: main.tex:60: Requested font "ntxsyc" at 5.5pt
+warning: main.tex:60:  -> ntxsyc
+warning: main.tex:60: Requested font "ntxexa" at 10.0pt
+warning: main.tex:60:  -> ntxexa
+warning: main.tex:60: Requested font "ntxexa" at 7.3pt
+warning: main.tex:60:  -> ntxexa
+warning: main.tex:60: Requested font "ntxexa" at 5.5pt
+warning: main.tex:60:  -> ntxexa
+warning: main.tex:60: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 9.0pt
+warning: main.tex:60: Requested font "[lmmono9-regular]:" at 9.0pt
+warning: main.tex:61: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 9.0pt
+warning: main.tex:91: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 12.0pt
+warning: main.tex:91: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 12.0pt
+warning: main.tex:95: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 10.0pt
+warning: main.tex:105: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 10.0pt
+warning: main.tex:158: 
+Requested font "[lmmono10-regular]:" at 10.0pt
+warning: main.tex:168: Requested font "ntx-Regular-tlf-ot1" at 9.0pt
+warning: main.tex:168:  -> ntx-Regular-tlf-ot1
+warning: main.tex:168: Requested font "ntxmi0" at 9.0pt
+warning: main.tex:168:  -> ntxmi0
+warning: main.tex:168: Requested font "ntxsy" at 9.0pt
+warning: main.tex:168:  -> ntxsy
+warning: main.tex:168: Requested font "ntxexx" at 9.0pt
+warning: main.tex:168:  -> ntxexx
+warning: main.tex:168: Requested font "ntxmia" at 9.0pt
+warning: main.tex:168:  -> ntxmia
+warning: main.tex:168: Requested font "ntxsym" at 9.0pt
+warning: main.tex:168:  -> ntxsym
+warning: main.tex:168: Requested font "ntxsyc" at 9.0pt
+warning: main.tex:168:  -> ntxsyc
+warning: main.tex:168: Requested font "ntxexa" at 9.0pt
+warning: main.tex:168:  -> ntxexa
+warning: main.tex:274: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;+sups;mapping=tex-text;" at 10.0pt
+warning: main.tex:274: Requested font "[TeXGyreTermesX-Regular.otf]/OT" at 8.99997pt
+warning: main.tex:274: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;" at 9.00003pt
+warning: main.tex:274: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;+sups;mapping=tex-text;" at 9.0pt
+warning: main.tex:302: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 7.0pt
+warning: main.tex:347: Requested font "[lmmono8-regular]:" at 7.0pt
+warning: main.tex:348: Requested font "[lmmonolt10-bold]:" at 7.0pt
+warning: main.tex:348: Requested font "[lmmono10-italic]:" at 7.0pt
+warning: main.tex:417: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 7.0pt
+warning: main.tex:420: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 5.0pt
+warning: main.tex:440: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 7.0pt
+warning: main.tex:440: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 7.0pt
+warning: main.tex:502: Underfull \hbox (badness 2495) in paragraph at lines 500--502
+warning: main.tex:596: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 6.0pt
+warning: main.tex:675: Underfull \vbox (badness 5771) has occurred while \output is active
+warning: main.tex:759: Underfull \hbox (badness 1810) in paragraph at lines 758--759
+warning: main.tex:881: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 7.3pt
+warning: main.tex:881: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 5.5pt
+warning: sections/extension_code_data:58: Underfull \hbox (badness 1454) in paragraph at lines 51--58
+warning: sections/extension_results:174: Underfull \vbox (badness 10000) has occurred while \output is active
+warning: main.tex:1077: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 9.0pt
+note: Running xdvipdfmx ...
+warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
+note: Writing `main.aux` (23.3779296875 KiB)
+note: Writing `main.bbl` (6.576171875 KiB)
+note: Writing `main.out` (544 B)
+note: Writing `main.blg` (196 B)
+note: Writing `main.pdf` (185.634765625 KiB)
+note: Writing `DescriptionTexts.txt` (1.203125 KiB)
+note: Writing `main.log` (57.056640625 KiB)

@@ -1,0 +1,99 @@
+{
+  "sections": [
+    {
+      "offset": 9,
+      "length": 12,
+      "kind": "ascii",
+      "text": "Hello, x86!"
+    }
+  ],
+  "dropped_no_reference": [],
+  "xrefs": [
+    {
+      "source": 4,
+      "target": 9,
+      "length": 12
+    }
+  ],
+  "data_bytes": 17,
+  "stats": {
+    "model": "deepseek-flash",
+    "model_version": "DeepSeek-V4.1-Flash-1017",
+    "technique": "data",
+    "arch": "x86",
+    "started_at": "2026-11-13T13:05:57.972154+00:00",
+    "finished_at": "2026-11-13T13:06:02.173794+00:00",
+    "ok": true,
+    "error": null,
+    "timing": {
+      "wall_seconds": 4.202,
+      "api_seconds": 4.2,
+      "local_seconds": 0.002
+    },
+    "attempts": 1,
+    "api_calls": 1,
+    "rejected_attempts": 0,
+    "attempt_details": [
+      {
+        "attempt": 1,
+        "seconds": 4.201,
+        "api_seconds": 4.2,
+        "accepted": true,
+        "similarity": 0.0,
+        "code_bytes": 33,
+        "data_bytes": 17,
+        "instructions": 22,
+        "error": null
+      }
+    ],
+    "api_call_details": [
+      {
+        "attempt": 1,
+        "generation_attempt": 1,
+        "started_at": "2026-11-13T13:05:57.972154+00:00",
+        "seconds": 4.2,
+        "finish_reason": "stop",
+        "content_chars": 75,
+        "usage": {
+          "prompt_tokens": 1007,
+          "completion_tokens": 586,
+          "total_tokens": 1593,
+          "cache_hit_tokens": 0,
+          "cache_miss_tokens": 1007,
+          "reasoning_tokens": 558
+        },
+        "cost_usd": 0.00050265,
+        "error": null
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1007,
+      "completion_tokens": 586,
+      "total_tokens": 1593,
+      "cache_hit_tokens": 0,
+      "cache_miss_tokens": 1007,
+      "reasoning_tokens": 558
+    },
+    "cost_usd": {
+      "total": 0.00050265,
+      "cache_hit": 0.0,
+      "cache_miss": 0.00015105,
+      "output": 0.0003516,
+      "peak": false,
+      "rate": "off-peak"
+    },
+    "peak_calls": 0,
+    "offpeak_calls": 1,
+    "cache_hit_ratio": 0.0,
+    "reasoning_ratio": 0.9522,
+    "payload": {
+      "code_bytes": 33,
+      "data_bytes": 17,
+      "instructions": 22,
+      "similarity": 0.0
+    },
+    "errors": [],
+    "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+    "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+  }
+}

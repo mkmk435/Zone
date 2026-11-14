@@ -1,0 +1,5 @@
+0x0 bytearray(b'H\x8d5\x06\x00\x00\x00') 7  lea  rsi, [rip + 6]
+0x7 bytearray(b'\xb8\x01\x00\x00\x00') 5  mov  eax, 1
+0xc bytearray(b'\xc3') 1  ret  
+0xd bytearray(b'hello') 5  push  0x6f6c6c65
+0x12 bytearray(b'\x00') 1  .byte  0x00

@@ -3298,6 +3298,25 @@ class Zone:
                 + ", ".join(hex(address) for address in remaining[:4])
                 + "; they have no label entry (see -ebi)")
 
+        if not self.data_analysis_done:
+            by_address = {instr.new_instruction.address: instr
+                          for instr in self.instructions}
+
+            def is_getpc(instr):
+                insn = instr.new_instruction
+                if insn.mnemonic != "call" or not insn.operands:
+                    return False
+                if insn.operands[0].type != x86_const.X86_OP_IMM:
+                    return False
+                target = by_address.get(insn.operands[0].imm)
+                return (target is not None
+                        and target.new_instruction.mnemonic == "pop")
+
+            if any(is_getpc(instr) for instr in self.instructions):
+                raise RuntimeError(
+                    "payload uses a getpc call/pop sequence: run with "
+                    "--extract-data before -wrap")
+
         for instr in self.instructions:
             insn = instr.new_instruction
             if insn.mnemonic == ".byte" or insn.id == 0:
@@ -3367,6 +3386,11 @@ class Zone:
         return payload
 
     def write_strange_file(self, out_file = None):
+        if self.extracted_data and not self.data_refs_finalized:
+            # Finalize before serialising the instruction bytes: a late
+            # finalize would update new_instruction after new_bytes was
+            # already assembled.
+            self.finalize_data_refs()
         new_bytes = b''
         for x,i in enumerate(self.instructions):
             new_bytes += i.new_instruction.bytes
@@ -3384,8 +3408,6 @@ class Zone:
 
         # extracted data lives after the PII instruction map
         if self.extracted_data:
-            if not self.data_refs_finalized:
-                self.finalize_data_refs()
             new_bytes += self.final_data_pad
             new_bytes += self.final_data_blob
         
@@ -3412,14 +3434,16 @@ class Zone:
                 f.write(new_bytes)
             return
 
+        if self.extracted_data and not self.data_refs_finalized:
+            # Must run before the instruction bytes are concatenated.
+            self.finalize_data_refs()
+
         new_bytes = b''
         for i in self.instructions:
             new_bytes += i.new_instruction.bytes
 
         # data extracted with --extract-data goes after the code
         if self.extracted_data:
-            if not self.data_refs_finalized:
-                self.finalize_data_refs()
             new_bytes += self.final_data_pad
             new_bytes += self.final_data_blob
         elif not self.morph_applied and len(new_bytes) == self.sweep_coverage:
@@ -3542,6 +3566,7 @@ def start(file):
     no_data_cache = False
     refresh_data_cache = False
     llm_mode = False
+    llm_morph = False
     llm_technique = None
     llm_model = None
     llm_base_url = None
@@ -3623,12 +3648,15 @@ def start(file):
             output_file = opt_args[opt_args.index(arg) + 1]
         elif arg == "--llm" or arg == "-llm":
             llm_mode = True
+            llm_morph = True
         elif arg == "--llm-technique":
             try:
                 llm_technique = opt_args[opt_args.index(arg) + 1]
             except IndexError:
                 print("--llm-technique requires a name")
                 sys.exit(1)
+            llm_mode = True
+            llm_morph = True
         elif arg == "--llm-shots":
             try:
                 llm_shots = int(opt_args[opt_args.index(arg) + 1])
@@ -3802,36 +3830,47 @@ def start(file):
         if assembly_wrapping:
             selected.append("wrap")
 
+        technique = None
         try:
-            technique = None
-            if llm_technique:
-                technique = llm_engine.resolve_technique(llm_technique)
-                if selected and technique not in selected:
+            if llm_morph:
+                if llm_technique:
+                    technique = llm_engine.resolve_technique(llm_technique)
+                    if selected and technique not in selected:
+                        raise llm_engine.LLMConfigError(
+                            f"--llm-technique {technique} does not match the "
+                            f"selected flag(s): {', '.join(selected)}")
+                    if len(selected) > 1:
+                        raise llm_engine.LLMConfigError(
+                            "LLM mode applies one technique at a time; pass "
+                            "only one of -eq, -nop, -bcf, -ibp")
+                elif selected:
+                    if len(selected) > 1:
+                        raise llm_engine.LLMConfigError(
+                            "LLM mode applies one technique at a time; pass "
+                            "only one of -eq, -nop, -bcf, -ibp")
+                    technique = selected[0]
+                elif not llm_data:
                     raise llm_engine.LLMConfigError(
-                        f"--llm-technique {technique} does not match the "
-                        f"selected flag(s): {', '.join(selected)}")
-                if len(selected) > 1:
+                        "LLM mode needs a technique or --llm-data: pass one "
+                        "of -eq, -nop, -bcf, -ibp, or --llm-data")
+                if technique is not None and technique not in llm_engine.TECHNIQUES:
                     raise llm_engine.LLMConfigError(
-                        "LLM mode applies one technique at a time; pass only "
-                        "one of -eq, -nop, -bcf, -ibp")
-            elif selected:
-                if len(selected) > 1:
+                        f"LLM mode does not implement {technique!r} yet; "
+                        "supported: eq, nop, bcf, ibp (use the native "
+                        "-pii/-ip/-wrap implementation for the others)")
+            else:
+                # --llm-data without --llm: the selected technique flags are
+                # native Zone transformations, applied after LLM data
+                # classification.  All native techniques are allowed here.
+                if llm_technique:
                     raise llm_engine.LLMConfigError(
-                        "LLM mode applies one technique at a time; pass only "
-                        "one of -eq, -nop, -bcf, -ibp")
-                technique = selected[0]
-            elif not llm_data:
-                raise llm_engine.LLMConfigError(
-                    "LLM mode needs a technique or --llm-data: pass one of "
-                    "-eq, -nop, -bcf, -ibp, or --llm-data")
-            if technique is not None and technique not in llm_engine.TECHNIQUES:
-                raise llm_engine.LLMConfigError(
-                    f"LLM mode does not implement {technique!r} yet; "
-                    "supported: eq, nop, bcf, ibp (use the native -pii/-ip/"
-                    "-wrap implementation for the others)")
+                        "--llm-technique selects LLM morphing; use --llm with "
+                        "it, or use native technique flags with --llm-data")
         except llm_engine.LLMConfigError as error:
             print(f"ERROR: {error}")
             sys.exit(1)
+
+        native_after = bool(llm_data and not llm_morph and selected)
 
         if llm_verify not in ("static", "messagebox"):
             print("ERROR: --llm-verify must be static or messagebox")
@@ -3924,7 +3963,12 @@ def start(file):
             print(f"[llm] data classification: "
                   f"{len(data_result.sections)} section(s), "
                   f"{data_result.data_bytes} bytes")
-            if technique is None:
+            if native_after:
+                # Native Zone techniques will run after this block.  Let
+                # write_file() finalize the data references again at the
+                # final layout instead of keeping the pre-morph addresses.
+                zone.data_refs_finalized = False
+            if technique is None and not native_after:
                 out = output_file if output_file else "new_payload.bin"
                 zone.write_file(out)
                 with open(out, "rb") as handle:
@@ -3967,61 +4011,63 @@ def start(file):
                     print("[llm] WARNING: the payload has undecodable bytes; "
                           "without -xd the canonical listing may contain data")
 
-        # No native morph ran before this point: do not suppress a sweep tail
-        # when the data layer found nothing.
-        zone.morph_applied = False
-        try:
-            canonical = llm_payload.from_zone(zone, "x64")
-        except llm_payload.LLMPayloadError as error:
-            print(f"ERROR: cannot canonicalise the payload: {error}")
-            sys.exit(1)
-        print(f"[llm] canonical listing: {len(canonical.code)} code bytes, "
-              f"{len(canonical.blob)} data bytes, "
-              f"{len(canonical.ret_labels)} getpc site(s)")
+        if llm_morph:
+            # No native morph ran before this point: do not suppress a sweep
+            # tail when the data layer found nothing.
+            zone.morph_applied = False
+            try:
+                canonical = llm_payload.from_zone(zone, "x64")
+            except llm_payload.LLMPayloadError as error:
+                print(f"ERROR: cannot canonicalise the payload: {error}")
+                sys.exit(1)
+            print(f"[llm] canonical listing: {len(canonical.code)} code "
+                  f"bytes, {len(canonical.blob)} data bytes, "
+                  f"{len(canonical.ret_labels)} getpc site(s)")
 
-        verifier = None
-        if llm_verify == "messagebox":
-            verifier = lambda data: llm_engine.verify_messagebox_bytes(
-                data, "x64")
+            verifier = None
+            if llm_verify == "messagebox":
+                verifier = lambda data: llm_engine.verify_messagebox_bytes(
+                    data, "x64")
 
-        try:
-            result = llm_engine.run(canonical, options, verifier=verifier)
-        except llm_engine.LLMGenerationError as error:
-            if error.last_source and llm_failed_output:
-                with open(llm_failed_output, "w", encoding="utf-8",
-                          newline="\n") as handle:
-                    handle.write(error.last_source)
-                print(f"[llm] last rejected answer saved to "
-                      f"{llm_failed_output}")
-            if error.stats is not None:
-                print(error.stats.summary())
+            try:
+                result = llm_engine.run(canonical, options,
+                                        verifier=verifier)
+            except llm_engine.LLMGenerationError as error:
+                if error.last_source and llm_failed_output:
+                    with open(llm_failed_output, "w", encoding="utf-8",
+                              newline="\n") as handle:
+                        handle.write(error.last_source)
+                    print(f"[llm] last rejected answer saved to "
+                          f"{llm_failed_output}")
+                if error.stats is not None:
+                    print(error.stats.summary())
+                    if llm_stats_path:
+                        error.stats.write_json(llm_stats_path)
+                        print(f"[llm] stats JSON: {llm_stats_path}")
+                print(f"ERROR: {error}")
+                sys.exit(1)
+            except llm_engine.LLMError as error:
+                stats = getattr(error, "stats", None)
+                if stats is not None:
+                    print(stats.summary())
+                    if llm_stats_path:
+                        stats.write_json(llm_stats_path)
+                        print(f"[llm] stats JSON: {llm_stats_path}")
+                print(f"ERROR: {error}")
+                sys.exit(1)
+
+            out = output_file if output_file else "new_payload.bin"
+            with open(out, "wb") as handle:
+                handle.write(result.payload)
+            print(f"[llm] wrote {out} ({len(result.payload)} bytes, "
+                  f"{result.attempts} attempt(s))")
+            print(f"Output: {out}")
+            if result.stats is not None:
+                print(result.stats.summary())
                 if llm_stats_path:
-                    error.stats.write_json(llm_stats_path)
+                    result.stats.write_json(llm_stats_path)
                     print(f"[llm] stats JSON: {llm_stats_path}")
-            print(f"ERROR: {error}")
-            sys.exit(1)
-        except llm_engine.LLMError as error:
-            stats = getattr(error, "stats", None)
-            if stats is not None:
-                print(stats.summary())
-                if llm_stats_path:
-                    stats.write_json(llm_stats_path)
-                    print(f"[llm] stats JSON: {llm_stats_path}")
-            print(f"ERROR: {error}")
-            sys.exit(1)
-
-        out = output_file if output_file else "new_payload.bin"
-        with open(out, "wb") as handle:
-            handle.write(result.payload)
-        print(f"[llm] wrote {out} ({len(result.payload)} bytes, "
-              f"{result.attempts} attempt(s))")
-        print(f"Output: {out}")
-        if result.stats is not None:
-            print(result.stats.summary())
-            if llm_stats_path:
-                result.stats.write_json(llm_stats_path)
-                print(f"[llm] stats JSON: {llm_stats_path}")
-        return
+            return
 
 # INITIALIZATION / DATA EXTRACTION
 
@@ -4147,6 +4193,15 @@ def start(file):
     else:
         zone.write_file(output_file)
     zone.print_instructions()
+    if llm_data and llm_verify == "messagebox":
+        out = output_file if output_file else "new_payload.bin"
+        with open(out, "rb") as handle:
+            output_bytes = handle.read()
+        ok, detail = llm_engine.verify_messagebox_bytes(output_bytes, "x64")
+        print(f"[llm] execution check: {detail}")
+        if not ok:
+            print("ERROR: native morph output failed the message-box check")
+            sys.exit(1)
     print("FINE")
     
 

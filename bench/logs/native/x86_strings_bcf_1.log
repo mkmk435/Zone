@@ -1,0 +1,58 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+SYMBOLIC DATA ANALYSIS...
+[cache] hit 1d6a53c3bcdf in data_cache.json (1 sections, timeout=120.0s, created 2026-11-13T13:10:58)
+[cache] using the stored sections; --refresh-data-cache re-runs the symbolic search
+Data sections: 1
+  0x9 (12 B) ascii
+Data xrefs: 1
+  0x4 -> 0x9 (12 B)
+REBUILT 22 INSTRUCTIONS (33/33 bytes)
+[extract] moving 1 section(s), 12 B
+  0x9 (12 B ascii) 'Hello, x86!'
+[extract] references to rewrite: 1
+CREO JUMP TABLE
+CREO LABEL TABLE
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  esi
+CODE:  pushfd;push esi; xor esi, esi;cmp esi, 0; pop esi;popfd;je 0x21
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  ecx
+CODE:  pushfd;push ecx;push 252;pop ecx;cmp ecx, 252; pop ecx;popfd;je 0x42
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  edi
+CODE:  pushfd;cmp edi, edi;popfd;je 0x46
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  edx
+CODE:  pushfd;push edx;mov edx, 58;cmp edx, 58;pop edx;popfd;je 0x6a
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  eax
+CODE:  pushfd;push eax;mov eax, 10;and eax, 0xFFFFFFFF;cmp eax, 10; pop eax;popfd;je 0x82
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+[extract] code 115 B + pad 13 B + data 17 B = 145 B
+[extract] data 0x9 -> 0x85 (12 B)
+[extract] ref 0x4 (now 0x13): jmp 0x80 -> 0x85
+Output: C:\Users\ubu\Desktop\Zone\bench\run\outputs\x86_strings_bcf_1.bin
+FINE

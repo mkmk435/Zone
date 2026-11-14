@@ -1,0 +1,40 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['C:\\Users\\ubu\\Desktop\\Zone\\bench\\fixtures\\x64\\getpc.bin', '--llm-data', '--llm-data-json', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\lldata_stats\\x64_getpc_call2.data.json', '--llm-stats', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\lldata_stats\\x64_getpc_call2.json', '--llm-failed-output', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\lldata_failed\\x64_getpc_call2.asm', '-o', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\lldata_outputs\\x64_getpc_call2.bin']
+[llm] technique=data-classification model=deepseek-flash
+[llm] endpoint=https://api.deepseek.com/v1/chat/completions
+[llm] classifying data with the model instead of -xd
+[llm-data] attempt 1/3: deepseek-flash
+[llm-data] attempt 1: 1,405 tokens (978 in / 427 out), 2.6s, $0.000403
+FINITO DI DISASSEMBLARE
+REBUILT 20 INSTRUCTIONS (36/36 bytes)
+[extract] moving 1 section(s), 12 B
+  0x5 (12 B ascii) 'getpc data!'
+[extract] references to rewrite: 1
+[extract] code 36 B + pad 12 B + data 12 B = 60 B
+[extract] data 0x5 -> 0x30 (12 B)
+[extract] ref 0x0 (now 0x0): lea rsi, [rip + 0x29] -> 0x30
+[llm-data] accepted 1 section(s), 12 data bytes
+====================================================================
+[llm] run statistics
+  model:      deepseek-flash (DeepSeek-V4.1-Flash-1017)
+  technique:  data (x64)
+  attempts:   1 (1 API call(s), 0 rejected)
+  time:       2.6s total (API 2.6s, local 0.0s)
+  attempt 1: 2.6s, ok, 12 data bytes
+  tokens:     1,405 total = 978 input + 427 output
+              input: 0 cache hit + 978 cache miss (0.0% hit)
+              output: 427 (reasoning 400, 93.7%)
+  throughput: 162.8 output tokens/s (API time)
+  cost:       $0.000403 USD (off-peak)
+              input $0.000147 (hit $0.000000, miss $0.000147) + output $0.000256
+              prices: DeepSeek official USD/1M tokens; peak/off-peak UTC, holidays not modelled
+  payload:    36 code + 12 data bytes, 20 instructions
+  extraction: ok, 12 data bytes
+====================================================================
+[llm] data stats JSON: C:\Users\ubu\Desktop\Zone\bench\run\lldata_stats\x64_getpc_call2.json
+[llm] data classification JSON: C:\Users\ubu\Desktop\Zone\bench\run\lldata_stats\x64_getpc_call2.data.json
+[llm] data classification: 1 section(s), 12 bytes
+[llm] wrote C:\Users\ubu\Desktop\Zone\bench\run\lldata_outputs\x64_getpc_call2.bin (60 bytes, data-only mode)
+Output: C:\Users\ubu\Desktop\Zone\bench\run\lldata_outputs\x64_getpc_call2.bin

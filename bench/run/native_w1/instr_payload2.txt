@@ -1,0 +1,18 @@
+0x0 bytearray(b'\x8bL$\x04') 4  mov  ecx, dword ptr [esp + 4]
+0x4 bytearray(b'1\xc0') 2  xor  eax, eax
+0x6 bytearray(b'\xba\x06\x00\x00\x00') 5  mov  edx, 6
+0xb bytearray(b'\x01\xd0') 2  add  eax, edx
+0xd bytearray(b'J') 1  dec  edx
+0xe bytearray(b'\x0f\x85\x00\x00\x00\x00') 6  jne  0x14
+0x10 bytearray(b'\x83\xf8\x15') 3  cmp  eax, 0x15
+0x13 bytearray(b'\x0f\x85\x00\x00\x00\x00') 6  jne  0x19
+0x15 bytearray(b'\xe8\x0b\x00\x00\x00') 5  call  0x25
+0x1a bytearray(b'\x89\x01') 2  mov  dword ptr [ecx], eax
+0x1c bytearray(b'\xe9\x00\x00\x00\x00') 5  jmp  0x21
+0x1e bytearray(b'\xc7\x01\xad\x0b\x00\x00') 6  mov  dword ptr [ecx], 0xbad
+0x24 bytearray(b'\xc3') 1  ret  
+0x25 bytearray(b'\x83\xc0d') 3  add  eax, 0x64
+0x28 bytearray(b'\xc3') 1  ret  
+t  al, al
+0x1e bytearray(b'\x0f\x85\x00\x00\x00\x00') 6  jne  0x24
+0x20 bytearray(b'\xc3') 1  ret  

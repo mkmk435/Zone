@@ -1,0 +1,22 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['C:\\Users\\ubu\\Desktop\\Zone\\bench\\fixtures\\x64\\mixed.bin', '-eq', '-o', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\outputs\\x64_mixed_eq_1.bin']
+CREO JUMP TABLE
+CREO LABEL TABLE
+ADDRESS DEL PRIMO XOR EAX,EAX:  0x0
+vecchia istruzione:  xor rax, rax
+nuova istruzione:  mov rax, 0
+ADDRESS DEL PRIMO DEC:  0xd
+vecchia istruzione:  dec rdx
+nuova istruzione:  sub rdx, 1
+ADDRESS DEL PRIMO ADD:  0x2a
+vecchia istruzione:  add rax, 0x64
+nuova istruzione:  sub rax, -0x64
+##########################################
+BYTES ADDED:  0x5
+##########################################
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+FINE

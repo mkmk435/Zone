@@ -1,0 +1,185 @@
+\section{Experimental Results}\label{sec:results}
+\subsection{Published Experimental Baseline}\label{sec:baseline}
+The conference experiments provide historical context for the
+extensions~\cite{zone_secrypt_2026}. Their corpus contained 102 Windows
+payloads: 38 x64 and 64 x86. Fifteen single and combined transformation
+configurations were considered, with ten variants planned for each
+input/configuration pair. Planned multiplicity is distinguished from
+the number of outputs actually available.
+
+Table~\ref{tab:historical} summarizes selected published aggregate
+observations. The original-file malicious-verdict means were 21.67\%
+for x64 and 22.63\% for x86. The published transformed-file averages were
+substantially smaller, but functional outcomes varied across
+configurations. These measurements belong to the original engine,
+corpus, harness, and scan periods. They are not new experiments on the
+extensions described above.
+
+\begin{table}[t]
+\caption{Selected published aggregate static-scan observations,
+summarized from~\cite{zone_secrypt_2026}. Percentages describe the
+published malicious-verdict fractions, not deployed endpoint detection.}
+\label{tab:historical}
+\centering\small
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Published condition & x64 & x86 \\
+\midrule
+Original payloads & 21.67\% & 22.63\% \\
+Zone configurations, reported average & 0.57\% & 0.25\% \\
+SGN comparison & 0.00\% & 10.22\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The conference comparison with SGN also considered memory dumps after
+decoding~\cite{zone_secrypt_2026}. Such a submission tests recognition
+of recovered bytes, whereas Zone's intended model retains a rewritten
+representation. Neither observation directly measures the runtime
+response of an installed endpoint product. The comparison is retained
+as historical context rather than evidence about the new LLM or
+wrapping paths.
+
+The historical figures for size, entropy, and similarity characterized
+representation changes. Their metrics remain distinct from functional
+checks. The extended assessment uses the explicit definitions in
+Section~\ref{sec:methodology}; any reanalysis of historical artifacts
+must state its own grouping, deduplication, and representation choices.
+\draftnote{The previous draft's detailed historical plots are omitted
+pending reconciliation of category/value mappings and metric provenance.
+The original sources are preserved in the backup. Finalize actual
+historical output counts and identify any corrected reanalysis explicitly.}
+
+\subsection{Code--Data Identification}\label{sec:data_results}
+\draftnote{Insert the frozen identification campaign here. If no
+independent reference annotations are available, present agreement and
+case studies and retain that scope in the abstract and conclusions.}
+\begin{table}[t]
+\caption{Identification assessment. A dash denotes an unavailable
+reference-based measure; pending denotes an experiment not yet finalized.}
+\label{tab:data_results}
+\centering\small
+\begin{tabularx}{\linewidth}{@{}Yllll@{}}
+\toprule
+Method and output stage & Inputs & Precision$_D$ & Recall$_D$ & $F_{1,D}$ \\
+\midrule
+Symbolic/heuristic candidates & \pending & \pending & \pending & \pending \\
+Symbolic/heuristic accepted & \pending & \pending & \pending & \pending \\
+LLM candidates & \pending & \pending & \pending & \pending \\
+LLM accepted & \pending & \pending & \pending & \pending \\
+\bottomrule
+\end{tabularx}
+\end{table}
+The completed analysis will distinguish interval agreement, uncertainty,
+filtering, and downstream behavior. Examples will identify whether a
+disagreement originates in the proposed data ranges, reference support,
+or subsequent transformation. Identical final binaries will be reported
+as pipeline agreement rather than used as a substitute for reference
+annotations.
+
+\subsection{Functional Assessment of the Extended Engine}
+\label{sec:functional_results}
+\draftnote{Insert preparation-only and native-transformation outcomes,
+with the input-selection rule, architecture, snapshot, and harness.
+Keep historical and current MessageBox oracles distinct.}
+\begin{table}[t]
+\caption{Functional assessment structure. Report counts before
+percentages; $N$, $B$, and $W$ are defined in the methodology.}
+\label{tab:functional_results}
+\centering\small
+\begin{tabularx}{\linewidth}{@{}Ylllll@{}}
+\toprule
+Condition & Arch. & $N$ & $B$ & $W/N$ & $W/B$ \\
+\midrule
+Data handling only & x64 & \pending & \pending & \pending & \pending \\
+Data handling only & x86 & \pending & \pending & \pending & \pending \\
+Native transformations & x64 & \pending & \pending & \pending & \pending \\
+Native transformations & x86 & \pending & \pending & \pending & \pending \\
+\bottomrule
+\end{tabularx}
+\end{table}
+The failure analysis will distinguish construction refusal, incomplete
+decoding, unsupported references, failed execution checks, and
+uncompleted tests. Aggregate improvement will be interpreted alongside
+changes in dependencies, implementation, and the observation protocol.
+
+\subsection{Assembly Wrapping}\label{sec:wrapping_results}
+\draftnote{Complete x64 outcomes from the frozen wrapping campaign.
+Populate x86 rows only after its development version and evaluation are
+fixed. Retain all planned cases, including unsuccessful builds.}
+\begin{table}[t]
+\caption{Wrapping assessment by architecture and configuration.
+The x86 port remains development work in this draft.}
+\label{tab:wrapping_results}
+\centering\small
+\begin{tabularx}{\linewidth}{@{}Yllll@{}}
+\toprule
+Condition & $N$ & $B/N$ & $W/N$ & $W/B$ \\
+\midrule
+x64 wrapping & \pending & \pending & \pending & \pending \\
+x64 wrapping, combined & \pending & \pending & \pending & \pending \\
+x86 wrapping & \multicolumn{4}{c}{\dev} \\
+x86 wrapping, combined & \multicolumn{4}{c}{\dev} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+The representation assessment will additionally report size, retained
+regions, and unique output hashes. Any similarity score will identify
+the decoding view. A result restricted to constructed outputs will be
+accompanied by construction availability over all planned cases.
+
+\subsection{LLM Transformation: Zero-Shot versus Two-Shot}
+\label{sec:llm_results}
+\draftnote{Insert the completed 0/2-shot campaign, preserving failed
+and repeated runs. Report the number of distinct input payloads and
+state whether functional verification participated in selection.}
+\begin{table}[t]
+\caption{LLM transformation outcomes. Initial and final acceptance
+refer respectively to the first attempt and the full retry budget.}
+\label{tab:llm_results}
+\centering\small
+\begin{tabularx}{\linewidth}{@{}Yllll@{}}
+\toprule
+Family / shots & Runs & Initial acc. & Final acc. & Functional \\
+\midrule
+EQ / 0 & \pending & \pending & \pending & \pending \\
+EQ / 2 & \pending & \pending & \pending & \pending \\
+NOP / 0 & \pending & \pending & \pending & \pending \\
+NOP / 2 & \pending & \pending & \pending & \pending \\
+BCF / 0 & \pending & \pending & \pending & \pending \\
+BCF / 2 & \pending & \pending & \pending & \pending \\
+IBP / 0 & \pending & \pending & \pending & \pending \\
+IBP / 2 & \pending & \pending & \pending & \pending \\
+\bottomrule
+\end{tabularx}
+\end{table}
+The comparison will pair those outcomes with attempt counts,
+sequence-based similarity, output uniqueness, elapsed time, and cost.
+A smaller similarity value will not be interpreted as better functional
+preservation, and acceptance after feedback will not be described as
+success of the first zero-shot or two-shot answer.
+
+\subsection{Static-Scan and Representation Measurements}
+\draftnote{Insert completed scan records and matched representation
+measurements. Pending scans are missing observations, never zero
+detections. Keep the two verdict measures in distinct columns.}
+\begin{table}[t]
+\caption{Static-scan reporting structure. Completed hashes and group
+membership are distinguished; $\overline d$ and $q$ have different definitions.}
+\label{tab:scan_results}
+\centering\small
+\begin{tabularx}{\linewidth}{@{}Yllll@{}}
+\toprule
+Group & Unique hashes & Completed & $\overline d$ & $q$ \\
+\midrule
+Current original controls & \pending & \pending & \pending & \pending \\
+Wrapping, by architecture & \pending & \pending & \pending & \pending \\
+LLM transformation, by condition & \pending & \pending & \pending & \pending \\
+LLM data handling, by condition & \pending & \pending & \pending & \pending \\
+\bottomrule
+\end{tabularx}
+\end{table}
+The final discussion will relate these observations to build and
+functional outcomes on the same identified artifacts. Static verdicts
+for a selected set of constructed binaries will not be generalized
+to inputs for which construction or execution failed.

@@ -6,6 +6,9 @@ OPT_ARGS:  ['tmp/pipeline_basic_3_1.bin.in', '-wrap', '-eq', '-nop', '-bcf', '-o
 CREO JUMP TABLE
 CREO LABEL TABLE
 [bad] expanded 0 short branch(es)
+ADDRESS DEL PRIMO ADD:  0x41
+vecchia istruzione:  add r8, 3
+nuova istruzione:  sub r8, -3
 ##########################################
 BYTES ADDED:  0x0
 ##########################################
@@ -13,32 +16,26 @@ UPDATE INSTR
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
 UPDATE INSTR
-REG:  r10
-CODE:  pushf;push r10;push 167;pop r10;cmp r10, 167; pop r10;popf;je 0x47
+REG:  rax
+CODE:  pushf;push rax;mov rax, 200;cmp rax, 200;pop rax;popf;je 0x3b
 UPDATE INSTR
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
 UPDATE INSTR
-REG:  r14
-CODE:  pushf;cmp r14, r14;popf;je 0x53
-UPDATE INSTR
-UPDATE LABEL TABLE
-ITERANDO: num_iterazioni:  0
-UPDATE INSTR
-REG:  r15
-CODE:  pushf;push r15;mov r15, 130;lea r15, [r15+0];cmp r15, 130; pop r15;popf;je 0x8c
-UPDATE INSTR
-UPDATE LABEL TABLE
-ITERANDO: num_iterazioni:  0
-UPDATE INSTR
-REG:  r11
-CODE:  pushf;push r11;mov r11, 37;cmp r11, 37;pop r11;popf;je 0xa5
+REG:  rbx
+CODE:  pushf;push rbx;sub rbx, rbx;cmp rbx, 0; pop rbx;popf;je 0x51
 UPDATE INSTR
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
 UPDATE INSTR
 REG:  rdi
-CODE:  pushf;cmp rdi, rdi;popf;je 0xaf
+CODE:  pushf;push rdi;mov rdi, 0;lea rdi, [rdi+0];cmp rdi, 0; pop rdi;popf;je 0x9c
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  rcx
+CODE:  pushf;push rcx; mov rcx, 207;neg rcx;neg rcx;cmp rcx, 207; pop rcx;popf;je 0xc2
 UPDATE INSTR
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
@@ -46,5 +43,5 @@ UPDATE INSTR
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
 UPDATE INSTR
-[wrap] 113 instruction(s) hidden in 73 container(s), 9 raw, 14 ghost, 13 junk block(s): 353 -> 1010 bytes
+[wrap] 96 instruction(s) hidden in 60 container(s), 9 raw, 14 ghost, 10 junk block(s): 298 -> 866 bytes
 FINE

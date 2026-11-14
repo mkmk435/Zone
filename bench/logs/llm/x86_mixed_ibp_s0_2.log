@@ -1,0 +1,56 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+[llm] technique=ibp model=deepseek-flash
+[llm] endpoint=https://api.deepseek.com/v1/chat/completions
+[llm] extracting data before canonicalisation (use --llm-no-extract-data to skip)
+SYMBOLIC DATA ANALYSIS...
+[cache] hit 94da6a7ee8f1 in data_cache.json (0 sections, timeout=120.0s, created 2026-11-13T17:43:45)
+[cache] using the stored sections; --refresh-data-cache re-runs the symbolic search
+Data sections: 0
+Data xrefs: 0
+[extract] no movable data sections
+[llm] canonical listing: 41 code bytes, 0 data bytes, 0 getpc site(s)
+[llm] attempt 1/1: deepseek-flash / Instruction block permutation
+Traceback (most recent call last):
+  File "C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 579, in _get_chunk_left
+    chunk_left = self._read_next_chunk_size()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 546, in _read_next_chunk_size
+    return int(line, 16)
+           ^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 16: b''
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 595, in _read_chunked
+    while (chunk_left := self._get_chunk_left()) is not None:
+                         ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 581, in _get_chunk_left
+    raise IncompleteRead(b'')
+http.client.IncompleteRead: IncompleteRead(0 bytes read)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ubu\Desktop\Zone\bench\engines\2026-11-13_block2\pobf86.py", line 4368, in <module>
+    start()
+  File "C:\Users\ubu\Desktop\Zone\bench\engines\2026-11-13_block2\pobf86.py", line 4203, in start
+    result = llm_engine.run(canonical, options,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ubu\Desktop\Zone\bench\engines\2026-11-13_block2\llm_technique.py", line 1065, in run
+    response, usage = client.chat(messages, on_call=record_call)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ubu\Desktop\Zone\bench\engines\2026-11-13_block2\llm_technique.py", line 658, in chat
+    payload = self._request(messages)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ubu\Desktop\Zone\bench\engines\2026-11-13_block2\llm_technique.py", line 629, in _request
+    return json.loads(response.read().decode("utf-8"))
+                      ^^^^^^^^^^^^^^^
+  File "C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 473, in read
+    return self._read_chunked(amt)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 607, in _read_chunked
+    raise IncompleteRead(b''.join(value)) from exc
+http.client.IncompleteRead: IncompleteRead(0 bytes read)

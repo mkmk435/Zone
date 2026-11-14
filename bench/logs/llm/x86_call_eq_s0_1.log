@@ -1,0 +1,36 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+[llm] technique=eq model=deepseek-flash
+[llm] endpoint=https://api.deepseek.com/v1/chat/completions
+[llm] extracting data before canonicalisation (use --llm-no-extract-data to skip)
+SYMBOLIC DATA ANALYSIS...
+[cache] saved 5f411bb40f6a to data_cache.json
+Data sections: 0
+Data xrefs: 0
+[extract] no movable data sections
+[llm] canonical listing: 26 code bytes, 0 data bytes, 0 getpc site(s)
+[llm] attempt 1/1: deepseek-flash / Equal code substitution
+[llm] attempt 1: 6,231 tokens (2,493 in / 3,738 out), 19.6s, $0.002297
+[llm] static validation ok, 33 code bytes, 11 instructions, similarity 0.76
+[llm] accepted 33 bytes (33 code + 0 data)
+[llm] wrote C:\Users\ubu\Desktop\Zone\bench\run\llm_outputs\x86_call_eq_s0_1.bin (33 bytes, 1 attempt(s))
+Output: C:\Users\ubu\Desktop\Zone\bench\run\llm_outputs\x86_call_eq_s0_1.bin
+====================================================================
+[llm] run statistics
+  model:      deepseek-flash (DeepSeek-V4.1-Flash-1017)
+  technique:  eq (x86)
+  attempts:   1 (1 API call(s), 0 rejected)
+  time:       19.6s total (API 19.6s, local 0.0s)
+  attempt 1: 19.6s, ok, similarity 0.76
+  tokens:     6,231 total = 2,493 input + 3,738 output
+              input: 2,176 cache hit + 317 cache miss (87.3% hit)
+              output: 3,738 (reasoning 3,640, 97.4%)
+  throughput: 190.3 output tokens/s (API time)
+  cost:       $0.002297 USD (off-peak)
+              input $0.000054 (hit $0.000007, miss $0.000048) + output $0.002243
+              prices: DeepSeek official USD/1M tokens; peak/off-peak UTC, holidays not modelled
+  payload:    33 code + 0 data bytes, 11 instructions
+  validation: ok, similarity 0.76
+====================================================================
+[llm] stats JSON: C:\Users\ubu\Desktop\Zone\bench\run\llm_stats\x86_call_eq_s0_1.json

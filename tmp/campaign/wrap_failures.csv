@@ -1,0 +1,137 @@
+arch,payload,seed,kind,error
+x64,windows_x64_custom_bind_tcp_rc4,102,build,"RuntimeError: the bytes at 0x21e are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_custom_bind_tcp_uuid,103,build,"RuntimeError: the bytes at 0x1a7 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_custom_reverse_tcp_rc4,103,build,"RuntimeError: the bytes at 0x230 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_custom_reverse_winhttps,102,build,"RuntimeError: the bytes at 0x169 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_meterpreter_bind_tcp_rc4,101,build,"RuntimeError: the bytes at 0x21e are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_meterpreter_reverse_tcp_rc4,102,build,"RuntimeError: the bytes at 0x230 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_meterpreter_reverse_tcp_uuid,103,build,RuntimeError: assembly wrapping failed: RIP target mismatch at 0x4e2: -0x676b614 != 0xfffffffff98949ec
+x64,windows_x64_meterpreter_reverse_winhttps,101,build,"RuntimeError: the bytes at 0x169 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_shell_bind_tcp_uuid,101,build,"RuntimeError: the bytes at 0x1ac are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_shell_reverse_tcp_rc4,103,build,"RuntimeError: the bytes at 0x230 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_vncinject_bind_tcp_rc4,102,build,"RuntimeError: the bytes at 0x21e are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_vncinject_bind_tcp_uuid,103,build,"RuntimeError: the bytes at 0x1b3 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_vncinject_reverse_tcp_rc4,103,build,"RuntimeError: the bytes at 0x230 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_vncinject_reverse_winhttps,102,build,"RuntimeError: the bytes at 0x169 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x86,windows_custom_bind_nonx_tcp,103,functional,no-bind
+x86,windows_custom_reverse_nonx_tcp,101,functional,no-connect
+x86,windows_custom_reverse_http,103,build,"RuntimeError: the bytes at 0x179 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x86,windows_custom_reverse_tcp_rc4_dns,102,functional,no-connect
+x86,windows_custom_reverse_winhttps,101,functional,no-connect
+x86,windows_meterpreter_bind_tcp_uuid,101,build,"RuntimeError: the bytes at 0x114 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x86,windows_meterpreter_bind_nonx_tcp,103,functional,no-bind
+x86,windows_meterpreter_reverse_nonx_tcp,102,functional,no-connect
+x86,windows_meterpreter_reverse_tcp_rc4_dns,102,functional,no-connect
+x86,windows_meterpreter_reverse_tcp_uuid,103,build,"RuntimeError: the bytes at 0xfa are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x86,windows_patchupmeterpreter_bind_nonx_tcp,102,functional,no-bind
+x86,windows_meterpreter_reverse_winhttps,101,functional,no-connect
+x86,windows_patchupmeterpreter_reverse_nonx_tcp,102,functional,no-connect
+x86,windows_patchupmeterpreter_reverse_tcp_dns,101,functional,no-connect
+x86,windows_patchupmeterpreter_reverse_tcp_rc4_dns,103,functional,no-connect
+x86,windows_shell_bind_nonx_tcp,103,functional,no-bind
+x86,windows_shell_reverse_nonx_tcp,103,functional,no-connect
+x86,windows_shell_reverse_tcp_dns,102,functional,no-connect
+x86,windows_vncinject_bind_nonx_tcp,102,functional,no-bind
+x86,windows_vncinject_reverse_nonx_tcp,103,functional,no-connect
+x86,windows_vncinject_reverse_http,102,build,"RuntimeError: the bytes at 0x22b are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x86,windows_vncinject_reverse_tcp_dns,102,functional,no-connect
+x86,windows_vncinject_reverse_winhttp,102,functional,no-connect
+x64,windows_x64_custom_bind_tcp_rc4,103,build,"RuntimeError: the bytes at 0x21e are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_custom_reverse_tcp_uuid,101,build,"RuntimeError: the bytes at 0x17e are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_custom_reverse_winhttps,103,build,"RuntimeError: the bytes at 0x169 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_meterpreter_bind_tcp_rc4,102,build,"RuntimeError: the bytes at 0x21e are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_meterpreter_reverse_tcp_rc4,103,build,"RuntimeError: the bytes at 0x230 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_meterpreter_reverse_winhttps,102,build,"RuntimeError: the bytes at 0x169 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_shell_bind_tcp_rc4,101,build,"RuntimeError: the bytes at 0x21e are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_shell_bind_tcp_uuid,102,build,"RuntimeError: the bytes at 0x1ac are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_vncinject_bind_tcp_rc4,103,build,"RuntimeError: the bytes at 0x21e are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_vncinject_reverse_tcp_uuid,101,build,"RuntimeError: the bytes at 0x180 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_vncinject_reverse_winhttps,103,build,"RuntimeError: the bytes at 0x169 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x86,windows_custom_reverse_https,101,functional,no-connect
+x86,windows_custom_reverse_nonx_tcp,102,functional,no-connect
+x86,windows_custom_reverse_tcp_dns,101,functional,no-connect
+x86,windows_custom_reverse_tcp_rc4_dns,103,functional,no-connect
+x86,windows_custom_reverse_winhttps,102,functional,no-connect
+x86,windows_custom_reverse_winhttp,101,functional,no-connect
+x86,windows_meterpreter_reverse_nonx_tcp,103,functional,no-connect
+x86,windows_meterpreter_bind_tcp_uuid,102,build,"RuntimeError: the bytes at 0x114 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x86,windows_meterpreter_reverse_tcp_dns,101,functional,no-connect
+x86,windows_patchupmeterpreter_reverse_nonx_tcp,103,functional,no-connect
+x86,windows_patchupmeterpreter_reverse_tcp_dns,102,functional,no-connect
+x86,windows_shell_reverse_tcp_dns,103,functional,no-connect
+x86,windows_shell_reverse_tcp_rc4_dns,101,functional,no-connect
+x86,windows_vncinject_reverse_http,103,build,"RuntimeError: the bytes at 0x22b are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x86,windows_vncinject_reverse_tcp_dns,103,functional,no-connect
+x86,windows_vncinject_reverse_tcp_rc4_dns,101,functional,no-connect
+x86,windows_vncinject_reverse_winhttp,103,functional,no-connect
+x64,windows_x64_custom_bind_tcp_uuid,101,build,"RuntimeError: the bytes at 0x1a7 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_custom_reverse_tcp_rc4,101,build,"RuntimeError: the bytes at 0x230 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_custom_reverse_tcp_uuid,102,build,"RuntimeError: the bytes at 0x17e are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_meterpreter_bind_tcp_rc4,103,build,"RuntimeError: the bytes at 0x21e are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_meterpreter_reverse_tcp_uuid,101,build,RuntimeError: assembly wrapping failed: RIP target mismatch at 0x4bd: -0x676b614 != 0xfffffffff98949ec
+x64,windows_x64_meterpreter_reverse_winhttps,103,build,"RuntimeError: the bytes at 0x169 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_shell_bind_tcp_rc4,102,build,"RuntimeError: the bytes at 0x21e are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_shell_bind_tcp_uuid,103,build,"RuntimeError: the bytes at 0x1ac are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_shell_reverse_tcp_rc4,101,build,"RuntimeError: the bytes at 0x230 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_vncinject_bind_tcp_uuid,101,build,"RuntimeError: the bytes at 0x1b3 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_vncinject_reverse_tcp_rc4,101,build,"RuntimeError: the bytes at 0x230 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_vncinject_reverse_tcp_uuid,102,build,"RuntimeError: the bytes at 0x180 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x86,windows_custom_bind_nonx_tcp,101,functional,no-bind
+x86,windows_custom_reverse_http,101,build,"RuntimeError: the bytes at 0x179 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x86,windows_custom_reverse_https,102,functional,no-connect
+x86,windows_custom_reverse_nonx_tcp,103,functional,no-connect
+x86,windows_custom_reverse_tcp_dns,102,functional,no-connect
+x86,windows_custom_reverse_winhttp,102,functional,no-connect
+x86,windows_custom_reverse_winhttps,103,functional,no-connect
+x86,windows_meterpreter_bind_nonx_tcp,101,functional,no-bind
+x86,windows_meterpreter_bind_tcp_uuid,103,build,"RuntimeError: the bytes at 0x114 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x86,windows_meterpreter_reverse_tcp_dns,102,functional,no-connect
+x86,windows_meterpreter_reverse_tcp_uuid,101,build,"RuntimeError: the bytes at 0xfa are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x86,windows_meterpreter_reverse_winhttp,102,functional,no-connect
+x86,windows_meterpreter_reverse_winhttps,103,functional,no-connect
+x86,windows_patchupmeterpreter_reverse_tcp_dns,103,functional,no-connect
+x86,windows_patchupmeterpreter_reverse_tcp_rc4_dns,101,functional,no-connect
+x86,windows_shell_bind_nonx_tcp,101,functional,no-bind
+x86,windows_shell_reverse_nonx_tcp,101,functional,no-connect
+x86,windows_shell_reverse_tcp_rc4_dns,102,functional,no-connect
+x86,windows_vncinject_reverse_nonx_tcp,101,functional,no-connect
+x86,windows_vncinject_reverse_tcp_rc4_dns,102,functional,no-connect
+x64,windows_x64_custom_bind_tcp_rc4,101,build,"RuntimeError: the bytes at 0x21e are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_custom_bind_tcp_uuid,102,build,"RuntimeError: the bytes at 0x1a7 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_custom_reverse_tcp_rc4,102,build,"RuntimeError: the bytes at 0x230 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_custom_reverse_tcp_uuid,103,build,"RuntimeError: the bytes at 0x17e are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_custom_reverse_winhttps,101,build,"RuntimeError: the bytes at 0x169 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_meterpreter_reverse_tcp_rc4,101,build,"RuntimeError: the bytes at 0x230 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_meterpreter_reverse_tcp_uuid,102,build,RuntimeError: assembly wrapping failed: RIP target mismatch at 0x451: -0x676b614 != 0xfffffffff98949ec
+x64,windows_x64_shell_bind_tcp_rc4,103,build,"RuntimeError: the bytes at 0x21e are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_shell_reverse_tcp_rc4,102,build,"RuntimeError: the bytes at 0x230 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_vncinject_bind_tcp_rc4,101,build,"RuntimeError: the bytes at 0x21e are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_vncinject_bind_tcp_uuid,102,build,"RuntimeError: the bytes at 0x1b3 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_vncinject_reverse_tcp_rc4,102,build,"RuntimeError: the bytes at 0x230 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_vncinject_reverse_tcp_uuid,103,build,"RuntimeError: the bytes at 0x180 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x64,windows_x64_vncinject_reverse_winhttps,101,build,"RuntimeError: the bytes at 0x169 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x86,windows_custom_bind_nonx_tcp,102,functional,no-bind
+x86,windows_custom_reverse_http,102,build,"RuntimeError: the bytes at 0x179 are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x86,windows_custom_reverse_https,103,functional,no-connect
+x86,windows_custom_reverse_tcp_dns,103,functional,no-connect
+x86,windows_custom_reverse_tcp_rc4_dns,101,functional,no-connect
+x86,windows_custom_reverse_winhttp,103,functional,no-connect
+x86,windows_meterpreter_bind_nonx_tcp,102,functional,no-bind
+x86,windows_meterpreter_reverse_nonx_tcp,101,functional,no-connect
+x86,windows_meterpreter_reverse_tcp_dns,103,functional,no-connect
+x86,windows_meterpreter_reverse_tcp_rc4_dns,101,functional,no-connect
+x86,windows_meterpreter_reverse_tcp_uuid,102,build,"RuntimeError: the bytes at 0xfa are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x86,windows_meterpreter_reverse_winhttp,103,functional,no-connect
+x86,windows_patchupmeterpreter_bind_nonx_tcp,101,functional,no-bind
+x86,windows_patchupmeterpreter_reverse_nonx_tcp,101,functional,no-connect
+x86,windows_patchupmeterpreter_reverse_tcp_rc4_dns,102,functional,no-connect
+x86,windows_shell_bind_nonx_tcp,102,functional,no-bind
+x86,windows_shell_reverse_nonx_tcp,102,functional,no-connect
+x86,windows_shell_reverse_tcp_dns,101,functional,no-connect
+x86,windows_shell_reverse_tcp_rc4_dns,103,functional,no-connect
+x86,windows_vncinject_bind_nonx_tcp,101,functional,no-bind
+x86,windows_vncinject_reverse_http,101,build,"RuntimeError: the bytes at 0x22b are not code (Capstone could not decode them): this is inline data, run with --extract-data before -wrap"
+x86,windows_vncinject_reverse_nonx_tcp,102,functional,no-connect
+x86,windows_vncinject_reverse_tcp_dns,101,functional,no-connect
+x86,windows_vncinject_reverse_tcp_rc4_dns,103,functional,no-connect
+x86,windows_vncinject_reverse_winhttp,101,functional,no-connect

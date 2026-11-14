@@ -1,0 +1,37 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+[llm] technique=bcf model=deepseek-flash
+[llm] endpoint=https://api.deepseek.com/v1/chat/completions
+[llm] extracting data before canonicalisation (use --llm-no-extract-data to skip)
+SYMBOLIC DATA ANALYSIS...
+[cache] hit b2ef3f1c86e9 in data_cache.json (0 sections, timeout=120.0s, created 2026-11-13T17:12:50)
+[cache] using the stored sections; --refresh-data-cache re-runs the symbolic search
+Data sections: 0
+Data xrefs: 0
+[extract] no movable data sections
+[llm] canonical listing: 40 code bytes, 0 data bytes, 0 getpc site(s)
+[llm] attempt 1/1: deepseek-flash / Bogus control flow
+[llm] attempt 1: 7,498 tokens (2,159 in / 5,339 out), 27.3s, $0.003245
+[llm] static validation ok, 79 code bytes, 40 instructions, similarity 0.49
+[llm] accepted 79 bytes (79 code + 0 data)
+[llm] wrote C:\Users\ubu\Desktop\Zone\bench\run\llm_outputs\x86_arith_bcf_s0_2.bin (79 bytes, 1 attempt(s))
+Output: C:\Users\ubu\Desktop\Zone\bench\run\llm_outputs\x86_arith_bcf_s0_2.bin
+====================================================================
+[llm] run statistics
+  model:      deepseek-flash (DeepSeek-V4.1-Flash-1017)
+  technique:  bcf (x86)
+  attempts:   1 (1 API call(s), 0 rejected)
+  time:       27.4s total (API 27.3s, local 0.0s)
+  attempt 1: 27.4s, ok, similarity 0.49
+  tokens:     7,498 total = 2,159 input + 5,339 output
+              input: 1,920 cache hit + 239 cache miss (88.9% hit)
+              output: 5,339 (reasoning 5,008, 93.8%)
+  throughput: 195.2 output tokens/s (API time)
+  cost:       $0.003245 USD (off-peak)
+              input $0.000042 (hit $0.000006, miss $0.000036) + output $0.003203
+              prices: DeepSeek official USD/1M tokens; peak/off-peak UTC, holidays not modelled
+  payload:    79 code + 0 data bytes, 40 instructions
+  validation: ok, similarity 0.49
+====================================================================
+[llm] stats JSON: C:\Users\ubu\Desktop\Zone\bench\run\llm_stats\x86_arith_bcf_s0_2.json

@@ -1,0 +1,82 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "ibp",
+  "arch": "x86",
+  "started_at": "2026-11-13T23:08:31.278538+00:00",
+  "finished_at": "2026-11-13T23:11:27.945164+00:00",
+  "ok": false,
+  "error": "data references disappeared from the payload: DATA offset 0x132 x1; 416 original instruction(s) disappeared during block permutation",
+  "timing": {
+    "wall_seconds": 176.667,
+    "api_seconds": 176.627,
+    "local_seconds": 0.039
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 1,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 176.667,
+      "api_seconds": 176.628,
+      "accepted": false,
+      "similarity": 0.0,
+      "code_bytes": 0,
+      "data_bytes": 0,
+      "instructions": 0,
+      "error": "data references disappeared from the payload: DATA offset 0x132 x1; 416 original instruction(s) disappeared during block permutation"
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T23:08:31.278538+00:00",
+      "seconds": 176.627,
+      "finish_reason": "stop",
+      "content_chars": 4326,
+      "usage": {
+        "prompt_tokens": 6092,
+        "completion_tokens": 41699,
+        "total_tokens": 47791,
+        "cache_hit_tokens": 2176,
+        "cache_miss_tokens": 3916,
+        "reasoning_tokens": 39742
+      },
+      "cost_usd": 0.025613328,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 6092,
+    "completion_tokens": 41699,
+    "total_tokens": 47791,
+    "cache_hit_tokens": 2176,
+    "cache_miss_tokens": 3916,
+    "reasoning_tokens": 39742
+  },
+  "cost_usd": {
+    "total": 0.025613328,
+    "cache_hit": 6.528e-06,
+    "cache_miss": 0.0005874,
+    "output": 0.0250194,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.3572,
+  "reasoning_ratio": 0.9531,
+  "payload": {
+    "code_bytes": 0,
+    "data_bytes": 0,
+    "instructions": 0,
+    "similarity": 0.0
+  },
+  "errors": [
+    "data references disappeared from the payload: DATA offset 0x132 x1; 416 original instruction(s) disappeared during block permutation"
+  ],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

@@ -1,0 +1,72 @@
+\section{Code--Data Identification and Data-Preserving Rewriting}
+\label{sec:code_data}
+\subsection{Problem and Representations}
+For an input byte sequence $B=(b_0,\ldots,b_{n-1})$, identification
+returns candidate data intervals $[s_j,e_j)$ in payload-relative
+coordinates, with optional kinds such as ASCII, UTF-16LE, or another
+data object. Acceptance for rewriting additionally depends on reference
+evidence and implementation support. The original inline-data and
+immediate-operand examples in Tables~\ref{tab:broken-payload}
+and~\ref{tab:functional-payload} motivate this added layer.
+
+The implementation distinguishes a model's reported intervals, regions
+accepted by deterministic checks, and regions actually extracted.
+These sets need not coincide. An unsupported reference can prevent
+processing of a correctly identified object, while filtering can make
+different proposals yield identical final binaries. Evaluation retains
+the output stage associated with each observation.
+
+\subsection{Symbolic and Heuristic Identification}
+The non-LLM path combines CFGFast candidate blocks and inferred data
+with bounded symbolic exploration. Observed instruction starts are
+expanded into their decoded byte spans, and newly observed entries
+can seed a further graph-recovery pass. This prevents interior bytes
+of an observed instruction from being treated as unvisited data solely
+because only its start address was recorded.
+
+The initial state leaves uninitialized registers and memory symbolic;
+it does not reproduce a complete Windows process or all API behavior.
+Time, state/block-step, pending-state, and solver limits bound the
+analysis. Reports record termination reasons, unresolved states, and
+errors. Missing observations therefore do not prove that a region is
+data or unreachable.
+
+Printable ASCII and UTF-16LE patterns supply additional candidate
+evidence. Observed code spans prevent their acceptance under the
+string heuristic. For strings overlapping candidate graph code,
+additional structural corroboration is required. Graph-inferred
+data and bytes outside recovered blocks retain different evidential
+categories; the latter are uncertain rather than a complete data
+partition. The available analysis limits and candidate categories
+accompany the classification result.
+
+\subsection{LLM Identification and Deterministic Handling}
+The alternative path presents hex bytes, a heuristic linear disassembly,
+and printable candidates to the model. It requests structured intervals
+instead of rewritten code. The parser checks bounds, positive lengths,
+and overlap. Reference scanning and data handling remain deterministic;
+a proposal is applied to a fresh engine instance so that rejection
+does not reuse partially modified state.
+
+Accepted data contents and supported references are retained through
+layout changes. The engine finalizes the supported references once
+the code layout is known and checks integrity of the preserved data.
+These checks do not establish that every reference in an arbitrary
+input has been recovered. Architecture-specific operands require
+separate x64 and x86 implementations even though the conceptual
+contract is shared.
+
+An invalid proposal can trigger feedback and another request in the
+general pipeline. The reported classifier experiments specify their
+actual call budgets separately from the transformation experiments.
+The classifier's default worked-example condition is not labeled
+zero-shot or two-shot merely because those conditions are compared
+in assembly transformation.
+
+Caching reuses identified regions for an input identity while references
+are recomputed for the working representation. Timing must distinguish
+new analysis from cached results. On curated fixtures, independent
+annotations allow reference-based assessment; on the selected real
+payloads, agreement and functional checks remain different forms of
+evidence. The experiments in Section~\ref{sec:extended_results}
+explicitly retain that distinction.

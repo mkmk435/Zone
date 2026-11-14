@@ -1,0 +1,83 @@
+{
+  "label": "2026-11-13_block2",
+  "frozen_at": "2026-11-13T14:05:35+0100",
+  "git_head": "89affeaa3c76aab0403f4da0498d7a45c04173e8",
+  "missing": [],
+  "files": {
+    "pobf.py": {
+      "sha256": "a93684dae13e66c1cac1c8468458e63faa44a6cf583e8ce081c7f1e64be54a5d",
+      "size": 193789,
+      "source_mtime": "2026-11-13T13:12:12"
+    },
+    "pobf86.py": {
+      "sha256": "28aa960551f4dfc45767ea060ad56babe3a6f1a7bd521d566a957913b85befee",
+      "size": 200222,
+      "source_mtime": "2026-11-13T13:12:06"
+    },
+    "asm_wrap.py": {
+      "sha256": "aeeb0095a7d0b8a31afefe4dd041553cf40a323f9a0a0bfdca683fb47a33980f",
+      "size": 34122,
+      "source_mtime": "2026-11-13T13:10:24"
+    },
+    "symbolic_payload_coverage.py": {
+      "sha256": "12554ecb66075a0e427535e4e86b4d0f0e2abe5cbc682bad387e3a186fc89135",
+      "size": 30531,
+      "source_mtime": "2026-11-07T15:19:26"
+    },
+    "zone_utils.py": {
+      "sha256": "37f6043c452153e2c6aee1d7eee15d8b92ee8125ddbbb9382bf19890be460c88",
+      "size": 1163,
+      "source_mtime": "2026-11-13T13:01:34"
+    },
+    "increase_text.py": {
+      "sha256": "d09e387fafd064cde116293ca33fe0710678eb79c317aad9350760d2b83282dd",
+      "size": 29569,
+      "source_mtime": "2026-09-15T11:40:28"
+    },
+    "llm_payload.py": {
+      "sha256": "2adcd739adcfd3faf739eedaed93086b35f2c5ca7dbe87e3b8c8d4072ad63a4f",
+      "size": 37374,
+      "source_mtime": "2026-11-12T22:39:58"
+    },
+    "llm_technique.py": {
+      "sha256": "09ae772852843cb8d8ae4bd9be248d5856552ab1d4b89645eb18ce69c84e63d5",
+      "size": 46519,
+      "source_mtime": "2026-11-13T01:44:14"
+    },
+    "llm_stats.py": {
+      "sha256": "6a6b1d22c90e7b017c51291b774f4ab1a2298d0ace444990feab3e0166658ebc",
+      "size": 19442,
+      "source_mtime": "2026-11-13T01:41:30"
+    },
+    "llm_data.py": {
+      "sha256": "6f0a6dd554d3ab7d29524026564b5e7a6a9d4fce55cc323d54610015f7d86f57",
+      "size": 24030,
+      "source_mtime": "2026-11-13T01:44:14"
+    },
+    "dict.txt": {
+      "sha256": "b4dfe9a5344def41e141b3bb8833c067301fb23823464da1a8da220c1c42561b",
+      "size": 86601,
+      "source_mtime": "2026-11-13T13:16:17"
+    },
+    "blocks.txt": {
+      "sha256": "cbfff9e3cc8a270f0e461f85e3b26fb37f84a605cd89c2226351b4f51623ff46",
+      "size": 31671,
+      "source_mtime": "2026-11-13T13:09:20"
+    },
+    "jump_table.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_mtime": "2026-09-15T11:40:28"
+    },
+    "ploader.exe": {
+      "sha256": "64cfd0e39a5014aa39e8cd354f040cc21817bafa5e24bba0d7a6c587f97becb0",
+      "size": 153088,
+      "source_mtime": "2026-09-15T11:40:32"
+    },
+    "ploader86.exe": {
+      "sha256": "f641497a9a0a361b07550c07abed28d2b3b39ebaa42e242ce543fcaa11110f33",
+      "size": 124416,
+      "source_mtime": "2026-09-15T11:40:32"
+    }
+  }
+}

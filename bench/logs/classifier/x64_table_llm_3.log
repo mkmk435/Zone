@@ -1,0 +1,40 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['C:\\Users\\ubu\\Desktop\\Zone\\bench\\fixtures\\classifier\\x64\\table.bin', '--llm-data', '--llm-data-json', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\cls_data\\x64_table_llm_3.json', '--llm-dump-response', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\cls_responses\\x64_table_llm_3.json', '--llm-stats', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\cls_stats\\x64_table_llm_3.json', '--llm-retries', '1', '-o', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\cls_outputs\\x64_table_llm_3.bin']
+[llm] technique=data-classification model=deepseek-flash
+[llm] endpoint=https://api.deepseek.com/v1/chat/completions
+[llm] classifying data with the model instead of -xd
+[llm-data] attempt 1/1: deepseek-flash
+[llm-data] attempt 1: 1,285 tokens (1,010 in / 275 out), 2.5s, $0.000204
+FINITO DI DISASSEMBLARE
+REBUILT 23 INSTRUCTIONS (37/37 bytes)
+[extract] moving 1 section(s), 16 B
+  0x15 (16 B table) '01 00 00 00 02 00 00 00 03 00 00 00 04 00 00 00'
+[extract] references to rewrite: 1
+[extract] code 37 B + pad 11 B + data 16 B = 64 B
+[extract] data 0x15 -> 0x30 (16 B)
+[extract] ref 0x0 (now 0x0): lea rsi, [rip + 0x29] -> 0x30
+[llm-data] accepted 1 section(s), 16 data bytes
+====================================================================
+[llm] run statistics
+  model:      deepseek-flash (DeepSeek-V4.1-Flash-1017)
+  technique:  data (x64)
+  attempts:   1 (1 API call(s), 0 rejected)
+  time:       2.5s total (API 2.5s, local 0.0s)
+  attempt 1: 2.5s, ok, 16 data bytes
+  tokens:     1,285 total = 1,010 input + 275 output
+              input: 768 cache hit + 242 cache miss (76.0% hit)
+              output: 275 (reasoning 255, 92.7%)
+  throughput: 111.7 output tokens/s (API time)
+  cost:       $0.000204 USD (off-peak)
+              input $0.000039 (hit $0.000002, miss $0.000036) + output $0.000165
+              prices: DeepSeek official USD/1M tokens; peak/off-peak UTC, holidays not modelled
+  payload:    37 code + 16 data bytes, 23 instructions
+  extraction: ok, 16 data bytes
+====================================================================
+[llm] data stats JSON: C:\Users\ubu\Desktop\Zone\bench\run\cls_stats\x64_table_llm_3.json
+[llm] data classification JSON: C:\Users\ubu\Desktop\Zone\bench\run\cls_data\x64_table_llm_3.json
+[llm] data classification: 1 section(s), 16 bytes
+[llm] wrote C:\Users\ubu\Desktop\Zone\bench\run\cls_outputs\x64_table_llm_3.bin (64 bytes, data-only mode)
+Output: C:\Users\ubu\Desktop\Zone\bench\run\cls_outputs\x64_table_llm_3.bin

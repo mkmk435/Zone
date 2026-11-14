@@ -1,0 +1,45 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['C:\\Users\\ubu\\Desktop\\Zone\\bench\\fixtures\\x64\\strings.bin', '--llm', '-nop', '--llm-shots', '0', '--llm-retries', '1', '--llm-stats', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\llm_stats\\x64_strings_nop_s0_2.json', '--llm-failed-output', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\llm_failed\\x64_strings_nop_s0_2.asm', '-o', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\llm_outputs\\x64_strings_nop_s0_2.bin']
+[llm] technique=nop model=deepseek-flash
+[llm] endpoint=https://api.deepseek.com/v1/chat/completions
+[llm] extracting data before canonicalisation (use --llm-no-extract-data to skip)
+SYMBOLIC DATA ANALYSIS...
+[cache] saved b8762431367d to data_cache.json
+Data sections: 1
+  0x19 (13 B) ascii
+Data xrefs: 1
+  0x0 -> 0x19 (13 B)
+REBUILT 22 INSTRUCTIONS (38/38 bytes)
+[extract] moving 1 section(s), 13 B
+  0x19 (13 B ascii) 'Hello, Zone!'
+[extract] references to rewrite: 1
+[extract] code 38 B + pad 10 B + data 13 B = 61 B
+[extract] data 0x19 -> 0x30 (13 B)
+[extract] ref 0x0 (now 0x0): lea rsi, [rip + 0x29] -> 0x30
+[llm] canonical listing: 38 code bytes, 13 data bytes, 0 getpc site(s)
+[llm] attempt 1/1: deepseek-flash / Random inert instructions
+[llm] attempt 1: 4,385 tokens (2,188 in / 2,197 out), 11.9s, $0.001345
+[llm] static validation ok, 41 code bytes, 25 instructions, similarity 1.00
+[llm] accepted 54 bytes (41 code + 13 data)
+[llm] wrote C:\Users\ubu\Desktop\Zone\bench\run\llm_outputs\x64_strings_nop_s0_2.bin (54 bytes, 1 attempt(s))
+Output: C:\Users\ubu\Desktop\Zone\bench\run\llm_outputs\x64_strings_nop_s0_2.bin
+====================================================================
+[llm] run statistics
+  model:      deepseek-flash (DeepSeek-V4.1-Flash-1017)
+  technique:  nop (x64)
+  attempts:   1 (1 API call(s), 0 rejected)
+  time:       11.9s total (API 11.9s, local 0.0s)
+  attempt 1: 11.9s, ok, similarity 1.00
+  tokens:     4,385 total = 2,188 input + 2,197 output
+              input: 2,048 cache hit + 140 cache miss (93.6% hit)
+              output: 2,197 (reasoning 2,057, 93.6%)
+  throughput: 184.3 output tokens/s (API time)
+  cost:       $0.001345 USD (off-peak)
+              input $0.000027 (hit $0.000006, miss $0.000021) + output $0.001318
+              prices: DeepSeek official USD/1M tokens; peak/off-peak UTC, holidays not modelled
+  payload:    41 code + 13 data bytes, 25 instructions
+  validation: ok, similarity 1.00
+====================================================================
+[llm] stats JSON: C:\Users\ubu\Desktop\Zone\bench\run\llm_stats\x64_strings_nop_s0_2.json

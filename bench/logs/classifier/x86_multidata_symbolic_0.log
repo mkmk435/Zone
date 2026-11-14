@@ -1,0 +1,24 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+SYMBOLIC DATA ANALYSIS...
+[cache] saved 0cf9421bc921 to data_cache.json
+Data sections: 2
+  0x9 (6 B) ascii
+  0x26 (5 B) ascii
+Data xrefs: 2
+  0x4 -> 0x9 (6 B)
+  0x21 -> 0x26 (5 B)
+REBUILT 31 INSTRUCTIONS (55/55 bytes)
+[extract] moving 2 section(s), 11 B
+  0x9 (6 B ascii) 'alpha'
+  0x26 (5 B ascii) 'beta'
+[extract] references to rewrite: 2
+CREO JUMP TABLE
+[extract] code 55 B + pad 9 B + data 21 B = 85 B
+[extract] data 0x9 -> 0x45 (6 B)
+[extract] data 0x26 -> 0x50 (5 B)
+[extract] ref 0x4 (now 0x4): jmp 0x40 -> 0x45
+[extract] ref 0x21 (now 0x21): jmp 0x4b -> 0x50
+Output: C:\Users\ubu\Desktop\Zone\bench\run\cls_outputs\x86_multidata_symbolic_0.bin
+FINE

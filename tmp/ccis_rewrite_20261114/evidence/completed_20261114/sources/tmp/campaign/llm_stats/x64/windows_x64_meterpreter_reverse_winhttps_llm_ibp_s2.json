@@ -1,0 +1,82 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "ibp",
+  "arch": "x64",
+  "started_at": "2026-11-13T21:04:07.091368+00:00",
+  "finished_at": "2026-11-13T21:06:58.047610+00:00",
+  "ok": false,
+  "error": "output code is not fully disassembled: 335/1013 bytes; branch at 0x13f targets 0x283, which is not an instruction boundary",
+  "timing": {
+    "wall_seconds": 170.956,
+    "api_seconds": 170.947,
+    "local_seconds": 0.009
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 1,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 170.955,
+      "api_seconds": 170.947,
+      "accepted": false,
+      "similarity": 0.0,
+      "code_bytes": 0,
+      "data_bytes": 0,
+      "instructions": 0,
+      "error": "output code is not fully disassembled: 335/1013 bytes; branch at 0x13f targets 0x283, which is not an instruction boundary"
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T21:04:07.091368+00:00",
+      "seconds": 170.947,
+      "finish_reason": "stop",
+      "content_chars": 6383,
+      "usage": {
+        "prompt_tokens": 7016,
+        "completion_tokens": 43905,
+        "total_tokens": 50921,
+        "cache_hit_tokens": 2176,
+        "cache_miss_tokens": 4840,
+        "reasoning_tokens": 39346
+      },
+      "cost_usd": 0.027075528,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 7016,
+    "completion_tokens": 43905,
+    "total_tokens": 50921,
+    "cache_hit_tokens": 2176,
+    "cache_miss_tokens": 4840,
+    "reasoning_tokens": 39346
+  },
+  "cost_usd": {
+    "total": 0.027075528,
+    "cache_hit": 6.528e-06,
+    "cache_miss": 0.000726,
+    "output": 0.026343,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.3101,
+  "reasoning_ratio": 0.8962,
+  "payload": {
+    "code_bytes": 0,
+    "data_bytes": 0,
+    "instructions": 0,
+    "similarity": 0.0
+  },
+  "errors": [
+    "output code is not fully disassembled: 335/1013 bytes; branch at 0x13f targets 0x283, which is not an instruction boundary"
+  ],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

@@ -1,0 +1,24 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['C:\\Users\\ubu\\Desktop\\Zone\\bench\\fixtures\\x64\\strings.bin', '-xd', '-nop', '-o', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\outputs\\x64_strings_nop_3.bin']
+SYMBOLIC DATA ANALYSIS...
+[cache] hit b8762431367d in data_cache.json (1 sections, timeout=120.0s, created 2026-11-13T13:10:52)
+[cache] using the stored sections; --refresh-data-cache re-runs the symbolic search
+Data sections: 1
+  0x19 (13 B) ascii
+Data xrefs: 1
+  0x0 -> 0x19 (13 B)
+REBUILT 22 INSTRUCTIONS (38/38 bytes)
+[extract] moving 1 section(s), 13 B
+  0x19 (13 B ascii) 'Hello, Zone!'
+[extract] references to rewrite: 1
+CREO LABEL TABLE
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+[extract] code 96 B + pad 0 B + data 13 B = 109 B
+[extract] data 0x19 -> 0x60 (13 B)
+[extract] ref 0x0 (now 0x0): lea rsi, [rip + 0x59] -> 0x60
+Output: C:\Users\ubu\Desktop\Zone\bench\run\outputs\x64_strings_nop_3.bin
+FINE

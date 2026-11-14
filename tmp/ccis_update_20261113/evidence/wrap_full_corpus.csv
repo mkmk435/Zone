@@ -1,0 +1,3 @@
+arch,inputs,n,built,tested,working,unique
+x64,38,114,63,63,63,63
+x86,64,192,180,180,107,144

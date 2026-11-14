@@ -10,8 +10,8 @@ UPDATE INSTR
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
 UPDATE INSTR
-REG:  r8
-CODE:  pushf;push r8; mov r8, 71;or r8, 0;cmp r8, 71; pop r8;popf;je 0x51
+REG:  rbx
+CODE:  pushf;push rbx;mov rbx, 165;and rbx, 0xffffffffffffffff;cmp rbx, 165; pop rbx;popf;je 0x52
 UPDATE INSTR
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
@@ -19,5 +19,5 @@ UPDATE INSTR
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
 UPDATE INSTR
-[wrap] 19 instruction(s) hidden in 13 container(s), 2 raw, 3 ghost, 3 junk block(s): 66 -> 200 bytes
+[wrap] 17 instruction(s) hidden in 11 container(s), 3 raw, 1 ghost, 3 junk block(s): 66 -> 170 bytes
 FINE

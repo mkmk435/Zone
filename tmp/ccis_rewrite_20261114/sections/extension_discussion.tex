@@ -1,0 +1,38 @@
+\section{Discussion of the Extensions}\label{sec:extension_limits}
+The experiments answer different parts of the rewriting problem. Exact
+classification on the six annotated fixtures shows that the two
+identification methods handle those controlled layouts, including a
+printable-code counterexample. The selected payload comparison shows why
+classification and data handling must still be assessed separately:
+different interval proposals often converge to the same output after
+deterministic processing. More broadly representative annotations would
+be needed to quantify identification accuracy beyond these examples.
+
+The strongest functional results occur on the benign corpus, whose
+observable behavior is specified precisely. Both wrapping and LLM
+transformation then lose substantial coverage on the original payloads.
+On x64 the principal measured obstacle is obtaining a constructed output;
+on x86 some accepted outputs also fail execution checks. These outcomes
+support retaining all three stages---interpretation, construction, and
+execution---in the evaluation. A change that increases build availability
+cannot be assumed to improve the other stages.
+
+Wrapping produces a marked difference in static representation, and its
+207 submitted hashes receive no malicious responses in this scan cohort.
+The experiment does not isolate that representation as the cause of every
+verdict: format support, failed analyses, and input selection also affect
+the observations. Likewise, the apparent scan advantage of unsuccessful
+LLM outputs disappears as evidence of useful transformation once their
+failed functional checks are considered. These measurements concern raw
+files and prescribed harness observables, not a deployed endpoint
+protection system's response to a complete application.
+
+The study is descriptive. The same inputs occur in multiple conditions;
+some inputs and outputs share hashes; the benign architectures use
+different frozen versions; and the full LLM campaign includes nonuniform
+retry histories. These dependencies prevent treating every cell as an
+independent sample or attributing small differences solely to prompting.
+The source snapshots, per-cell outcomes, hashes, and separate cost totals
+make those limitations inspectable. The completed results identify the
+remaining reliability gap without presenting structural validation or a
+successful limited observable as a proof of semantic equivalence.

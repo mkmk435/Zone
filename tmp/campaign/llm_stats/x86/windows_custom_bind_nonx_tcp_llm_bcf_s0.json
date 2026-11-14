@@ -1,0 +1,80 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "bcf",
+  "arch": "x86",
+  "started_at": "2026-11-13T20:21:09.701068+00:00",
+  "finished_at": "2026-11-13T20:23:04.300404+00:00",
+  "ok": true,
+  "error": null,
+  "timing": {
+    "wall_seconds": 114.599,
+    "api_seconds": 114.589,
+    "local_seconds": 0.011
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 0,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 114.599,
+      "api_seconds": 114.589,
+      "accepted": true,
+      "similarity": 0.8767,
+      "code_bytes": 242,
+      "data_bytes": 0,
+      "instructions": 123,
+      "error": null
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T20:21:09.701068+00:00",
+      "seconds": 114.589,
+      "finish_reason": "stop",
+      "content_chars": 1657,
+      "usage": {
+        "prompt_tokens": 2797,
+        "completion_tokens": 24844,
+        "total_tokens": 27641,
+        "cache_hit_tokens": 1792,
+        "cache_miss_tokens": 1005,
+        "reasoning_tokens": 23998
+      },
+      "cost_usd": 0.015062526,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 2797,
+    "completion_tokens": 24844,
+    "total_tokens": 27641,
+    "cache_hit_tokens": 1792,
+    "cache_miss_tokens": 1005,
+    "reasoning_tokens": 23998
+  },
+  "cost_usd": {
+    "total": 0.015062526,
+    "cache_hit": 5.376e-06,
+    "cache_miss": 0.00015075,
+    "output": 0.0149064,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.6407,
+  "reasoning_ratio": 0.9659,
+  "payload": {
+    "code_bytes": 242,
+    "data_bytes": 0,
+    "instructions": 123,
+    "similarity": 0.8767
+  },
+  "errors": [],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

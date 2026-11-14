@@ -1,0 +1,34 @@
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+    font=\scriptsize,
+    node distance=0.0cm,
+    every node/.style={
+        rotate=90,
+        minimum width=3.3cm,
+        minimum height=0.7cm,
+        text centered,
+        draw,
+        fill=gray!10,
+        rounded corners,
+        inner xsep=2pt,
+        inner ysep=6pt
+    }
+]
+
+\node (stubCall)  [fill=blue!10]    {Call Stub 1};
+\node (payload)   [below=of stubCall, fill=green!10]  {Wrapped Inst. / payload};
+\node (pad1)      [below=of payload]                  {PAD (NOP)};
+\node (stub2)     [below=of pad1, fill=yellow!20]     {Stub 2};
+\node (pad2)      [below=of stub2]                    {PAD (NOP)};
+\node (stub1)     [below=of pad2, fill=blue!10]       {Stub 1};
+\node (pad3)      [below=of stub1]                    {PAD (NOP)};
+\node (payloadPtr)[below=of pad3, fill=red!20]        {Pointer to Payload};
+\node (pad4)      [below=of payloadPtr]               {PAD (NOP)};
+\node (memZone)   [below=of pad4, fill=purple!10]     {Memory Zone};
+
+\end{tikzpicture}
+\Description{A schematic separates the initial call, instruction wrappers, redirector components, padding, offset information, and memory region.}
+\caption{PII payload layout. Adapted from Fig.~1 of~\cite{zone_secrypt_2026}.}
+\label{fig:pii_layout}
+\end{figure}

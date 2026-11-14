@@ -1,0 +1,82 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "nop",
+  "arch": "x86",
+  "started_at": "2026-11-13T20:53:33.468595+00:00",
+  "finished_at": "2026-11-13T20:57:41.683869+00:00",
+  "ok": false,
+  "error": "branch at 0x2cc targets 0x342, which is not an instruction boundary; 1 original instruction(s) are missing or out of order (allowed 0); first missing: add byte ptr ss:[ebp], ah",
+  "timing": {
+    "wall_seconds": 248.215,
+    "api_seconds": 248.195,
+    "local_seconds": 0.02
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 1,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 248.215,
+      "api_seconds": 248.195,
+      "accepted": false,
+      "similarity": 0.0,
+      "code_bytes": 0,
+      "data_bytes": 0,
+      "instructions": 0,
+      "error": "branch at 0x2cc targets 0x342, which is not an instruction boundary; 1 original instruction(s) are missing or out of order (allowed 0); first missing: add byte ptr ss:[ebp], ah"
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T20:53:33.468595+00:00",
+      "seconds": 248.195,
+      "finish_reason": "stop",
+      "content_chars": 8111,
+      "usage": {
+        "prompt_tokens": 5308,
+        "completion_tokens": 64006,
+        "total_tokens": 69314,
+        "cache_hit_tokens": 1792,
+        "cache_miss_tokens": 3516,
+        "reasoning_tokens": 60548
+      },
+      "cost_usd": 0.038936376,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 5308,
+    "completion_tokens": 64006,
+    "total_tokens": 69314,
+    "cache_hit_tokens": 1792,
+    "cache_miss_tokens": 3516,
+    "reasoning_tokens": 60548
+  },
+  "cost_usd": {
+    "total": 0.038936376,
+    "cache_hit": 5.376e-06,
+    "cache_miss": 0.0005274,
+    "output": 0.0384036,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.3376,
+  "reasoning_ratio": 0.946,
+  "payload": {
+    "code_bytes": 0,
+    "data_bytes": 0,
+    "instructions": 0,
+    "similarity": 0.0
+  },
+  "errors": [
+    "branch at 0x2cc targets 0x342, which is not an instruction boundary; 1 original instruction(s) are missing or out of order (allowed 0); first missing: add byte ptr ss:[ebp], ah"
+  ],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

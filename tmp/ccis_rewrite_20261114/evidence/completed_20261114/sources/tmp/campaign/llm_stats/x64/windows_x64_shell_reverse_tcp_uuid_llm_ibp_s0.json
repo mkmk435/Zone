@@ -1,0 +1,82 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "ibp",
+  "arch": "x64",
+  "started_at": "2026-11-13T22:49:51.412204+00:00",
+  "finished_at": "2026-11-13T22:53:50.055346+00:00",
+  "ok": false,
+  "error": "branch at 0x163 targets 0x177, which is not an instruction boundary; RET_15e is not immediately after a call (previous line: 'L_15e:'); 1 original instruction(s) disappeared during block permutation",
+  "timing": {
+    "wall_seconds": 238.643,
+    "api_seconds": 238.633,
+    "local_seconds": 0.01
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 1,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 238.644,
+      "api_seconds": 238.633,
+      "accepted": false,
+      "similarity": 0.0,
+      "code_bytes": 0,
+      "data_bytes": 0,
+      "instructions": 0,
+      "error": "branch at 0x163 targets 0x177, which is not an instruction boundary; RET_15e is not immediately after a call (previous line: 'L_15e:'); 1 original instruction(s) disappeared during block permutation"
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T22:49:51.412204+00:00",
+      "seconds": 238.633,
+      "finish_reason": "stop",
+      "content_chars": 2705,
+      "usage": {
+        "prompt_tokens": 3870,
+        "completion_tokens": 58426,
+        "total_tokens": 62296,
+        "cache_hit_tokens": 2048,
+        "cache_miss_tokens": 1822,
+        "reasoning_tokens": 56933
+      },
+      "cost_usd": 0.035335044,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 3870,
+    "completion_tokens": 58426,
+    "total_tokens": 62296,
+    "cache_hit_tokens": 2048,
+    "cache_miss_tokens": 1822,
+    "reasoning_tokens": 56933
+  },
+  "cost_usd": {
+    "total": 0.035335044,
+    "cache_hit": 6.144e-06,
+    "cache_miss": 0.0002733,
+    "output": 0.0350556,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.5292,
+  "reasoning_ratio": 0.9744,
+  "payload": {
+    "code_bytes": 0,
+    "data_bytes": 0,
+    "instructions": 0,
+    "similarity": 0.0
+  },
+  "errors": [
+    "branch at 0x163 targets 0x177, which is not an instruction boundary; RET_15e is not immediately after a call (previous line: 'L_15e:'); 1 original instruction(s) disappeared during block permutation"
+  ],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

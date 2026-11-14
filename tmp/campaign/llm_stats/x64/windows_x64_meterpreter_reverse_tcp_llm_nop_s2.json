@@ -1,0 +1,82 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "nop",
+  "arch": "x64",
+  "started_at": "2026-11-13T21:03:15.866455+00:00",
+  "finished_at": "2026-11-13T21:05:23.960274+00:00",
+  "ok": false,
+  "error": "RET_15e is not immediately after a call (previous line: 'L_15e:')",
+  "timing": {
+    "wall_seconds": 128.094,
+    "api_seconds": 128.085,
+    "local_seconds": 0.009
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 1,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 128.093,
+      "api_seconds": 128.085,
+      "accepted": false,
+      "similarity": 0.0,
+      "code_bytes": 0,
+      "data_bytes": 0,
+      "instructions": 0,
+      "error": "RET_15e is not immediately after a call (previous line: 'L_15e:')"
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T21:03:15.866455+00:00",
+      "seconds": 128.085,
+      "finish_reason": "stop",
+      "content_chars": 3340,
+      "usage": {
+        "prompt_tokens": 3720,
+        "completion_tokens": 29897,
+        "total_tokens": 33617,
+        "cache_hit_tokens": 1920,
+        "cache_miss_tokens": 1800,
+        "reasoning_tokens": 28285
+      },
+      "cost_usd": 0.01821396,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 3720,
+    "completion_tokens": 29897,
+    "total_tokens": 33617,
+    "cache_hit_tokens": 1920,
+    "cache_miss_tokens": 1800,
+    "reasoning_tokens": 28285
+  },
+  "cost_usd": {
+    "total": 0.01821396,
+    "cache_hit": 5.76e-06,
+    "cache_miss": 0.00027,
+    "output": 0.0179382,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.5161,
+  "reasoning_ratio": 0.9461,
+  "payload": {
+    "code_bytes": 0,
+    "data_bytes": 0,
+    "instructions": 0,
+    "similarity": 0.0
+  },
+  "errors": [
+    "RET_15e is not immediately after a call (previous line: 'L_15e:')"
+  ],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

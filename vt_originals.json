@@ -1,0 +1,132 @@
+[
+  {
+    "path": "original_pl\\x64\\windows_x64_custom_reverse_https.bin",
+    "sha256": "0b177a50a452a60df1768aba44d6b893e7a6fb74df1e07f0c521e386e2527b29",
+    "size": 811,
+    "arch": "x64",
+    "technique": "original",
+    "payload": "windows_x64_custom_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "original_pl\\x64\\windows_x64_custom_reverse_winhttp.bin",
+    "sha256": "bc5283bbb2a4f0b21a38f99729ae02a55d009c7a87e18e540feed66c5cc6fdfb",
+    "size": 1020,
+    "arch": "x64",
+    "technique": "original",
+    "payload": "windows_x64_custom_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "original_pl\\x64\\windows_x64_custom_reverse_winhttps.bin",
+    "sha256": "66eeae9543c530480d08a9fb9a0510222e994cb2e573bb3994830a424b4b0f70",
+    "size": 944,
+    "arch": "x64",
+    "technique": "original",
+    "payload": "windows_x64_custom_reverse_winhttps",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "original_pl\\x64\\windows_x64_meterpreter_reverse_http.bin",
+    "sha256": "8c7cefc89e41f3c467e7553783f5300652a3e1903ce9ffeeee9b696cab684602",
+    "size": 753,
+    "arch": "x64",
+    "technique": "original",
+    "payload": "windows_x64_meterpreter_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "original_pl\\x64\\windows_x64_meterpreter_reverse_https.bin",
+    "sha256": "28096956f0646a65541a4f6ad03ea47cb1edc7e20d82439e3ae92d5fb91ac408",
+    "size": 706,
+    "arch": "x64",
+    "technique": "original",
+    "payload": "windows_x64_meterpreter_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "original_pl\\x64\\windows_x64_meterpreter_reverse_winhttp.bin",
+    "sha256": "1313689fa01ddd95b26c0d0e8f7f9f8697d85e7ba3d94a246d5b9ea9c390ff2b",
+    "size": 993,
+    "arch": "x64",
+    "technique": "original",
+    "payload": "windows_x64_meterpreter_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "original_pl\\x64\\windows_x64_vncinject_reverse_http.bin",
+    "sha256": "6cf5f5f0b3e7696b9ec044ff9b43670f04660866c2add8d7804b699106df5ff8",
+    "size": 772,
+    "arch": "x64",
+    "technique": "original",
+    "payload": "windows_x64_vncinject_reverse_http",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "original_pl\\x64\\windows_x64_vncinject_reverse_winhttp.bin",
+    "sha256": "e621992c5bd4e5547a961be0f334fbb952e374527888f6a65c6150f8884c0406",
+    "size": 1021,
+    "arch": "x64",
+    "technique": "original",
+    "payload": "windows_x64_vncinject_reverse_winhttp",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "original_pl\\x64\\windows_x64_vncinject_reverse_winhttps.bin",
+    "sha256": "f64c2b508515bdbdeaff234b76d0f6213f2ef4022aa4c5688e6b1e1163fa8645",
+    "size": 961,
+    "arch": "x64",
+    "technique": "original",
+    "payload": "windows_x64_vncinject_reverse_winhttps",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "original_pl\\x64\\windows_x64_meterpreter_reverse_winhttps.bin",
+    "sha256": "68ae1b610d737c2d61ff82fc64e61dcb860dff541fd05bdac13060bf8181cf57",
+    "size": 1019,
+    "arch": "x64",
+    "technique": "original",
+    "payload": "windows_x64_meterpreter_reverse_winhttps",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "original_pl\\x64\\windows_x64_vncinject_reverse_https.bin",
+    "sha256": "d036eeb3911ad23617d972fb2aada6a81ed137452aff5d8c60e45de1d93f0e66",
+    "size": 789,
+    "arch": "x64",
+    "technique": "original",
+    "payload": "windows_x64_vncinject_reverse_https",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "original_pl\\x64\\windows_x64_messagebox.bin",
+    "sha256": "8de9534d5a83b2e9b3e3e4b14e27bac8f781986fa57ba2f0d5ac3fa949120bc3",
+    "size": 313,
+    "arch": "x64",
+    "technique": "original",
+    "payload": "windows_x64_messagebox",
+    "working": "OK",
+    "detail": ""
+  },
+  {
+    "path": "original_pl\\x64\\windows_x64_custom_reverse_http.bin",
+    "sha256": "51ef8de8ca685e199f52e7d6bd46fb65bae74ddd3dbdd4e02686a4aba8123aa9",
+    "size": 789,
+    "arch": "x64",
+    "technique": "original",
+    "payload": "windows_x64_custom_reverse_http",
+    "working": "OK",
+    "detail": ""
+  }
+]

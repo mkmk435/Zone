@@ -1,0 +1,42 @@
+{
+  "revision": "additive correction; detailed original study retained",
+  "basis": "backup_before_extension_20261113/main.tex (CCIS preparation draft)",
+  "previous_project_main_sha256": "c45e10b21c597c97b9724c60c1c4412a116a899590674ed61b1aee94f37aca13",
+  "retained_objects": {
+    "figure": {
+      "original_count": 7,
+      "retained_count": 7,
+      "unchanged_objects": true
+    },
+    "table": {
+      "original_count": 6,
+      "retained_count": 6,
+      "unchanged_objects": true
+    },
+    "lstlisting": {
+      "original_count": 4,
+      "retained_count": 4,
+      "unchanged_objects": true
+    },
+    "algorithm": {
+      "original_count": 1,
+      "retained_count": 1,
+      "unchanged_objects": true
+    }
+  },
+  "original_prose_tokens_indicative": 4452,
+  "added_section_tokens_indicative": 3071,
+  "new_material_status": "methods written; numerical campaigns pending; x86 wrapping in development",
+  "thirty_percent": "indicative token counts do not certify substantive novelty; finalize with completed new evidence",
+  "known_baseline_checks": "BASELINE_CHECKS.md; numerical series preserved unchanged",
+  "editor_statement_paragraphs": 2,
+  "pdf_checks": {
+    "pages": 27,
+    "unresolved_references": 0,
+    "overfull_boxes": 0,
+    "out_of_page_characters": 0,
+    "all_pages_rendered": true,
+    "visual_review": "all five contact sheets and selected full-size historical and extension pages inspected"
+  },
+  "pdf_sha256": "bdf180fa235f1ffa5f07c8cc998c1e1c7c6f029cbed227e047638745d343907d"
+}

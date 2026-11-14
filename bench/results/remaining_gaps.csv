@@ -1,0 +1,5 @@
+corpus,case,arch,technique,shot,engine_version,missing,reason,priority,source
+benign13,(tutte),both,pii/ip,,,78,tecniche layout-owning fuori matrice per scelta documentata,bassa,bench/BENCH_REPORT.md
+classifier6,(tutte),both,vt,,2026-11-13,0,nessuna sottomissione VT per il corpus benigno (richiesta esplicita: solo report storici in lettura),n/a,istruzioni utente
+metasploit102,(tutte),both,vt,,legacy_2025,6972,artefatti 2025 assenti: record VT non verificabili,alta,bench/VT_AUDIT.md
+metasploit102,(tutte),both,build,,legacy_2025,15020,i report 2025 non registrano build/esito per tentativo: solo working rate,media,test_report.txt

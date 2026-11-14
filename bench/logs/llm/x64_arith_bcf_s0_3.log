@@ -1,0 +1,38 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['C:\\Users\\ubu\\Desktop\\Zone\\bench\\fixtures\\x64\\arith.bin', '--llm', '-bcf', '--llm-shots', '0', '--llm-retries', '1', '--llm-stats', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\llm_stats\\x64_arith_bcf_s0_3.json', '--llm-failed-output', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\llm_failed\\x64_arith_bcf_s0_3.asm', '-o', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\llm_outputs\\x64_arith_bcf_s0_3.bin']
+[llm] technique=bcf model=deepseek-flash
+[llm] endpoint=https://api.deepseek.com/v1/chat/completions
+[llm] extracting data before canonicalisation (use --llm-no-extract-data to skip)
+SYMBOLIC DATA ANALYSIS...
+[cache] hit c693cae2b8e5 in data_cache.json (0 sections, timeout=120.0s, created 2026-11-13T13:14:12)
+[cache] using the stored sections; --refresh-data-cache re-runs the symbolic search
+Data sections: 0
+Data xrefs: 0
+[extract] no movable data sections
+[llm] canonical listing: 49 code bytes, 0 data bytes, 0 getpc site(s)
+[llm] attempt 1/1: deepseek-flash / Bogus control flow
+[llm] attempt 1: 8,562 tokens (2,145 in / 6,417 out), 31.5s, $0.003890
+[llm] static validation ok, 91 code bytes, 39 instructions, similarity 0.47
+[llm] accepted 91 bytes (91 code + 0 data)
+[llm] wrote C:\Users\ubu\Desktop\Zone\bench\run\llm_outputs\x64_arith_bcf_s0_3.bin (91 bytes, 1 attempt(s))
+Output: C:\Users\ubu\Desktop\Zone\bench\run\llm_outputs\x64_arith_bcf_s0_3.bin
+====================================================================
+[llm] run statistics
+  model:      deepseek-flash (DeepSeek-V4.1-Flash-1017)
+  technique:  bcf (x64)
+  attempts:   1 (1 API call(s), 0 rejected)
+  time:       31.5s total (API 31.5s, local 0.0s)
+  attempt 1: 31.5s, ok, similarity 0.47
+  tokens:     8,562 total = 2,145 input + 6,417 output
+              input: 1,920 cache hit + 225 cache miss (89.5% hit)
+              output: 6,417 (reasoning 6,096, 95.0%)
+  throughput: 203.9 output tokens/s (API time)
+  cost:       $0.003890 USD (off-peak)
+              input $0.000040 (hit $0.000006, miss $0.000034) + output $0.003850
+              prices: DeepSeek official USD/1M tokens; peak/off-peak UTC, holidays not modelled
+  payload:    91 code + 0 data bytes, 39 instructions
+  validation: ok, similarity 0.47
+====================================================================
+[llm] stats JSON: C:\Users\ubu\Desktop\Zone\bench\run\llm_stats\x64_arith_bcf_s0_3.json

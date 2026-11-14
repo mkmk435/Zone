@@ -1,0 +1,80 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "bcf",
+  "arch": "x86",
+  "started_at": "2026-11-13T22:42:58.004612+00:00",
+  "finished_at": "2026-11-13T22:45:17.455017+00:00",
+  "ok": true,
+  "error": null,
+  "timing": {
+    "wall_seconds": 139.45,
+    "api_seconds": 139.429,
+    "local_seconds": 0.021
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 0,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 139.45,
+      "api_seconds": 139.43,
+      "accepted": true,
+      "similarity": 0.7415,
+      "code_bytes": 465,
+      "data_bytes": 0,
+      "instructions": 241,
+      "error": null
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T22:42:58.004612+00:00",
+      "seconds": 139.429,
+      "finish_reason": "stop",
+      "content_chars": 4117,
+      "usage": {
+        "prompt_tokens": 3389,
+        "completion_tokens": 31739,
+        "total_tokens": 35128,
+        "cache_hit_tokens": 2048,
+        "cache_miss_tokens": 1341,
+        "reasoning_tokens": 29820
+      },
+      "cost_usd": 0.019250694,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 3389,
+    "completion_tokens": 31739,
+    "total_tokens": 35128,
+    "cache_hit_tokens": 2048,
+    "cache_miss_tokens": 1341,
+    "reasoning_tokens": 29820
+  },
+  "cost_usd": {
+    "total": 0.019250694,
+    "cache_hit": 6.144e-06,
+    "cache_miss": 0.00020115,
+    "output": 0.0190434,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.6043,
+  "reasoning_ratio": 0.9395,
+  "payload": {
+    "code_bytes": 465,
+    "data_bytes": 0,
+    "instructions": 241,
+    "similarity": 0.7415
+  },
+  "errors": [],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

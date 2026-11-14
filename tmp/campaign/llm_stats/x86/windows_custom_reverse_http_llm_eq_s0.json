@@ -1,0 +1,82 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "eq",
+  "arch": "x86",
+  "started_at": "2026-11-13T21:22:28.256524+00:00",
+  "finished_at": "2026-11-13T21:24:24.763364+00:00",
+  "ok": false,
+  "error": "Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)",
+  "timing": {
+    "wall_seconds": 116.507,
+    "api_seconds": 116.503,
+    "local_seconds": 0.004
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 1,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 116.507,
+      "api_seconds": 116.503,
+      "accepted": false,
+      "similarity": 0.0,
+      "code_bytes": 0,
+      "data_bytes": 0,
+      "instructions": 0,
+      "error": "Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)"
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T21:22:28.256524+00:00",
+      "seconds": 116.503,
+      "finish_reason": "stop",
+      "content_chars": 4252,
+      "usage": {
+        "prompt_tokens": 4737,
+        "completion_tokens": 28846,
+        "total_tokens": 33583,
+        "cache_hit_tokens": 4603,
+        "cache_miss_tokens": 134,
+        "reasoning_tokens": 26501
+      },
+      "cost_usd": 0.017341509,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 4737,
+    "completion_tokens": 28846,
+    "total_tokens": 33583,
+    "cache_hit_tokens": 4603,
+    "cache_miss_tokens": 134,
+    "reasoning_tokens": 26501
+  },
+  "cost_usd": {
+    "total": 0.017341509,
+    "cache_hit": 1.3809e-05,
+    "cache_miss": 2.01e-05,
+    "output": 0.0173076,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.9717,
+  "reasoning_ratio": 0.9187,
+  "payload": {
+    "code_bytes": 0,
+    "data_bytes": 0,
+    "instructions": 0,
+    "similarity": 0.0
+  },
+  "errors": [
+    "Keystone rejected the assembly: Cannot find a symbol (KS_ERR_ASM_SYMBOL_MISSING)"
+  ],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

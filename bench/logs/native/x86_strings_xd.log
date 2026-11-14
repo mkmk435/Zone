@@ -1,0 +1,20 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+SYMBOLIC DATA ANALYSIS...
+[cache] data_cache.json: unsupported schema; ignoring it
+[cache] saved 1d6a53c3bcdf to data_cache.json
+Data sections: 1
+  0x9 (12 B) ascii
+Data xrefs: 1
+  0x4 -> 0x9 (12 B)
+REBUILT 22 INSTRUCTIONS (33/33 bytes)
+[extract] moving 1 section(s), 12 B
+  0x9 (12 B ascii) 'Hello, x86!'
+[extract] references to rewrite: 1
+CREO JUMP TABLE
+[extract] code 33 B + pad 15 B + data 17 B = 65 B
+[extract] data 0x9 -> 0x35 (12 B)
+[extract] ref 0x4 (now 0x4): jmp 0x30 -> 0x35
+Output: C:\Users\ubu\Desktop\Zone\bench\run\baseline\x86_strings_xd.bin
+FINE

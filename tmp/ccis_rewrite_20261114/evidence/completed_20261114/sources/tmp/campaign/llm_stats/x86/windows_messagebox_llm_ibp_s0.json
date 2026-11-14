@@ -1,0 +1,80 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "ibp",
+  "arch": "x86",
+  "started_at": "2026-11-13T20:53:35.609293+00:00",
+  "finished_at": "2026-11-13T20:55:52.170755+00:00",
+  "ok": true,
+  "error": null,
+  "timing": {
+    "wall_seconds": 136.561,
+    "api_seconds": 136.555,
+    "local_seconds": 0.007
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 0,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 136.562,
+      "api_seconds": 136.555,
+      "accepted": true,
+      "similarity": 0.9224,
+      "code_bytes": 228,
+      "data_bytes": 54,
+      "instructions": 124,
+      "error": null
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T20:53:35.609293+00:00",
+      "seconds": 136.555,
+      "finish_reason": "stop",
+      "content_chars": 2069,
+      "usage": {
+        "prompt_tokens": 3171,
+        "completion_tokens": 28859,
+        "total_tokens": 32030,
+        "cache_hit_tokens": 1792,
+        "cache_miss_tokens": 1379,
+        "reasoning_tokens": 27876
+      },
+      "cost_usd": 0.017527626,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 3171,
+    "completion_tokens": 28859,
+    "total_tokens": 32030,
+    "cache_hit_tokens": 1792,
+    "cache_miss_tokens": 1379,
+    "reasoning_tokens": 27876
+  },
+  "cost_usd": {
+    "total": 0.017527626,
+    "cache_hit": 5.376e-06,
+    "cache_miss": 0.00020685,
+    "output": 0.0173154,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.5651,
+  "reasoning_ratio": 0.9659,
+  "payload": {
+    "code_bytes": 228,
+    "data_bytes": 54,
+    "instructions": 124,
+    "similarity": 0.9224
+  },
+  "errors": [],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

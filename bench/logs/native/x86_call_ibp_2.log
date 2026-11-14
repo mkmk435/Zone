@@ -1,0 +1,23 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+Traceback (most recent call last):
+  File "C:\Users\ubu\Desktop\Zone\bench\engines\2026-11-13_block1\pobf86.py", line 601, in update_label_table
+    index = self.instructions.index(entry[0])
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: <__main__.Instruction object at 0x0000027A5A7FE0C0> is not in list
+FINITO DI DISASSEMBLARE
+CREO JUMP TABLE
+CREO LABEL TABLE
+BLOCK LENGTH:  6
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+Errore in update_label_table():  <__main__.Instruction object at 0x0000027A5A7FE0C0> is not in list
+Indirizzo:  0x11
+stringa:  jne  0xb
+bytes:  bytearray(b'u\xf8')
+
+
+
+
+FINE

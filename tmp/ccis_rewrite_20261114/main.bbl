@@ -1,0 +1,155 @@
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\providecommand{\doi}[1]{https://doi.org/#1}
+
+\bibitem{assembly_wrapping}
+{0x4ndr3}: Assembly wrapping: A technique for anti-disassembly. Author's
+  technical article, June 8 (2020),
+  \url{https://0x4ndr3.github.io/posts/assembly-wrapping-a-new-technique-for-anti-disassembly/},
+  accessed 13 November 2026
+
+\bibitem{angr_cfg_docs}
+{angr Project}: Control-flow graph recovery. Official angr documentation,
+  \url{https://docs.angr.io/en/latest/analyses/cfg.html}, accessed 13 November
+  2026
+
+\bibitem{pushfmeth}
+Austin, T.H., Filiol, E., Josse, S., Stamp, M.: Exploring hidden markov models
+  for virus analysis: A semantic approach. In: 2013 46th Hawaii International
+  Conference on System Sciences. pp. 5039--5048 (2013).
+  \doi{10.1109/HICSS.2013.217}
+
+\bibitem{zone_secrypt_2026}
+Bistarelli, S., Di~Benedetto, J., Santini, F.: On automating the obfuscation of
+  malware payloads: {Zone}, a bin2bin metamorphic engine. In: Proceedings of
+  the 23rd International Conference on Security and Cryptography. vol.~1, pp.
+  216--227. SCITEPRESS (2026). \doi{10.5220/0015170600004103}
+
+\bibitem{metamorphic1}
+Campion, M., Dalla~Preda, M., Giacobazzi, R.: Learning metamorphic malware
+  signatures from samples. J. Comput. Virol. Hacking Tech.  \textbf{17}(3),
+  167--183 (2021)
+
+\bibitem{survey2}
+Cho, I., Towey, D., Kar, P.: Using obfuscators to test compilers: {A}
+  metamorphic experience. In: 47th {IEEE} Annual Computers, Software, and
+  Applications Conference, {COMPSAC} 2023. pp. 1786--1791. {IEEE} (2023)
+
+\bibitem{desai2008towards}
+Desai, P.: Towards an Undetectable Computer Virus. Master's project, San Jose
+  State University (2008). \doi{10.31979/etd.z942-squp},
+  \url{https://scholarworks.sjsu.edu/etd_projects/90/}
+
+\bibitem{desai2010highly}
+Desai, P., Stamp, M.: A highly metamorphic virus generator. International
+  Journal of Multimedia Intelligence and Security  \textbf{1}(4),  402--427
+  (2010)
+
+\bibitem{sgn64}
+EgeBalci: {Shikata Ga Nai} encoder ported into {Go} with several improvements
+  (2023), \url{https://github.com/egebalci/sgn}
+
+\bibitem{bin2binobf}
+es3n1n: Obfuscating native code for fun: Part 1 - introduction (2023),
+  \url{https://blog.es3n1n.eu/posts/obfuscator-pt-1/}
+
+\bibitem{codeExtraction}
+Farley, R., Wang, X.: {CodeXt}: automatic extraction of obfuscated attack code
+  from memory dump. In: Information Security: 17th International Conference,
+  ISC 2014, Hong Kong, China, October 12-14, 2014. Proceedings 17. pp.
+  502--514. Springer (2014)
+
+\bibitem{PEsurveybible}
+Geng, J., Wang, J., Fang, Z., Zhou, Y., Wu, D., Ge, W.: A survey of
+  strategy-driven evasion methods for {PE} malware: Transformation,
+  concealment, and attack. Comput. Secur.  \textbf{137},  103595 (2024)
+
+\bibitem{sgnarticle}
+Glynos, D.A.: Context-keyed payload encoding: Fighting the next generation of
+  {IDS}. In: Athens IT Security Conference (ATH. C0N) (2010)
+
+\bibitem{methgenetic}
+Javaheri, D., Lalbakhsh, P., Hosseinzadeh, M.: A novel method for detecting
+  future generations of targeted and metamorphic malware based on genetic
+  algorithm. IEEE Access  \textbf{9},  69951--69970 (2021)
+
+\bibitem{llvmobf}
+Junod, P., Rinaldini, J., Wehrli, J., Michielin, J.: {Obfuscator-LLVM}:
+  Software protection for the masses. In: 2015 IEEE/ACM 1st International
+  Workshop on Software Protection. pp.~3--9. IEEE (2015)
+
+\bibitem{llm2}
+Madani, P.: Metamorphic malware evolution: The potential and peril of large
+  language models. In: 5th {IEEE} International Conference on Trust, Privacy
+  and Security in Intelligent Systems and Applications, {TPS-ISA} 2023,
+  Atlanta, GA, USA, November 1-4, 2023. pp. 74--81. {IEEE} (2023)
+
+\bibitem{metworm}
+Madenur~Sridhara, S., Stamp, M.: Metamorphic worm that carries its own morphing
+  engine. J. Comput. Virol.  \textbf{9}(2),  49--58 (2013)
+
+\bibitem{sgnstrong}
+Miller, S., Reese, E., Carr, N.: {Shikata Ga Nai} encoder still going strong
+  (2019),
+  \url{https://cloud.google.com/blog/topics/threat-intelligence/shikata-ga-nai-encoder-still-going-strong/}
+
+\bibitem{llmobf}
+Mohseni, S., Mohammadi, S., Tilwani, D., Saxena, Y., Ndawula, G.K., Vema, S.,
+  Raff, E., Gaur, M.: Can {LLMs} obfuscate code? a systematic analysis of large
+  language models into assembly code obfuscation. In: Proceedings of the AAAI
+  Conference on Artificial Intelligence. vol.~39, pp. 24893--24901. AAAI Press
+  (2025). \doi{10.1609/aaai.v39i23.34672}
+
+\bibitem{metamorphic2}
+Nawaz, M.S., Fournier{-}Viger, P., Nawaz, M.Z., Chen, G., Wu, Y.: {MalSPM}:
+  Metamorphic malware behavior analysis and classification using sequential
+  pattern mining. Comput. Secur.  \textbf{118},  102741 (2022)
+
+\bibitem{python_difflib}
+{Python Software Foundation}: difflib: Helpers for computing deltas. Python
+  documentation, \url{https://docs.python.org/3/library/difflib.html}, accessed
+  13 November 2026
+
+\bibitem{sigdetPEnoncode}
+Sathyanarayan, V.S., Kohli, P., Bruhadeshwar, B.: Signature generation and
+  detection of malware families. In: Information Security and Privacy: 13th
+  Australasian Conference, ACISP 2008, Wollongong, Australia, July 7-9, 2008.
+  Proceedings 13. pp. 336--349. Springer (2008)
+
+\bibitem{szor2001hunting}
+Szor, P., Ferrie, P.: Hunting for metamorphic. In: Virus bulletin conference
+  (2001)
+
+\bibitem{MetaPHOR}
+{The Mental Driller}: Metamorphic permutating high-obfuscating reassembler
+  (2002),
+  \url{http://dsr.segfault.es/stuff/website-mirrors/29A/29a-6/29a-6.602}
+
+\bibitem{historycodeobf}
+Venkatesan, A.: Code Obfuscation and Virus Detection. Master's project, San
+  Jose State University (2008),
+  \url{https://scholarworks.sjsu.edu/etd_projects/116/}
+
+\bibitem{survey1}
+Vishwas, G., Nithin, N.S., Varshith, P., Belwal, M.: Unveiling the world of
+  code obfuscation: A comprehensive survey. In: 2023 7th International
+  Conference on Computation System and Information Technology for Sustainable
+  Solutions (CSITSS). pp.~1--8. IEEE (2023)
+
+\bibitem{wong2006hunting}
+Wong, W., Stamp, M.: Hunting for metamorphic engines. Journal in Computer
+  Virology  \textbf{2},  211--229 (2006)
+
+\bibitem{staticdisasmTuringComplete}
+Zeng, D., Tan, G.: From debugging-information based binary-level type inference
+  to {CFG} generation. In: Proceedings of the Eighth ACM Conference on Data and
+  Application Security and Privacy. pp. 366--376. CODASPY '18, Association for
+  Computing Machinery, New York, NY, USA (2018). \doi{10.1145/3176258.3176309}
+
+\bibitem{identifyingmeth}
+Zhang, Q., Reeves, D.S.: {MetaAware}: Identifying metamorphic malware. In:
+  Twenty-Third Annual Computer Security Applications Conference (ACSAC 2007).
+  pp. 411--420. IEEE (2007)
+
+\end{thebibliography}

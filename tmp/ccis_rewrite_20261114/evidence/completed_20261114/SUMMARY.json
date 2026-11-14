@@ -1,0 +1,162 @@
+{
+  "llm": {
+    "cells": 816,
+    "built": 350,
+    "working": 275,
+    "unique": 323,
+    "all_run_cost_usd": 19.625838237
+  },
+  "llm_by_arch": {
+    "x64": {
+      "cells": 304,
+      "built": 53,
+      "working": 52,
+      "unique": 51,
+      "all_run_cost_usd": 8.092765614
+    },
+    "x86": {
+      "cells": 512,
+      "built": 297,
+      "working": 223,
+      "unique": 272,
+      "all_run_cost_usd": 11.533072623
+    }
+  },
+  "llm_by_shots": {
+    "0": {
+      "cells": 408,
+      "built": 178,
+      "working": 139,
+      "unique": 171,
+      "all_run_cost_usd": 9.775137795
+    },
+    "2": {
+      "cells": 408,
+      "built": 172,
+      "working": 136,
+      "unique": 169,
+      "all_run_cost_usd": 9.850700442
+    }
+  },
+  "run_records": 830,
+  "restarted_cells": 14,
+  "recorded_api_calls": 835,
+  "missing_usage_records": 1,
+  "multi_generation_records": 4,
+  "all_run_cost_usd": 19.625838237,
+  "retained_cell_cost_usd": 19.269954795,
+  "failure_labels": {
+    "disassembly": 245,
+    "network": 1,
+    "other": 93,
+    "length": 53,
+    "validation": 74
+  },
+  "accepted_similarity_mean": 0.9057765714285714,
+  "retained_run_median_seconds": 160.3,
+  "scans_all": {
+    "hashes": 549,
+    "completed_records": 549,
+    "evaluable": 548,
+    "empty_reports": 1,
+    "detected": 240,
+    "mean_malicious": 2.947080291970803,
+    "mean_fraction_all_responses": 0.03929440389294404,
+    "stats": {
+      "undetected": 30929,
+      "type-unsupported": 8184,
+      "malicious": 1615,
+      "failure": 74,
+      "timeout": 298
+    }
+  },
+  "scans_groups": {
+    "wrap": {
+      "hashes": 207,
+      "completed_records": 207,
+      "evaluable": 207,
+      "empty_reports": 0,
+      "detected": 0,
+      "mean_malicious": 0,
+      "mean_fraction_all_responses": 0.0,
+      "stats": {
+        "undetected": 12274,
+        "type-unsupported": 3090,
+        "timeout": 132,
+        "failure": 29
+      }
+    },
+    "llm": {
+      "hashes": 323,
+      "completed_records": 323,
+      "evaluable": 322,
+      "empty_reports": 1,
+      "detected": 221,
+      "mean_malicious": 3.798136645962733,
+      "mean_fraction_all_responses": 0.05064182194616977,
+      "stats": {
+        "malicious": 1223,
+        "undetected": 17908,
+        "type-unsupported": 4810,
+        "timeout": 165,
+        "failure": 44
+      }
+    },
+    "lldata": {
+      "hashes": 19,
+      "completed_records": 19,
+      "evaluable": 19,
+      "empty_reports": 0,
+      "detected": 19,
+      "mean_malicious": 20.63157894736842,
+      "mean_fraction_all_responses": 0.2750877192982456,
+      "stats": {
+        "malicious": 392,
+        "undetected": 747,
+        "type-unsupported": 284,
+        "timeout": 1,
+        "failure": 1
+      }
+    }
+  },
+  "last_scan_record": "2026-11-14T01:17:04",
+  "scan_functional_split": {
+    "True": {
+      "files": 275,
+      "hashes": 263,
+      "completed_records": 263,
+      "evaluable": 263,
+      "empty_reports": 0,
+      "detected": 210,
+      "mean_malicious": 4.414448669201521,
+      "mean_fraction_all_responses": 0.05885931558935361,
+      "stats": {
+        "undetected": 14453,
+        "type-unsupported": 3927,
+        "malicious": 1161,
+        "timeout": 149,
+        "failure": 35
+      }
+    },
+    "False": {
+      "files": 75,
+      "hashes": 60,
+      "completed_records": 60,
+      "evaluable": 59,
+      "empty_reports": 1,
+      "detected": 11,
+      "mean_malicious": 1.0508474576271187,
+      "mean_fraction_all_responses": 0.01401129943502825,
+      "stats": {
+        "malicious": 62,
+        "undetected": 3455,
+        "type-unsupported": 883,
+        "timeout": 16,
+        "failure": 9
+      }
+    }
+  },
+  "empty_scan_hashes": [
+    "4d7ddb053e7f2234c392c9f6ad3cf7d019941b99535c1b949ca2e315dcc4e007"
+  ]
+}

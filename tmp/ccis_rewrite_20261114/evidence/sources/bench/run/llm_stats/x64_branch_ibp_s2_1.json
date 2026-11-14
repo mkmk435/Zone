@@ -1,0 +1,82 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "ibp",
+  "arch": "x64",
+  "started_at": "2026-11-13T12:21:04.924825+00:00",
+  "finished_at": "2026-11-13T12:22:10.043051+00:00",
+  "ok": false,
+  "error": "IBP did not permute blocks: the original instruction order is unchanged (the tool requires at least two non-entry blocks to be reordered)",
+  "timing": {
+    "wall_seconds": 65.118,
+    "api_seconds": 65.113,
+    "local_seconds": 0.005
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 1,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 65.116,
+      "api_seconds": 65.113,
+      "accepted": false,
+      "similarity": 0.0,
+      "code_bytes": 0,
+      "data_bytes": 0,
+      "instructions": 0,
+      "error": "IBP did not permute blocks: the original instruction order is unchanged (the tool requires at least two non-entry blocks to be reordered)"
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T12:21:04.924825+00:00",
+      "seconds": 65.113,
+      "finish_reason": "stop",
+      "content_chars": 414,
+      "usage": {
+        "prompt_tokens": 2610,
+        "completion_tokens": 13748,
+        "total_tokens": 16358,
+        "cache_hit_tokens": 2176,
+        "cache_miss_tokens": 434,
+        "reasoning_tokens": 13548
+      },
+      "cost_usd": 0.008320428,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 2610,
+    "completion_tokens": 13748,
+    "total_tokens": 16358,
+    "cache_hit_tokens": 2176,
+    "cache_miss_tokens": 434,
+    "reasoning_tokens": 13548
+  },
+  "cost_usd": {
+    "total": 0.008320428,
+    "cache_hit": 6.528e-06,
+    "cache_miss": 6.51e-05,
+    "output": 0.0082488,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.8337,
+  "reasoning_ratio": 0.9855,
+  "payload": {
+    "code_bytes": 0,
+    "data_bytes": 0,
+    "instructions": 0,
+    "similarity": 0.0
+  },
+  "errors": [
+    "IBP did not permute blocks: the original instruction order is unchanged (the tool requires at least two non-entry blocks to be reordered)"
+  ],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

@@ -1,0 +1,27 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+[wrap] enabling short-branch expansion for assembly wrapping
+SYMBOLIC DATA ANALYSIS...
+[cache] hit 1d6a53c3bcdf in data_cache.json (1 sections, timeout=120.0s, created 2026-11-13T14:06:50)
+[cache] using the stored sections; --refresh-data-cache re-runs the symbolic search
+Data sections: 1
+  0x9 (12 B) ascii
+Data xrefs: 1
+  0x4 -> 0x9 (12 B)
+REBUILT 22 INSTRUCTIONS (33/33 bytes)
+[extract] moving 1 section(s), 12 B
+  0x9 (12 B ascii) 'Hello, x86!'
+[extract] references to rewrite: 1
+CREO JUMP TABLE
+CREO LABEL TABLE
+[bad] expanded 0 short branch(es)
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+[extract] code 118 B + pad 10 B + data 17 B = 145 B
+[extract] data 0x9 -> 0x85 (12 B)
+[extract] ref 0x4 (now 0x18): jmp 0x80 -> 0x85
+[wrap] 20 instruction(s) hidden in 10 container(s), 2 raw, 2 ghost, 1 junk block(s): 37 -> 118 bytes
+Output: C:\Users\ubu\Desktop\Zone\bench\run\outputs\x86_strings_wrap_3.bin
+FINE

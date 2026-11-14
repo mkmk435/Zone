@@ -1,0 +1,34 @@
+C:\Users\ubu\AppData\Local\Programs\Python\Python312\Lib\site-packages\capstone\__init__.py:327: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+FINITO DI DISASSEMBLARE
+OPT_ARGS:  ['C:\\Users\\ubu\\Desktop\\Zone\\bench\\fixtures\\x64\\getpc.bin', '-xd', '-bcf', '-o', 'C:\\Users\\ubu\\Desktop\\Zone\\bench\\run\\outputs\\x64_getpc_bcf_2.bin']
+SYMBOLIC DATA ANALYSIS...
+[cache] hit 0a2ff67cca79 in data_cache.json (1 sections, timeout=120.0s, created 2026-11-13T13:10:55)
+[cache] using the stored sections; --refresh-data-cache re-runs the symbolic search
+Data sections: 1
+  0x5 (12 B) ascii
+Data xrefs: 1
+  0x0 -> 0x5 (12 B)
+REBUILT 20 INSTRUCTIONS (36/36 bytes)
+[extract] moving 1 section(s), 12 B
+  0x5 (12 B ascii) 'getpc data!'
+[extract] references to rewrite: 1
+CREO LABEL TABLE
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+REG:  rbx
+CODE:  pushf;cmp rbx, rbx;popf;je 0x33
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+UPDATE LABEL TABLE
+ITERANDO: num_iterazioni:  0
+UPDATE INSTR
+[extract] code 47 B + pad 1 B + data 12 B = 60 B
+[extract] data 0x5 -> 0x30 (12 B)
+[extract] ref 0x0 (now 0x0): lea rsi, [rip + 0x29] -> 0x30
+Output: C:\Users\ubu\Desktop\Zone\bench\run\outputs\x64_getpc_bcf_2.bin
+FINE

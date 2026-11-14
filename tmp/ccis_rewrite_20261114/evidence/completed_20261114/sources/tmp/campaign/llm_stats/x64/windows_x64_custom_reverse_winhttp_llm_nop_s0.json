@@ -1,0 +1,82 @@
+{
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "technique": "nop",
+  "arch": "x64",
+  "started_at": "2026-11-13T20:31:29.040515+00:00",
+  "finished_at": "2026-11-13T20:33:34.360781+00:00",
+  "ok": false,
+  "error": "RET_376 is not immediately after a call (previous line: 'L_376:'); data references disappeared from the payload: DATA offset 0xd2 x1",
+  "timing": {
+    "wall_seconds": 125.32,
+    "api_seconds": 125.288,
+    "local_seconds": 0.032
+  },
+  "attempts": 1,
+  "api_calls": 1,
+  "rejected_attempts": 1,
+  "attempt_details": [
+    {
+      "attempt": 1,
+      "seconds": 125.32,
+      "api_seconds": 125.288,
+      "accepted": false,
+      "similarity": 0.0,
+      "code_bytes": 0,
+      "data_bytes": 0,
+      "instructions": 0,
+      "error": "RET_376 is not immediately after a call (previous line: 'L_376:'); data references disappeared from the payload: DATA offset 0xd2 x1"
+    }
+  ],
+  "api_call_details": [
+    {
+      "attempt": 1,
+      "generation_attempt": 1,
+      "started_at": "2026-11-13T20:31:29.040515+00:00",
+      "seconds": 125.288,
+      "finish_reason": "stop",
+      "content_chars": 9631,
+      "usage": {
+        "prompt_tokens": 5472,
+        "completion_tokens": 30921,
+        "total_tokens": 36393,
+        "cache_hit_tokens": 5248,
+        "cache_miss_tokens": 224,
+        "reasoning_tokens": 26217
+      },
+      "cost_usd": 0.018601944,
+      "error": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 5472,
+    "completion_tokens": 30921,
+    "total_tokens": 36393,
+    "cache_hit_tokens": 5248,
+    "cache_miss_tokens": 224,
+    "reasoning_tokens": 26217
+  },
+  "cost_usd": {
+    "total": 0.018601944,
+    "cache_hit": 1.5744e-05,
+    "cache_miss": 3.36e-05,
+    "output": 0.0185526,
+    "peak": false,
+    "rate": "off-peak"
+  },
+  "peak_calls": 0,
+  "offpeak_calls": 1,
+  "cache_hit_ratio": 0.9591,
+  "reasoning_ratio": 0.8479,
+  "payload": {
+    "code_bytes": 0,
+    "data_bytes": 0,
+    "instructions": 0,
+    "similarity": 0.0
+  },
+  "errors": [
+    "RET_376 is not immediately after a call (previous line: 'L_376:'); data references disappeared from the payload: DATA offset 0xd2 x1"
+  ],
+  "pricing_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_note": "USD per 1M tokens; peak/off-peak by UTC schedule, Chinese holidays not modelled"
+}

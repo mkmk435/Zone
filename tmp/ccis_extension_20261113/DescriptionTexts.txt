@@ -1,0 +1,2 @@
+1 (Fig. 1) - A schematic separates the initial call, instruction wrappers, redirector components, padding, offset information, and memory region.
+2 (Fig. 3) - Two alternative identification paths feed shared data handling, followed by native or LLM-assisted transformation and validation.

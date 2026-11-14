@@ -1,0 +1,29 @@
+\section{Integration of Assembly Wrapping}\label{sec:wrapping}
+\subsection{Existing Technique and Implementation Scope}
+Assembly wrapping is an existing technique based on alternative
+instruction interpretations~\cite{assembly_wrapping}. The contribution
+here is its integration into Zone and empirical assessment. The
+instruction view obtained by static decoding can differ from the
+stream followed during execution; representation measurements must
+state which view they use.
+
+The implementation now supports both x64 and x86. The x86 path was
+added after the first benchmark snapshot and is assessed against a
+separately identified version. Register width, instruction encodings,
+and addressing require architecture-specific treatment; an x64 outcome
+is not transferred to x86 by assumption.
+
+\subsection{Integration and Assessment Boundary}
+Wrapping depends on an adequate instruction interpretation, data
+preparation, and consistent handling of supported references. Some
+regions may remain outside the main wrapped representation, and
+construction may be refused on unsupported inputs. Availability,
+construction success, empirical functionality, size, and diversity
+are therefore distinct outcomes.
+
+The benign x64 and x86 fixture results and the separate 102-payload
+campaign appear in Section~\ref{sec:extended_results}. The latter
+includes unbuilt and non-working outputs. Functional results on the
+curated fixtures are not used as evidence of universal payload support.
+The older selected x64 wrapping/static-scan cohort is also identified
+separately, including its construction failures and duplicate outputs.

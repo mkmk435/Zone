@@ -1,0 +1,84 @@
+\section{LLM-Assisted Assembly Transformation}\label{sec:llm}
+\subsection{Task and Supported Transformation Families}
+The transformation path asks an LLM to produce a complete modified
+assembly representation for a selected family: EQ, NOP insertion, BCF,
+or IBP. These families retain their meanings from the native engine;
+the use of a model changes how the proposed representation is produced.
+Each request selects one family so that the generated artifact and its
+validation policy have an identifiable experimental condition.
+
+PII and assembly wrapping remain native paths in the version examined
+here. They are not described as LLM-generated techniques. Likewise, a
+native condition combining transformations is not automatically
+equivalent to several model calls in sequence. The experiment identifies
+the implemented path rather than grouping all uses of the same family
+under one label.
+
+\subsection{Assembly Representation and Data Boundary}
+The engine prepares an assembly representation with symbolic labels
+for the relevant locations and preserves the data representation
+outside the model-generated instruction text. This preparation defines
+an intermediate input to the transformation task. It also determines
+the reference point for several structural checks and similarity
+measurements.
+
+The model's text is assembled and associated with the data retained by
+the engine. The output is therefore a product of model generation,
+assembly, data handling, and validation. The experimental record retains
+the identity of the original file, the intermediate representation,
+and the final bytes, so that preparation-induced changes can be
+distinguished from changes in the model's output.
+
+\subsection{Zero-Shot and Two-Shot Conditions}
+The initial zero-shot request contains the task specification without
+worked examples. The initial two-shot request contains two examples
+in addition to that specification. The example identities and prompt
+versions are part of the experimental condition. Differences in their
+content, not only their number, can influence the comparison.
+
+These labels apply to the first request in a run. After rejection, a
+later request may contain the previous answer and validation feedback.
+Such a run remains assigned to its initial prompting condition, but its
+later attempts are explicitly feedback-assisted. Reporting only the
+final accepted output would hide this additional interaction.
+
+The experimental unit is a run under a specified input, transformation,
+prompt condition, and generation configuration. Repeated run numbers
+are not claimed to be independently controlled model seeds unless the
+service accepts and records such a parameter. Temperature, token
+budget, model identifier, and service configuration are recorded
+separately from the run index.
+
+\subsection{Validation and Feedback}
+Validation covers several kinds of structural evidence. Assembly must
+succeed, the produced code must meet the decoding checks, tracked branch
+destinations must have appropriate boundaries, and the expected data
+representation must remain consistent. Additional checks depend on the
+selected family and examine whether the output still contains the
+required instruction structure or applies a nontrivial transformation.
+
+These checks are deliberately narrower than semantic equivalence.
+An output can pass structural validation yet behave differently; a
+conservative check can also reject an output that would have performed
+the expected behavior. The assessment records the reason for each
+rejection rather than treating all rejected answers as one category.
+
+For supported test cases, a functional verifier can participate in the
+generation loop. If that verifier is also used to select accepted
+outputs, a later test based on the same observable is conditional on
+selection. The article distinguishes this pipeline acceptance criterion
+from an independent functional assessment and reports attempts that
+exhaust the allowed budget.
+
+\subsection{What Is Attributed to the Model}
+Three aspects are considered separately: whether an answer can be
+assembled, whether the complete pipeline accepts it, and whether an
+accepted output satisfies the reported functional check. Deterministic
+preparation and validation are part of the system contribution rather
+than capabilities attributed to the model alone.
+
+The run record includes elapsed time, API usage when supplied by the
+service, rejected attempts, and the accepted artifact. Estimated cost
+is derived from the stated tariff snapshot; it is not presented as an
+invoice. Resumed jobs and reused outputs are identified so that they
+are not counted as additional generation calls.

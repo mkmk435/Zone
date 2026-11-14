@@ -164,7 +164,8 @@ class Runner:
             handle.write(payload)
         result = subprocess.run(
             [sys.executable, self.runner, code_path, out_path],
-            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+            timeout=30)
         if result.returncode != 0 or not os.path.exists(out_path):
             return None
         with open(out_path) as handle:

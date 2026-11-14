@@ -1,0 +1,17 @@
+0x0 bytearray(b'\xe8\x0c\x00\x00\x00') 5  call  0x11
+0x5 bytearray(b'getp') 4  je  0x79
+0x9 bytearray(b'c') 1  .byte  0x63
+0xa bytearray(b' dat') 4  and  byte ptr [rcx + riz*2 + 0x74], ah
+0xe bytearray(b'a') 1  .byte  0x61
+0xf bytearray(b'!\x00') 2  and  dword ptr [rax], eax
+0x11 bytearray(b'^') 1  pop  rsi
+0x12 bytearray(b'H\x89\xcf') 3  mov  rdi, rcx
+0x15 bytearray(b'\x8a\x06') 2  mov  al, byte ptr [rsi]
+0x17 bytearray(b'\x88\x07') 2  mov  byte ptr [rdi], al
+0x19 bytearray(b'H\xff\xc6') 3  inc  rsi
+0x1c bytearray(b'H\xff\xc7') 3  inc  rdi
+0x1f bytearray(b'\x84\xc0') 2  test  al, al
+0x21 bytearray(b'u\xf2') 2  jne  0x15
+0x23 bytearray(b'\xc3') 1  ret  
+b bytearray(b'H\xc7A\x08""\x00\x00') 8  mov  qword ptr [rcx + 8], 0x2222
+0x43 bytearray(b'\xc3') 1  ret  

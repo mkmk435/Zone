@@ -1,0 +1,29 @@
+{
+  "pdf_sha256": "b5cab926172355340cd596b871399bd0bd9f26bb931a4d93463dbd11a997c6b6",
+  "pages": 33,
+  "out_of_page_characters": [],
+  "replacement_character_pages": [],
+  "unresolved_markers": [],
+  "overfull_boxes": 0,
+  "undefined_references": 0,
+  "missing_glyph_warnings": 0,
+  "retained_baseline_objects": {
+    "figure": {
+      "count": 7,
+      "unchanged": true
+    },
+    "table": {
+      "count": 6,
+      "unchanged": true
+    },
+    "lstlisting": {
+      "count": 4,
+      "unchanged": true
+    },
+    "algorithm": {
+      "count": 1,
+      "unchanged": true
+    }
+  },
+  "rendered_pages": 33
+}

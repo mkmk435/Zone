@@ -1,0 +1,82 @@
+\section{Discussion and Threats to Validity}\label{sec:discussion}
+\subsection{Identification and Integration Failures}
+Code--data identification and data-preserving rewriting expose related
+but distinct failure modes. An incorrect candidate can mark code as
+data. A correct candidate may have an unsupported reference. A
+successfully processed region may still be followed by an incorrect
+transformation elsewhere in the payload. The interpretation of a
+working-rate change therefore depends on the stage-level evidence.
+
+Bounded symbolic exploration adds a specific uncertainty: an observed
+address establishes that the analysis visited that address under its
+model, while absence from the observation set establishes much less.
+External Windows behavior, unresolved states, and analysis limits can
+leave code unvisited. The heuristic combination and its diagnostics
+must remain visible when interpreting the result.
+
+For the LLM path, agreement with another method can characterize shared
+outputs without resolving shared errors. Deterministic filtering can
+also make different raw answers converge. Reporting candidate and
+accepted stages separately is consequently necessary for attribution.
+
+\subsection{Validation, Selection, and Measurement Bias}
+Static checks can reject malformed or inconsistent outputs without
+proving the behavior of accepted ones. Functional checks narrow the
+uncertainty only to the observables exercised by the harness. A
+single successful action does not characterize every execution path
+or future interaction of a payload.
+
+When the same functional check is part of generation-time selection
+and later reporting, the resulting pass rate concerns selected
+outputs. It must be read alongside first-attempt acceptance, exhausted
+runs, and the complete retry budget. Repeating a failed run until the
+campaign contains an accepted artifact changes the selection process
+and is retained in the record rather than hidden by the final file.
+
+Similarity introduces another source of interpretation bias. Sequence
+matching under normalization, frequency-vector cosine similarity, and
+byte identity quantify different relationships. Pooling programs into
+one frequency vector also changes the unit of comparison. These
+statistics are not interchangeable measures of semantic preservation.
+Wrapping further requires the decoding interpretation to be stated.
+
+\subsection{Generalizability and Temporal Validity}
+The historical corpus is an identifiable collection of compact
+payloads, not a representative sample of all Windows programs. Its
+x64 and x86 subsets differ in composition as well as size. A campaign
+selected because of earlier failures concentrates on a particular
+part of that corpus. Small LLM pilots on one or a few inputs support
+case-level observations and require additional evidence for broad
+conclusions.
+
+Static-scan services change over time. Engine availability, format
+support, and signatures may differ between a historical submission
+and a current scan. Even contemporaneous raw-file scans do not
+reproduce full application delivery, loading, or endpoint execution.
+Observed verdict fractions are therefore interpreted as properties
+of the submission setting and the identified artifacts.
+
+Development status is another boundary. The x86 wrapping port is
+tracked separately until assessed with a fixed implementation.
+Modifying the port during testing can be useful engineering work,
+but a combined table must preserve which version produced each row.
+
+\subsection{Defensive Interpretation and Reproducibility}
+Binary representation is one source of evidence available to defensive
+analysis. Program behavior, memory activity, and repeated toolchain
+artifacts can remain informative after a transformation. The
+published SGN analyses illustrate recognition opportunities associated
+with a common transformation mechanism~\cite{sgnstrong}. Low raw-file
+malicious-verdict fractions do not establish absence of those other
+signals.
+
+Reproducibility depends on both code and experimental records. The
+final artifacts should identify the engine snapshot, input and output
+hashes, architecture, dependency versions, prompt examples, complete
+attempt accounting, functional oracle, and scan timestamps. Model
+aliases and estimated tariffs are time-sensitive metadata. A frozen
+record makes the boundaries of an observation inspectable even if
+the provider or implementation later changes.
+\draftnote{After finalizing the results, replace prospective discussion
+with findings supported by the completed tables. Retain the validity
+limits that apply to the final protocol.}

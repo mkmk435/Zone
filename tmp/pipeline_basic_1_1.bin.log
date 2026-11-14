@@ -15,5 +15,5 @@ BYTES ADDED:  0x0
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
 UPDATE INSTR
-[wrap] 19 instruction(s) hidden in 14 container(s), 5 raw, 4 ghost, 3 junk block(s): 98 -> 249 bytes
+[wrap] 15 instruction(s) hidden in 12 container(s), 5 raw, 1 ghost, 3 junk block(s): 89 -> 198 bytes
 FINE

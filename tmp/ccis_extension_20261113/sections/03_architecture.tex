@@ -1,0 +1,107 @@
+\section{Zone Architecture}\label{sec:architecture}
+\subsection{Input Scope and Instruction Representation}
+Zone's payload implementation is written in Python and uses Capstone
+for disassembly and Keystone for assembly. The project is publicly
+available.\footnote{\url{https://github.com/jakydibe/Zone}.}
+Its x64 and x86 paths share the same broad organization but require
+architecture-specific handling of operands and references. Support in
+one path is therefore not evidence of support in the other.
+
+Instruction objects retain an association with the original decoding
+and the current representation. Address-indexed lookup and tracked
+control-flow references allow layout updates to be propagated through
+the instruction sequence. A rewriting operation can change the size of
+an instruction, its address, or the physical relation between blocks;
+the final output must reflect the resulting layout rather than the
+addresses in the first decoding.
+
+The initial decoding is itself fallible. Decoder options that skip
+undecodable bytes allow processing to continue, but do not establish
+which successfully decoded bytes are genuine code. Full decoding
+coverage is a useful structural check and remains insufficient as a
+semantic criterion. The extended data layer addresses a different part
+of this problem by retaining explicit candidate data and reference
+information.
+
+\subsection{The Published PII Design}\label{sec:pii}
+PII was introduced in the conference article~\cite{zone_secrypt_2026}.
+It separates logical execution order from the physical placement of
+instruction units. The published representation uses wrapped original
+operations, a redirector, and an offset table. The table identifies the
+next logical unit after the current operation; physical adjacency is
+therefore not the sole representation of succession.
+Figure~\ref{fig:pii_layout} retains the original layout as architectural
+context. It describes the conference design rather than a new method
+introduced in this extension.
+\input{figures/pii_layout}
+
+The state used by dispatch must be preserved independently of the state
+used by the original operation. Control-flow instructions and
+architecture-specific addressing also require dedicated handling.
+The extension distinguishes the original PII design from later
+implementation revisions. It also distinguishes a dispatcher-based
+representation from single-instruction permutation with explicit
+successors. These paths are not interchangeable experimental labels.
+
+\subsection{Extended Architecture}
+Figure~\ref{fig:extended_architecture} organizes the added functionality
+into identification, deterministic data handling, transformation, and
+validation. The identification methods are alternatives. Both supply
+candidate regions to the data layer, while the LLM transformation path
+uses an assembly representation prepared by the engine. The model is
+not responsible for the entire binary-writing infrastructure.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[font=\scriptsize,
+ box/.style={draw,rounded corners,align=center,minimum height=8mm,text width=30mm},
+ arr/.style={-{Stealth[length=2mm]},thick}]
+\node[box,fill=gray!10] (input) at (0,0) {Raw payload\\and architecture};
+\node[box,fill=blue!7] (sym) at (-2.1,-1.4) {Symbolic and heuristic\\identification};
+\node[box,fill=blue!7] (llmdata) at (2.1,-1.4) {LLM-based\\identification};
+\node[box,fill=green!7,text width=42mm] (data) at (0,-2.9) {Shared deterministic\\data and reference handling};
+\node[box,fill=orange!8] (native) at (-2.1,-4.4) {Native transformations\\and wrapping};
+\node[box,fill=orange!8] (llm) at (2.1,-4.4) {LLM-assisted\\assembly transformation};
+\node[box,fill=gray!10,text width=42mm] (validation) at (0,-5.9) {Structural validation\\and functional assessment};
+\draw[arr] (input)--(sym); \draw[arr] (input)--(llmdata);
+\draw[arr] (sym)--(data); \draw[arr] (llmdata)--(data);
+\draw[arr] (data)--(native); \draw[arr] (data)--(llm);
+\draw[arr] (native)--(validation); \draw[arr] (llm)--(validation);
+\end{tikzpicture}
+\caption{Conceptual organization of the extended system. Identification
+and transformation paths are selected according to the experimental
+condition; the diagram does not assert that every combination is supported.}
+\label{fig:extended_architecture}
+\Description{Two alternative identification paths feed shared data handling,
+followed by native or LLM-assisted transformation and validation.}
+\end{figure}
+
+The implementation distinguishes original input identity, intermediate
+code and data representations, and final output identity. This matters
+for both reference handling and measurement. For example, similarity
+against a canonicalized intermediate representation measures a different
+change from similarity against the original file. Likewise, a data
+analysis retrieved from a cache is not a new symbolic exploration.
+
+\begin{table}[t]
+\caption{Implementation scope of the extensions in this working draft.
+Availability does not imply completed empirical validation.}
+\label{tab:scope}
+\centering\small
+\begin{tabularx}{\linewidth}{@{}Yll@{}}
+\toprule
+Component & x64 & x86 \\
+\midrule
+Symbolic/heuristic identification & Implemented & Implemented \\
+LLM data identification & Implemented & Implemented \\
+LLM EQ/NOP/BCF/IBP & Implemented & Implemented \\
+Assembly wrapping & Implemented & \dev \\
+Extended quantitative assessment & In progress & In progress \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Table~\ref{tab:scope} records the current development boundary.
+The support matrix will be finalized against the version used for the
+reported campaigns. Ongoing development, especially the x86 wrapping
+port, is not merged into an already completed experimental condition.

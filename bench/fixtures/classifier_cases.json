@@ -1,0 +1,146 @@
+[
+  {
+    "arch": "x64",
+    "name": "nodata",
+    "kind": "senza_dati",
+    "file": "bench/fixtures/classifier/x64/nodata.bin",
+    "size": 17,
+    "sha256": "a4c34508748f6a502edc728e07d5f6662e7c1588e2c19dfc081c18d21b1f706e",
+    "expect": [
+      {
+        "offset": 0,
+        "bytes": "6644000000000000"
+      }
+    ],
+    "data_ranges": [],
+    "no_data": true,
+    "notes": "nessun dato inline; classificazione corretta = insieme vuoto",
+    "original_ok": true
+  },
+  {
+    "arch": "x64",
+    "name": "multidata",
+    "kind": "due_intervalli",
+    "file": "bench/fixtures/classifier/x64/multidata.bin",
+    "size": 63,
+    "sha256": "26bb872c9b2f531dfff6e3da760935349bfcfdb3e615191fe23b1b356b4feb5b",
+    "expect": [
+      {
+        "offset": 0,
+        "bytes": "616c70686100"
+      },
+      {
+        "offset": 16,
+        "bytes": "6265746100"
+      }
+    ],
+    "data_ranges": [
+      {
+        "offset": 2,
+        "length": 6,
+        "text": "alpha"
+      },
+      {
+        "offset": 58,
+        "length": 5,
+        "text": "beta"
+      }
+    ],
+    "no_data": false,
+    "notes": "due stringhe inline reference separatamente",
+    "original_ok": true
+  },
+  {
+    "arch": "x64",
+    "name": "databait",
+    "kind": "codice_simile_a_dati",
+    "file": "bench/fixtures/classifier/x64/databait.bin",
+    "size": 14,
+    "sha256": "6ba3ed10ce68da0e54fdeb3b6409f98507e2d630d9e14d7d0f0369499cdfe8e5",
+    "expect": [
+      {
+        "offset": 0,
+        "bytes": "4847464544434241"
+      }
+    ],
+    "data_ranges": [],
+    "no_data": true,
+    "notes": "immediato ASCII dentro il codice: nessun dato da estrarre",
+    "original_ok": true
+  },
+  {
+    "arch": "x64",
+    "name": "table",
+    "kind": "tabella_binaria",
+    "file": "bench/fixtures/classifier/x64/table.bin",
+    "size": 37,
+    "sha256": "3b12c8f62442f9e2144aaa33fbb3b125d8df0dbd32addb417c0950bc7639dec8",
+    "expect": [
+      {
+        "offset": 0,
+        "bytes": "0a000000"
+      }
+    ],
+    "data_ranges": [
+      {
+        "offset": 21,
+        "length": 16,
+        "name": "table16"
+      }
+    ],
+    "no_data": false,
+    "notes": "tabella binaria di 16 byte, non ASCII",
+    "original_ok": true
+  },
+  {
+    "arch": "x86",
+    "name": "nodata",
+    "kind": "senza_dati",
+    "file": "bench/fixtures/classifier/x86/nodata.bin",
+    "size": 17,
+    "sha256": "03aa3bffcbe0283e4c450fa258b2d795a14f33a0131a15846aa1f48c384c497a",
+    "expect": [
+      {
+        "offset": 0,
+        "bytes": "66440000"
+      }
+    ],
+    "data_ranges": [],
+    "no_data": true,
+    "notes": "nessun dato inline 32-bit",
+    "original_ok": true
+  },
+  {
+    "arch": "x86",
+    "name": "multidata",
+    "kind": "due_intervalli",
+    "file": "bench/fixtures/classifier/x86/multidata.bin",
+    "size": 55,
+    "sha256": "0cf9421bc921db433cd9e6735919c4512cc1511becb877c7e2e8aa2a024b3caf",
+    "expect": [
+      {
+        "offset": 0,
+        "bytes": "616c70686100"
+      },
+      {
+        "offset": 16,
+        "bytes": "6265746100"
+      }
+    ],
+    "data_ranges": [
+      {
+        "offset": 9,
+        "length": 6,
+        "text": "alpha"
+      },
+      {
+        "offset": 38,
+        "length": 5,
+        "text": "beta"
+      }
+    ],
+    "no_data": false,
+    "notes": "due blocchi call/pop con due stringhe 32-bit",
+    "original_ok": true
+  }
+]

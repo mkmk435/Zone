@@ -16,32 +16,8 @@ UPDATE INSTR
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
 UPDATE INSTR
-REG:  rcx
-CODE:  pushf;push rcx;mov rcx, 3;add rcx, 0;cmp rcx, 3; pop rcx;popf;je 0x52
-UPDATE INSTR
-UPDATE LABEL TABLE
-ITERANDO: num_iterazioni:  0
-UPDATE INSTR
-REG:  rax
-CODE:  pushf;push rax; mov rax, 92;neg rax;neg rax;cmp rax, 92; pop rax;popf;je 0x74
-UPDATE INSTR
-UPDATE LABEL TABLE
-ITERANDO: num_iterazioni:  0
-UPDATE INSTR
-REG:  r13
-CODE:  pushf;push r13;mov r13, 73;cmp r13, 73;pop r13;popf;je 0x89
-UPDATE INSTR
-UPDATE LABEL TABLE
-ITERANDO: num_iterazioni:  0
-UPDATE INSTR
-REG:  r10
-CODE:  pushf;push r10;mov r10, 153;sub r10, 0;cmp r10, 153; pop r10;popf;je 0xae
-UPDATE INSTR
-UPDATE LABEL TABLE
-ITERANDO: num_iterazioni:  0
-UPDATE INSTR
-REG:  rcx
-CODE:  pushf;cmp rcx, rcx;popf;je 0xab
+REG:  rdx
+CODE:  pushf;push rdx;mov rdx, 139;cmp rdx, 139;pop rdx;popf;je 0x57
 UPDATE INSTR
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
@@ -49,5 +25,5 @@ UPDATE INSTR
 UPDATE LABEL TABLE
 ITERANDO: num_iterazioni:  0
 UPDATE INSTR
-[wrap] 116 instruction(s) hidden in 66 container(s), 9 raw, 13 ghost, 8 junk block(s): 340 -> 913 bytes
+[wrap] 28 instruction(s) hidden in 19 container(s), 6 raw, 2 ghost, 3 junk block(s): 117 -> 284 bytes
 FINE

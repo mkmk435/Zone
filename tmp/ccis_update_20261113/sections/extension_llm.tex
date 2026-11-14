@@ -1,0 +1,54 @@
+\section{LLM-Assisted Assembly Transformation}\label{sec:llm}
+\subsection{Task, Representation, and Model Role}
+Zone delegates one of EQ, NOP insertion, BCF, or IBP to an LLM,
+requesting a complete modified assembly representation. PII and
+wrapping remain native transformations. The model generates an
+instruction proposal; deterministic preparation, assembly, data
+handling, and validation remain part of the evaluated pipeline.
+
+The engine prepares symbolic labels for relevant code locations and
+keeps the data representation outside the generated instruction text.
+Original bytes, the prepared intermediate representation, and final
+output identity are recorded separately. In particular, similarity to
+the intermediate input does not measure every change from the original
+file. The experiments request the model identifier
+\texttt{deepseek-flash}. Version names assigned by a local alias or
+pricing table are not independent confirmation of the provider's
+model version.
+
+\subsection{Zero-Shot, Two-Shot, and Call Budgets}
+The initial zero-shot request supplies a textual specification without
+worked examples; the two-shot request adds two input/output examples.
+Example identities and prompt versions are part of the condition.
+Repeated run numbers do not imply controlled or independent service
+seeds. After rejection, the general pipeline can supply the previous
+answer and validation feedback, so any later attempt is identified
+as feedback-assisted.
+
+The benign benchmark deliberately disables these internal retries:
+each invocation allows one generation, and each input/family/shot
+cell has three invocations in total, including failures. No failed
+invocation is replaced. The ongoing payload campaign instead uses
+one target output per cell and a driver supporting up to three
+generation attempts. These are different experimental designs and
+are not merged into one success percentage.
+
+\subsection{Validation and Independent Functional Assessment}
+Structural checks cover assembly, decoding coverage, tracked control
+flow, data consistency, and family-specific requirements. A proposal
+can be rejected because it is malformed, loses required structure,
+or fails to apply the requested transformation. Structural acceptance
+alone does not establish behavioral equivalence.
+
+For the new benign benchmark, functional verification follows
+generation in a separate harness and compares the complete output
+buffer against its predeclared expected contents. It is not a
+generation-time selection oracle. This differs from the earlier
+MessageBox pilot, where the dialog verifier was included in output
+acceptance. That earlier pilot is retained as a separate cohort.
+
+Records preserve accepted and rejected invocations, transport failures,
+hashes, timing, usage, and locally estimated cost. Reusing a completed
+output is distinguished from a new model call. A correct buffer is
+empirical evidence for the fixture's specified observable, not a
+proof of all-state equivalence or correctness on unrelated payloads.

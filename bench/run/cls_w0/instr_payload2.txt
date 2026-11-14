@@ -1,0 +1,15 @@
+0x0 bytearray(b'H\x8d5\x0e\x00\x00\x00') 7  lea  rsi, [rip + 0xe]
+0x7 bytearray(b'\x8b\x06') 2  mov  eax, dword ptr [rsi]
+0x9 bytearray(b'\x03F\x04') 3  add  eax, dword ptr [rsi + 4]
+0xc bytearray(b'\x03F\x08') 3  add  eax, dword ptr [rsi + 8]
+0xf bytearray(b'\x03F\x0c') 3  add  eax, dword ptr [rsi + 0xc]
+0x12 bytearray(b'\x89\x01') 2  mov  dword ptr [rcx], eax
+0x14 bytearray(b'\xc3') 1  ret  
+0x15 bytearray(b'\x01\x00') 2  add  dword ptr [rax], eax
+0x17 bytearray(b'\x00\x00') 2  add  byte ptr [rax], al
+0x19 bytearray(b'\x02\x00') 2  add  al, byte ptr [rax]
+0x1b bytearray(b'\x00\x00') 2  add  byte ptr [rax], al
+0x1d bytearray(b'\x03\x00') 2  add  eax, dword ptr [rax]
+0x1f bytearray(b'\x00\x00') 2  add  byte ptr [rax], al
+0x21 bytearray(b'\x04\x00') 2  add  al, 0
+0x23 bytearray(b'\x00\x00') 2  add  byte ptr [rax], al
