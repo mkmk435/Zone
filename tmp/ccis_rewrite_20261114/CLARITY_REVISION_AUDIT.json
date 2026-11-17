@@ -1,0 +1,24 @@
+{
+  "main_pages": 36,
+  "standalone_figure_pages": 1,
+  "no_overfull_or_undefined": true,
+  "snapshot_codes_removed_from_narrative": true,
+  "recovery_counts_checked_against_original_and_consolidated_records": true,
+  "visual_review": "Contact sheets for 20 changed/reflowed pages; individual review of population table, detection table, recovery figure in manuscript and standalone export. No clipping or overlaps after legend adjustment.",
+  "payloads_executed": false,
+  "model_calls_or_scans_started": false,
+  "source_sha256": {
+    "main.tex": "f384234614d6b504e4588e3135cc8d042e527b1f9f417c76dc9868d5824466bf",
+    "sections\\extension_code_data.tex": "de05a4cae2d4567b142c8a898db4aed43bafb7a517c1990bf2f345a598ae939e",
+    "sections\\extension_discussion.tex": "87e97cd49b60d19d1d00dcf80981069841570674f4d3eae4ccbf4d265c58b082",
+    "sections\\extension_llm.tex": "cc85b24653494318d011df1ae558ae4c7e80862e7d2b09789c22de3b2f9e0c37",
+    "sections\\extension_methodology.tex": "c806987b0381abf8e6f42363bcca2fc5f53ab85fd0b7ac3b50f21e19aac02486",
+    "sections\\extension_results.tex": "a986e08ae7ead1b76c6d5df57b1a6bcfdf0d5a860650bcc92d044cf7735f44d9",
+    "sections\\extension_wrapping.tex": "9eda881f887b5b4a35fcdbcd9b8dc05a761e317daf206d60a0a3279ca851f24c"
+  },
+  "outputs": {
+    "working_rate_prima_dopo.pdf": "3e4129fd1b180a740d85e532ece40c25730a726bd00c3a1726bc678a1dadffff",
+    "working_rate_prima_dopo.png": "abe789df926380a4b1e2b9f02d77490112a7afc4bc87445ccfbbf69b6b4961c8",
+    "zone_revisione_chiara.pdf": "dd5e7c5c94e2f9d839f65bed03a077da1eee2d63a5fb125364a056a91eae7b12"
+  }
+}

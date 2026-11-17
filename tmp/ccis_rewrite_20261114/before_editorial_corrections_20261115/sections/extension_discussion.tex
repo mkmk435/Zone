@@ -1,0 +1,32 @@
+\section{Discussion of the Extensions}\label{sec:extension_limits}
+Recovery tests show improved functionality on the selected difficult
+inputs, with a larger gain on x64. The full-corpus wrapping and LLM
+campaigns complement this comparison by assessing the added modes on all
+102 inputs.
+
+The controlled suites help explain what each stage contributes. All six
+annotated programs are classified exactly, while the 13 functional
+programs check the output of individual programming patterns. Their small
+size and simple layouts make them useful diagnostic tests. Their high
+success rates are not a consequence of being benign: the original corpus
+contains larger and more varied instruction/data layouts, which exercise
+additional cases. The recorded native x86 IBP result remains associated with its tested
+version; a future corrected implementation requires a separately identified
+evaluation.
+
+The two LLM roles remain distinct. Data identification feeds shared
+handling, giving identical binaries in 16/19 original cases and matching
+17/19 functional outcomes. Assembly transformation proposes a new listing;
+zero-shot and two-shot have similar aggregate outcomes. Input size,
+construction success, and execution outcome offer more informative
+distinctions in this campaign.
+
+The empirical scope can be stated once. Functional preservation is assessed
+through the specified execution tests, rather than a formal proof for every
+possible execution. Classification accuracy is measured on independently
+annotated programs; the unannotated payload comparison measures agreement
+and downstream functionality. Static detection rates describe the submitted
+raw files and the reported engine responses, including the disclosed
+unsupported and failed analyses. Repeated inputs, shared hashes, recorded
+version differences, and retries are retained in the artifact so that these
+descriptive results can be inspected and reproduced.

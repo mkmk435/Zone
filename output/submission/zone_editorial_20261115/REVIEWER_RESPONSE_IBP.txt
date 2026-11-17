@@ -1,0 +1,12 @@
+Proposed response on native x86 IBP version coverage
+
+We agree that a rerun with one common engine version would be necessary to
+measure version-to-version improvement. The reported controlled native x86 IBP
+experiment, however, was performed with the earlier implementation identified
+in the supplementary provenance. It produced 17 binaries in 18 planned tests,
+and none passed the complete-buffer check. No current-version rerun is available
+in this evidence set. We retain all 18 cases and explicitly tie the result to
+the tested version rather than infer that later LLM or wrapping outcomes
+demonstrate a repair of native IBP. The revised methodology and Table 9 caption
+make this scope explicit. A direct comparison with the current version would
+require additional measurements beyond the evidence reported here.

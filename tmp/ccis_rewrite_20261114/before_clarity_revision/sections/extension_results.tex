@@ -1,0 +1,370 @@
+\section{Results of the Extended Evaluation}\label{sec:extended_results}
+The new results show a consistent distinction between small controlled
+tests and the original payload corpus. The benign programs usually survive
+transformation, whereas construction failures and execution failures become
+substantial in the broader corpus. We first examine identification and
+controlled behavior, then the completed wrapping and LLM campaigns, and
+finally the scans of the outputs those campaigns produced.
+
+\subsection{Can the Methods Identify Annotated Data?}
+On the six classification fixtures, all eighteen LLM invocations and all
+six symbolic runs return the exact reference interval sets
+(Table~\ref{tab:new_classifier}). Both methods miss zero data bytes and
+classify zero code bytes as data. The three fixtures containing data have
+precision and recall equal to one; the other three correctly return no
+data. All resulting executions pass their buffer checks. This includes
+the deliberately misleading printable-code case, which is rejected as
+data rather than extracted as a string.
+
+
+\begin{table}[t]
+\caption{Independent classifier fixtures. $D$ is annotated data bytes.
+Exact interval sets are compared against predeclared references.
+Mean times are per run in seconds.}
+\label{tab:new_classifier}
+\centering\small\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}llrrrrr@{}}
+\toprule
+Arch. & Case & $D$ & LLM exact & Symbolic exact & LLM time & Sym. time \\
+\midrule
+x64 & databait & 0 & 3/3 & 1/1 & 4.6 & 2.4 \\
+x64 & multidata & 11 & 3/3 & 1/1 & 4.2 & 2.6 \\
+x64 & nodata & 0 & 3/3 & 1/1 & 2.1 & 2.4 \\
+x64 & table & 16 & 3/3 & 1/1 & 2.6 & 2.4 \\
+x86 & multidata & 11 & 3/3 & 1/1 & 4.4 & 2.5 \\
+x86 & nodata & 0 & 3/3 & 1/1 & 1.9 & 2.3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+These results establish correctness on the six annotated examples, not on
+arbitrary payloads. The nineteen selected original payloads illustrate
+why that distinction matters. Both pipelines build 19/19 outputs and pass
+17/19 harness checks. Their compared intervals agree in only 9/19 cases,
+while their final binaries are byte-identical in 16/19. Shared filtering
+and reference handling can therefore remove differences between proposals.
+Without independent annotations, neither 9/19 nor 16/19 measures classifier
+accuracy. The same two inputs fail in both arms, which is consistent with
+a shared downstream limitation but does not by itself isolate its cause.
+
+The recorded median durations are 123.95 seconds for symbolic preparation
+and 59.88 seconds for the LLM arm. The latter's estimated cost is \$0.2218
+over nineteen runs. Different preparation and caching work prevents a
+controlled general speedup claim. On the separate six-fixture benchmark,
+the total LLM cost is approximately \$0.0059. An earlier three-case benign
+check records another 9/9 exact LLM results; those repetitions are not
+added to the six-fixture population.
+
+\subsection{Do Transformations Preserve the Benign Fixtures' Outputs?}
+Table~\ref{tab:new_native} reports the native engine tests. For x64, each
+family passes 21/21 runs (seven fixtures, three runs each). For x86, EQ,
+NOP, and BCF pass 18/18. B1 IBP builds 17/18 binaries but none passes the
+complete-buffer check; the remaining case raises a construction exception.
+The B2 x86 wrapping implementation passes all 18/18. A constructed binary
+can thus fail even these controlled observables, as the IBP row demonstrates.
+
+
+\begin{table}[t]
+\caption{New native fixture results. $N$: attempts; $B$: builds;
+$W$: correct complete buffers; $U$: distinct built-output hashes.
+B1/B2 identify different frozen engine versions.}
+\label{tab:new_native}
+\centering\small
+\begin{tabular}{@{}lllrrrr@{}}
+\toprule
+Arch. & Family & Version & $N$ & $B$ & $W$ & $U$ \\
+\midrule
+x64 & BCF & B1 & 21 & 21 & 21 & 21 \\
+x64 & EQ & B1 & 21 & 21 & 21 & 16 \\
+x64 & IBP & B1 & 21 & 21 & 21 & 17 \\
+x64 & NOP & B1 & 21 & 21 & 21 & 21 \\
+x64 & WRAP & B1 & 21 & 21 & 21 & 21 \\
+x86 & BCF & B1 & 18 & 18 & 18 & 18 \\
+x86 & EQ & B1 & 18 & 18 & 18 & 14 \\
+x86 & IBP & B1 & 18 & 17 & 0 & 16 \\
+x86 & NOP & B1 & 18 & 18 & 18 & 18 \\
+x86 & WRAP & B2 & 18 & 18 & 18 & 18 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+The LLM benchmark yields accepted outputs with correct buffers in 167/168
+x64 invocations and 138/144 x86 invocations. Every accepted output passes
+the external test. The seven unsuccessful invocations comprise five
+family-specific validation rejections and two transport errors, rather
+than seven executions with incorrect buffers. Table~\ref{tab:new_llm_benign}
+keeps these failures in each condition's denominator.
+
+
+\begin{table}[t]
+\caption{Benign DeepSeek transformation. $W/N$ includes rejected and
+failed invocations. $S$ is mean sequence similarity over accepted outputs;
+$U/B$ is unique hashes per built output within the condition. Time is
+mean invocation seconds; cost is the sum of local USD estimates.}
+\label{tab:new_llm_benign}
+\centering\small\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lllrrrrr@{}}
+\toprule
+Arch. & Family & Shots & $W/N$ & $S$ & $U/B$ & Time & Cost \\
+\midrule
+x64 & BCF & 0 & 21/21 & 0.574 & 18/21 & 43.0 & 0.107 \\
+x64 & BCF & 2 & 21/21 & 0.575 & 20/21 & 35.6 & 0.088 \\
+x64 & EQ & 0 & 21/21 & 0.831 & 12/21 & 28.8 & 0.064 \\
+x64 & EQ & 2 & 21/21 & 0.832 & 11/21 & 29.4 & 0.068 \\
+x64 & IBP & 0 & 21/21 & 0.783 & 14/21 & 25.5 & 0.062 \\
+x64 & IBP & 2 & 20/21 & 0.779 & 15/20 & 30.8 & 0.077 \\
+x64 & NOP & 0 & 21/21 & 1.000 & 18/21 & 11.9 & 0.027 \\
+x64 & NOP & 2 & 21/21 & 1.000 & 20/21 & 11.7 & 0.028 \\
+x86 & BCF & 0 & 18/18 & 0.573 & 18/18 & 47.9 & 0.103 \\
+x86 & BCF & 2 & 18/18 & 0.580 & 17/18 & 43.8 & 0.095 \\
+x86 & EQ & 0 & 18/18 & 0.852 & 11/18 & 29.0 & 0.056 \\
+x86 & EQ & 2 & 18/18 & 0.843 & 11/18 & 33.3 & 0.067 \\
+x86 & IBP & 0 & 13/18 & 0.705 & 9/13 & 31.0 & 0.052 \\
+x86 & IBP & 2 & 17/18 & 0.739 & 12/17 & 32.5 & 0.071 \\
+x86 & NOP & 0 & 18/18 & 1.000 & 18/18 & 15.1 & 0.032 \\
+x86 & NOP & 2 & 18/18 & 1.000 & 18/18 & 18.6 & 0.039 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+Across conditions, x64 produces 108 distinct hashes at an estimated cost
+of \$0.5205; x86 produces 99 at \$0.5132. Hashes shared across conditions
+explain why the union is smaller than the sum of row-wise uniqueness.
+EQ frequently repeats outputs. NOP's similarity of 1.000 follows from
+filtering NOP-like operations before matching; it does not indicate that
+the binaries are identical.
+
+For x86 IBP, the two-shot condition passes 17/18 invocations compared with
+13/18 for zero-shot. For x64 IBP, the corresponding outcomes are 20/21 and
+21/21. These are observations on six or seven fixtures under the stated
+versions; they do not demonstrate a general advantage for two examples.
+
+\subsection{Wrapping on All 102 Original Payloads}
+The full B3 campaign attempts 306 variants, three per input. It constructs
+243 binaries (79.4\% of planned cases), of which 170 pass the harness.
+Thus $W/N=55.6$\%, whereas $W/B=70.0$\%. The distinction reveals a
+substantial coverage gap that would be hidden by reporting only the
+successful benign tests.
+
+
+\begin{table}[t]
+\caption{Full original-corpus wrapping campaign, B3. The harness
+observables are distinct from the benign exact-buffer oracle.
+$U$ counts distinct constructed hashes.}
+\label{tab:new_wrap_full}
+\centering\small
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+Arch. & Inputs & $B/N$ & $W/N$ & $W/B$ & $U$ \\
+\midrule
+x64 & 38 & 63/114 & 63/114 & 63/63 & 63 \\
+x86 & 64 & 180/192 & 107/192 & 107/180 & 144 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+The two architectures fail at different stages. On x64, 51 attempts do
+not build, while all 63 constructed outputs pass. On x86, only twelve
+attempts do not build, but 73 of the 180 constructed outputs fail the
+harness. All 73 also fail the saved isolated retests; those retests are
+not counted as additional variants. There are 207 distinct hashes among
+the 243 binaries, showing that different seeds do not always produce
+different bytes.
+
+The logs include incomplete instruction interpretation and reference
+consistency errors during construction. These symptoms accord with the
+method's dependence on data preparation and supported relocation. They
+do not establish a single cause for every execution failure. The earlier
+selected x64 experiment, which built 200/260 variants and passed 198/200
+constructed outputs, concerns a different and smaller population and is
+not substituted for the full-corpus results.
+
+\subsection{Completed LLM Transformation on the Original Corpus}
+All 816 planned cells have an outcome. The campaign constructs 350
+outputs, and 275 pass the external harness: a build rate of 42.9\%, an
+overall working rate of 33.7\%, and a working rate among builds of 78.6\%.
+Table~\ref{tab:payload_llm} shows the complete architecture/family/shot
+breakdown. These are pipeline outcomes, including the retries described
+in Section~\ref{sec:methodology}.
+
+
+\begin{table}[t]
+\caption{Completed B3 LLM payload matrix. $N$: planned cells; $B$: accepted
+builds; $W$: builds passing the external harness; $U$: distinct built-output
+hashes within the condition. Every planned cell is retained.}
+\label{tab:payload_llm}
+\centering\small
+\begin{tabular}{@{}lllrrrr@{}}
+\toprule
+Arch. & Family & Shots & $N$ & $B$ & $W$ & $U$ \\
+\midrule
+x64 & EQ & 0 & 38 & 7 & 7 & 7 \\
+x64 & EQ & 2 & 38 & 6 & 6 & 6 \\
+x64 & NOP & 0 & 38 & 8 & 8 & 8 \\
+x64 & NOP & 2 & 38 & 6 & 6 & 6 \\
+x64 & BCF & 0 & 38 & 6 & 6 & 6 \\
+x64 & BCF & 2 & 38 & 6 & 5 & 6 \\
+x64 & IBP & 0 & 38 & 6 & 6 & 6 \\
+x64 & IBP & 2 & 38 & 8 & 8 & 8 \\
+\midrule
+x86 & EQ & 0 & 64 & 34 & 25 & 30 \\
+x86 & EQ & 2 & 64 & 36 & 28 & 34 \\
+x86 & NOP & 0 & 64 & 38 & 28 & 38 \\
+x86 & NOP & 2 & 64 & 35 & 27 & 35 \\
+x86 & BCF & 0 & 64 & 40 & 31 & 40 \\
+x86 & BCF & 2 & 64 & 36 & 26 & 36 \\
+x86 & IBP & 0 & 64 & 39 & 28 & 36 \\
+x86 & IBP & 2 & 64 & 39 & 30 & 38 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+On x64, only 53/304 cells produce binaries, but 52/53 of those binaries
+pass. On x86, 297/512 produce binaries and 223/297 pass. Construction is
+therefore the principal observed bottleneck on x64, while x86 also has a
+substantial failure rate after construction. The aggregate success on
+benign fixtures does not predict these corpus-level outcomes.
+
+Zero-shot produces 178 builds and 139 passing outputs from 408 cells;
+two-shot produces 172 builds and 136 passing outputs from 408 cells.
+Their overall working rates are 34.1\% and 33.3\%. These descriptive
+differences offer no consistent evidence that adding two examples improves
+the outcome. They also concern repeated configurations of the same inputs,
+not 816 independent programs.
+
+The 466 failed cells have recorded error categories comprising 245
+disassembly/boundary errors, 74 validation errors, 53 output-length
+terminations, one transport error, and 93 other errors. These labels
+describe the observed failure stage, not proven root causes. In particular,
+truncation means the response reaches its output limit before delivering
+a complete acceptable listing; it is distinct from a generated program
+failing at execution time.
+
+The 350 built outputs contain 323 distinct hashes. Their mean recorded
+sequence similarity is 0.906. The median retained-run duration is
+160.3 seconds, including local processing. Summing the representative
+record for each cell gives an estimated \$19.2700, but including the
+fourteen restarted failed runs raises recorded campaign cost to
+\$19.6258. The latter is the appropriate total for work actually recorded;
+missing usage for one run prevents claiming complete billing coverage.
+
+\subsection{Static Scans of the Completed Campaign}
+The current manifest contains 612 file entries: 243 wrapping outputs,
+350 LLM-transformed outputs, and nineteen outputs from LLM data handling.
+They correspond to 549 distinct hashes. Every hash has a record marked
+completed, but one LLM BCF zero-shot record contains no engine responses.
+We exclude that empty result from measured scan rates: 548 hashes are
+evaluable, with 75 reported responses each. Table~\ref{tab:current_scans}
+retains each hash in every condition to which it belongs.
+
+
+\begin{table}[t]
+\caption{Current raw-file scans. $U$: distinct submitted hashes; $V$:
+hashes with nonempty results; $D$: hashes with a malicious response;
+$q=D/V$; $\overline m$: mean malicious-response count over $V$.
+The empty BCF/0 report is excluded from $V$.}
+\label{tab:current_scans}
+\centering\small\setlength{\tabcolsep}{5pt}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+Condition & $U$ & $V$ & $D$ & $q$ (\%) & $\overline m$ \\
+\midrule
+Wrapping & 207 & 207 & 0 & 0.0 & 0.00 \\
+LLM EQ / 0 & 37 & 37 & 26 & 70.3 & 2.49 \\
+LLM EQ / 2 & 40 & 40 & 30 & 75.0 & 2.80 \\
+LLM NOP / 0 & 46 & 46 & 18 & 39.1 & 2.17 \\
+LLM NOP / 2 & 41 & 41 & 15 & 36.6 & 1.78 \\
+LLM BCF / 0 & 46 & 45 & 36 & 80.0 & 3.84 \\
+LLM BCF / 2 & 42 & 42 & 29 & 69.0 & 5.24 \\
+LLM IBP / 0 & 42 & 42 & 37 & 88.1 & 5.48 \\
+LLM IBP / 2 & 46 & 46 & 40 & 87.0 & 5.80 \\
+LLM data only & 19 & 19 & 19 & 100.0 & 20.63 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+None of the 207 wrapping hashes receives a malicious response. Across
+their 15,525 reported responses, however, 3,090 are format-unsupported,
+132 time out, and 29 fail. The observation is therefore an absence of
+malicious verdicts for those submitted raw files, not 75 successful benign
+classifications per file. It also applies to constructed outputs, including
+ones that fail the functional harness; it is not a result for all 306
+planned variants.
+
+For LLM transformation, 221 of 322 evaluable hashes receive a malicious
+response ($q=68.6$\%), with mean 3.80 malicious responses per hash. The
+additional submitted hash has an empty report. The 275 passing files
+correspond to 263 hashes, of which 210 are detected (79.8\%, mean 4.41).
+The 75 failing files correspond to sixty hashes, of which 59 have usable
+reports and eleven are detected (18.6\%, mean 1.05). The lower scan rate
+of failing outputs must not be interpreted as successful behavioral
+preservation with reduced detection. It instead shows why functionality
+and verdicts must be linked when interpreting the experiment.
+
+All nineteen LLM data-handling hashes receive malicious responses, with
+mean 20.63. That arm preserves supported data and references without
+requesting one of the four instruction-transformation families. It answers
+a different experimental question from LLM morphing. Across the whole
+current scan cohort, 8,184 responses are format-unsupported, 298 time out,
+and 74 fail; all remain visible in the response denominator.
+
+\subsection{Relationship to Earlier Pilots and Scan Results}
+The earlier 2026 cohort has 239 file entries and 220 distinct hashes,
+all with nonempty completed reports. Twelve hashes receive at least one
+malicious response. Table~\ref{tab:new_vt_cohort} retains its original group
+membership and is separate from the current 549-hash manifest.
+
+
+\begin{table}[t]
+\caption{Completed earlier 2026 raw-file cohort. $q$ is detected hashes
+over completed hashes; $\overline d$ is the percentage of all reported
+engine responses that are malicious, averaged per file. $\overline m$
+is mean malicious-engine count. These are separate measures.}
+\label{tab:new_vt_cohort}
+\centering\small\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Group & Hashes & $q$ & $\overline d$ (\%) & $\overline m$ \\
+\midrule
+LLM data only & 4 & 4/4 & 23.33 & 17.50 \\
+LLM data + EQ & 1 & 0/1 & 0.00 & 0.00 \\
+LLM BCF / 0 & 3 & 1/3 & 1.33 & 1.00 \\
+LLM BCF / 2 & 3 & 3/3 & 6.67 & 5.00 \\
+LLM EQ / 0 & 2 & 0/2 & 0.00 & 0.00 \\
+LLM EQ / 2 & 2 & 0/2 & 0.00 & 0.00 \\
+LLM IBP / 0 & 2 & 1/2 & 3.33 & 2.50 \\
+LLM IBP / 2 & 3 & 3/3 & 3.11 & 2.33 \\
+LLM NOP / 0 & 3 & 0/3 & 0.00 & 0.00 \\
+LLM NOP / 2 & 3 & 1/3 & 2.22 & 1.67 \\
+Wrapping (prior x64) & 97 & 0/97 & 0.00 & 0.00 \\
+Wrapping combined (prior x64) & 100 & 0/100 & 0.00 & 0.00 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+In that selected x64 cohort, none of the 197 distinct wrapping outputs
+receives a malicious verdict. Thirteen contemporaneous original controls
+all do, with mean 26.62/75 responses. Across the earlier cohort's 16,500
+mutant-engine responses, 3,259 are format-unsupported, 283 time out, and
+73 fail. The thirteen controls do not constitute a matched scan baseline
+for every input and configuration in the new full-corpus campaign.
+
+The earlier MessageBox transformation pilot retains 24 passing final
+outputs, but its dialog check already participated in generation-time
+selection and a failed run was restarted. Its 24/24 therefore measures
+selected artifacts, not the single-invocation protocol of the benign
+benchmark. No benign fixture from that benchmark was submitted for scanning.
+The historical archive also has missing local artifacts for 6,972 of
+15,021 mutant records, and its 102 original records represent ninety
+distinct hashes. These facts limit retrospective verification and
+independence without turning the published results into newly repeated
+experiments.

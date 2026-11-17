@@ -1,0 +1,85 @@
+\subsection{Functional Tests on Thirteen Controlled Programs}
+Table~\ref{tab:new_native} reports the native engine tests. For x64, each
+family passes 21/21 runs (seven fixtures, three runs each). For x86, EQ,
+NOP, and BCF pass 18/18. The tested native IBP implementation builds 17/18 binaries but none passes the
+complete-buffer check; the remaining case raises a construction exception.
+The x86 wrapping implementation passes all 18/18. This suite confirms the successful cases and identifies native x86
+IBP as a failing configuration in the tested earlier implementation.
+
+
+\begin{table}[t]
+\caption{Native transformations of the thirteen controlled programs. $N$: attempts; $B$: builds;
+$W$: correct complete buffers; $U$: distinct built-output hashes.
+Version details are recorded in the accompanying artifact.}
+\label{tab:new_native}
+\centering\small
+\begin{tabular}{@{}llrrrr@{}}
+\toprule
+Arch. & Family & $N$ & $B$ & $W$ & $U$ \\
+\midrule
+x64 & BCF & 21 & 21 & 21 & 21 \\
+x64 & EQ & 21 & 21 & 21 & 16 \\
+x64 & IBP & 21 & 21 & 21 & 17 \\
+x64 & NOP & 21 & 21 & 21 & 21 \\
+x64 & WRAP & 21 & 21 & 21 & 21 \\
+x86 & BCF & 18 & 18 & 18 & 18 \\
+x86 & EQ & 18 & 18 & 18 & 14 \\
+x86 & IBP & 18 & 17 & 0 & 16 \\
+x86 & NOP & 18 & 18 & 18 & 18 \\
+x86 & WRAP & 18 & 18 & 18 & 18 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+The LLM benchmark yields accepted outputs with correct buffers in 167/168
+x64 invocations and 138/144 x86 invocations. Every accepted output passes
+the external test. The seven unsuccessful invocations comprise five
+family-specific validation rejections and two transport errors, rather
+than seven executions with incorrect buffers. Table~\ref{tab:new_llm_benign}
+keeps these failures in each condition's denominator.
+
+
+\begin{table}[t]
+\caption{Benign DeepSeek transformation. $W/N$ includes rejected and
+failed invocations. $S$ is mean sequence similarity over accepted outputs;
+$U/B$ is unique hashes per built output within the condition. Time is
+mean invocation seconds; cost is the sum of local USD estimates.}
+\label{tab:new_llm_benign}
+\centering\small\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lllrrrrr@{}}
+\toprule
+Arch. & Family & Shots & $W/N$ & $S$ & $U/B$ & Time & Cost \\
+\midrule
+x64 & BCF & 0 & 21/21 & 0.574 & 18/21 & 43.0 & 0.107 \\
+x64 & BCF & 2 & 21/21 & 0.575 & 20/21 & 35.6 & 0.088 \\
+x64 & EQ & 0 & 21/21 & 0.831 & 12/21 & 28.8 & 0.064 \\
+x64 & EQ & 2 & 21/21 & 0.832 & 11/21 & 29.4 & 0.068 \\
+x64 & IBP & 0 & 21/21 & 0.783 & 14/21 & 25.5 & 0.062 \\
+x64 & IBP & 2 & 20/21 & 0.779 & 15/20 & 30.8 & 0.077 \\
+x64 & NOP & 0 & 21/21 & 1.000 & 18/21 & 11.9 & 0.027 \\
+x64 & NOP & 2 & 21/21 & 1.000 & 20/21 & 11.7 & 0.028 \\
+x86 & BCF & 0 & 18/18 & 0.573 & 18/18 & 47.9 & 0.103 \\
+x86 & BCF & 2 & 18/18 & 0.580 & 17/18 & 43.8 & 0.095 \\
+x86 & EQ & 0 & 18/18 & 0.852 & 11/18 & 29.0 & 0.056 \\
+x86 & EQ & 2 & 18/18 & 0.843 & 11/18 & 33.3 & 0.067 \\
+x86 & IBP & 0 & 13/18 & 0.705 & 9/13 & 31.0 & 0.052 \\
+x86 & IBP & 2 & 17/18 & 0.739 & 12/17 & 32.5 & 0.071 \\
+x86 & NOP & 0 & 18/18 & 1.000 & 18/18 & 15.1 & 0.032 \\
+x86 & NOP & 2 & 18/18 & 1.000 & 18/18 & 18.6 & 0.039 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+Across conditions, x64 produces 108 distinct hashes at an estimated cost
+of \$0.5205; x86 produces 99 at \$0.5132. Hashes shared across conditions
+explain why the union is smaller than the sum of row-wise uniqueness.
+EQ frequently repeats outputs. NOP's similarity of 1.000 follows from
+filtering NOP-like operations before matching; it does not indicate that
+the binaries are identical.
+
+For x86 IBP, the two-shot condition passes 17/18 invocations compared with
+13/18 for zero-shot. For x64 IBP, the corresponding outcomes are 20/21 and
+21/21. These are observations on six or seven fixtures under the stated
+versions; they do not demonstrate a general advantage for two examples.

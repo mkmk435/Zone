@@ -1,0 +1,25 @@
+Subject: Reuse permission for invited extended version of SECRYPT 2026 paper 195
+
+Dear SECRYPT / SCITEPRESS Editorial Team,
+
+We are preparing the invited revised and extended version of our paper:
+Stefano Bistarelli, Jacopo Di Benedetto and Francesco Santini,
+"On Automating the Obfuscation of Malware Payloads: Zone, a bin2bin Metamorphic Engine",
+SECRYPT 2026, Volume 1, pp. 216-227,
+DOI: 10.5220/0015170600004103.
+
+The extended manuscript is intended for the Springer CCIS selected-papers volume.
+It reuses or adapts Tables 1-6, Figures 1, 2 and 4-7, Listings 1-4, and Algorithm 1
+from the conference paper. Original Figure 3 is not reproduced. The historical
+detection plot is reaggregated from retained scan records with corrected labels;
+the new overall working-rate table combines historical and updated measurements.
+Every reused object cites the conference paper. An itemized inventory is attached.
+
+Please confirm whether this reuse and adaptation are already covered by our
+signed agreement or by the post-publication arrangement. If not, we request
+permission for reproduction and adaptation in the printed and electronic
+versions of the Springer CCIS chapter, with worldwide distribution in English.
+Please specify any required credit line, conditions, or permission reference.
+
+Thank you.
+The authors

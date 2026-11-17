@@ -1,0 +1,64 @@
+\section{LLM-Assisted Assembly Transformation}\label{sec:llm}
+\subsection{What the Model Is Asked to Change}
+In this mode the LLM receives assembly and proposes a new instruction
+sequence intended to preserve behavior. It supports the EQ, NOP, BCF,
+and IBP families introduced in Section~\ref{sec:background}; data
+classification instead returns only locations. PII and wrapping remain
+native operations because their layout and encoding constraints are not
+implemented in the LLM interface's requests and validators. This is an
+implementation boundary, not an intrinsic limitation of language models.
+
+Zone prepares an assembly listing with identified data retained separately;
+identification itself may use an LLM. Symbolic labels identify locations
+independently of changing byte offsets. The model returns a complete listing,
+which Zone assembles, restores with the retained data, and validates.
+Data contents are preserved deterministically; model-based regeneration
+of data is not evaluated. The original binary, prepared listing, and final
+binary are different representations: internal LLM similarity compares
+prepared and returned listings, excluding changes made during preparation.
+
+The requested model is \texttt{deepseek-flash}. Provider documentation
+accessed on 15 November 2026 maps this alias to DeepSeek-V4.1-Flash~\cite{deepseek_models}.
+The experiment records retain the alias, not an independently verified
+provider snapshot for each call.
+Both LLM roles request temperature 0.2, with no sampling seed or explicit
+top-p. Repeated requests are not treated as deterministic reproductions.
+
+\subsection{Prompting Conditions and Repeated Attempts}
+A system message defines the task, preservation priority, and response
+format. The user prompt specifies the architecture, technique-specific
+rules, common constraints on machine state, control flow and data,
+input-specific notes, and the prepared listing. Uncertain transformations
+must remain unapplied; the response must contain only a complete assembly
+listing. Both conditions share this structured specification:
+\emph{zero-shot} supplies no example, whereas \emph{two-shot} adds two
+illustrative input--output examples for the selected technique. The comparison
+therefore isolates the addition of demonstrations to the prompt. Shots count
+examples, not attempts. Each input, technique, and shot setting defines a
+\emph{cell}.
+
+Validation feedback returns a rejected answer and its diagnostic---for
+example, a missing label or assembly failure---and requests a correction.
+It contains neither a functional success signal nor a scanner verdict.
+The controlled benchmark disables correction and makes three independent
+single-generation requests per cell, retaining failures. The original-corpus
+campaign targets one output per cell, with some retries and failed
+restarts in its logs. Its results are cell outcomes rather than uniform
+first-generation success rates (Section~\ref{sec:methodology}).
+
+\subsection{From a Proposed Listing to an Assessed Output}
+Validation checks whether the response can be assembled and decoded,
+whether tracked control-flow targets remain consistent, whether preserved
+data survives, and whether the requested transformation's structural
+requirements are met. A response can fail at any of these stages, or be
+truncated before it contains a complete listing. Passing them means that
+Zone accepts a constructed output, which then proceeds to the execution test.
+
+An external \emph{test harness} launches the output and records its result.
+It compares the complete expected buffer for controlled programs and
+checks the class-specific observable for original payloads
+(Section~\ref{sec:methodology}).
+
+
+Saved records distinguish requests, accepted outputs, subsequent execution
+results, time, and estimated cost.

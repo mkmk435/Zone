@@ -1,0 +1,290 @@
+\section{Results of the Extended Evaluation}\label{sec:extended_results}
+The extension recovers functionality on many previously problematic
+payloads. In the selected recovery cohort, the x64 working rate rises
+from 1.2\% to 80.2\%; the corresponding x86 rates are 14.9\% and 25.9\%
+(Section~\ref{sec:recovery}). The following experiments also measure
+data identification, controlled transformation behavior, and the new wrapping
+and LLM modes on the full original corpus. Each experiment answers a
+different question and retains its own input set.
+
+\subsection{Data Identification: Known Answers and Original Payloads}
+On the six classification fixtures, all 18 LLM invocations and all
+six symbolic runs return the exact reference interval sets
+(Table~\ref{tab:new_classifier}). Both methods miss zero data bytes and
+classify zero code bytes as data. The three fixtures containing data have
+precision and recall equal to one; the other three correctly return no
+data. All resulting executions pass their buffer checks. This includes
+the deliberately misleading printable-code case, which is rejected as
+data rather than extracted as a string.
+
+
+\begin{table}[t]
+\caption{Six programs with independently annotated data locations. $D$ is annotated data bytes.
+Exact interval sets are compared against predeclared references.
+Mean times are per run in seconds.}
+\label{tab:new_classifier}
+\centering\small\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}llrrrrr@{}}
+\toprule
+Arch. & Case & $D$ & LLM exact & Symbolic exact & LLM time & Sym. time \\
+\midrule
+x64 & databait & 0 & 3/3 & 1/1 & 4.6 & 2.4 \\
+x64 & multidata & 11 & 3/3 & 1/1 & 4.2 & 2.6 \\
+x64 & nodata & 0 & 3/3 & 1/1 & 2.1 & 2.4 \\
+x64 & table & 16 & 3/3 & 1/1 & 2.6 & 2.4 \\
+x86 & multidata & 11 & 3/3 & 1/1 & 4.4 & 2.5 \\
+x86 & nodata & 0 & 3/3 & 1/1 & 1.9 & 2.3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+On the 19 original data-handling inputs, both pipelines build 19/19
+outputs and pass 17/19 checks. Their intervals agree in 9/19 cases and
+their final binaries in 16/19: shared handling can reconcile different
+proposals. These measure agreement between methods; the annotated tests
+above measure classification against known answers. The two shared
+functional failures are the x86 custom and Meterpreter WinHTTP cases.
+On three x64 WinHTTPS inputs, different accepted regions still yield
+working outputs.
+
+The recorded median durations are 123.95 seconds for symbolic preparation
+and 59.88 seconds for the LLM arm. The latter's estimated cost is \$0.2218
+over 19 runs. These are measured run durations; preparation and caching differ
+between the two arms. On the separate six-fixture benchmark,
+the total LLM cost is approximately \$0.0059. 
+
+\subsection{Functional Tests on 13 Controlled Programs}
+The functional benchmark asks whether a transformed program still produces
+its expected output. Each native configuration is run three times per
+input: 21 tests on the 7 x64 programs and 18 on the 6 x86 programs.
+Table~\ref{tab:controlled_functional} shows successful tests over planned
+tests. It combines the two LLM prompting conditions to keep the functional
+comparison readable; their separate results are supplied in the supplement.
+
+\begin{table}[t]
+\caption{Functional success on the controlled programs. Each entry is
+successful tests/planned tests. LLM columns combine zero-shot and two-shot
+requests at temperature 0.2. PII is outside this benchmark; wrapping is
+native-only. The native x86 IBP row refers to the recorded earlier version.}
+\label{tab:controlled_functional}
+\centering\small\setlength{\tabcolsep}{7pt}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+ & \multicolumn{2}{c}{Native} & \multicolumn{2}{c}{LLM} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Family & x64 & x86 & x64 & x86 \\
+\midrule
+EQ & 21/21 & 18/18 & 42/42 & 36/36 \\
+NOP & 21/21 & 18/18 & 42/42 & 36/36 \\
+BCF & 21/21 & 18/18 & 42/42 & 36/36 \\
+IBP & 21/21 & 0/18 & 41/42 & 30/36 \\
+Wrapping & 21/21 & 18/18 & -- & -- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All native x64 tests pass. Native x86 EQ, NOP, BCF, and wrapping also
+pass; the recorded native x86 IBP configuration produces 17 binaries from
+18 attempts, but none passes the complete-buffer test.
+
+The LLM produces 305 accepted outputs from 312 requests (97.8\%), and
+every accepted output has the correct buffer. The remaining seven requests
+comprise five structural-validation rejections and two transport errors.
+Thus the main result is functional preservation for all accepted outputs
+on these controlled inputs, with construction availability recorded separately.
+
+Repeated output hashes are most visible in EQ. These inputs are short,
+offer few locations for substitutions, and are subject to the restricted
+set of supported transformations. This provides a straightforward
+explanation for limited diversity on this suite; different requests need
+not produce different accepted instruction sequences. Detailed hashes,
+per-shot outcomes, time, and cost remain available in the supplement.
+
+\subsection{Wrapping on All 102 Original Payloads}
+The full-corpus campaign attempts 306 variants, three per input. It constructs
+243 binaries (79.4\% of planned cases), of which 170 pass the harness.
+Thus $W/N=55.6$\%, whereas $W/B=70.0$\%. These rates report both availability of a transformed binary and
+its functional outcome.
+
+
+\begin{table}[t]
+\caption{Wrapping on all 102 original payloads, with three seeds per input.
+$U$ counts distinct constructed hashes.}
+\label{tab:new_wrap_full}
+\centering\small
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+Arch. & Inputs & $B/N$ & $W/N$ & $W/B$ & $U$ \\
+\midrule
+x64 & 38 & 63/114 & 63/114 & 63/63 & 63 \\
+x86 & 64 & 180/192 & 107/192 & 107/180 & 144 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+The two architectures fail at different stages. On x64, 51 attempts do
+not build, while all 63 constructed outputs pass. On x86, only twelve
+attempts do not build, but 73 of the 180 constructed outputs fail the
+harness. All 73 also fail the saved isolated retests; those retests are
+not counted as additional variants. There are 207 distinct hashes among
+the 243 binaries, showing that different seeds do not always produce
+different bytes.
+
+The construction logs include incomplete instruction interpretation and
+inconsistent address references. These failure stages have a direct
+relationship to preparation: interpreting embedded data as instructions
+can prevent a complete valid disassembly, and a reference that no longer
+points to the intended location fails the consistency check after layout
+changes. The logs identify these symptoms; they do not assign one common
+cause to every failed execution.
+
+\subsection{Completed LLM Transformation on the Original Corpus}
+All 816 planned cells have an outcome. The campaign constructs 350
+outputs, and 275 pass the external harness: a build rate of 42.9\%, an
+overall working rate of 33.7\%, and a working rate among builds of 78.6\%.
+Table~\ref{tab:payload_llm} shows the complete architecture/family/shot
+breakdown. These are pipeline outcomes, including the retries described
+in Section~\ref{sec:methodology}.
+
+
+\begin{table}[t]
+\caption{LLM transformation of all 102 original payloads. $N$: planned cells; $B$: accepted
+builds; $W$: builds passing the external harness; $U$: distinct built-output
+hashes within the condition. Every planned cell is retained.}
+\label{tab:payload_llm}
+\centering\small
+\begin{tabular}{@{}lllrrrr@{}}
+\toprule
+Arch. & Family & Shots & $N$ & $B$ & $W$ & $U$ \\
+\midrule
+x64 & EQ & 0 & 38 & 7 & 7 & 7 \\
+x64 & EQ & 2 & 38 & 6 & 6 & 6 \\
+x64 & NOP & 0 & 38 & 8 & 8 & 8 \\
+x64 & NOP & 2 & 38 & 6 & 6 & 6 \\
+x64 & BCF & 0 & 38 & 6 & 6 & 6 \\
+x64 & BCF & 2 & 38 & 6 & 5 & 6 \\
+x64 & IBP & 0 & 38 & 6 & 6 & 6 \\
+x64 & IBP & 2 & 38 & 8 & 8 & 8 \\
+\midrule
+x86 & EQ & 0 & 64 & 34 & 25 & 30 \\
+x86 & EQ & 2 & 64 & 36 & 28 & 34 \\
+x86 & NOP & 0 & 64 & 38 & 28 & 38 \\
+x86 & NOP & 2 & 64 & 35 & 27 & 35 \\
+x86 & BCF & 0 & 64 & 40 & 31 & 40 \\
+x86 & BCF & 2 & 64 & 36 & 26 & 36 \\
+x86 & IBP & 0 & 64 & 39 & 28 & 36 \\
+x86 & IBP & 2 & 64 & 39 & 30 & 38 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+On x64, only 53/304 cells produce binaries, but 52/53 of those binaries
+pass. On x86, 297/512 produce binaries and 223/297 pass. Construction is
+therefore the principal observed bottleneck on x64, while x86 also has a
+substantial failure rate after construction. The controlled programs isolate small instruction and data patterns;
+the original payloads add larger listings and more complex layouts.
+The two experiments therefore measure different levels of difficulty.
+
+Zero-shot produces 178 builds and 139 passing outputs from 408 cells;
+two-shot produces 172 builds and 136 passing outputs from 408 cells.
+Their overall working rates are 34.1\% and 33.3\%. These descriptive
+differences offer no consistent evidence that adding two examples improves
+the outcome. They also concern repeated configurations of the same inputs,
+not 816 independent programs.
+
+The 466 failed cells have recorded error categories comprising 245
+disassembly/boundary errors, 74 validation errors, 53 output-length
+terminations, one transport error, and 93 other errors. These labels
+describe the observed failure stage, not proven root causes. In particular,
+truncation means the response reaches its output limit before delivering
+a complete acceptable listing; it is distinct from a generated program
+failing at execution time.
+
+The 350 built outputs contain 323 distinct hashes. The median retained-run duration is
+160.3 seconds, including local processing. Summing the representative
+record for each cell gives an estimated \$19.2700, but including the
+14 restarted failed runs raises recorded campaign cost to
+\$19.6258. The latter is the appropriate total for work actually recorded;
+missing usage for one run prevents claiming complete billing coverage.
+
+\subsection{Updated Working Rates by Transformation}
+\label{sec:recovery}
+The recovery campaign retests 49 previously low-rate inputs: 13 x64 and
+36 x86. On this selected subset, the x64 working rate rises from
+23/1,941 (1.2\%) to 1,564/1,950 (80.2\%). The x86 rate rises from
+772/5,195 (14.9\%) to 699/2,700 (25.9\%). These observations measure
+the updated implementation and test harness together.
+
+Table~\ref{tab:overall_working_update} places the recovery results back
+into the overall historical population. For each transformation, the
+retested inputs use their updated rates; other inputs retain their
+historical rates. We keep the original input weights so that the reduction
+from generally ten to five x86 repetitions cannot increase the overall
+rate merely by reducing the influence of difficult inputs.
+
+The reconstructed mean across the 15 configurations increases from
+55.6\% to 82.6\% on x64 and from 45.0\% to 50.3\% on x86.
+These are summaries of combined historical and updated evidence. Historical and updated rates appear together in the table, with the
+reconstruction stated explicitly.
+
+\input{sections/overall_working_table}
+
+The lower x86 recovery rate concerns a deliberately difficult subset,
+not all x86 inputs. Of its 36 inputs, 13 still have no successful
+transformed variant. Preparation-only controls pass 340/360 tests (94.4\%),
+whereas adding the native transformations yields 699/2,700 (25.9\%).
+This separates successful preparation from the additional transformation
+failures; it does not support attributing every remaining failure to data
+identification. The dominant recorded execution symptom is an access
+violation, which alone does not identify the underlying implementation error.
+
+The improvement is substantially stronger on x64. Even excluding
+MessageBox, whose test recognition was corrected, the selected x64 rate
+rises from 19/1,791 (1.1\%) to 1,414/1,800 (78.6\%). Per-input and
+per-configuration counts, including the selected-subset comparison, remain
+available in the supplementary records.
+
+\subsection{Overall Detection Rates for Wrapping and LLM Transformation}
+The detection evaluation covers the outputs from the full 102-input LLM
+campaign, not only the separate 19-input data-identification experiment.
+Of the 816 planned LLM cells, 350 produce binaries, representing 323
+distinct hashes. Table~\ref{tab:current_scans} reports the mean engine
+detection rate using the same definition as the historical paper.
+
+\begin{table}[t]
+\caption{Static detection of the current outputs. Files: produced binaries;
+hashes: distinct contents; reports: nonempty scan results. DR is the mean
+percentage of engine responses marked malicious.
+The working-output row is a subset of the overall LLM row. Report
+completeness and response-category details are supplied in the supplement.}
+\label{tab:current_scans}
+\centering\small\setlength{\tabcolsep}{6pt}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Condition & Files & Hashes & Reports & DR (\%) \\
+\midrule
+Wrapping & 243 & 207 & 207 & 0.00 \\
+LLM x64 & 53 & 51 & 51 & 8.86 \\
+LLM x86 & 297 & 272 & 271 & 4.35 \\
+\midrule
+LLM overall & 350 & 323 & 322 & 5.06 \\
+LLM working outputs & 275 & 263 & 263 & 5.89 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The overall LLM mean detection rate is 5.06\% across 322 nonempty reports,
+equivalent to 3.80 malicious engine responses per file. The 275 outputs
+that pass the functional test correspond to 263 distinct hashes and have
+a mean detection rate of 5.89\%. Showing both rows distinguishes all
+constructed outputs from the functionally successful subset.
+
+All 207 distinct wrapping outputs have nonempty reports with no malicious
+responses. These are static raw-file measurements; the engine-response
+denominator follows the historical convention described in the methodology.
+The separate data-identification scans and earlier pilot campaigns are
+archived in the supplementary evidence rather than pooled into these results.

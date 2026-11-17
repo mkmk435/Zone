@@ -1,0 +1,26 @@
+{
+  "source_sha256": "a9bac1d28192dccf4477e94a9ea7c8948e09f74d5d6793a3974ebfccb9963e4a",
+  "cells": 816,
+  "pairs": 408,
+  "inputs": 102,
+  "both_work": 118,
+  "only_zero_shot_works": 21,
+  "only_two_shot_works": 18,
+  "neither_works": 251,
+  "zero_shot_successes": 139,
+  "two_shot_successes": 136,
+  "exact_mcnemar_two_sided_p": 0.7492586247608415,
+  "input_level_sign_flip_two_sided_p": 0.7521781921386719,
+  "nonzero_input_differences": 21,
+  "observed_zero_minus_two": 3,
+  "input_difference_counts": {
+    "1": 9,
+    "0": 81,
+    "-1": 6,
+    "2": 3,
+    "-2": 3
+  },
+  "new_model_requests": false,
+  "new_executions": false,
+  "interpretation": "Exploratory comparison of recorded campaign outcomes; no equivalence or causal-effect claim."
+}

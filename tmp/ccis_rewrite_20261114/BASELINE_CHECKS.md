@@ -1,12 +1,15 @@
-# Controlli della baseline conservata
+# Baseline checks reconciled - 15 November 2026
 
-Tutti i risultati storici sono ripristinati dalla bozza preparatoria. Questa revisione additiva non cambia silenziosamente dati o percentuali pubblicati.
+Working rates are consolidated in Table 12 with provenance and weighting stated.
+The historical detection chart has been reaggregated from deduplicated saved
+records, with configuration labels derived from filenames. The manuscript
+identifies this as a reanalysis rather than a new scan campaign.
 
-Prima della submission riconciliare con il PDF della conferenza e gli archivi originali:
+The cosine description now matches the available analysis path: corpus-level
+mnemonic-frequency vectors, not pairwise full-token vectors. Numeric values
+remain the reported historical values. See evidence/editorial_20261115/
+BASELINE_RECONCILIATION.md and historical_detection_reanalysis.csv.
 
-- Nei grafici detection/working rate alcune associazioni categoria-valore nella coda delle configurazioni richiedono controllo. Esempio verificato: il LaTeX preparatorio assegna 66,8% a eq_pii x64, mentre test_report.txt da 216/377 = 57,3%; assegna 0,3% a nop_pii, mentre l'archivio da 212/370 = 57,3%. Il valore 1/375 = 0,3% appartiene a nop_bcf. Non trattare il disegno del grafico come verifica del dato.
-- results.json contiene 15.021 record e 15.020 percorsi unici: una ripetizione e presente. Dichiarare deduplicazione e denominatore in un'eventuale rianalisi.
-- La cosine similarity descritta come distribuzione di opcode va confrontata con lo script effettivamente usato: lo script create_var.py oggi presente tratta anche operandi e aggregazioni di corpus. SequenceMatcher nei test LLM e una metrica separata.
-- Se si correggono le figure, identificare esplicitamente correzioni e rianalisi; conservare la distinzione dai test nuovi. Il codice storico e le sorgenti precedenti restano nei backup.
-
-Questi controlli sono indicati anche da una nota blu nel PDF di lavoro. La conservazione dei risultati risponde alla natura di estensione del manoscritto; non ne certifica la correttezza numerica finale.
+The previous check list is preserved in before_editorial_corrections_20261115/.
+Reuse permission and the authors' competing-interests declaration remain
+separate unresolved editorial items; they are not implied by these checks.

@@ -1,5 +1,134 @@
 # ATTENTION
-Right Now Zone is only somehow usable with small sized PIE payloads (both x64 and x86, especially tested with Metasploit framework payloads). so only look at the `pobf.py` and `pobf86.py`. Zone as a PE obfuscator is totally unreliable and only works/is tested against very small executables compiled by myself. Anything bigger makes Zone completely unusable. For PE implementation refer to `Zone.py`
+Right Now Zone is only somehow usable with small sized PIE payloads (both x64 and x86, especially tested with Metasploit framework payloads). so only look at the `pobf.py` and `pobf86.py`. For PE implementation refer to `Zone.py`
+
+## PE implementation (`zone.py`, v2)
+
+`zone.py` has been rewritten around the same ideas binprotect uses for bin2bin
+rewriting, because the v1 discipline (linear sweep of the whole `.text`, patches
+applied by regex on `op_str`, `.text` grown by a fixed `0x18000`) is the reason
+the PE version only worked on hand-made, very small executables. The old file is
+kept as `old_useless_stuff/zone_pe_v1.py`.
+
+Usage:
+
+```bash
+python zone.py payload.exe                       # -> payload_zone.exe
+python zone.py payload.exe -o out.exe            # nome esplicito
+python zone.py payload.exe --eq --nop --bcf --ibp --ebi
+python zone.py payload.exe --check               # verifica le reference
+python zone.py payload.exe --in-place            # sovrascrive l'input (esplicito)
+```
+
+The output is **always a new file** (`<name>_zone<ext>`, or `<name>_zone2<ext>` if
+it already exists): overwriting the input while `pefile` still holds it was
+failing with `OSError [Errno 22]`, and clobbering the original is a bad default
+anyway. `--in-place` exists only if you really want it.
+
+What the v2 does:
+
+* **code discovery**: recursive descent from structural seeds (entry point,
+  exports, TLS callbacks, `.pdata` `RUNTIME_FUNCTION`s, relocations pointing into
+  code), basic-block splitting, a gap probe for leaf functions and a brute-force
+  scan of code-pointer tables (`_scan_code_pointer_tables`,
+  `_scan_data_code_tables`). Everything that is not reached stays **data** and is
+  copied verbatim.
+* **one address model**: each item has an old and a new RVA, and every patch goes
+  through `map_point()`. No string/regex manipulation of operands: targets come
+  from capstone operands (`encoding.imm_offset`, `encoding.disp_offset`).
+* **all reference kinds**: `rel8`/`rel32` branches (short forms are widened to
+  near forms, `loop`/`jrcxz` get a trampoline), RIP-relative `disp32` (including
+  the SSE encodings where capstone reports `disp_size = 2`), absolute `disp32`
+  and `imm64`, jump tables, base relocations, `.pdata` begin/end/unwind/handler
+  and chained-unwind fields, `C_SCOPE_TABLE`, import/ILT/IAT, export, resources,
+  debug, TLS, load config and delay imports.
+* **growth computed on the real need**: `--grow=slack` (default) grows only into
+  the free virtual space before the next section, so **no RVA of any other
+  section changes** and no PE structure has to be relocated. `--grow=shift`
+  moves the following sections and patches the structures they contain; it is
+  opt-in.
+* **safety rules learned from `.pdata`**: prologues described by unwind codes and
+  functions carrying exception handlers are never resized or injected into,
+  because unwind codes and `ip2state`/scope tables hold function-relative
+  offsets.
+* **cost**: O(n log n) with dicts and bisets instead of the O(n²)/O(n³) scans of
+  v1 (the 153 KB `ploader.exe` is processed in ~1.7 s).
+
+### Discovery: come si arriva al 100 %
+
+Il vincolo dei passi che cambiano dimensione e' la **copertura della `.text`**: se
+un byte di codice non e' riconosciuto, spostarlo lascia sbagliati i suoi
+riferimenti. La v2 chiude il buco con cinque meccanismi, gli stessi che usa
+binprotect piu' due aggiunte:
+
+1. **seed strutturali**: entry point, export, TLS callbacks, `.pdata`
+   `RUNTIME_FUNCTION` (begin e handler), reloc che puntano a codice, **target
+   delle `call`** (prima mancava: si salvava solo grazie a `.pdata`);
+2. **gap probe**: un buco che decodifica per intero e termina con un terminatore
+   e' una funzione leaf senza `RUNTIME_FUNCTION`;
+3. **risky references** (da binprotect): ogni target RIP-relative o `imm64`
+   dentro la `.text` viene provato come blocco; si accetta solo se decodifica
+   tutto, sta entro 0x400 byte e termina con un salto/`ret`. Il codice trovato
+   cosi' viene **ricollocato ma non obfuscato**;
+4. **resync nei buchi**: dopo un errore di decodifica si prova ogni offset (max
+   16) subito dopo del padding, con gli stessi controlli del punto 3;
+5. **brute force delle tabelle**: run di almeno due RVA/VA consecutivi che
+   puntano a codice, sia nella `.text` sia nelle sezioni dati (e' cosi' che si
+   trovano le tabelle di `memset`/`memcpy` e le jump table in `.rdata`).
+
+La copertura conta come sospetto solo cio' che e' **raggiungibile**: padding
+(anche multi-byte `0F 1F ...`), jump table gia' riconosciute, codice morto senza
+riferimenti e senza fallthrough non bloccano piu' i passi.
+
+Risultato misurato: `ploader.exe` 27 188 istruzioni (da 26 003), `runner_x64.exe`
+27 681, **copertura 100,00 %** su entrambi (prima 99,41 % e 99,89 %).
+
+### Risultati
+
+`ploader.exe` (153 KB, 439 runtime function, 800 reloc, C++ EH), senza `--force`:
+
+| comando | effetto | payload |
+|---|---|---|
+| `--eq` | 1335 sostituzioni | OK |
+| `--nop` | 250 sequenze (~1300 byte, quanto lo spazio libero) | OK |
+| `--bcf` | 52 predicati opachi | OK |
+| `--ibp` | 30 funzioni, 174 blocchi permutati | OK |
+| `--ebi --ibp --bcf --nop` | tutto insieme | OK |
+
+`runner_x64.exe`: 28 funzioni / 197 blocchi permutati, 90 predicati, 569 sequenze,
+4571 patch, **5719 reference verificate, 0 errori**.
+
+Matrice di test (`tmp/test_zone_passes.py`): 18 run sulla fixture (exit code 42
+atteso) + 10 run su `ploader.exe` con payload reale -> **28/28 passati**, piu' 3
+seed aggiuntivi su `runner_x64.exe` senza errori di verifica.
+
+C++ exceptions di tipo FH4 sono patchate solo al livello top di `FuncInfo` e
+RTTI/ThrowInfo non vengono ricollocati: su binari che lanciano eccezioni C++
+conviene validare l'output. E' lo stesso limite che binprotect copre richiedendo
+i simboli PDB/MAP.
+
+
+### Morphing passes
+
+Same set as `pobf.py` minus the ones that need a raw payload, plus the safety
+rules of the PE rewriter. Obfuscation passes are size-changing, so all of them
+require complete coverage of `.text` (`--force` overrides, at your own risk).
+
+| flag | technique | notes |
+|---|---|---|
+| `--eq` (default) | equivalent instruction substitution | `add↔sub` with negated immediate, `xor r,r→sub r,r`, `test r,r→cmp r,0`. Size-neutral, always safe |
+| `--ebi` | expand `jrcxz`/`loop` | trampoline `loop +5; jmp fallthrough; jmp target` (12 byte), so a later insertion can never push the short branch out of range |
+| `--ibp` | basic block permutation | splits at terminators, adds an explicit `jmp` connector for every block that has a fallthrough **including the `jcc` ones**, then shuffles the middle blocks. First block of a function stays first (unwind codes are function-relative), the last one stays last (its fallthrough leaves the group), `.pdata` `EndAddress` is recomputed as the max end of the function |
+| `--bcf` | bogus control flow | opaque predicate built on runtime values (`rsp & 0xf < 0x10`, `rsp | 1` odd, ...), fake block skipped by the `jcc`, `pushfq`/`push r11` before and `pop r11`/`popfq` after. Even if the predicate were evaluated wrong the fake block is harmless and the `pop`s still balance the stack |
+| `--nop` | dead sequence insertion | `pushfq; <no-op>; popfq`, flags and registers preserved |
+
+`test-pe` fixture used for the semantic tests: a 51-byte `.text` PE written by
+`tmp/make_test_pe.py` that computes 42 in `eax` and returns, so the process exit
+code *is* the result. With `--ebi --ibp --bcf --nop` (probabilities 100 %) the
+result stays 42 and `--check` verifies every branch; on `ploader.exe` the
+coverage is 99.41 %, so the size-changing passes refuse to run and only `--eq`
+is applied. That is the honest picture: `pobf.py` can permute everything because
+a raw shellcode payload is 100 % code; a compiled PE is not.
+
 
 ## Disclaimer
 

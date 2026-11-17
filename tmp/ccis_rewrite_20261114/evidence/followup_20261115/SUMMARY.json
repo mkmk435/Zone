@@ -1,0 +1,76 @@
+{
+  "means": {
+    "x64": {
+      "historical": 55.59157110500612,
+      "reconstructed": 82.63445862514908
+    },
+    "x86": {
+      "historical": 45.00932101659976,
+      "reconstructed": 50.27486377267228
+    }
+  },
+  "scan_summary": [
+    {
+      "condition": "Wrapping",
+      "output_files": 243,
+      "unique_hashes": 207,
+      "valid_reports": 207,
+      "mean_engine_detection_pct": 0.0,
+      "detected_file_pct": 0.0,
+      "mean_malicious_count": 0.0
+    },
+    {
+      "condition": "LLM x64",
+      "output_files": 53,
+      "unique_hashes": 51,
+      "valid_reports": 51,
+      "mean_engine_detection_pct": 8.862745098039216,
+      "detected_file_pct": 88.23529411764706,
+      "mean_malicious_count": 6.647058823529412
+    },
+    {
+      "condition": "LLM x86",
+      "output_files": 297,
+      "unique_hashes": 272,
+      "valid_reports": 271,
+      "mean_engine_detection_pct": 4.349323493234933,
+      "detected_file_pct": 64.94464944649447,
+      "mean_malicious_count": 3.261992619926199
+    },
+    {
+      "condition": "LLM overall",
+      "output_files": 350,
+      "unique_hashes": 323,
+      "valid_reports": 322,
+      "mean_engine_detection_pct": 5.064182194616977,
+      "detected_file_pct": 68.63354037267081,
+      "mean_malicious_count": 3.798136645962733
+    },
+    {
+      "condition": "LLM working outputs",
+      "output_files": 275,
+      "unique_hashes": 263,
+      "valid_reports": 263,
+      "mean_engine_detection_pct": 5.885931558935361,
+      "detected_file_pct": 79.84790874524715,
+      "mean_malicious_count": 4.414448669201521
+    }
+  ],
+  "temperature_requested": 0.2,
+  "sampling_seed_supplied": false,
+  "top_p_supplied": false,
+  "engine_modified": false,
+  "payloads_executed": false,
+  "new_scans": false,
+  "source_hashes": {
+    "working_rate_unified_tests.csv": "92751cd7961f2553698d7c5f6522055c0a3e966675c4f85335d77ce612c35eb3",
+    "vt_manifest_campaign.json": "7e548336e307b4962db89788a6231a26c6afc2d4b728daa55c280b6af934acd2",
+    "tmp\\vt_results_campaign.jsonl": "22e01fc4d4fc2ce9af8c6684904621dd638f85802a73f3bb05b901fc3da0c953",
+    "bench\\engines\\2026-11-13_block3\\llm_technique.py": "09ae772852843cb8d8ae4bd9be248d5856552ab1d4b89645eb18ce69c84e63d5",
+    "bench\\run_llm.py": "6729cc37faee0aa3aac0435af6509ed8f4e725027036b2e4ca214b2d668388b5",
+    "bench\\run_llm_data.py": "4574eaf42b0b7ac6341d86dc3efd8e86d175d356cc219340b2fbd6f503ba5820",
+    "bench\\run_classifier_compare.py": "22984c55af2476883941f5e3f75e40836895ba9090eebc96f85ef65877445d6c",
+    "tmp\\campaign\\build_llm.py": "292fb84cc0568f5f705a7a8ba39cb406e9c39332d6629a9b7bac2d152a19e63c",
+    "tmp\\campaign\\run_data_compare.py": "256878250f52adc1e1641761ec6ab635e03486eb8d090f8c2b0d7b2776d8672f"
+  }
+}

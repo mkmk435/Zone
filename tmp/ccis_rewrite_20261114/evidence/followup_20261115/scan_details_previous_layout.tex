@@ -1,0 +1,60 @@
+\subsection{Detection Rates in the Completed Campaign}
+The current manifest contains 612 file entries: 243 wrapping outputs,
+350 LLM-transformed outputs, and nineteen outputs from LLM data handling.
+They correspond to 549 distinct hashes. Every hash has a record marked
+completed, but one LLM BCF zero-shot record contains no engine responses.
+We exclude that empty result from measured scan rates: 548 hashes are
+evaluable, with 75 reported responses each. Table~\ref{tab:current_scans}
+retains each hash in every condition to which it belongs.
+
+
+\begin{table}[t]
+\caption{Current raw-file detection rates. $U$: distinct submitted hashes;
+$V$: hashes with nonempty reports; $D$: hashes flagged by at least one
+engine; $q=D/V$: detected-file rate; $\overline d$: mean engine detection
+rate. The empty BCF/0 report is excluded from measured rates.}
+\label{tab:current_scans}
+\centering\small\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+Condition & $U$ & $V$ & $D$ & $q$ (\%) & $\overline d$ (\%) \\
+\midrule
+Wrapping & 207 & 207 & 0 & 0.0 & 0.00 \\
+LLM EQ / 0 & 37 & 37 & 26 & 70.3 & 3.32 \\
+LLM EQ / 2 & 40 & 40 & 30 & 75.0 & 3.73 \\
+LLM NOP / 0 & 46 & 46 & 18 & 39.1 & 2.90 \\
+LLM NOP / 2 & 41 & 41 & 15 & 36.6 & 2.37 \\
+LLM BCF / 0 & 46 & 45 & 36 & 80.0 & 5.13 \\
+LLM BCF / 2 & 42 & 42 & 29 & 69.0 & 6.98 \\
+LLM IBP / 0 & 42 & 42 & 37 & 88.1 & 7.30 \\
+LLM IBP / 2 & 46 & 46 & 40 & 87.0 & 7.74 \\
+LLM data only & 19 & 19 & 19 & 100.0 & 27.51 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+None of the 207 wrapping hashes receives a malicious response. Across
+their 15,525 reported responses, however, 3,090 are format-unsupported,
+132 time out, and 29 fail. The observation is therefore an absence of
+malicious verdicts for those submitted raw files, not 75 successful benign
+classifications per file. It also applies to constructed outputs, including
+ones that fail the functional harness; it is not a result for all 306
+planned variants.
+
+For LLM transformation, 221 of 322 evaluable hashes receive a malicious
+response ($q=68.6$\%). The mean engine detection rate is 5.06\%,
+equivalent to 3.80 malicious responses per hash. The
+additional submitted hash has an empty report. The 275 passing files
+correspond to 263 hashes, of which 210 are detected (79.8\%, mean 4.41).
+The 75 failing files correspond to sixty hashes, of which 59 have usable
+reports and eleven are detected (18.6\%, mean 1.05). These separate counts distinguish detection measurements on working
+outputs from those on outputs that fail the functional test.
+
+All nineteen LLM data-handling hashes receive malicious responses, with
+mean 20.63. That arm preserves supported data and references without
+requesting one of the four instruction-transformation families. It answers
+a different experimental question from LLM morphing. Across the whole
+current scan cohort, 8,184 responses are format-unsupported, 298 time out,
+and 74 fail; all remain visible in the response denominator.

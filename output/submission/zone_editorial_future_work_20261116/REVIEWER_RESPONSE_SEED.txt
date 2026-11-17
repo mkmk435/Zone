@@ -1,0 +1,18 @@
+Proposed response on LLM sampling and reproducibility
+
+The archived client requests used temperature 0.2 and did not transmit a
+sampling seed or an explicit top-p value. We do not claim deterministic
+reproduction of individual model outputs or control of matched random
+streams across prompting conditions. The comparison describes the recorded
+campaign under the stated client settings. The revision adds exploratory
+paired analyses of the observed functional outcomes and documents their
+assumptions in Supplementary Material S1.
+
+Author note: the Chat Completions reference inspected on 16 November 2026 does
+not document a seed field. A separate guide mentions seed among parameters
+ignored when certain application features are enabled; that does not establish
+an effective seed control for the requests used here. These current pages
+cannot retrospectively prove provider behavior during every experimental call.
+Do not invent an original design rationale such as "realistic API use" unless
+the authors can confirm it. Recheck the provider alias mapping at camera-ready,
+while preserving the experiment's recorded alias and historical access date.

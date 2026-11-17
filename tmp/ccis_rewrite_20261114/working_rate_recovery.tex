@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\setlength{\paperwidth}{16cm}
+\setlength{\paperheight}{19cm}
+\setlength{\textwidth}{14cm}
+\setlength{\textheight}{17cm}
+\setlength{\oddsidemargin}{-1.54cm}
+\setlength{\topmargin}{-1.54cm}
+\setlength{\headheight}{0pt}
+\setlength{\headsep}{0pt}
+\special{papersize=16cm,19cm}
+\usepackage{newtxtext}
+\usepackage{amsmath}
+\usepackage[varvw]{newtxmath}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\pagestyle{empty}
+\begin{document}
+\centering
+\input{figures/recovery_plot}
+\par\smallskip\small
+Same 49 selected payloads, before and after the pipeline update.\\
+x64: 1.2\% to 80.2\%; x86: 14.9\% to 25.9\% (pooled rates).\\
+Historical and updated test counts differ; see manuscript for the protocol.
+\end{document}

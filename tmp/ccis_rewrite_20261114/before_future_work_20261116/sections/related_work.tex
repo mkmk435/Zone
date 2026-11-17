@@ -1,0 +1,69 @@
+\section{Related Work}\label{sect:related_work}
+\paragraph{Metamorphic rewriting and software protection.}
+Instruction substitution, insertion, and control-flow changes predate
+this work and appear across both offensive and defensive
+research~\cite{survey1,survey2}. Earlier engines, including
+W95/Regswap~\cite{desai2010highly} and MetaPHOR~\cite{MetaPHOR}, illustrate
+register substitution and code reorganization. Studies of highly
+metamorphic programs also examine the relationship between the diversity
+of generated variants and the regularities that remain available to
+detectors~\cite{desai2008towards,desai2010highly,szor2001hunting}.
+Zone uses established transformation families within a payload-level
+binary rewriting workflow; the contribution is evaluated through the
+resulting construction, functional, and detection outcomes.
+
+Compiler-based protection provides a different starting representation.
+Obfuscator-LLVM applies transformation passes to LLVM intermediate
+representation, with advantages for language and architecture
+coverage~\cite{llvmobf}. Zone instead starts from raw machine code without
+source or debugging symbols. The relevant distinction is the information
+available before transformation: code boundaries and references must be
+recovered from the binary. Consequently, findings from a compiler-based
+setting do not directly establish reliability for the inputs studied here.
+Practical binary-obfuscation work likewise identifies disassembly and
+reference handling as central concerns~\cite{bin2binobf}.
+
+\paragraph{LLM-based transformation.}
+Madani~\cite{llm2} investigates LLM-driven program mutation and a
+self-testing mutation framework, motivating the evaluation of generated
+variants alongside their proposed changes. Mohseni et al.~\cite{llmobf}
+introduce MetamorphASM and its MAD dataset of 328,200 assembly samples,
+covering dead-code insertion, register substitution, and control-flow
+changes. Their study compares multiple language models using
+information-theoretic measurements and human review.
+
+Our evaluation addresses a complementary question: how often an LLM
+proposal can pass the complete path from prepared assembly to a
+constructed binary and an observed functional outcome. It distinguishes
+two LLM roles, data identification and instruction transformation, and
+compares zero-shot and two-shot requests on a fixed input corpus.
+The controlled programs provide known outputs, while the original
+payloads exercise larger and more varied layouts. These experimental
+populations and endpoints differ from MAD; their success rates should
+therefore be read within their respective protocols rather than as a
+direct ranking of the systems.
+
+\paragraph{Analysis and detection.}
+Metamorphic detection studies include Hidden Markov
+Models~\cite{wong2006hunting,desai2010highly}, static comparison of
+program semantics~\cite{identifyingmeth}, and genetic-algorithm-based
+methods~\cite{methgenetic}. Encoding introduces another representation
+change: investigations of SGN examine recognizable properties of its
+decoder~\cite{sgnstrong}, while CodeXt studies recovery of hidden attack
+code from memory dumps through selective symbolic
+execution~\cite{codeExtraction}. These works motivate distinguishing
+static file measurements from observations of execution and memory.
+The scan results reported here characterize submitted raw files; the
+functional tests answer a separate question about the preserved behavior.
+
+\paragraph{Relationship to the original Zone paper.}
+Our conference article introduced the PII design and evaluated native
+transformations on 102 Windows payloads~\cite{zone_secrypt_2026}. The
+present article extends that study with code--data identification,
+LLM-assisted transformation, and assembly-wrapping integration.
+Bounded symbolic and static analysis inform the data-preparation
+stage~\cite{angr_cfg_docs}; assembly wrapping follows its existing
+description and antecedents in overlapping
+instructions~\cite{assembly_wrapping}. The added contribution is the
+integration and evaluation of these paths, including the recovery study,
+controlled tests, and completed original-corpus campaigns.

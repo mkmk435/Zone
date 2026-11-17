@@ -1,0 +1,144 @@
+\section{Experimental Design for the Extensions}\label{sec:methodology}
+\subsection{What Is Tested, and on Which Programs?}
+The evaluation separates three practical questions: whether Zone identifies
+embedded data correctly, whether a transformed program still performs its
+expected task, and how often static scanners flag the resulting file.
+Table~\ref{tab:test_populations} summarizes the inputs used for each question.
+
+\begin{table}[t]
+\caption{Test populations. The 13 controlled programs and the 13
+selected x64 payloads are different sets with different purposes.}
+\label{tab:test_populations}
+\centering\small
+\begin{tabularx}{\linewidth}{@{}l r Y@{}}
+\toprule
+Population & Inputs & Purpose \\
+\midrule
+Controlled functional programs & 13 & Check exact expected output after transformation. \\
+Annotated classification programs & 6 & Check which bytes are identified as data. \\
+Original Windows payload corpus & 102 & Measure construction, functionality, and static detection. \\
+Recovery subset of that corpus & 49 & Compare historical and updated working rates on previously problematic inputs. \\
+Data-handling subset of that corpus & 19 & Compare symbolic and LLM identification within the same pipeline. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The 13 \emph{controlled functional programs} (test fixtures) are purpose-built
+assembly programs of 19--68 bytes. Six per architecture cover arithmetic,
+branches, loops, local calls, combined control flow, and embedded strings;
+one extra x64 case accesses data through a computed code address. Each
+writes a known result into a 256-byte buffer. A native C runner compares
+the entire buffer, including untouched positions, with the expected bytes.
+All 13 originals pass.
+
+The six \emph{annotated classification programs} instead test data
+locations: two contain multiple strings, one a binary table, two no
+separate data, and one instruction bytes resembling text. Correct regions
+are annotated before either classifier runs and withheld from the model.
+These suites check individual mechanisms; original payloads provide the
+broader application-level evaluation.
+
+The original corpus contains 38 x64 and 64 x86 Windows payloads.
+Functional tests check the expected dialog, network connection event,
+or clean termination for the relevant payload class. All 102 originals pass.
+Throughout this article, \emph{working} means that the transformed output
+passes the corresponding functional test. We use this empirical definition
+consistently for the historical and extended evaluations.
+
+The recovery comparison selects the 49 original inputs whose historical
+working rate was below 50\%: 13 x64 and 36 x86. It compares the same
+inputs and 15 transformation configurations before and after the
+pipeline update. New results use ten variants per x64 input/configuration
+and five per x86 input/configuration. Data-preparation-only controls are
+reported separately. The comparison measures the updated pipeline as a
+whole, including the improved MessageBox test; it is not an ablation of
+data identification alone.
+
+\subsection{Configurations, Repetitions, and Model Calls}
+A \emph{cell} combines an input, transformation, and prompting condition:
+for example, one x64 program transformed with EQ and two examples.
+Repeating that combination gives repetitions of the same cell.
+
+Both LLM roles request temperature 0.2 without a sampling seed or top-p;
+these client settings do not imply identical repeated answers.
+
+The native controlled benchmark uses three runs per input and transformation
+family. The LLM benchmark uses four families, two prompting conditions,
+and three separate single-generation requests per cell. This gives
+$7\times4\times2\times3=168$ x64 requests and
+$6\times4\times2\times3=144$ x86 requests. All rejected responses and
+transport failures remain in the counts. The classification benchmark uses
+three LLM requests and one symbolic analysis per annotated program.
+
+On the full original corpus, wrapping uses three randomization seeds per
+input, giving $102\times3=306$ planned variants. The LLM experiment has
+$102\times4\times2=816$ cells and an output-token limit of 65,536.
+It targets one accepted output per cell; two successful cells required a
+second generation, and fourteen failed cells were restarted without success.
+These results describe the completed campaign, including those retries.
+
+The data-handling comparison uses 19 original inputs (13 x64,
+six x86) with data extracted by symbolic preparation. Each method proposes
+data regions, after which the same deterministic handling and functional
+test are applied. Input selection and shared processing are thus held
+explicit in interpreting the comparison.
+
+The accompanying artifact records engine versions and request histories.
+Native x86 IBP was tested with an earlier implementation than the later
+x86 LLM and wrapping experiments; these are separately identified in the
+artifact. The native x86 IBP result therefore characterizes that recorded
+version; no current-version retest is available, and no version-improvement
+claim is inferred from comparing these campaigns.
+
+\subsection{Build Rate, Working Rate, and Classification Accuracy}
+Let $N$ be planned cases, $B$ produced binaries, and $W$ binaries passing
+the functional test. Build rate is $B/N$, overall working rate is $W/N$,
+and working rate among produced binaries is $W/B$.
+For example, ten planned cases, eight produced binaries, and six successful
+tests give 80\%, 60\%, and 75\%, respectively. The selected-cohort comparison divides
+successful tests by recorded tests, matching the available historical
+records. The overall update in Table~\ref{tab:overall_working_update}
+combines the new rates for retested inputs with the retained historical
+rates for other inputs. Each input keeps its historical test-count weight.
+This avoids changing the composition of the x86 average merely because
+the new campaign uses fewer repetitions. No missing historical outcome is
+imputed. The final table row is the arithmetic mean of the 15
+configuration rates, not weighted by their sample counts. Detailed
+contributions are supplied in Supplementary Material S1. Repeated
+executions of one binary are not new variants.
+
+For classification, predicted positions $P$ are bytes labelled as data;
+reference positions $G$ are the preannotated correct data bytes. Precision
+is $|P\cap G|/|P|$ and recall is $|P\cap G|/|G|$. For a reference string
+at bytes 20--29, predicting 20--27 gives 100\% precision and 80\% recall.
+Exact matching requires all intervals to agree; programs without separate
+data require an empty set. For unannotated original payloads, the evaluation
+reports agreement between methods and downstream functionality.
+
+\subsection{Similarity, Detection Rate, Diversity, and Cost}
+\paragraph{Representation measurements.}
+Historical cosine and entropy definitions are retained. The LLM client's
+SequenceMatcher compares prepared and returned listings, filtering
+NOP-like operations in the NOP condition. This diagnostic is supplied in
+the supplementary records rather than substituted for the historical metrics.
+
+\paragraph{Detection rate.}
+We use the same engine-level definition as the historical evaluation:
+$d_i=m_i/a_i$, where $m_i$ is the number of malicious responses for file
+$i$ and $a_i$ is its total reported engine-response count. Tables report
+$\overline d$, the mean across files, as a percentage. For example,
+3 malicious responses among 75 give a detection rate of 4\%.
+Nonempty current reports contain 75 responses. Unsupported formats,
+timeouts, and failed analyses remain in that denominator, consistently
+with the historical convention; their breakdown and report-completeness
+checks are included in the supplementary records. Missing reports are not
+assigned a zero detection rate. Each distinct output hash is scanned once.
+
+\paragraph{Diversity and resources.}
+$U$ counts distinct output SHA-256 hashes: identical output bytes count
+once for diversity and scanning, even when produced by multiple runs.
+A shared hash retains membership in every relevant experimental condition.
+Consequently, per-condition unique counts need not sum to the global count.
+Time is the recorded duration of a run, including local processing.
+Estimated API costs include failed calls and restarted runs. Source records,
+version mappings, and the detailed accounting are supplied with the artifact.

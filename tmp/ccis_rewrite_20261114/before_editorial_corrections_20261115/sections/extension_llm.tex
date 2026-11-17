@@ -1,0 +1,62 @@
+\section{LLM-Assisted Assembly Transformation}\label{sec:llm}
+\subsection{What the Model Is Asked to Change}
+In this mode the LLM receives assembly and proposes a new instruction
+sequence intended to preserve behavior. It supports the EQ, NOP, BCF,
+and IBP families introduced in Section~\ref{sec:background}; data
+classification instead returns only locations. PII and wrapping remain
+native operations because their layout and encoding constraints are not
+implemented in the LLM interface's requests and validators. This is an
+implementation boundary, not an intrinsic limitation of language models.
+
+Zone prepares an assembly listing with identified data retained separately.
+The model proposes instruction changes while deterministic handling
+preserves exact data contents; identification itself may use an LLM.
+Relevant locations receive symbolic labels, which name destinations
+independently of their changing numerical offsets. An end-to-end model
+that also regenerates data would be a different, unevaluated design.
+
+The model returns a complete listing. Zone assembles it, restores retained
+data, and checks the construction. The original binary, prepared listing,
+and final binary are therefore different representations. The internal
+LLM similarity score compares prepared and returned listings, excluding
+changes already made during preparation.
+
+The requested model is \texttt{deepseek-flash}; local version names come
+from the client's alias table, without independent provider confirmation.
+Both LLM roles request temperature 0.2, with no sampling seed or explicit
+top-p. Repeated requests are not treated as deterministic reproductions.
+
+\subsection{Prompting Conditions and Repeated Attempts}
+A \emph{zero-shot} request describes the transformation and its constraints
+without a worked example. A \emph{two-shot} request adds two examples of
+input and transformed output. The number of shots thus counts examples
+inside a prompt; it does not count generated variants or execution tests.
+Each input, transformation family, and shot setting defines an experimental
+\emph{cell}.
+
+Validation feedback returns a rejected answer and its diagnostic---for
+example, a missing label or assembly failure---and requests a correction.
+It contains neither a functional success signal nor a scanner verdict.
+The controlled benchmark disables correction and makes three independent
+single-generation requests per cell, retaining failures. The original-corpus
+campaign targets one output per cell, with some retries and failed
+restarts in its logs. Its results are cell outcomes rather than uniform
+first-generation success rates (Section~\ref{sec:methodology}).
+
+\subsection{From a Proposed Listing to an Assessed Output}
+Validation checks whether the response can be assembled and decoded,
+whether tracked control-flow targets remain consistent, whether preserved
+data survives, and whether the requested transformation's structural
+requirements are met. A response can fail at any of these stages, or be
+truncated before it contains a complete listing. Passing them means that
+Zone accepts a constructed output, which then proceeds to the execution test.
+
+An external \emph{test harness} launches the output and records its result.
+It compares the complete expected buffer for controlled programs and
+checks the class-specific observable for original payloads
+(Section~\ref{sec:methodology}).
+
+
+The functional test is applied after generation in these experiments. Saved records distinguish model requests, accepted outputs,
+execution results, time, and estimated cost, allowing rejection and execution
+failure to be analyzed independently.

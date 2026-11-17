@@ -1,0 +1,19 @@
+current_object,label,source_doi,reuse,permission_status
+Table 1,tab:instruction_substitutions_x86,10.5220/0015170600004103,"Reproduced, adapted, or redrawn; see caption",Not confirmed; check signed agreement or obtain written permission
+Table 2,tab:nop_instructions,10.5220/0015170600004103,"Reproduced, adapted, or redrawn; see caption",Not confirmed; check signed agreement or obtain written permission
+Table 3,tab:flag_preserving_nop,10.5220/0015170600004103,"Reproduced, adapted, or redrawn; see caption",Not confirmed; check signed agreement or obtain written permission
+Table 4,table:bcf_code,10.5220/0015170600004103,"Reproduced, adapted, or redrawn; see caption",Not confirmed; check signed agreement or obtain written permission
+Table 5,tab:broken-payload,10.5220/0015170600004103,"Reproduced, adapted, or redrawn; see caption",Not confirmed; check signed agreement or obtain written permission
+Table 6,tab:functional-payload,10.5220/0015170600004103,"Reproduced, adapted, or redrawn; see caption",Not confirmed; check signed agreement or obtain written permission
+Figure 1,fig:pii_layout,10.5220/0015170600004103,"Reproduced, adapted, or redrawn; see caption",Not confirmed; check signed agreement or obtain written permission
+Figure 2,fig:all_payloads,10.5220/0015170600004103,"Reproduced, adapted, or redrawn; see caption",Not confirmed; check signed agreement or obtain written permission
+Figure 3,fig:length_comparison,10.5220/0015170600004103,"Reproduced, adapted, or redrawn; see caption",Not confirmed; check signed agreement or obtain written permission
+Figure 4,fig:shan_entropy,10.5220/0015170600004103,"Reproduced, adapted, or redrawn; see caption",Not confirmed; check signed agreement or obtain written permission
+Figure 5,fig:shan_entropy_bytes,10.5220/0015170600004103,"Reproduced, adapted, or redrawn; see caption",Not confirmed; check signed agreement or obtain written permission
+Figure 6,fig:cosine_similarity,10.5220/0015170600004103,"Reproduced, adapted, or redrawn; see caption",Not confirmed; check signed agreement or obtain written permission
+Listing 1,,10.5220/0015170600004103,"Reproduced, adapted, or redrawn; see caption",Not confirmed; check signed agreement or obtain written permission
+Listing 2,,10.5220/0015170600004103,"Reproduced, adapted, or redrawn; see caption",Not confirmed; check signed agreement or obtain written permission
+Listing 3,,10.5220/0015170600004103,"Reproduced, adapted, or redrawn; see caption",Not confirmed; check signed agreement or obtain written permission
+Listing 4,,10.5220/0015170600004103,"Reproduced, adapted, or redrawn; see caption",Not confirmed; check signed agreement or obtain written permission
+Algorithm 1,alg:zonealg,10.5220/0015170600004103,"Reproduced, adapted, or redrawn; see caption",Not confirmed; check signed agreement or obtain written permission
+Table 12,tab:overall_working_update,10.5220/0015170600004103,New table combining reaggregated historical data with new measurements,Confirm applicable rights; no permission represented as granted

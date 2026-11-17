@@ -1,0 +1,91 @@
+{
+  "revision_date": "2026-11-15",
+  "scope": "Editorial revision and offline analysis of existing records",
+  "pdf_checks": {
+    "pages": 34,
+    "replacement_character_pages": [],
+    "unresolved_reference_pages": [],
+    "overfull_boxes": 0,
+    "undefined_reference_warnings": 0,
+    "missing_glyph_warnings": 0
+  },
+  "visual_review": {
+    "contact_sheet_pages_inspected": [
+      1,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+    ],
+    "full_size_pages_inspected": [
+      27,
+      29,
+      30,
+      31
+    ],
+    "result": "Revised pages and tables are legible, with no observed clipping or overlap."
+  },
+  "output_pdf": "C:\\Users\\ubu\\Desktop\\Zone\\output\\pdf\\zone_revisione_20261115.pdf",
+  "pdf_sha256": "b9941f02cb32c09853c5c2c3c809d7b8d0103458632fca408267a14455f10de4",
+  "engine_modified": false,
+  "payloads_generated_or_executed": false,
+  "new_model_calls_or_scans": false,
+  "overall_working_rate_means": {
+    "x64": {
+      "historical": 55.59157110500612,
+      "reconstructed": 82.63445862514908
+    },
+    "x86": {
+      "historical": 45.00932101659976,
+      "reconstructed": 50.27486377267228
+    }
+  },
+  "source_hashes": {
+    "main.tex": "06065b4b0d9fba9b1bea609f5a6efc7e55fd6a8867fc017bf0f8145649cdeff9",
+    "bibliography.bib": "5778114f29492e5f7d37528e958f72f5125c2b7b0adfaa858099b175561ec0a2",
+    "RISPOSTE_20261115.md": "32db67dc2e471dd140b08a3a07c484702903f2e798d3d3f14435b33b5220caf5",
+    "README_REVISIONE.md": "7efbbe9f941d99138629a26f5fed8c2c7f86120413b288a3d20dc545c2569b4d",
+    "sections\\extension_code_data.tex": "51bb179be90b6226b043ee7ffd176f2270e1d56e509c274aab58a177f90240d5",
+    "sections\\extension_discussion.tex": "c6c4e070fb25d925ab9ea1986c540cbf99588b660749e2ee492d57c47b35cbec",
+    "sections\\extension_llm.tex": "97b8a2fcfd0336fb02bdea0585ad0b9cd5bf4c6a5b0a8f00a782c833423c0669",
+    "sections\\extension_methodology.tex": "7c63751a3bfdd375d7cee0f9fe5e0428e179d40ecaad89b4360af866081c548f",
+    "sections\\extension_results.tex": "41eae2781c7f5086ecfdd79f36d01db80f4b3661da87385ceeee45d102b2f82b",
+    "sections\\extension_wrapping.tex": "d3744296f30ba401b190269c9cf5e136cf8b554a80fc627cf8b735958d99e198",
+    "sections\\overall_working_table.tex": "9262d5c6377d6bd5395d3f5a93b4487f2948704280e6519d4f89cfb83d7af124",
+    "evidence\\followup_20261115\\controlled_benchmark_details.tex": "6de8c8e1784ad6c371d501ef5f9fd966f6ce5de8705e647e32d45548e89390f7",
+    "evidence\\followup_20261115\\earlier_pilots.tex": "f8c73825bcda991a61d72718bead3fa54b3cf5617e04f2d661ab3841e13f7969",
+    "evidence\\followup_20261115\\NOTES.md": "72c12ca533bd8050b8fcd8a86f22d5512ec96f58ee55bc3aa396a777e65b1a61",
+    "evidence\\followup_20261115\\overall_working_rate.csv": "9d4449d05993950154dc669e58eca2a415c5969bcc20aa4adf0bb4f19b8781f8",
+    "evidence\\followup_20261115\\overall_working_rate_contributions.csv": "a6d7ce44bfb14a28854b8bf2339c55a9b8c840d1c0ba8fc49101d3fa8b615dd6",
+    "evidence\\followup_20261115\\scan_details_previous_layout.tex": "81a1337a5bfa71be9360b2cf5419ed9d85dadade182bb0a054671d55017adfea",
+    "evidence\\followup_20261115\\scan_overall.csv": "1f33122c11d54f99197bd8dda739afbd0c6021a258651f1097d95ee28e02fc72",
+    "evidence\\followup_20261115\\SUMMARY.json": "eec4d933213e8caf79c5cad5367eb45e730a83b4aaba324da1e8ad85863d88f8"
+  },
+  "input_record_hashes": {
+    "working_rate_unified_tests.csv": "92751cd7961f2553698d7c5f6522055c0a3e966675c4f85335d77ce612c35eb3",
+    "vt_manifest_campaign.json": "7e548336e307b4962db89788a6231a26c6afc2d4b728daa55c280b6af934acd2",
+    "tmp\\vt_results_campaign.jsonl": "22e01fc4d4fc2ce9af8c6684904621dd638f85802a73f3bb05b901fc3da0c953",
+    "bench\\engines\\2026-11-13_block3\\llm_technique.py": "09ae772852843cb8d8ae4bd9be248d5856552ab1d4b89645eb18ce69c84e63d5",
+    "bench\\run_llm.py": "6729cc37faee0aa3aac0435af6509ed8f4e725027036b2e4ca214b2d668388b5",
+    "bench\\run_llm_data.py": "4574eaf42b0b7ac6341d86dc3efd8e86d175d356cc219340b2fbd6f503ba5820",
+    "bench\\run_classifier_compare.py": "22984c55af2476883941f5e3f75e40836895ba9090eebc96f85ef65877445d6c",
+    "tmp\\campaign\\build_llm.py": "292fb84cc0568f5f705a7a8ba39cb406e9c39332d6629a9b7bac2d152a19e63c",
+    "tmp\\campaign\\run_data_compare.py": "256878250f52adc1e1641761ec6ab635e03486eb8d090f8c2b0d7b2776d8672f"
+  },
+  "known_remaining_items": [
+    "Native x86 IBP engine result unchanged",
+    "One empty historical scan report remains missing",
+    "Author disclosure placeholder retained"
+  ]
+}

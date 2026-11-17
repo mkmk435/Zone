@@ -1,0 +1,30 @@
+{
+  "main.tex": {
+    "before_prose_tokens": 4849,
+    "after_prose_tokens": 3900
+  },
+  "sections\\extension_code_data.tex": {
+    "before_prose_tokens": 1100,
+    "after_prose_tokens": 821
+  },
+  "sections\\extension_discussion.tex": {
+    "before_prose_tokens": 316,
+    "after_prose_tokens": 260
+  },
+  "sections\\extension_llm.tex": {
+    "before_prose_tokens": 788,
+    "after_prose_tokens": 519
+  },
+  "sections\\extension_methodology.tex": {
+    "before_prose_tokens": 1173,
+    "after_prose_tokens": 1002
+  },
+  "sections\\extension_results.tex": {
+    "before_prose_tokens": 1377,
+    "after_prose_tokens": 1338
+  },
+  "sections\\extension_wrapping.tex": {
+    "before_prose_tokens": 390,
+    "after_prose_tokens": 390
+  }
+}

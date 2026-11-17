@@ -1,0 +1,25 @@
+{
+  "historical_records": 15021,
+  "deduplicated_file_paths": 15020,
+  "historical_detection_configuration_means": {
+    "x64": 0.580597706117363,
+    "x86": 0.2524707602339181
+  },
+  "rewriting_engines_modified": false,
+  "new_payload_executions_or_scans": false,
+  "interests_status": "User could not confirm; declaration remains pending",
+  "permission_status": "Not confirmed; request and inventory prepared, not sent",
+  "model_alias_source": "https://api-docs.deepseek.com/api/list-models/",
+  "publisher_rights_source": "https://portal.insticc.org/copyright",
+  "new_data_table_values_changed": false,
+  "historical_metric_script_sha256": "c633283cb29f41642955663e6af10062916245035e920cafed5f8451b0bf2f35",
+  "historical_record_sha256": "831fb142ce2acadc419b8721350d6e4d67a8a95c508069c66dac7f888b75ebcc",
+  "supplement_included_files": 28,
+  "pdf_pages": 30,
+  "pdf_sha256": "3375d270268a937b258fa2886b20c15d003b2515112fb7b2b45c7a3d48a45a9e",
+  "unchanged_table_bodies": 13,
+  "visual_review_completed": true,
+  "supplement_sha256": "88b0b12697f54bef91d0613d0941875c9da6f39b82e9f18f29790386092a86fd",
+  "output_pdf": "C:\\Users\\ubu\\Desktop\\Zone\\output\\pdf\\zone_revisione_30_pagine_editoriale.pdf",
+  "reuse_inventory_objects": 18
+}

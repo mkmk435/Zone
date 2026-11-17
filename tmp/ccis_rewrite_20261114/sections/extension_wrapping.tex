@@ -1,24 +1,23 @@
 \section{Assembly Wrapping: Mechanism and Integration}\label{sec:wrapping}
-\subsection{The Same Bytes Can Have Two Instruction Interpretations}
-Assembly wrapping changes how executable bytes are arranged and interpreted.
-It uses the variable length of x86 and x64 instructions: decoding the same
-bytes from different starting positions can produce different instruction
-sequences. In the existing wrapping technique, bytes belonging to the
-intended computation are placed within the immediate-operand field of a
-larger instruction~\cite{assembly_wrapping}. An \emph{immediate operand} is
-a constant stored directly in an instruction's encoding. A decoder starting
-at the outer instruction reads that field as a constant; execution entering
-the embedded sequence reads it as instructions instead.
+\subsection{Reading the Same Bytes from Different Starting Points}
+Assembly wrapping relies on a property of x86 and x64: instructions have
+variable lengths, and the starting byte determines how a decoder groups
+the following bytes into instructions. The same stored bytes can therefore
+have two interpretations when read from different starting points.
 
-Figure~\ref{fig:wrapping_views} illustrates the distinction without relying
-on a particular encoding. The \emph{container} is the outer instruction
-whose operand holds the embedded bytes. The execution path connects the
-embedded sequences in their intended order, whereas a static listing
-following the container boundaries shows a different instruction sequence.
-The bytes need not be decrypted to obtain that second interpretation.
-This is a representation technique based on overlapping instructions, not
-a new form of encryption or a guarantee that an analyzer cannot recover
-the executed code.
+Consider two views of one region. In the \emph{outer view}, a decoder sees
+an instruction followed by its immediate operand, a constant stored inside
+that instruction. In the \emph{execution view}, part of that constant's
+byte field is read as an instruction sequence. The established wrapping
+technique uses this overlap to give the stored representation an outer
+instruction structure while retaining an intended executable interpretation
+within it~\cite{assembly_wrapping}.
+
+Figure~\ref{fig:wrapping_views} shows these two readings of one byte field.
+The term \emph{container} refers to the outer instruction; \emph{embedded
+sequence} refers to the instructions represented inside its operand bytes.
+These are two readings of shared bytes, rather than two copies of the
+program. No decryption step is required to obtain the embedded interpretation.
 
 \begin{figure}[t]
 \centering
@@ -50,27 +49,19 @@ starts from a prepared instruction stream, groups supported instructions
 into wrapped regions, preserves the required execution relationships, and
 updates the supported location-dependent references after layout. Some
 instructions or local layouts cannot be placed in the main container
-representation; the implementation retains these in separate, unwrapped
-regions. An output may therefore contain both wrapped and ordinary code.
+representation. For example, an instruction sequence longer than the
+available operand field does not fit inside that container. The
+implementation retains unsupported cases in ordinary, unwrapped regions. An output may therefore contain both wrapped and ordinary code.
 
 The x86 and x64 implementations share this purpose but use different
 encodings and addressing rules. In particular, the available immediate
 operand has a different width, affecting which instruction groups fit.
-The x86 implementation was introduced after the first benign benchmark
-snapshot and is evaluated under its own recorded version.
+Both architectures are included in the functional evaluation.
 
-Data preparation remains necessary. Wrapping does not determine whether
-an apparent instruction is actually an embedded string or table. If that
-earlier interpretation is wrong, construction may be refused or the output
-may fail when executed. Successful relocation checks likewise cover the
-references the engine supports, not every possible address computation.
-
-\subsection{What the Evaluation Can Establish}
-Three questions follow from this mechanism: can Zone construct an output
-for the input, does that output pass its behavioral test, and what do static
-scanners report for the produced bytes? These questions have different
-denominators. A scan cannot evaluate an unbuilt output, and an absence of
-malicious verdicts does not demonstrate that a constructed output works.
-The following experiments therefore report build availability, functional
-outcomes, and scan results separately, including the failures on the full
-102-payload corpus rather than only the successful benign examples.
+\subsection{How Wrapping Is Evaluated}
+The evaluation follows three stages: construction of a binary, execution
+of its functional test, and static scanning of the produced file.
+Construction rate measures how many requested variants are available;
+working rate measures how many perform the expected task; detection rate
+describes the scanner responses. The full experiment uses all 102 original
+payloads, with the same stages reported separately for x64 and x86.

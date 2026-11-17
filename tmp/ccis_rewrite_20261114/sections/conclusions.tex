@@ -1,0 +1,77 @@
+\section{Conclusions and Future Work}\label{sec:conclusion3}\label{sec:extension_limits}
+We have extended our SECRYPT 2026 study of Zone~\cite{zone_secrypt_2026}
+from its original native transformations to a broader evaluation of
+binary rewriting. The extension makes code--data identification and
+supported reference handling explicit, separates the LLM roles of
+classification and instruction transformation, and integrates the
+existing assembly-wrapping technique on x64 and x86. These additions
+address the preparation and evaluation of transformed programs alongside
+the transformation itself.
+
+The recovery results demonstrate a substantial improvement on inputs
+that were difficult for the earlier pipeline. Working rate rises from
+1.2\% to 80.2\% on the selected x64 cohort and from 14.9\% to 25.9\% on
+x86. Replacing the retested inputs' rates while retaining historical
+weights gives mean configuration rates of 82.6\% and 50.3\%, compared
+with 55.6\% and 45.0\% historically. This combined summary places the
+recovery results in the wider corpus; it does not represent a fresh
+execution of every historical test. The gain is larger on x64, while
+the residual x86 cases show that the improvement is architecture- and
+input-dependent.
+
+The controlled suites and original payloads provide complementary
+evidence. Six annotated programs give known answers for data
+identification, and 13 functional programs isolate individual programming
+patterns. Their small, simple layouts explain why their high success
+rates do not automatically extend to the larger corpus. On the 19
+original data-handling inputs, symbolic and LLM proposals yield identical
+final binaries in 16 cases and the same 17 successful functional outcomes.
+This agreement shows that different intermediate proposals can lead to
+the same accepted output under shared handling. It also keeps the
+classifier's contribution distinct from that of the downstream pipeline.
+
+The full-corpus campaigns expose the difference between producing a
+binary and obtaining a working variant. Wrapping constructs 243 binaries
+from 306 planned cases, of which 170 pass their functional tests. Every
+constructed x64 wrapping output passes, whereas x86 functionality remains
+partial. LLM transformation constructs 350 binaries across 816 conditions,
+with 275 successful functional outcomes. These results identify
+construction failures as a substantial part of the measured outcome;
+reporting only accepted outputs would conceal that part of the process.
+The recorded native x86 IBP result remains tied to its tested engine
+version, separately from these later campaigns.
+
+Zero-shot and two-shot prompting produce similar aggregate outcomes in
+this experiment. The evidence supports no consistent advantage for the
+additional examples under the tested settings. Static scans report no
+malicious responses for the 207 distinct wrapping outputs and a mean
+engine detection rate of 5.06\% across 322 nonempty LLM-output reports.
+These observations describe the submitted raw files and complement the
+functional results. Overall, the extension demonstrates improved
+functional reliability and provides a more complete account of the
+added transformation paths by reporting construction, execution,
+diversity, and detection together.
+
+\subsection{Future Work}\label{sec:future_work}
+The main direction for future work is to revisit support for complete
+Windows Portable Executable (PE) files. This extension would broaden
+the range of programs that Zone can be tested on, enabling experiments
+with full applications and more representative execution environments.
+It would also help establish the tool's practical applicability: whether
+transformed programs continue to load, complete their intended tasks,
+and behave consistently under ordinary use. A dedicated study on
+documented benign applications of different sizes and build settings
+could assess how far the present payload-level findings carry over to
+complete software. Functional reliability, processing time, and output
+growth would provide complementary measures of practical utility.
+
+A second direction is broader functional validation. Larger controlled
+suites and independently annotated code--data examples would extend
+coverage of program structures and provide stronger reference outcomes.
+Comparisons using the same engine version and test conditions would
+help distinguish implementation changes from differences in the inputs.
+For LLM-assisted paths, repeated requests with recorded provider versions
+and request settings would allow variability to be measured explicitly.
+Together, these studies would strengthen the evidence for generalization
+and clarify the conditions under which Zone can be used reliably in
+practical software-analysis workflows.

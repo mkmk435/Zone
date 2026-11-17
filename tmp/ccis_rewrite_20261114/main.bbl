@@ -36,6 +36,11 @@ Cho, I., Towey, D., Kar, P.: Using obfuscators to test compilers: {A}
   metamorphic experience. In: 47th {IEEE} Annual Computers, Software, and
   Applications Conference, {COMPSAC} 2023. pp. 1786--1791. {IEEE} (2023)
 
+\bibitem{deepseek_models}
+{DeepSeek}: Lists models. Official API documentation,
+  \url{https://api-docs.deepseek.com/api/list-models/}, accessed 15 November
+  2026
+
 \bibitem{desai2008towards}
 Desai, P.: Towards an Undetectable Computer Virus. Master's project, San Jose
   State University (2008). \doi{10.31979/etd.z942-squp},
@@ -105,11 +110,6 @@ Mohseni, S., Mohammadi, S., Tilwani, D., Saxena, Y., Ndawula, G.K., Vema, S.,
 Nawaz, M.S., Fournier{-}Viger, P., Nawaz, M.Z., Chen, G., Wu, Y.: {MalSPM}:
   Metamorphic malware behavior analysis and classification using sequential
   pattern mining. Comput. Secur.  \textbf{118},  102741 (2022)
-
-\bibitem{python_difflib}
-{Python Software Foundation}: difflib: Helpers for computing deltas. Python
-  documentation, \url{https://docs.python.org/3/library/difflib.html}, accessed
-  13 November 2026
 
 \bibitem{sigdetPEnoncode}
 Sathyanarayan, V.S., Kohli, P., Bruhadeshwar, B.: Signature generation and

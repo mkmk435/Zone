@@ -1,0 +1,36 @@
+\section{Discussion of the Extensions}\label{sec:extension_limits}
+The recovery comparison provides direct evidence of improved functional
+reliability on previously problematic inputs. On the selected x64 cohort,
+working rate rises from 1.2\% to 80.2\%; x86 also improves, from 14.9\%
+to 25.9\%. The pipeline updates therefore recover many useful outputs,
+with a substantially stronger improvement on x64. Results on the full
+corpus complement this comparison by evaluating the added wrapping and
+LLM modes across all 102 original payloads.
+
+The controlled suites help explain what each stage contributes. All six
+annotated programs are classified exactly, while the thirteen functional
+programs check the output of individual programming patterns. Their small
+size and simple layouts make them useful diagnostic tests. Their high
+success rates are not a consequence of being benign: the original corpus
+contains larger and more varied instruction/data layouts, which exercise
+additional cases. The native x86 IBP failure also shows that a controlled
+program can expose an implementation problem directly.
+
+The two LLM roles remain distinct. Identifying data supplies regions to
+the deterministic pipeline; transforming assembly supplies a proposed
+instruction listing. On nineteen selected original payloads, the former
+produces the same final binary as symbolic preparation in 16 cases and
+the same 17/19 functional result. For transformation, zero-shot and two-shot
+produce similar aggregate outcomes, with no consistent observed advantage
+from adding two examples. Input size, construction success, and execution
+outcome provide more informative distinctions in this campaign.
+
+The empirical scope can be stated once. Functional preservation is assessed
+through the specified execution tests, rather than a formal proof for every
+possible execution. Classification accuracy is measured on independently
+annotated programs; the unannotated payload comparison measures agreement
+and downstream functionality. Static detection rates describe the submitted
+raw files and the reported engine responses, including the disclosed
+unsupported and failed analyses. Repeated inputs, shared hashes, recorded
+version differences, and retries are retained in the artifact so that these
+descriptive results can be inspected and reproduced.

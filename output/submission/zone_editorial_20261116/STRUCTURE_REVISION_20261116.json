@@ -1,0 +1,87 @@
+{
+  "historical_region_words_before": 3356,
+  "historical_region_words_after": 2744,
+  "related_work_words": 492,
+  "conclusions_words": 421,
+  "disclosure": "No competing interests, confirmed by user on 16 November 2026",
+  "future_work": "Not inserted; author explicitly requested discussion first",
+  "initial_page_note": "Removed; no such placement requirement in supplied invitation",
+  "new_experiments": false,
+  "pages": 29,
+  "pdf_sha256": "d8fa9208ba9ebbd2d7d11d97f5b64062b132c2500f1d40709191970b2028ef5c",
+  "visual_review_completed": true,
+  "paired_analysis": {
+    "source_sha256": "a9bac1d28192dccf4477e94a9ea7c8948e09f74d5d6793a3974ebfccb9963e4a",
+    "cells": 816,
+    "pairs": 408,
+    "inputs": 102,
+    "both_work": 118,
+    "only_zero_shot_works": 21,
+    "only_two_shot_works": 18,
+    "neither_works": 251,
+    "zero_shot_successes": 139,
+    "two_shot_successes": 136,
+    "exact_mcnemar_two_sided_p": 0.7492586247608415,
+    "input_level_sign_flip_two_sided_p": 0.7521781921386719,
+    "nonzero_input_differences": 21,
+    "observed_zero_minus_two": 3,
+    "input_difference_counts": {
+      "1": 9,
+      "0": 81,
+      "-1": 6,
+      "2": 3,
+      "-2": 3
+    },
+    "new_model_requests": false,
+    "new_executions": false,
+    "interpretation": "Exploratory comparison of recorded campaign outcomes; no equivalence or causal-effect claim."
+  },
+  "qa": {
+    "pdf_sha256": "d8fa9208ba9ebbd2d7d11d97f5b64062b132c2500f1d40709191970b2028ef5c",
+    "pages": 29,
+    "out_of_page_characters": [],
+    "unresolved_markers": [],
+    "overfull_boxes": 0,
+    "undefined_references": 0,
+    "missing_glyph_warnings": 0,
+    "table_bodies": {
+      "before": 13,
+      "after": 13,
+      "all_identical": true
+    },
+    "retained_objects": {
+      "figure": {
+        "before": 8,
+        "after": 8,
+        "all_identical": false,
+        "intentional_revision": "Conceptual pipeline: explicit stop paths and shorter caption only."
+      },
+      "lstlisting": {
+        "before": 4,
+        "after": 4,
+        "all_identical": true
+      },
+      "algorithm": {
+        "before": 1,
+        "after": 1,
+        "all_identical": true
+      }
+    },
+    "rendered_pages": 29
+  },
+  "source_checks": {
+    "conference_doi": "https://www.scitepress.org/PublishedPapers/2026/151706/",
+    "affiliation": "https://dmi.unipg.it/dipartimento/organizzazione",
+    "affiliation_address": "https://dmi.unipg.it/contatti",
+    "chat_completions_reference": "https://api-docs.deepseek.com/api/create-chat-completion/",
+    "special_feature_ignored_parameters": "https://api-docs.deepseek.com/guides/build_a_chatbot/",
+    "llm_benchmark": "https://ojs.aaai.org/index.php/AAAI/article/view/34672",
+    "llm_mutation_study": "https://arxiv.org/abs/2410.23894",
+    "compiler_comparison": "https://crypto.junod.info/spro15.pdf",
+    "semantic_detection": "https://www.acsac.org/2007/papers/81.pdf",
+    "memory_extraction": "https://mason.gmu.edu/~rfarley3/2014-ISC-CodeXt.pdf"
+  },
+  "no_conflicts_confirmed": true,
+  "reuse_permission_confirmed": false,
+  "supplement_members": 36
+}

@@ -1,0 +1,106 @@
+{
+  "revision": "Balanced shortening to 30 pages, 15 November 2026",
+  "pdf_checks": {
+    "pages": 30,
+    "overfull_boxes": 0,
+    "undefined_references": 0,
+    "missing_glyph_warnings": 0,
+    "replacement_character_pages": [],
+    "unresolved_markers": [],
+    "data_tables_before": 13,
+    "data_tables_after": 13,
+    "all_data_table_bodies_unchanged": true
+  },
+  "visual_review": {
+    "contact_sheet_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30
+    ],
+    "full_size_pages": [
+      25,
+      26
+    ],
+    "result": "All pages inspected; no observed clipping or overlap."
+  },
+  "font_and_margins_unchanged": true,
+  "all_13_data_tables_unchanged": true,
+  "section_numbers_retained": true,
+  "working_rate_plot_consolidated_into_table": true,
+  "output_pdf": "C:\\Users\\ubu\\Desktop\\Zone\\output\\pdf\\zone_revisione_30_pagine.pdf",
+  "pdf_sha256": "21e342b9dfed6593fd7653f796a1e9a4d7998d82cbf94fbf88689a1505d805a3",
+  "backup": "before_30page_revision_20261115",
+  "prose_token_counts_excluding_float_bodies": {
+    "main.tex": {
+      "before_prose_tokens": 4849,
+      "after_prose_tokens": 3900
+    },
+    "sections\\extension_code_data.tex": {
+      "before_prose_tokens": 1100,
+      "after_prose_tokens": 821
+    },
+    "sections\\extension_discussion.tex": {
+      "before_prose_tokens": 316,
+      "after_prose_tokens": 260
+    },
+    "sections\\extension_llm.tex": {
+      "before_prose_tokens": 788,
+      "after_prose_tokens": 519
+    },
+    "sections\\extension_methodology.tex": {
+      "before_prose_tokens": 1173,
+      "after_prose_tokens": 1002
+    },
+    "sections\\extension_results.tex": {
+      "before_prose_tokens": 1377,
+      "after_prose_tokens": 1338
+    },
+    "sections\\extension_wrapping.tex": {
+      "before_prose_tokens": 390,
+      "after_prose_tokens": 390
+    }
+  },
+  "source_hashes": {
+    "main.tex": "1cc4fc7458da0a7e73b772cbd76ea7ccf4c6d8dd95e35220fb719866c0099d0f",
+    "bibliography.bib": "5778114f29492e5f7d37528e958f72f5125c2b7b0adfaa858099b175561ec0a2",
+    "sections\\extension_code_data.tex": "6dc150e2fcbea614e91ca16bfa1e37d8096a2bf7eafb756d197b520fc1de2423",
+    "sections\\extension_discussion.tex": "c25fe79941f24a4088aa32f2b199069e874ecec3444d656bf259b355304d8b50",
+    "sections\\extension_llm.tex": "4b123725bd6ea49fe7fd5ef76701b5c559ac5fda9642df30e8a4c1ef0961f033",
+    "sections\\extension_methodology.tex": "ae95d0df59d56a258df9031a1ade0eb36b4ceee8205a0e51917523ebbc89c07b",
+    "sections\\extension_results.tex": "7ea38edf4517baef4364e0e4af899f29449006ce3bd6467472ac0a9792394c64",
+    "sections\\extension_wrapping.tex": "d3744296f30ba401b190269c9cf5e136cf8b554a80fc627cf8b735958d99e198",
+    "sections\\overall_working_table.tex": "526f4d266a8443d8944f93defa4479e0b598d5744aef555dd09dee8b7dfc835a"
+  },
+  "new_experiments_or_engine_changes": false,
+  "remaining_editorial_items": [
+    "Historical detection-chart associations and similarity provenance remain flagged in the draft note",
+    "Author interests disclosure remains to be completed by the authors"
+  ]
+}

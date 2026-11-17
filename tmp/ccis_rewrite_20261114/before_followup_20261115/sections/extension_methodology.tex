@@ -1,0 +1,150 @@
+\section{Experimental Design for the Extensions}\label{sec:methodology}
+\subsection{What Is Tested, and on Which Programs?}
+The evaluation separates three practical questions: whether Zone identifies
+embedded data correctly, whether a transformed program still performs its
+expected task, and how often static scanners flag the resulting file.
+Table~\ref{tab:test_populations} summarizes the inputs used for each question.
+
+\begin{table}[t]
+\caption{Test populations. The thirteen controlled programs and the thirteen
+selected x64 payloads are different sets with different purposes.}
+\label{tab:test_populations}
+\centering\small
+\begin{tabularx}{\linewidth}{@{}l r Y@{}}
+\toprule
+Population & Inputs & Purpose \\
+\midrule
+Controlled functional programs & 13 & Check exact expected output after transformation. \\
+Annotated classification programs & 6 & Check which bytes are identified as data. \\
+Original Windows payload corpus & 102 & Measure construction, functionality, and static detection. \\
+Recovery subset of that corpus & 49 & Compare historical and updated working rates on previously problematic inputs. \\
+Data-handling subset of that corpus & 19 & Compare symbolic and LLM identification within the same pipeline. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The thirteen \emph{controlled functional programs}, also called test
+fixtures, are small purpose-built assembly programs: six cases on each
+architecture cover arithmetic, conditional branches, loops, local calls,
+combined control flow, and embedded strings. One additional x64 case
+exercises access to embedded data through a computed code address.
+These programs are 19--68 bytes long. Each writes a known result into a
+256-byte output buffer; a separate native C runner executes the program
+and compares the whole buffer with the expected bytes. Untouched positions
+must retain their initial value. All thirteen originals pass this check.
+This compact suite tests individual mechanisms; the original payload corpus
+provides the broader application-level evaluation.
+
+The six \emph{annotated classification programs} answer a different
+question: does the method locate the data correctly? Two contain multiple
+strings (one per architecture), one x64 case contains a binary table,
+two contain no separate data, and one x64 case contains instruction bytes
+that resemble text. For each program the correct data locations are written
+down before either classifier runs. The model does not receive these answers.
+The two suites are complementary: one checks the result of execution,
+the other checks the identification decision itself.
+
+The original corpus contains 38 x64 and 64 x86 Windows payloads.
+Functional tests check the expected dialog, network connection event,
+or clean termination for the relevant payload class. All 102 originals pass.
+Throughout this article, \emph{working} means that the transformed output
+passes the corresponding functional test. We use this empirical definition
+consistently for the historical and extended evaluations.
+
+The recovery comparison selects the 49 original inputs whose historical
+working rate was below 50\%: thirteen x64 and 36 x86. It compares the same
+inputs and fifteen transformation configurations before and after the
+pipeline update. New results use ten variants per x64 input/configuration
+and five per x86 input/configuration. Data-preparation-only controls are
+reported separately. The comparison measures the updated pipeline as a
+whole, including the improved MessageBox test; it is not an ablation of
+data identification alone.
+
+\subsection{Configurations, Repetitions, and Model Calls}
+An experimental \emph{cell} is one combination of input, transformation,
+and prompting condition. For example, one x64 test program transformed
+with EQ using a prompt with two examples is one cell. Running that
+combination three times gives three repetitions of the same cell.
+
+The native controlled benchmark uses three runs per input and transformation
+family. The LLM benchmark uses four families, two prompting conditions,
+and three separate single-generation requests per cell. This gives
+$7\times4\times2\times3=168$ x64 requests and
+$6\times4\times2\times3=144$ x86 requests. All rejected responses and
+transport failures remain in the counts. The classification benchmark uses
+three LLM requests and one symbolic analysis per annotated program.
+
+On the full original corpus, wrapping uses three randomization seeds per
+input, giving $102\times3=306$ planned variants. The LLM experiment has
+$102\times4\times2=816$ cells and an output-token limit of 65,536.
+It targets one accepted output per cell; two successful cells required a
+second generation, and fourteen failed cells were restarted without success.
+These results describe the completed campaign, including those retries.
+
+The data-handling comparison uses nineteen original inputs (thirteen x64,
+six x86) with data extracted by symbolic preparation. Each method proposes
+data regions, after which the same deterministic handling and functional
+test are applied. Input selection and shared processing are thus held
+explicit in interpreting the comparison.
+
+The accompanying artifact records engine versions and request histories.
+Native x86 IBP was tested with an earlier implementation than the later
+x86 LLM and wrapping experiments; these are separately identified in the
+artifact and are not a controlled comparison of engine versions.
+
+\subsection{Build Rate, Working Rate, and Classification Accuracy}
+Let $N$ be planned cases, $B$ produced binaries, and $W$ binaries passing
+the functional test. Build rate is $B/N$, overall working rate is $W/N$,
+and working rate among produced binaries is $W/B$.
+For example, ten planned cases, eight produced binaries, and six successful
+tests give 80\%, 60\%, and 75\%, respectively. The recovery figure compares
+successful tests with recorded tests, matching the available historical
+records. A repeated execution of the same binary is not a new variant.
+
+For classification, \emph{predicted} means the bytes that the method labels
+as data. \emph{Reference} means the known correct data bytes annotated
+before the test. For example, if a string occupies bytes 20--29, the
+reference contains those ten byte positions. A prediction of bytes 20--27
+finds eight of them and introduces no extra byte: precision is 100\%
+and recall is 80\%. In general, for predicted positions $P$ and reference
+positions $G$, precision is $|P\cap G|/|P|$ and recall is $|P\cap G|/|G|$.
+An exact match requires all data intervals to agree, with no omissions or
+additions. For programs without separate data, the correct answer is an
+empty set. On original payloads without independent annotations, we report
+agreement between the methods and the resulting execution outcomes.
+
+\subsection{Similarity, Detection Rate, Diversity, and Cost}
+\paragraph{Similarity.}
+The LLM similarity score compares the prepared input assembly with the
+accepted output assembly. It measures how much of their instruction
+sequences matches, using $S=2M/(u+v)$ for $M$ matched elements and sequence
+lengths $u,v$~\cite{python_difflib}. NOP-like operations are ignored for
+the NOP condition, so adding only those operations can leave $S=1$ even
+when the binary changes. Similarity describes representation; functionality
+is measured by the execution tests. This score is separate from the
+historical cosine and entropy measures.
+
+\paragraph{Detection rate.}
+We retain the historical engine-level detection rate:
+$d_i=m_i/a_i$, where $m_i$ engines flag file $i$ as malicious and $a_i$
+engine responses are reported. The tables give its mean across files,
+$\overline d$, as a percentage. We also report the \emph{detected-file
+rate}, $q$: the fraction of files flagged by at least one engine.
+For example, one malicious response out of 75 is an engine detection rate
+of 1.33\%; that file still counts as detected in $q$. Thus the two rates
+answer different questions: how many engines flag a file, and how many
+files receive any malicious verdict.
+
+Nonempty current reports contain 75 responses, including unsupported
+formats, timeouts, and failures. We disclose these categories separately;
+an empty report is treated as missing. These measurements concern static
+scans of raw files. Passing and failing outputs remain separately identified.
+
+\paragraph{Diversity and resources.}
+$U$ counts distinct output SHA-256 hashes: identical output bytes count
+once for diversity and scanning, even when produced by multiple runs.
+A shared hash retains membership in every relevant experimental condition.
+Consequently, per-condition unique counts need not sum to the global count.
+Time is the recorded duration of a run, including local processing.
+Estimated API costs include failed calls and restarted runs. Source records,
+version mappings, and the detailed accounting are supplied with the artifact.

@@ -1,0 +1,33 @@
+{
+  "pdf_sha256": "d8fa9208ba9ebbd2d7d11d97f5b64062b132c2500f1d40709191970b2028ef5c",
+  "pages": 29,
+  "out_of_page_characters": [],
+  "unresolved_markers": [],
+  "overfull_boxes": 0,
+  "undefined_references": 0,
+  "missing_glyph_warnings": 0,
+  "table_bodies": {
+    "before": 13,
+    "after": 13,
+    "all_identical": true
+  },
+  "retained_objects": {
+    "figure": {
+      "before": 8,
+      "after": 8,
+      "all_identical": false,
+      "intentional_revision": "Conceptual pipeline: explicit stop paths and shorter caption only."
+    },
+    "lstlisting": {
+      "before": 4,
+      "after": 4,
+      "all_identical": true
+    },
+    "algorithm": {
+      "before": 1,
+      "after": 1,
+      "all_identical": true
+    }
+  },
+  "rendered_pages": 29
+}

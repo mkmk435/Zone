@@ -1,0 +1,1364 @@
+PAGE 1
+Zone: Code–Data Identification, LLM-Assisted
+Transformation, and Assembly Wrapping for Binary
+Rewriting
+Stefano Bistarelli[0000−0001−7411−9678], Jacopo Di Benedetto, and
+Francesco Santini[0000−0002−3935−4696]
+Dipartimento di Matematica e Informatica, Università degli Studi di Perugia,
+Via Vanvitelli 1, 06123 Perugia (PG), Italy
+stefano.bistarelli@unipg.it
+jacopo.dibenedetto@studenti.unipg.it
+francesco.santini@unipg.it
+Abstract. Rewriting a raw binary requires distinguishing instructions from em-
+bedded data and preserving their references when the layout changes. Zone is a
+binary-to-binary metamorphic engine for compact Windows x86 and x64 pay-
+loads. This extended study adds symbolic/heuristic and LLM-based data identi-
+fication, LLM-proposed instruction transformations, and integration of assembly
+wrapping, an existing technique that gives stored bytes different static and ex-
+ecuted instruction interpretations. Six annotated benign programs are identified
+exactly in 18 LLM and six symbolic runs. On 13 separate benign fixtures, LLM
+transformation yields correct output buffers in 167/168 x64 and 138/144 x86 in-
+vocations. On a separate recovery cohort of 13 previously problematic x64 pay-
+loads, working rate improves from 1.2% to 80.2%; the corresponding x86 subset
+improves from 14.9% to 25.9%. In the completed campaigns on all 102 original
+payloads, wrapping constructs 243/306 variants, with 170 passing the functional
+harness; LLM transformation constructs 350 outputs across 816 conditions, with
+275 passing. Current raw-file scans give a mean engine detection rate of 0% for
+207 distinct wrapping outputs and 5.06% across 322 nonempty reports for LLM-
+transformed outputs. Together, the experiments demonstrate improved functional
+reliability and evaluate the added transformation modes through construction, ex-
+ecution, and static detection measurements.
+Keywords: Binary Rewriting · Metamorphic Code · Code–Data Identification ·
+Large Language Models · Functional Preservation
+1 Introduction
+Metamorphic rewriting changes a program’s instruction sequence, whereas polymor-
+phic encoding typically changes an encrypted body and its decoding routine. Both
+complicate byte-pattern recognition, but expose different representations during execu-
+tion [12,5,20]. Zone is a modularbin2bin engine for studying these effects on Windows
+x86 and x64 payloads without source code or debugging symbols.
+
+PAGE 2
+2 S. Bistarelli et al.
+Motivation and Contributions of the Extension. The conference study [4] evaluated 102
+payloads under 15 transformation configurations and observed substantial functional
+loss. Embedded data is one source of failure: a disassembler can interpret a string as in-
+structions, which rewriting then modifies. Preserving the bytes alone is also insufficient
+when changes invalidate their references. This extension addresses data preparation and
+evaluates additional ways to transform the prepared code. Its contributions are:
+– Alternative symbolic/heuristic and LLM data classifiers, followed by shared deter-
+ministic handling of supported data and references.
+– AnLLMtransformationpathforEQ,NOP,BCF,andIBP,comparingrequestswith-
+out examples and with two worked examples.
+– Integration and assessment of the existing assembly-wrapping technique on both
+x64 and x86.
+– Completed experiments on annotated and controlled programs and the original cor-
+pus,includingrecoverytestsonpreviouslyproblematicinputs,functionaloutcomes,
+static detection, diversity, and cost.
+The original architecture, PII design, experiments, and comparison with Shikata Ga
+Nai provide the baseline. Reused figures, tables, listings, and the algorithm carry source
+citations; added methods and measurements are identified separately. The selected x64
+recovery cohort improves from 1.2% to 80.2% working rate, motivating a joint assess-
+ment of construction and execution rather than detection alone.
+The scope remains compact, position-independent payloads. Full Portable Exe-
+cutable (PE) rewriting requires additional treatment of imports, sections, relocations,
+alignment, and entry points, and signatures may also occur outside code [21]. Raw-file
+scan results and payload-level execution tests therefore describe the tested representa-
+tions, not complete malicious applications or deployed endpoint protection.
+Sections 2–7 summarize the baseline methods, results, and limitations. Sections8–
+10presenttheadded methods;Sections 11and12describetheirevaluation.Discussion,
+related work, and conclusions follow in Sections13–15.
+2 Background
+The following background distinguishes metamorphic rewriting from polymorphic en-
+coding and introduces the transformation families used in the baseline evaluation.
+2.1 Metamorphic Engines
+A metamorphic engine rewrites an instruction-level representation with functional
+preservation as its objective. Substitution, insertion, and reordering produce different
+byte sequences but require preservation of control flow, references, and relevant pro-
+cessor state [24,28,17]. Unlike polymorphic encoding, metamorphism does not require
+a decrypt-and-execute stage. Shikata Ga Nai varies its decoding stub, whose recurring
+features can themselves be recognized [18]; after decoding, its original body may be
+available to memory analysis [11]. A rewritten body instead executes in its transformed
+representation, without this distinction alone guaranteeing runtime evasion.
+
+PAGE 3
+Zone: An Extended bin2bin Metamorphic Engine 3
+Table 1.Instruction substitutions and corresponding encodings (x86). Reproduced from Table 1
+of [4].
+Original Inst. Morphed Inst. Orig. Bytes Morphed Bytes
+XOR eax, eax MOV eax, 0 31 C0 B8 00 00 00 00
+SUB eax, 1 ADD eax, -1 83 E8 01 83 C0 FF
+ADD eax, 2 SUB eax, -2 83 C0 02 83 E8 FE
+MOV eax, 0 PUSH 0; POP eax C7 C0 00.. 6A 00 58
+2.2 Morphing Techniques
+The established transformation families considered in Zone are EQ, NOP insertion,
+IBP, and BCF. They can be evaluated separately or in selected combinations. Their an-
+tecedents are discussed in Section14.
+EQ changes the instruction vocabulary; NOP insertion adds operations intended to
+leave the relevant computation unchanged. IBP modifies the physical layout of instruc-
+tionblocks,whereasBCFintroducesbranchesandunreachableregions.PII,describedin
+Section 3.1, further separates instruction placement from logical execution order. These
+descriptions summarize the design reported in [4].
+Equal Code Substitution. EQ replaces an operation with an alternative representation
+intended to have the same effect. For example, the zeroing operationsXOR rax, rax
+and MOV rax, 0x0 have different encodings. Such examples illustrate changes in byte
+representation; preservation of all relevant state remains an implementation concern.
+Table 1 collects the substitution examples used in the conference study, including
+arithmetic complements and stack-based sequences. Instruction substitution and its use
+with insertion transformations have a long history [7,8,22].
+NOP/Dead Code Insertion. Insertion transformations introduce operations intended to
+leave the program’s relevant behavior unchanged. The single-byteNOP is one example;
+Table2 reproduces the other examples considered in the original implementation.
+Some apparent no-ops, including arithmetic with zero, can change processor flags.
+The original implementation therefore used flag-preserving sequences around such op-
+erations,asillustratedinTable 3.Theresultingrepeatedpatternsarethemselvesrelevant
+to detection: changes introduced by an engine can create recognizable regularities [3].
+Instruction Block Permutation. IBP changes where instruction blocks are stored while
+retaining their intended logical succession. The original implementation organizes the
+transformation into the following stages:
+1. Partitioning.The instruction sequence is divided into blocks; the chosen granular-
+ity affects both rewriting overhead and the amount of layout variation.
+2. Connectingblocks. An unconditional branch links each block to its logical succes-
+sor.
+3. Changing placement.Blocks are permuted, while the entry block retains its posi-
+tion.
+
+PAGE 4
+4 S. Bistarelli et al.
+Table 2.NOP-like operations and their encodings. Reproduced from Table 2 of [4].
+Example Compiled Opcode
+NOP 0x90
+SUB rax, 0x0 0x48, 0x83, 0xE8, 0x00
+ADD rax, 0x0 0x48, 0x83, 0xC0, 0x00
+MOV rax, rax 0x48, 0x89, 0xC0
+LEA rax, [rax + 0] 0x48, 0x8D, 0x40, 0x00
+PUSH rax; POP rax 0x50, 0x58
+OR rax, rax 0x48, 0x09, 0xC0
+XOR rax, 0x0 0x48, 0x83, 0xF0, 0x00
+AND rax, rax 0x48, 0x21, 0xC0
+INC rax; DEC rax 0x48, 0xFF, 0xC0; 0x48, 0xFF, 0xC8
+DEC rax; INC rax 0x48, 0xFF, 0xC8; 0x48, 0xFF, 0xC0
+SAR rax, 0x0 0x48, 0xC1, 0xF8, 0x00
+SHR rax, 0x0 0x48, 0xC1, 0xE8, 0x00
+SHL rax, 0x0 0x48, 0xC1, 0xE0, 0x00
+RCL rax, 0x0 0x48, 0xC1, 0xD0, 0x00
+RCR rax, 0x0 0x48, 0xC1, 0xD8, 0x00
+Table 3.Flag-preserving insertion example. Reproduced from Table 3 of [4].
+Instruction Compiled Opcode
+PUSHF 0x9C
+ADD rax, 0x0 0x48, 0x83, 0xC0, 0x00
+POPF 0x9D
+4. Updating references.Control-flow targets are adjusted to the resulting layout.
+This transformation changes adjacency without necessarily changing most instruc-
+tions within a block. Consequently, a detector based on a short pattern internal to an
+unchanged region may behave differently from one that relies on a longer contiguous
+sequence. The experiment assesses these changes empirically rather than assuming that
+every signature is disrupted.
+Bogus Control Flow. BCF adds branches around code that is not intended to execute.
+The implementation uses conditions with predetermined outcomes to exclude the in-
+serted region from the execution path [10,15]. Table4 reproduces the illustrative block
+from the conference article: the condition transfers control past the padding at addresses
+0x11–0x17.
+3 Zone Architecture
+The name Zone refers to Tarkovsky’sStalker and its alternative paths toward a common
+destination.Theopen-sourceimplementation ¹wasoriginallyexploredforbothcomplete
+¹ Project repository:https://github.com/jakydibe/Zone.
+
+PAGE 5
+Zone: An Extended bin2bin Metamorphic Engine 5
+Table 4.Illustrative BCF block. Reproduced from Table 4 of [4].
+Address Instruction
+0x0 mov rax, 0x1
+0x7 cmp rax, 0x1
+0xb je 0x18
+0x11 nop
+0x12 nop
+0x13 nop
+0x14 nop
+0x15 nop
+0x16 nop
+0x17 nop
+0x18 original code.......
+Call Stub 1
+Wrapped Inst. / payload
+PAD (NOP)
+Stub 2
+PAD (NOP)
+Stub 1
+PAD (NOP)
+Pointer to Payload
+PAD (NOP)
+Memory Zone
+Fig.1. PII payload layout. Adapted from Fig. 1 of [4].
+PE files and raw payloads. The extended manuscript retains the payload-level scope of
+the conference paper [4]; the difficulties of maintaining PE metadata are not evaluated
+as a separate contribution.
+The implementation is written in Python. Capstone disassembles the input, the se-
+lected transformations modify the instruction representation, and Keystone assembles
+the output. The bin2bin interface requires neither source code nor Program Database
+(PDB) symbol files.
+3.1 Position-Independent Instruction
+PII was introduced in the conference paper [4]. It decouples the physical position of an
+instruction from its place in the intended execution sequence.
+Organization. Consider an instruction such asADD rax, 1 . In the PII representation
+it is placed in a wrapper rather than relying on adjacency to its successor. The wrapper
+executes the original operation and transfers control to a redirector. An offset table sup-
+plies the location of the next logical instruction. Figure1 reproduces the overall layout,
+while the listings below document the components of the original design.
+The representation consists of four components:
+
+PAGE 6
+6 S. Bistarelli et al.
+1. Base-AddressStub(Stub1). This component determines the runtime base address
+and records it in a designated memory location.
+2. Redirector Stub (Stub2).This component obtains the next logical instruction lo-
+cation from the offset table and dispatches execution to it.
+3. OffsetTable. Thiscontiguoustablecontainstheinstructionoffsetsusedbytheredi-
+rector.
+4. Wrapped Instructions.Each input instruction is placed in a wrapper intended to
+maintain the required register, flag, and stack state.
+Execution Sequence. The conference paper describes execution in three phases:
+– Initialization. A call enters Stub1 (Listing1). The return address supplied by that
+call is used to establish the payload’s runtime location.
+– Original operation.The wrapper in Listing2 restores the saved state, adjusts the
+stack, executes the input instruction, and supplies its logical index to Stub2.
+– Dispatch. The redirector in Listing3 saves the state it uses, obtains the successor’s
+location from the offset table and base address, and transfers control to that wrapper
+after restoring the relevant state.
+Physical Placement. The original implementation permutes complete wrappers, treat-
+ing each five-instruction wrapper as a unit. The offset table is updated for the resulting
+placement. Execution still starts with the initial call to Stub1; logical succession is rep-
+resented by the table rather than by the wrappers’ physical adjacency.
+Listing 1.Base-address component. Reproduced from Listing 1 of [4].
+pop <random_unused_reg>; popping 2nd instruction address
+mov [<random_unused_reg> - 5 + <init_address>], <random_unused_reg> ; move it to a memory
+slot
+push <random_unused_reg>; push just to avoid altering the stack
+jmp <random_unused_reg>; return to the caller (2nd instruction)
+Listing 2.Instruction wrapper. Reproduced from Listing 2 of [4].
+pop rax; ; popping rax because we just used it to save jmp address
+lea rsp, [rsp + 8]; ; adjusting stack to avoid stack overflow
+ORIGINAL_INSTRUCTION; ; original instruction
+push <0x3e8 + counter>; ; pushing instruction original index + a constant
+jmp <stub2_address>; ; Jumping to 'redirector' stub
+Listing 3.x64 redirector. Reproduced from Listing 3 of [4].
+push rax; saving original 'rax' register state
+push rcx; saving original 'rcx' register state
+mov rcx, [rsp + 0x10] ; getting the instruction index from the stack.
+pushf; saving original CPU flags
+sub rcx, 0x3e8; ; subtracting a constant to get instr index
+inc rcx; increase instruction number
+mov rax, [rip + init_addr_offset]; get payload base address
+mov rcx, [rax + mem_address - 5 + rcx * 8]; get next instruction address
+sub rcx, 0x5; just because base address is 2nd instruction
+add rax, rcx; add payload base address to the offset
+popf; restore cpu flags
+pop rcx; restore rcx value
+jmp rax; jmp to next instruction
+
+PAGE 7
+Zone: An Extended bin2bin Metamorphic Engine 7
+Architectural Variants. Listings 3 and 4 show the published x64 and x86 redirectors.
+In addition to the different register widths, they differ in how the required address is
+obtained: the x86 version uses the call-based mechanism documented in the original
+listing rather than x64 RIP-relative addressing.
+Listing 4.x86 redirector. Reproduced from Listing 4 of [4].
+push eax ;
+push ecx ;
+mov ecx , [esp + 0x8]
+pushf;
+sub ecx , 0x3e8;
+inc ecx ;
+call <stub2_address + 0x14>; calling pop eax, 0x14 is pop eax offset from stub2 address
+pop eax ; popping eax puts in eax the value of the instruction pointer
+mov eax , [eax + <init_addr_offset>];
+mov ecx , [eax + <mem_address> - 5 + ecx * 4];
+sub ecx , 0x5
+add eax , ecx
+popf;
+pop ecx ;
+jmp eax ;
+3.2 How Instructions Are Patched
+Moving instructions or inserting bytes can invalidate references to their previous loca-
+tions.Thepatchingphaseupdatescontrol-flowdestinationsandotheraffectedreferences
+tothemodifiedlayout.Branchesandcallsarethereforepartoftherewritingprocess,not
+merely instructions that can be copied without regard to their new positions.
+This requirement also explains the scope restriction. Rewriting raw instruction se-
+quences already requires consistent target updates; complete PE files introduce addi-
+tional metadata and layout dependencies. Algorithm1 reproduces the high-level work-
+flow from [4].
+3.3 Transformation Pipeline
+The original workflow in Algorithm1 can be read as six stages. The additional analysis
+and transformation paths are described in Sections8–10.
+1. Input representation.Capstone produces instruction objects held in a linked se-
+quence, with an address-indexed dictionary for lookup (Line4).
+2. Embedded data. The implementation enables Capstone’s Skipdata option
+(Line 5). This does not solve the general problem of identifying inline data,
+particularly when data bytes also admit an instruction interpretation [10].
+3. Reference tracking.A label table associates each tracked control-flow operation
+with its target instruction object. This association is retained as the object’s physical
+address changes.
+4. Transformation and layout update. The chosen transformations are applied
+(Line 19), followed by recomputation of instruction addresses (Line12).
+5. Reassemblyoftrackedbranches. Keystoneassemblesthetrackedcontrol-flowop-
+erations using their updated targets (Line25).
+6. Output. The resulting instruction bytes are written as a new raw binary (Line36).
+
+PAGE 8
+8 S. Bistarelli et al.
+Algorithm1: High-levelZoneworkflow.ReproducedfromAlgorithm1of[ 4].
+Data: raw_bytes
+Result:Transformed binary
+1 global instruction_list← [];
+2 global instruction_dict← {};
+3 global label_table← [];
+4 Function disass
+5 CAPSTONE.SKIPDATA← TRUE;
+6 for eachinstruction in disasm(raw_bytes)
+7 instruction_list.append(instruction);
+8 instruction_dict[instruction.address]← instruction;
+9 if instruction is X86.Control_flow_instruction
+10 jump_address← extract_address(instruction.op_string);
+11 label_table.append((instruction, instruction_dict[jump_address]));
+12 Function update_instructions
+13 new_instruction_dict← {};
+14 for eachinstruction in instruction_list
+15 address← instruction.previous_instruction.address + len(instruction.previous_instruction.bytes);
+16 instruction.address← address;
+17 new_instruction_dict[instruction.address]← instruction;
+18 instruction_dict← new_instruction_dict;
+19 Function morph
+20 equal_code_substitution();
+21 nop_insertion();
+22 instruction_block_shuffling();
+23 bogus_control_flow();
+24 position_independent_instruction();
+25 Function adjust_label_table
+26 update_instructions();
+27 for eachentry in label_table
+28 jmp_addr← extract_address(entry[0].op_string);
+29 jmp_addr_new← entry[1].address;
+30 new_instruction← keystone.assemble( “entry[0].mnemonic jmp_addr_new”);
+31 entry[0]← new_instruction;
+32 Function main
+33 disass();
+34 morph();
+35 adjust_label_table();
+36 write_to_file();
+4 Published Experimental Baseline
+Draft note.Historical detection-plot associations and similarity provenance still require recon-
+ciliation with the conference records (BASELINE_CHECKS.md). Working rates are consolidated in
+Table12 using the retained test records.
+This section restates the protocol and results of the conference paper [4]. It intro-
+duces no additional measurements. VirusTotal scans supplied verdicts from more than
+70 engines, subject to the file-format limitations discussed below.
+The corpus contains 102 Windows payloads: 38 x64 inputs and 64 x86 inputs. Most
+originate from the Metasploit Framework and include reverse and bind shells. This pro-
+vides an identifiable collection of payload types, but does not constitute a representative
+sample of all Windows malware.
+
+PAGE 9
+Zone: An Extended bin2bin Metamorphic Engine 9
+nop eq pii bcf ibp
+eq_nop_piieq_nop_bcfeq_nop_ibp
+eq_nop eq_piieq_bcfeq_ibpnop_piinop_bcfnop_ibp
+0
+1
+2
+3
+0.97
+2.24
+0.00
+0.98
+0.62
+0.00
+0.51
+0.37
+0.92
+0.80
+0.50
+0.00
+0.54
+0.38
+0.000.32
+2.63
+0.00
+0.28
+0.00 0.00 0.01 0.02
+0.29 0.20
+0.03 0.00 0.03 0.01 0.00
+Detection rate (%)
+x64 x86
+Fig.2. Malicious-verdict fractions in raw-file scans. Dashed reference lines show the reported
+architecture averages (x64: 0.57%; x86: 0.25%). Data from Fig. 2 of [4]; redrawn for the present
+format.
+The x64 and x86 collections differ in membership as well as size, so architecture
+comparisons also reflect their input composition. Large, DLL-based components fall
+outside the payload-level scope.
+Testing Method. Each of the fifteen configurations was applied to every input, with ten
+generated variants per input and configuration to expose variation in the transformation
+process. The five individual transformations and ten combinations were:
+– Single: NOP (nop), Equal Code Substitution (eq), Bogus Control Flow (bcf), In-
+struction Block Permutation (ibp), and Position-Independent Instruction (pii).
+– Combined: eq_nop_bcf, eq_nop_ibp, eq_nop_pii, eq_nop, eq_bcf, eq_ibp,
+eq_pii, nop_bcf, nop_ibp and nop_pii.
+The detection rate for an individual file is the fraction of scanning engines that re-
+turned a malicious verdict; summaries aggregate these per-file measurements. Figure2
+presents the published transformed-file results. The corresponding baseline averages for
+the original files were 21.67% for x64 and 22.63% for x86.
+The plotted observations vary by transformation and architecture. Several configu-
+rations involving PII received no malicious verdicts in these raw-file scans, whereas EQ
+retained more detections. These measurements describe the tested representations and
+submission conditions; they should be interpreted together with the functional results.
+The working rate is the proportion passing the execution checks: an expected con-
+nection for reverse shells, port opening for bind shells, or exception-free termination for
+other generic cases. Table12consolidates historical rates recomputed from retained test
+
+PAGE 10
+10 S. Bistarelli et al.
+nop eq pii bcf ibp
+eq_nop_piieq_nop_bcfeq_nop_ibp
+eq_nop eq_piieq_bcfeq_ibpnop_piinop_bcfnop_ibp
+0
+5,000
+10,000
+725 463
+4796
+1377
+543
+7838
+2366
+903
+1124
+7105
+2150
+902
+11900
+3595
+1400
+700 417
+4577
+1301
+532
+7354
+2321 971
+719
+4617
+1338
+549
+7400
+2287
+954
+Mean file length (bytes)
+x64 x86
+Fig.3. Mean transformed-file length. Reference lines indicate the original-file means (x64:
+652.632 bytes; x86: 400.750 bytes). Data from Fig. 4 of [4]; redrawn for the present format.
+recordswiththeupdatefor49retestedinputs.Thisreplacestheearlierworking-rateplot
+and aligns configuration labels with those records. The historical study reported greater
+stability for EQ and lower stability for PII, particularly on x86.
+Evaluation Limitations. Raw .bin submissions may receive a different analysis
+path from complete executables, including unsupported-format responses and omitted
+execution-based analysis. Comparing originals and variants under the same format
+assumptions provides a corpus-specific comparison, not an evaluation of complete
+antivirus or EDR products during deployment [4].
+5 Size and Statistical Measurements
+The conference paper measured file length, entropy change, and cosine similarity to
+characterize the rewritten representations [4].
+Payload Length Variation. Let 𝐿𝑖 denote the byte length of a transformed file and let𝑛
+be the number of files considered for a configuration. The reported mean length is:
+𝐿 = 1𝑛 𝑛∑𝑖=1 𝐿𝑖
+The size results in Figure3show substantial growth for PII and BCF configurations.
+Some EQ-containing configurations instead produced smaller average outputs than the
+original-filereference.Theconferencepaperassociatedthisobservationwiththeimple-
+mentation’s treatment of data during disassembly; the size measurement alone does not
+establish that any removed bytes were semantically irrelevant.
+
+PAGE 11
+Zone: An Extended bin2bin Metamorphic Engine 11
+nop eq pii bcf ibp
+eq_nop_piieq_nop_bcfeq_nop_ibp
+eq_nop eq_piieq_bcfeq_ibpnop_piinop_bcfnop_ibp
+−30
+−20
+−10
+0
+10
+20
+11.2
+1.4
+-28.5
+1.2
+4.2
+-20.0
+5.2 10.1
+7.3
+-24.5
+-1.6
+-4.9
+-19.2
+4.4
+6.9
+13.6
+-1.9
+-21.0
+2.7
+0.6
+-17.1
+1.9
+11.1 12.7
+-20.4
+1.8
+-1.1
+-13.9
+2.3
+11.8
+Assembly entropy change (%)
+x64 x86
+Fig.4. Percentage entropy change for tokenized assembly; the reference level is zero. Data from
+Fig. 5 of [4]; redrawn for the present format.
+Delta Entropy. The reported entropy change compares the transformed representation,
+𝐻𝑡𝑒𝑐ℎ, with its original,𝐻𝑜𝑟𝑖𝑔, using the percentage difference:
+Δ𝐻(%) = 𝐻𝑡𝑒𝑐ℎ− 𝐻𝑜𝑟𝑖𝑔
+𝐻𝑜𝑟𝑖𝑔
+× 100 (1)
+The measurements were computed on raw bytes and on tokenized assembly. Fig-
+ures4and5retainthepublishedresults.Theassembly-basedrepresentationalsopermits
+comparison with the metrics discussed by Mohseni et al. [19].
+NOP insertion increased assembly entropy, whereas PII decreased it, consistent
+with repeated bookkeeping instructions. BCF combined small entropy changes with
+increased length and a changed opcode distribution; IBP could change layout while
+retaining similar instruction frequencies. Entropy describes the representation, not
+functional preservation.
+Cosine Similarity. The frequency vectors𝐴 and 𝐵 represent the opcode distributions of
+an original file and its transformed variant. Their cosine similarity is:
+sim( 𝐴, 𝐵) = 𝐴· 𝐵∥ 𝐴∥∥ 𝐵∥ = ∑𝑛𝑖=1 𝐴𝑖 𝐵𝑖√∑𝑛
+𝑖=1 𝐴2𝑖
+√∑𝑛
+𝑖=1 𝐵2𝑖
+Here 𝐴𝑖 and 𝐵𝑖 are opcode frequencies and𝑛 is their joint vocabulary size. This
+representation-level comparison [19] does not establish equivalent behavior.
+The execution checks in Section4assess functionality separately: even a small error
+can alter behavior without substantially changing instruction frequencies.
+
+PAGE 12
+12 S. Bistarelli et al.
+nop eq pii bcf ibp
+eq_nop_piieq_nop_bcfeq_nop_ibp
+eq_nop eq_piieq_bcfeq_ibpnop_piinop_bcfnop_ibp
+−30
+−20
+−10
+0
+-6.7
+-3.2
+-26.8
+-7.1
+-2.1
+-25.4
+-13.1
+-7.6 -8.2
+-25.1
+-8.6
+-2.2
+-24.0
+-13.1
+-5.1
+-6.3
+-0.7
+-24.5
+-7.9
+-2.1
+-24.4
+-12.6
+-7.0 -6.9
+-24.0
+-8.5
+-3.0
+-22.1
+-12.3
+-6.5
+Byte entropy change (%)
+x64 x86
+Fig.5. Percentageentropychangeforrawbytes;thereferenceleveliszero.DatafromFig.6of[ 4];
+redrawn for the present format.
+nop eq pii bcf ibp
+eq_nop_piieq_nop_bcfeq_nop_ibp
+eq_nop eq_piieq_bcfeq_ibpnop_piinop_bcfnop_ibp
+0
+0.2
+0.4
+0.6
+0.8
+1
+0.686
+0.985
+0.270
+0.557
+0.873
+0.405
+0.632
+0.402
+0.703
+0.439 0.567
+0.888
+0.469
+0.396
+0.624
+0.733
+0.996
+0.393
+0.570
+0.899
+0.405
+0.644
+0.452
+0.735
+0.403
+0.568
+0.899
+0.451
+0.449
+0.638
+Opcode cosine similarity
+x64 x86
+Fig.6. Cosine similarity between original and transformed opcode-frequency vectors; the refer-
+ence level is one. Data from Fig. 7 of [4]; redrawn for the present format.
+
+PAGE 13
+Zone: An Extended bin2bin Metamorphic Engine 13
+Table 5.Inline-data example affected by rewriting. Reproduced from Table 5 of [4].
+Bytes Instruction
+0x109 b'\xff\xd5' call rbp
+0x10b b'c' .byte 0x63
+0x10c b'a' .byte 0x61
+0x10d b'l' insb byte ptr [rdi], dx
+0x10e b'c' .byte 0x63
+0x10f b'.exe' js 0x178
+0x113 b'\x00' .byte 0x00
+Table 6.Immediate-operand example. Reproduced from Table 6 of [4].
+Bytes Instruction
+0x8d b'Q' push rcx
+0x8e b'H\xb9calc.exe' movabs rcx, 0x6578652e636c6163
+0x98 b'Q' push rcx
+0x99 b'H\x8d\x0c\$' lea rcx, [rsp]
+0x9d b'H1\xd2' xor rdx, rdx
+0xa0 b'H\xff\xc2' inc rdx
+0xa3 b'H\x83\xec(' sub rsp, 0x28
+0xa7 b'\xff\xd0' call rax
+Figure6showshighersimilarityforEQandIBPthanfortheinsertion-heavyconfig-
+urations. This is consistent with their different effects on the instruction vocabulary. The
+larger size changes in Figure3provide complementary information about the additional
+instructions; neither measurement should be substituted for a functional test.
+6 Limitations and Defensive Implications
+Thefollowinglimitationsconcerntheoriginalimplementationandexperiments[ 4].Sec-
+tions8–10describesubsequentworkmotivatedbytheseobservations;theresiduallimits
+of the added paths are discussed in Section13.
+– Instruction coverage.Less common instructions, including the exampleJRCXZ,
+can require handling not exercised by this corpus. Testing a fixed collection of 102
+inputs does not establish complete x86/x64 coverage.
+– Code–data ambiguity.Embedded strings may partly decode as instructions. Ta-
+ble 5 illustrates an input in which the bytes of.exe are interpreted as a branch.
+Rewriting the resulting instruction interpretation can corrupt the embedded string.
+Recovering instructions and references is a general challenge in static analysis [27].
+Thetwopublishedexamplesbelowshowoneconcretedistinction:aninlinestringversus
+a string encoded within an instruction operand.
+In Table5, part of the trailingcalc.exe string decodes as a branch and can be
+modified by rewriting.
+In Table6, the string is an immediate operand at0x8e; the reported transformation
+avoids that inline-data failure. Section8 develops the corresponding preparation stage.
+
+PAGE 14
+14 S. Bistarelli et al.
+6.1 Mitigations and Countermeasures
+Changing the binary representation does not remove a program’s observable actions.
+Defensive analysis can consider memory protections, execution patterns, API activity,
+and network behavior in addition to static bytes. Recognition of a transformation engine
+is another possibility: repeated artifacts of a common toolchain can persist across out-
+puts, as documented for Shikata Ga Nai [18]. Statistical or learned detectors must also
+account for benign programs that share similar features. These are defensive considera-
+tions arising from the study, not results of an additional detection experiment.
+7 Comparison with Shikata Ga Nai
+The conference study [4] compared Zone with the Shikata Ga Nai (SGN) polymorphic
+encoder [13], using the original x86 encoder and an unofficial x64 implementation [9].
+Reported mean static detection rates were 0% for SGN versus 0.57% for Zone on x64,
+and 10.22% versus 0.25% on x86; PII reached 0% on both.
+SGNvariesanencodedbodyanditsdecodingstub,whoserecurringfeaturesmaybe
+recognized [18]. The conference study also scanned memory dumps from SGN execu-
+tion and reported verdicts matching the unencoded inputs, consistent with exposure of
+the original body after decoding [11]. Zone instead intends to retain the rewritten repre-
+sentation during execution. The dump comparison measures recognizability of submit-
+ted memory contents, not runtime detection by a deployed endpoint product.
+8 Code–Data Identification and Data-Preserving Rewriting
+8.1 Why Data Identification Comes Before Transformation
+Arawbinarycontainsnoexplicitdistinctionbetweeninstructionsandembeddedstrings
+or tables. String bytes may decode as plausible instructions, so rewriting their apparent
+instruction sequence can corrupt data. Table5 illustrates this failure; in Table6, the
+string instead occupies an instruction operand that must remain intact.
+Preparationseparatestworesponsibilities. Identificationproposesdataregions; data
+handling preserves supported objects and updates their references after layout changes.
+A reference is an instruction operand or address calculation pointing to code or data.
+Preserving a string is insufficient if the program still reads its old address. Figure7
+shows the alternative symbolic/heuristic and LLM classifiers feeding shared handling.
+Independently, instructions can be transformed natively or by an LLM: classification
+does not imply LLM transformation.
+8.2 What a Classification Result Means
+For an input of𝑛 bytes, a proposed data region is an interval[𝑠, 𝑒): it starts at offset𝑠
+from the beginning of the input and includes every byte up to, but not including,𝑒. For
+example,[2, 8) denotes six bytes. An optional type describes a string encoding, such as
+
+PAGE 15
+Zone: An Extended bin2bin Metamorphic Engine 15
+Raw binary and target architecture
+Symbolic exploration
+and static heuristics
+LLM data classifier
+(proposes regions only)
+Shared data handling: check candidate regions,
+preserve supported data and track references
+Transform code: native methods, assembly wrapping,
+or LLM-proposed EQ, NOP, BCF, or IBP
+Finalize layout and references; check construction
+Test the produced binary with an external harness
+or
+Fig.7. Conceptual organization of the extensions. Identification chooses candidate data regions;
+sharedhandlingpreservessupportedobjectsduringrewriting.Successfulconstructionisfollowed
+by a separate behavioral test. Unsupported inputs can stop before a binary is produced.
+ASCII or UTF-16LE, or another data object. The output is a set of candidate intervals,
+not a replacement binary.
+Threestagesmustbedistinguished:aclassifier’sproposedregions,regionsaccepted
+by the engine’s checks, and regions actually extracted from the instruction stream. A
+correctproposalmaystillbeunsupportedifitsreferencescannotbeupdated.Conversely,
+different proposals can produce the same binary when the shared checks retain the same
+objects. The experiments compare annotations, accepted outputs, and final hashes at
+their respective stages.
+8.3 Symbolic Exploration Combined with Static Heuristics
+The non-LLM method combines three sources of evidence. First, static analysis recov-
+ers a control-flow graph (CFG): nodes represent basic blocks of instructions and edges
+represent possible transfers of execution. Zone uses angr’s CFGFast analysis for this
+initial structure [2]. Second, symbolic execution explores possible paths while repre-
+senting unknown register and memory values as symbolic expressions. This supplies
+additional evidence about which instructions can be reached. Third, pattern-based rules
+recognize printable ASCII and UTF-16LE string candidates, including their termina-
+tors, and consider regions identified as data by the control-flow analysis. Candidates
+overlapping confirmed instruction bytes are filtered out. These rules supply recogniz-
+able patterns and supporting evidence; an unexplored region alone is not sufficient to
+classify it as data.
+
+PAGE 16
+16 S. Bistarelli et al.
+An observed instruction protects its entire decoded byte span, not only its starting
+address.Thismattersforvariable-lengthinstructions:aninteriorbyteshouldnotbecome
+a data candidate merely because the explorer recorded only the instruction’s first byte.
+Newly observed entry points can also support another graph-recovery pass. Printable
+candidates that overlap observed code are excluded by the string heuristic; candidates
+overlapping graph-recovered code need additional structural support.
+Exploration is bounded by time, solver, and state limits. The initial state does not
+reproduce every feature of a Windows process, including all external API behavior.
+Consequently, an unvisited region isunknown, not proven to be data. Reports retain
+the evidence category, stopping reason, unresolved states, and errors. These distinctions
+prevent a partial execution search from being presented as a complete partition of the
+binary into code and data.
+8.4 LLM Identification and Shared Data Handling
+The LLM receives hexadecimal bytes, a linear disassembly, and candidate printable
+strings, and returns structured data intervals. The disassembly is evidence to assess, not
+a trusted annotation. This mode neither extracts data nor rewrites instructions.
+Deterministic parsing rejects empty or out-of-bounds intervals and invalid overlaps.
+The engine examines supported references and retains accepted data separately from
+the instructions. After transformation, it finalizes references using the new layout. In-
+tegrity checks compare retained bytes with their saved originals at the final locations
+and verify supported references against their expected destinations; mismatches reject
+the construction. Address handling is architecture-specific.
+For example, a benign routine may copy embedded stringsalpha and beta into a
+buffer. Identification locates the strings; handling preserves their contents and links; the
+finalexecutiontestcheckstheexpectedbuffer.Thesetestdifferentstagesofthepipeline.
+Correction requests append the rejected answer and validator diagnostic to the con-
+versationandaskforarevisedproposal,withintheconfiguredattemptlimit.Aninterval
+beyondtheinput,forexample,receivesanout-of-boundsdiagnostic.Classificationfeed-
+back concerns data locations; transformation feedback concerns assembly. Likewise,
+examplesillustratingclassificationareindependentofthetransformationzero-shot/two-
+shot conditions in the next section.
+Caching reuses identified regions associated with an input identity. References are
+computed again for the working representation because rewriting can move code and
+data. Reusing identification therefore does not reuse obsolete addresses. Both classi-
+fiers feed the same handling, which can reconcile different proposals into identical final
+binaries.
+9 LLM-Assisted Assembly Transformation
+9.1 What the Model Is Asked to Change
+In this mode the LLM receives assembly and proposes a new instruction sequence in-
+tendedtopreservebehavior.ItsupportstheEQ,NOP,BCF,andIBPfamiliesintroduced
+
+PAGE 17
+Zone: An Extended bin2bin Metamorphic Engine 17
+in Section2; data classification instead returns only locations. PII and wrapping remain
+native operations because their layout and encoding constraints are not implemented in
+the LLM interface’s requests and validators. This is an implementation boundary, not
+an intrinsic limitation of language models.
+Zonepreparesanassemblylistingwithidentifieddataretainedseparately.Themodel
+proposesinstructionchangeswhiledeterministichandlingpreservesexactdatacontents;
+identification itself may use an LLM. Relevant locations receive symbolic labels, which
+name destinations independently of their changing numerical offsets. An end-to-end
+model that also regenerates data would be a different, unevaluated design.
+The model returns a complete listing. Zone assembles it, restores retained data, and
+checks the construction. The original binary, prepared listing, and final binary are there-
+foredifferentrepresentations.TheinternalLLMsimilarityscorecomparespreparedand
+returned listings, excluding changes already made during preparation.
+The requested model is deepseek-flash; local version names come from the
+client’s alias table, without independent provider confirmation. Both LLM roles request
+temperature 0.2, with no sampling seed or explicit top-p. Repeated requests are not
+treated as deterministic reproductions.
+9.2 Prompting Conditions and Repeated Attempts
+A zero-shot request describes the transformation and its constraints without a worked
+example. A two-shot request adds two examples of input and transformed output. The
+number of shots thus counts examples inside a prompt; it does not count generated vari-
+ants or execution tests. Each input, transformation family, and shot setting defines an
+experimental cell.
+Validation feedback returns a rejected answer and its diagnostic—for example, a
+missing label or assembly failure—and requests a correction. It contains neither a func-
+tionalsuccesssignalnorascannerverdict.Thecontrolledbenchmarkdisablescorrection
+and makes three independent single-generation requests per cell, retaining failures. The
+original-corpuscampaigntargetsoneoutputpercell,withsomeretriesandfailedrestarts
+in its logs. Its results are cell outcomes rather than uniform first-generationsuccess rates
+(Section 11).
+9.3 From a Proposed Listing to an Assessed Output
+Validationcheckswhethertheresponsecanbeassembledanddecoded,whethertracked
+control-flowtargetsremainconsistent,whetherpreserveddatasurvives,andwhetherthe
+requested transformation’s structural requirements are met. A response can fail at any of
+these stages, or be truncated before it contains a complete listing. Passing them means
+that Zone accepts a constructed output, which then proceeds to the execution test.
+An externaltest harness launches the output and records its result. It compares the
+complete expected buffer for controlled programs and checks the class-specific observ-
+able for original payloads (Section11).
+The functional test is applied after generation in these experiments. Saved records
+distinguishmodelrequests,acceptedoutputs,executionresults,time,andestimatedcost,
+allowing rejection and execution failure to be analyzed independently.
+
+PAGE 18
+18 S. Bistarelli et al.
+Stored bytes Outer opcode Immediate-operand field
+Outer view One instruction containing a constant operand
+Execution view Embedded instruction sequence
+Fig.8. Conceptual views of a wrapped region. Starting at the outer opcode interprets the operand
+asaconstant;enteringtheembeddedsequenceinterpretssomeofthosesamebytesasinstructions.
+The drawing is not to scale and omits inter-region control transfers.
+10 Assembly Wrapping: Mechanism and Integration
+10.1 Reading the Same Bytes from Different Starting Points
+Assembly wrapping relies on a property of x86 and x64: instructions have variable
+lengths, and the starting byte determines how a decoder groups the following bytes into
+instructions. The same stored bytes can therefore have two interpretations when read
+from different starting points.
+Consider two views of one region. In theouter view, a decoder sees an instruction
+followed by its immediate operand, a constant stored inside that instruction. In theex-
+ecution view, part of that constant’s byte field is read as an instruction sequence. The
+established wrapping technique uses this overlap to give the stored representation an
+outer instruction structure while retaining an intended executable interpretation within
+it [1].
+Figure 8 shows these two readings of one byte field. The termcontainer refers to
+the outer instruction;embedded sequence refers to the instructions represented inside
+its operand bytes. These are two readings of shared bytes, rather than two copies of the
+program. No decryption step is required to obtain the embedded interpretation.
+10.2 What Zone Adds and What the Transformation Requires
+The contribution of this work is the integration and assessment of an existing technique,
+with implementations for both architectures. Zone starts from a prepared instruction
+stream, groups supported instructions into wrapped regions, preserves the required exe-
+cution relationships, and updates the supported location-dependent references after lay-
+out. Some instructions or local layouts cannot be placed in the main container represen-
+tation.Forexample,aninstructionsequencelongerthantheavailableoperandfielddoes
+not fit inside that container. The implementation retains unsupported cases in ordinary,
+unwrapped regions. An output may therefore contain both wrapped and ordinary code.
+Thex86andx64implementationssharethispurposebutusedifferentencodingsand
+addressing rules. In particular, the available immediate operand has a different width,
+affecting which instruction groups fit. Both architectures are included in the functional
+evaluation.
+
+PAGE 19
+Zone: An Extended bin2bin Metamorphic Engine 19
+Table 7.Test populations. The 13 controlled programs and the 13 selected x64 payloads are dif-
+ferent sets with different purposes.
+Population Inputs Purpose
+Controlled functional programs 13 Check exact expected output after transformation.
+Annotated classification programs 6 Check which bytes are identified as data.
+Original Windows payload corpus 102 Measure construction, functionality, and static
+detection.
+Recovery subset of that corpus 49 Compare historical and updated working rates on
+previously problematic inputs.
+Data-handling subset of that corpus 19 Compare symbolic and LLM identification within
+the same pipeline.
+10.3 How Wrapping Is Evaluated
+The evaluation follows three stages: construction of a binary, execution of its functional
+test, and static scanning of the produced file. Construction rate measures how many
+requestedvariants are available; working rate measures how many perform the expected
+task; detection rate describes the scanner responses. The full experiment uses all 102
+original payloads, with the same stages reported separately for x64 and x86.
+11 Experimental Design for the Extensions
+11.1 What Is Tested, and on Which Programs?
+The evaluation separates three practical questions: whether Zone identifies embedded
+data correctly, whether a transformed program still performs its expected task, and how
+often static scanners flag the resulting file. Table7 summarizes the inputs used for each
+question.
+The13 controlled functional programs(testfixtures)arepurpose-builtassemblypro-
+grams of 19–68 bytes. Six per architecture cover arithmetic, branches, loops, local calls,
+combined control flow, and embedded strings; one extra x64 case accesses data through
+a computed code address. Each writes a known result into a 256-byte buffer. A native
+C runner compares the entire buffer, including untouched positions, with the expected
+bytes. All 13 originals pass.
+The six annotated classification programs instead test data locations: two contain
+multiple strings, one a binary table, two no separate data, and one instruction bytes re-
+sembling text. Correct regions are annotated before either classifier runs and withheld
+from the model. These suites check individual mechanisms; original payloads provide
+the broader application-level evaluation.
+Theoriginalcorpus contains38x64 and64x86 Windowspayloads.Functionaltests
+check the expected dialog, network connection event, or clean termination for the rele-
+vant payload class. All 102 originals pass. Throughout this article,working means that
+the transformed output passes the corresponding functional test. We use this empirical
+definition consistently for the historical and extended evaluations.
+
+PAGE 20
+20 S. Bistarelli et al.
+Therecoverycomparisonselectsthe49originalinputswhosehistoricalworkingrate
+was below 50%: 13 x64 and 36 x86. It compares the same inputs and 15 transformation
+configurations before and after the pipeline update. New results use ten variants per x64
+input/configurationandfiveperx86input/configuration.Data-preparation-onlycontrols
+are reported separately. The comparison measures the updated pipeline as a whole, in-
+cluding the improved MessageBox test; it is not an ablation of data identification alone.
+11.2 Configurations, Repetitions, and Model Calls
+A cell combines an input, transformation, and prompting condition: for example, one
+x64 program transformed with EQ and two examples. Repeating that combination gives
+repetitions of the same cell.
+Both LLM roles request temperature 0.2 without a sampling seed or top-p; these
+client settings do not imply identical repeated answers.
+Thenativecontrolledbenchmarkusesthreerunsperinputandtransformationfamily.
+The LLM benchmark uses four families, two prompting conditions, and three separate
+single-generation requests per cell. This gives7× 4× 2× 3 = 168 x64 requests and
+6× 4× 2× 3 = 144 x86 requests. All rejected responses and transport failures remain
+in the counts. The classification benchmark uses three LLM requests and one symbolic
+analysis per annotated program.
+On the full original corpus, wrapping uses three randomization seeds per input, giv-
+ing 102× 3 = 306 planned variants. The LLM experiment has102× 4× 2 = 816 cells
+and an output-token limit of 65,536. It targets one accepted output per cell; two success-
+ful cells required a second generation, and fourteen failed cells were restarted without
+success. These results describe the completed campaign, including those retries.
+The data-handling comparison uses 19 original inputs (13 x64, six x86) with data
+extracted by symbolic preparation. Each method proposes data regions, after which the
+same deterministic handling and functional test are applied. Input selection and shared
+processing are thus held explicit in interpreting the comparison.
+Theaccompanyingartifactrecordsengineversionsandrequesthistories.Nativex86
+IBP was tested with an earlier implementation than the later x86 LLM and wrapping
+experiments; these are separately identified in the artifact and are not a controlled com-
+parison of engine versions.
+11.3 Build Rate, Working Rate, and Classification Accuracy
+Let 𝑁 beplannedcases, 𝐵 producedbinaries,and 𝑊 binariespassingthefunctionaltest.
+Buildrateis 𝐵/𝑁,overallworkingrateis 𝑊/𝑁,andworkingrateamongproducedbina-
+riesis 𝑊/𝐵.Forexample,tenplannedcases,eightproducedbinaries,andsixsuccessful
+tests give 80%, 60%, and 75%, respectively. The selected-cohort comparison divides
+successful tests by recorded tests, matching the available historical records. The overall
+update in Table12 combines the new rates for retested inputs with the retained histori-
+cal rates for other inputs. Each input keeps its historical test-count weight. This avoids
+changing the composition of the x86 average merely because the new campaign uses
+fewer repetitions. No missing historical outcome is imputed; detailed contributions are
+supplied with the artifact. A repeated execution of the same binary is not a new variant.
+
+PAGE 21
+Zone: An Extended bin2bin Metamorphic Engine 21
+For classification, predicted positions𝑃 are bytes labelled as data; reference posi-
+tions 𝐺 are the preannotated correct data bytes. Precision is|𝑃∩ 𝐺|/| 𝑃| and recall is
+|𝑃∩ 𝐺|/| 𝐺|. For a reference string at bytes 20–29, predicting 20–27 gives 100% pre-
+cision and 80% recall. Exact matching requires all intervals to agree; programs without
+separate data require an empty set. For unannotated original payloads, the evaluation
+reports agreement between methods and downstream functionality.
+11.4 Similarity, Detection Rate, Diversity, and Cost
+Representation measurements. Historical cosine and entropy definitions are retained.
+The LLM client’s SequenceMatcher compares prepared and returned listings, filtering
+NOP-like operations in the NOP condition. This diagnostic is supplied in the supple-
+mentary records rather than substituted for the historical metrics.
+Detection rate. We use the same engine-level definition as the historical evaluation:
+𝑑𝑖 = 𝑚𝑖/𝑎𝑖, where 𝑚𝑖 is the number of malicious responses for file𝑖 and 𝑎𝑖 is its total
+reported engine-response count. Tables report𝑑, the mean across files, as a percentage.
+For example, 3 malicious responses among 75 give a detection rate of 4%. Nonempty
+currentreportscontain75responses.Unsupportedformats,timeouts,andfailedanalyses
+remaininthatdenominator,consistentlywiththehistoricalconvention;theirbreakdown
+and report-completeness checks are included in the supplementary records. Missing re-
+ports are not assigned a zero detection rate. Each distinct output hash is scanned once.
+Diversity and resources. 𝑈 counts distinct output SHA-256 hashes: identical output
+bytes count once for diversity and scanning, even when produced by multiple runs. A
+sharedhashretainsmembershipineveryrelevantexperimentalcondition.Consequently,
+per-condition unique counts need not sum to the global count. Time is the recorded
+duration of a run, including local processing. Estimated API costs include failed calls
+and restarted runs. Source records, version mappings, and the detailed accounting are
+supplied with the artifact.
+12 Results of the Extended Evaluation
+The extension recovers functionality on many previously problematic payloads. In the
+selected recovery cohort, the x64 working rate rises from 1.2% to 80.2%; the corre-
+sponding x86 rates are 14.9% and 25.9% (Section12.5). The following experiments
+also measure data identification, controlled transformation behavior, and the new wrap-
+ping and LLM modes on the full original corpus. Each experiment answers a different
+question and retains its own input set.
+12.1 Data Identification: Known Answers and Original Payloads
+Onthesixclassificationfixtures,all18LLMinvocationsandallsixsymbolicrunsreturn
+theexactreferenceintervalsets(Table 8).Bothmethodsmisszerodatabytesandclassify
+zerocodebytesasdata.Thethreefixturescontainingdatahaveprecisionandrecallequal
+
+PAGE 22
+22 S. Bistarelli et al.
+Table 8.Six programs with independently annotated data locations.𝐷 is annotated data bytes.
+Exact interval sets are compared against predeclared references. Mean times are per run in sec-
+onds.
+Arch. Case 𝐷 LLM exact Symbolic exact LLM time Sym. time
+x64 databait 0 3/3 1/1 4.6 2.4
+x64 multidata 11 3/3 1/1 4.2 2.6
+x64 nodata 0 3/3 1/1 2.1 2.4
+x64 table 16 3/3 1/1 2.6 2.4
+x86 multidata 11 3/3 1/1 4.4 2.5
+x86 nodata 0 3/3 1/1 1.9 2.3
+to one; the other three correctly return no data. All resulting executions pass their buffer
+checks. This includes the deliberately misleading printable-code case, which is rejected
+as data rather than extracted as a string.
+On the 19 original data-handling inputs, both pipelines build 19/19 outputs and pass
+17/19checks.Theirintervalsagreein9/19casesandtheirfinalbinariesin16/19:shared
+handlingcanreconciledifferentproposals.Thesemeasureagreementbetweenmethods;
+the annotated tests above measure classification against known answers. The two shared
+functional failures are the x86 custom and Meterpreter WinHTTP cases. On three x64
+WinHTTPS inputs, different accepted regions still yield working outputs.
+The recorded median durations are 123.95 seconds for symbolic preparation and
+59.88 seconds for the LLM arm. The latter’s estimated cost is $0.2218 over 19 runs.
+Thesearemeasuredrundurations;preparationandcachingdifferbetweenthetwoarms.
+On the separate six-fixture benchmark, the total LLM cost is approximately $0.0059.
+12.2 Functional Tests on 13 Controlled Programs
+The functional benchmark asks whether a transformed program still produces its ex-
+pected output. Each native configuration is run three times per input: 21 tests on the 7
+x64programsand18onthe6x86programs.Table 9showssuccessfultestsoverplanned
+tests.ItcombinesthetwoLLMpromptingconditionstokeepthefunctionalcomparison
+readable; their separate results are supplied in the supplement.
+All native x64 tests pass. Native x86 EQ, NOP, BCF, and wrapping also pass; the
+recorded native x86 IBP configuration produces 17 binaries from 18 attempts, but none
+passes the complete-buffer test.
+The LLM produces 305 accepted outputs from 312 requests (97.8%), and every
+accepted output has the correct buffer. The remaining seven requests comprise five
+structural-validation rejections and two transport errors. Thus the main result is func-
+tional preservation for all accepted outputs on these controlled inputs, with construction
+availability recorded separately.
+Repeated output hashes are most visible in EQ. These inputs are short, offer few
+locations for substitutions, and are subject to the restricted set of supported transfor-
+mations. This provides a straightforward explanation for limited diversity on this suite;
+
+PAGE 23
+Zone: An Extended bin2bin Metamorphic Engine 23
+Table 9.Functional success on the controlled programs. Each entry is successful tests/planned
+tests. LLM columns combine zero-shot and two-shot requests at temperature 0.2. PII is outside
+this benchmark; wrapping is native-only. The native x86 IBP row refers to the recorded earlier
+version.
+Native LLM
+Family x64 x86 x64 x86
+EQ 21/21 18/18 42/42 36/36
+NOP 21/21 18/18 42/42 36/36
+BCF 21/21 18/18 42/42 36/36
+IBP 21/21 0/18 41/42 30/36
+Wrapping 21/21 18/18 – –
+Table 10.Wrapping on all 102 original payloads, with three seeds per input.𝑈 counts distinct
+constructed hashes.
+Arch. Inputs 𝐵/𝑁 𝑊 /𝑁 𝑊 /𝐵 𝑈
+x64 38 63/114 63/114 63/63 63
+x86 64 180/192 107/192 107/180 144
+different requests need not produce different accepted instruction sequences. Detailed
+hashes, per-shot outcomes, time, and cost remain available in the supplement.
+12.3 Wrapping on All 102 Original Payloads
+The full-corpus campaign attempts 306 variants, three per input. It constructs 243 bi-
+naries (79.4% of planned cases), of which 170 pass the harness. Thus𝑊/𝑁 = 55.6%,
+whereas 𝑊/𝐵 = 70.0%. These rates report both availability of a transformed binary and
+its functional outcome.
+Thetwoarchitecturesfailatdifferentstages.Onx64,51attemptsdonotbuild,while
+all 63 constructed outputs pass. On x86, only twelve attempts do not build, but 73 of the
+180 constructed outputs fail the harness. All 73 also fail the saved isolated retests; those
+retests are not counted as additional variants. There are 207 distinct hashes among the
+243 binaries, showing that different seeds do not always produce different bytes.
+The construction logs include incomplete instruction interpretation and inconsistent
+address references. These failure stages have a direct relationship to preparation: inter-
+preting embedded data as instructions can prevent a complete valid disassembly, and a
+reference that no longer points to the intended location fails the consistency check af-
+ter layout changes. The logs identify these symptoms; they do not assign one common
+cause to every failed execution.
+12.4 Completed LLM Transformation on the Original Corpus
+All 816 planned cells have an outcome. The campaign constructs 350 outputs, and 275
+pass the external harness: a build rate of 42.9%, an overall working rate of 33.7%, and
+
+PAGE 24
+24 S. Bistarelli et al.
+Table11. LLM transformation of all 102 original payloads.𝑁: planned cells;𝐵: accepted builds;
+𝑊:buildspassingtheexternalharness; 𝑈:distinctbuilt-outputhasheswithinthecondition.Every
+planned cell is retained.
+Arch. Family Shots 𝑁 𝐵 𝑊 𝑈
+x64 EQ 0 38 7 7 7
+x64 EQ 2 38 6 6 6
+x64 NOP 0 38 8 8 8
+x64 NOP 2 38 6 6 6
+x64 BCF 0 38 6 6 6
+x64 BCF 2 38 6 5 6
+x64 IBP 0 38 6 6 6
+x64 IBP 2 38 8 8 8
+x86 EQ 0 64 34 25 30
+x86 EQ 2 64 36 28 34
+x86 NOP 0 64 38 28 38
+x86 NOP 2 64 35 27 35
+x86 BCF 0 64 40 31 40
+x86 BCF 2 64 36 26 36
+x86 IBP 0 64 39 28 36
+x86 IBP 2 64 39 30 38
+a working rate among builds of 78.6%. Table11 shows the complete architecture/fami-
+ly/shot breakdown. These are pipeline outcomes, including the retries described in Sec-
+tion 11.
+On x64, only 53/304 cells produce binaries, but 52/53 of those binaries pass. On
+x86, 297/512 produce binaries and 223/297 pass. Construction is therefore the principal
+observed bottleneck on x64, while x86 also has a substantial failure rate after construc-
+tion. The controlled programs isolate small instruction and data patterns; the original
+payloads add larger listings and more complex layouts. The two experiments therefore
+measure different levels of difficulty.
+Zero-shot produces 178 builds and 139 passing outputs from 408 cells; two-shot
+produces172buildsand136passingoutputsfrom408cells.Theiroverallworkingrates
+are 34.1% and 33.3%. These descriptive differences offer no consistent evidence that
+adding two examples improves the outcome. They also concern repeated configurations
+of the same inputs, not 816 independent programs.
+The 466 failed cells have recorded error categories comprising 245 disassem-
+bly/boundary errors, 74 validation errors, 53 output-length terminations, one transport
+error, and 93 other errors. These labels describe the observed failure stage, not proven
+root causes. In particular, truncation means the response reaches its output limit before
+delivering a complete acceptable listing; it is distinct from a generated program failing
+at execution time.
+The 350 built outputs contain 323 distinct hashes. The median retained-run dura-
+tionis160.3seconds,includinglocalprocessing.Summingtherepresentativerecordfor
+each cell gives an estimated $19.2700, but including the 14 restarted failed runs raises
+
+PAGE 25
+Zone: An Extended bin2bin Metamorphic Engine 25
+Table 12.Overall working rates (%): historical measurements and a reconstructed update using
+the recovery tests. The update replaces rates only for the 49 retested inputs and retains historical
+ratesfortherest.Historicalratesarerecomputedfromtheretainedtestrecordsof[ 4];inputweights
+areheldfixed.Thefinalrowistheunweightedmeanoverthe15configurations,asinthehistorical
+presentation. This is a combined evidence summary, not a new execution of the full corpus.
+x64 x86
+Configuration Historical Updated Historical Updated
+NOP 65.5 92.1 48.3 49.1
+EQ 65.5 99.7 77.5 76.2
+PII 60.3 89.2 38.8 43.9
+BCF 65.8 94.5 52.7 66.1
+IBP 65.8 94.2 51.7 57.2
+EQ+NOP+PII 64.2 86.3 24.0 26.9
+EQ+NOP+BCF 1.1 29.5 43.9 54.7
+EQ+NOP+IBP 65.8 91.3 40.8 42.8
+NOP+EQ 66.0 90.5 48.1 49.2
+NOP+PII 57.3 80.1 29.3 32.5
+NOP+BCF 0.3 28.8 45.8 53.3
+NOP+IBP 66.3 89.9 40.5 44.7
+EQ+PII 57.3 86.5 28.0 31.7
+EQ+BCF 66.8 92.6 55.2 67.3
+EQ+IBP 66.0 94.4 50.6 58.4
+Mean 55.6 82.6 45.0 50.3
+recorded campaign cost to $19.6258. The latter is the appropriate total for work actually
+recorded; missing usage for one run prevents claiming complete billing coverage.
+12.5 Updated Working Rates by Transformation
+Therecoverycampaignretests49previouslylow-rateinputs:13x64and36x86.Onthis
+selectedsubset,thex64workingraterisesfrom23/1,941(1.2%)to1,564/1,950(80.2%).
+The x86 rate rises from 772/5,195 (14.9%) to 699/2,700 (25.9%). These observations
+measure the updated implementation and test harness together.
+Table12 places the recovery results back into the overall historical population. For
+each transformation, the retested inputs use their updated rates; other inputs retain their
+historical rates. We keep the original input weights so that the reduction from gener-
+ally ten to five x86 repetitions cannot increase the overall rate merely by reducing the
+influence of difficult inputs.
+Thereconstructedmeanacrossthe15configurationsincreasesfrom55.6%to82.6%
+on x64 and from 45.0% to 50.3% on x86. These are summaries of combined historical
+and updated evidence. Historical and updated rates appear together in the table, with the
+reconstruction stated explicitly.
+The lower x86 recovery rate concerns a deliberately difficult subset, not all x86 in-
+puts. Of its 36 inputs, 13 still have no successful transformed variant. Preparation-only
+
+PAGE 26
+26 S. Bistarelli et al.
+Table 13.Static detection of the current outputs. Files: produced binaries; hashes: distinct con-
+tents; reports: nonempty scan results. DR is the mean percentage of engine responses marked
+malicious. The working-output row is a subset of the overall LLM row. Report completeness and
+response-category details are supplied in the supplement.
+Condition Files Hashes Reports DR (%)
+Wrapping 243 207 207 0.00
+LLM x64 53 51 51 8.86
+LLM x86 297 272 271 4.35
+LLM overall 350 323 322 5.06
+LLM working outputs 275 263 263 5.89
+controls pass 340/360 tests (94.4%), whereas adding the native transformations yields
+699/2,700 (25.9%). This separates successful preparation from the additional transfor-
+mation failures; it does not support attributing every remaining failure to data identifi-
+cation. The dominant recorded execution symptom is an access violation, which alone
+does not identify the underlying implementation error.
+The improvement is substantially stronger on x64. Even excluding MessageBox,
+whose test recognition was corrected, the selected x64 rate rises from 19/1,791 (1.1%)
+to 1,414/1,800 (78.6%). Per-input and per-configuration counts, including the selected-
+subset comparison, remain available in the supplementary records.
+12.6 Overall Detection Rates for Wrapping and LLM Transformation
+The detection evaluation covers the outputs from the full 102-input LLM campaign,
+not only the separate 19-input data-identification experiment. Of the 816 planned LLM
+cells, 350 produce binaries, representing 323 distinct hashes. Table13 reports the mean
+engine detection rate using the same definition as the historical paper.
+TheoverallLLMmeandetectionrateis5.06%across322nonemptyreports,equiva-
+lentto3.80maliciousengineresponsesperfile.The275outputsthatpassthefunctional
+testcorrespondto263distincthashesandhaveameandetectionrateof5.89%.Showing
+both rows distinguishes all constructed outputs from the functionally successful subset.
+All 207 distinct wrapping outputs have nonempty reports with no malicious re-
+sponses. These are static raw-file measurements; the engine-response denominator
+follows the historical convention described in the methodology. The separate data-
+identification scans and earlier pilot campaigns are archived in the supplementary
+evidence rather than pooled into these results.
+13 Discussion of the Extensions
+Recoverytestsshowimprovedfunctionalityontheselecteddifficultinputs,withalarger
+gain on x64. The full-corpus wrapping and LLM campaigns complement this compari-
+son by assessing the added modes on all 102 inputs.
+
+PAGE 27
+Zone: An Extended bin2bin Metamorphic Engine 27
+The controlled suites help explain what each stage contributes. All six annotated
+programs are classified exactly, while the 13 functional programs check the output of
+individual programming patterns. Their small size and simple layouts make them useful
+diagnostic tests. Their high success rates are not a consequence of being benign: the
+original corpus contains larger and more varied instruction/data layouts, which exercise
+additional cases. The recorded native x86 IBP result remains associated with its tested
+version; a future corrected implementation requires a separately identified evaluation.
+The two LLM roles remain distinct. Data identification feeds shared handling, giv-
+ing identical binaries in 16/19 original cases and matching 17/19 functional outcomes.
+Assemblytransformationproposesanewlisting;zero-shotandtwo-shothavesimilarag-
+gregate outcomes. Input size, construction success, and execution outcome offer more
+informative distinctions in this campaign.
+The empirical scope can be stated once. Functional preservation is assessed through
+the specified execution tests, rather than a formal proof for every possible execution.
+Classification accuracy is measured on independently annotated programs; the unan-
+notated payload comparison measures agreement and downstream functionality. Static
+detection rates describe the submitted raw files and the reported engine responses, in-
+cluding the disclosed unsupported and failed analyses. Repeated inputs, shared hashes,
+recorded version differences, and retries are retained in the artifact so that these descrip-
+tive results can be inspected and reproduced.
+14 Related Work
+Instruction-level obfuscation has been studied in both offensive and defensive set-
+tings[25,6].Earlierengines,includingW95/Regswap[ 8]andMetaPHOR[ 23],explored
+register substitution and code reorganization. Instruction substitution, insertion, and
+control-flow transformations underpin the techniques summarized here [7,8,22,10,15].
+Polymorphic encoding provides a related but distinct representation strategy. Anal-
+yses of SGN describe both the variation in its decoding stub and opportunities to recog-
+nize it [9,18]; memory-extraction research addresses the body recovered during execu-
+tion[11].Formetamorphicprograms,detectionstudieshaveconsideredHiddenMarkov
+Models [26,8], API-trace similarity [28], and genetic-algorithm-based methods [14].
+More recent work examines LLM-based assembly transformation, including the
+MetamorphASM benchmark and its MAD dataset [19,16]. Compiler-based systems
+such as Obfuscator-LLVM [15] offer another setting, with access to source-level or
+intermediate information during compilation.
+The contribution of the conference paper was its payload-levelbin2bin study, the
+PII design, and the joint evaluation of selected transformation configurations [4]. Those
+contributions are the starting point of this manuscript, rather than new claims of the
+extended version.
+The extensions additionally connect data identification with bounded symbolic
+and static analysis [2], and distinguish LLM classification from assembly transforma-
+tion. Assembly wrapping is attributed to its existing description and acknowledged
+antecedents in overlapping instructions [1]; its integration into Zone is assessed as an
+
+PAGE 28
+28 S. Bistarelli et al.
+implementation contribution. These new directions build on the earlier payload-level
+study while preserving its detailed results for comparison.
+15 Conclusions
+The extended Zone pipeline makes data identification and supported reference handling
+explicit before instruction transformation. It offers two distinct LLM roles—proposing
+data regions and proposing rewritten assembly—and integrates assembly wrapping for
+both x64 and x86. The original PII design and conference experiments remain the foun-
+dation of this broader assessment.
+The recovery experiment demonstrates a substantial gain on the selected previously
+low-rate payloads: working rate increases from 1.2% to 80.2% on x64 and from 14.9%
+to 25.9% on x86. The controlled tests give exact data identification on six annotated
+programs and correct outputs in 167/168 x64 and 138/144 x86 LLM transformation
+requests.
+Acrossall102originalpayloads,wrappingproduces243binariesand170successful
+functional tests from 306 planned variants. LLM transformation produces 350 binaries
+and 275 successful tests across 816 configurations. Two-shot prompting shows no con-
+sistent advantage over zero-shot in these observations. Static scans flag none of the 207
+distinct wrapping outputs; LLM-transformed outputs have a mean engine detection rate
+of 5.06% across 322 nonempty reports. Together, these results quantify the recovered
+functionality and the behavior of the new transformation paths while identifying the
+remaining architecture-dependent cases for future study.
+Acknowledgments. ThisworkwaspartiallyfundedbytheUniversityofPerugia’sproject“Fight-
+ing Cybercrime with OSINT” (FICO), Civil Safety and Security for Society (WP2).
+Disclosure of Interests.To be completed by the authors before submission.
+References
+1. 0x4ndr3: Assembly wrapping: A technique for anti-disassembly. Author’s technical article,
+June 8 (2020),https://0x4ndr3.github.io/posts/assembly-wrapping-a-new-technique-for-ant
+i-disassembly/, accessed 13 November 2026
+2. angr Project: Control-flow graph recovery. Official angr documentation,https://docs.angr.io
+/en/latest/analyses/cfg.html, accessed 13 November 2026
+3. Austin,T.H.,Filiol,E.,Josse,S.,Stamp,M.:Exploringhiddenmarkovmodelsforvirusanaly-
+sis:Asemanticapproach.In:201346thHawaiiInternationalConferenceonSystemSciences.
+pp. 5039–5048 (2013).https://doi.org/10.1109/HICSS.2013.217
+4. Bistarelli, S., Di Benedetto, J., Santini, F.: On automating the obfuscation of malware pay-
+loads: Zone, a bin2bin metamorphic engine. In: Proceedings of the 23rd International Con-
+ference on Security and Cryptography. vol. 1, pp. 216–227. SCITEPRESS (2026).https:
+//doi.org/10.5220/0015170600004103
+5. Campion, M., Dalla Preda, M., Giacobazzi, R.: Learning metamorphic malware signatures
+from samples. J. Comput. Virol. Hacking Tech.17(3), 167–183 (2021)
+
+PAGE 29
+Zone: An Extended bin2bin Metamorphic Engine 29
+6. Cho, I., Towey, D., Kar, P.: Using obfuscators to test compilers: A metamorphic experience.
+In:47thIEEEAnnualComputers,Software,andApplicationsConference,COMPSAC2023.
+pp. 1786–1791. IEEE (2023)
+7. Desai, P.: Towards an Undetectable Computer Virus. Master’s project, San Jose State Uni-
+versity (2008).https://doi.org/10.31979/etd.z942-squp, https://scholarworks.sjsu.edu/etd_pr
+ojects/90/
+8. Desai, P., Stamp, M.: A highly metamorphic virus generator. International Journal of Multi-
+media Intelligence and Security1(4), 402–427 (2010)
+9. EgeBalci: Shikata Ga Nai encoder ported into Go with several improvements (2023),https:
+//github.com/egebalci/sgn
+10. es3n1n: Obfuscating native code for fun: Part 1 - introduction (2023),https://blog.es3n1n.eu
+/posts/obfuscator-pt-1/
+11. Farley, R., Wang, X.: CodeXt: automatic extraction of obfuscated attack code from memory
+dump.In:InformationSecurity:17thInternationalConference,ISC2014,HongKong,China,
+October 12-14, 2014. Proceedings 17. pp. 502–514. Springer (2014)
+12. Geng, J., Wang, J., Fang, Z., Zhou, Y., Wu, D., Ge, W.: A survey of strategy-driven eva-
+sionmethodsforPEmalware:Transformation,concealment,andattack.Comput.Secur. 137,
+103595 (2024)
+13. Glynos, D.A.: Context-keyed payload encoding: Fighting the next generation of IDS. In:
+Athens IT Security Conference (ATH. C0N) (2010)
+14. Javaheri, D., Lalbakhsh, P., Hosseinzadeh, M.: A novel method for detecting future gener-
+ations of targeted and metamorphic malware based on genetic algorithm. IEEE Access9,
+69951–69970 (2021)
+15. Junod, P., Rinaldini, J., Wehrli, J., Michielin, J.: Obfuscator-LLVM: Software protection for
+themasses.In:2015IEEE/ACM1stInternationalWorkshoponSoftwareProtection.pp.3–9.
+IEEE (2015)
+16. Madani, P.: Metamorphic malware evolution: The potential and peril of large language mod-
+els. In: 5th IEEE International Conference on Trust, Privacy and Security in Intelligent Sys-
+tems and Applications, TPS-ISA 2023, Atlanta, GA, USA, November 1-4, 2023. pp. 74–81.
+IEEE (2023)
+17. Madenur Sridhara, S., Stamp, M.: Metamorphic worm that carries its own morphing engine.
+J. Comput. Virol.9(2), 49–58 (2013)
+18. Miller, S., Reese, E., Carr, N.: Shikata Ga Nai encoder still going strong (2019),https://clou
+d.google.com/blog/topics/threat-intelligence/shikata-ga-nai-encoder-still-going-strong/
+19. Mohseni, S., Mohammadi, S., Tilwani, D., Saxena, Y., Ndawula, G.K., Vema, S., Raff, E.,
+Gaur, M.: Can LLMs obfuscate code? a systematic analysis of large language models into as-
+sembly code obfuscation. In: Proceedings of the AAAI Conference on Artificial Intelligence.
+vol. 39, pp. 24893–24901. AAAI Press (2025).https://doi.org/10.1609/aaai.v39i23.34672
+20. Nawaz, M.S., Fournier-Viger, P., Nawaz, M.Z., Chen, G., Wu, Y.: MalSPM: Metamorphic
+malwarebehavioranalysisandclassificationusingsequentialpatternmining.Comput.Secur.
+118, 102741 (2022)
+21. Sathyanarayan, V.S., Kohli, P., Bruhadeshwar, B.: Signature generation and detection of mal-
+ware families. In: Information Security and Privacy: 13th Australasian Conference, ACISP
+2008, Wollongong, Australia, July 7-9, 2008. Proceedings 13. pp. 336–349. Springer (2008)
+22. Szor, P., Ferrie, P.: Hunting for metamorphic. In: Virus bulletin conference (2001)
+23. The Mental Driller: Metamorphic permutating high-obfuscating reassembler (2002),http:
+//dsr.segfault.es/stuff/website-mirrors/29A/29a-6/29a-6.602
+24. Venkatesan,A.:CodeObfuscationandVirusDetection.Master’sproject,SanJoseStateUni-
+versity (2008),https://scholarworks.sjsu.edu/etd_projects/116/
+
+PAGE 30
+30 S. Bistarelli et al.
+25. Vishwas, G., Nithin, N.S., Varshith, P., Belwal, M.: Unveiling the world of code obfuscation:
+A comprehensive survey. In: 2023 7th International Conference on Computation System and
+Information Technology for Sustainable Solutions (CSITSS). pp. 1–8. IEEE (2023)
+26. Wong, W., Stamp, M.: Hunting for metamorphic engines. Journal in Computer Virology2,
+211–229 (2006)
+27. Zeng, D., Tan, G.: From debugging-information based binary-level type inference to CFG
+generation.In:ProceedingsoftheEighthACMConferenceonDataandApplicationSecurity
+andPrivacy.pp.366–376.CODASPY’18,AssociationforComputingMachinery,NewYork,
+NY, USA (2018).https://doi.org/10.1145/3176258.3176309
+28. Zhang, Q., Reeves, D.S.: MetaAware: Identifying metamorphic malware. In: Twenty-Third
+Annual Computer Security Applications Conference (ACSAC 2007). pp. 411–420. IEEE
+(2007)

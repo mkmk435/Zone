@@ -1,0 +1,32 @@
+{
+  "x64": {
+    "before": {
+      "ok": 23,
+      "tested": 1941,
+      "rate_pct": 1.184956208140134
+    },
+    "after": {
+      "ok": 1564,
+      "tested": 1950,
+      "rate_pct": 80.2051282051282
+    }
+  },
+  "x86": {
+    "before": {
+      "ok": 772,
+      "tested": 5195,
+      "rate_pct": 14.860442733397498
+    },
+    "after": {
+      "ok": 699,
+      "tested": 2700,
+      "rate_pct": 25.88888888888889
+    }
+  },
+  "sources": {
+    "test_report.txt": "746ed7e57485faf5303cedbf857b4f318f36b925eafc1023d65f8aacae9d77da",
+    "new_test_report_5run.csv": "db197d50e7cd2906969477f990a2cdbf8ce996220b91d92f6f076ab3c3154b8a",
+    "tmp\\low_payloads.json": "1a133cd6706da018e82fa1fe032ea94f05408e355eaa96a70e91eddd62a44dd3",
+    "working_rate_unified_tests.csv": "92751cd7961f2553698d7c5f6522055c0a3e966675c4f85335d77ce612c35eb3"
+  }
+}

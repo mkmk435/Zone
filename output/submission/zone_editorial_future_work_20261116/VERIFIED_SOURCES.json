@@ -1,0 +1,15 @@
+{
+  "checked_date": "2026-11-16",
+  "sources": {
+    "conference_doi": "https://www.scitepress.org/PublishedPapers/2026/151706/",
+    "affiliation": "https://dmi.unipg.it/dipartimento/organizzazione",
+    "affiliation_address": "https://dmi.unipg.it/contatti",
+    "chat_completions_reference": "https://api-docs.deepseek.com/api/create-chat-completion/",
+    "special_feature_ignored_parameters": "https://api-docs.deepseek.com/guides/build_a_chatbot/",
+    "llm_benchmark": "https://ojs.aaai.org/index.php/AAAI/article/view/34672",
+    "llm_mutation_study": "https://arxiv.org/abs/2410.23894",
+    "compiler_comparison": "https://crypto.junod.info/spro15.pdf",
+    "semantic_detection": "https://www.acsac.org/2007/papers/81.pdf",
+    "memory_extraction": "https://mason.gmu.edu/~rfarley3/2014-ISC-CodeXt.pdf"
+  }
+}

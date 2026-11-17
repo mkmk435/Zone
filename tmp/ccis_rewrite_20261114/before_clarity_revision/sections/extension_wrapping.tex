@@ -1,0 +1,76 @@
+\section{Assembly Wrapping: Mechanism and Integration}\label{sec:wrapping}
+\subsection{The Same Bytes Can Have Two Instruction Interpretations}
+Assembly wrapping changes how executable bytes are arranged and interpreted.
+It uses the variable length of x86 and x64 instructions: decoding the same
+bytes from different starting positions can produce different instruction
+sequences. In the existing wrapping technique, bytes belonging to the
+intended computation are placed within the immediate-operand field of a
+larger instruction~\cite{assembly_wrapping}. An \emph{immediate operand} is
+a constant stored directly in an instruction's encoding. A decoder starting
+at the outer instruction reads that field as a constant; execution entering
+the embedded sequence reads it as instructions instead.
+
+Figure~\ref{fig:wrapping_views} illustrates the distinction without relying
+on a particular encoding. The \emph{container} is the outer instruction
+whose operand holds the embedded bytes. The execution path connects the
+embedded sequences in their intended order, whereas a static listing
+following the container boundaries shows a different instruction sequence.
+The bytes need not be decrypted to obtain that second interpretation.
+This is a representation technique based on overlapping instructions, not
+a new form of encryption or a guarantee that an analyzer cannot recover
+the executed code.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[font=\small]
+\node[anchor=east] at (0,0.5) {Stored bytes};
+\draw[fill=gray!15] (0.15,0.15) rectangle (2.7,0.85);
+\draw[fill=blue!8] (2.7,0.15) rectangle (7.4,0.85);
+\node at (1.425,0.5) {Outer opcode};
+\node at (5.05,0.5) {Immediate-operand field};
+\node[anchor=east] at (0,1.65) {Outer view};
+\node[draw,align=center,text width=6.9cm] at (3.775,1.65)
+  {One instruction containing a constant operand};
+\node[anchor=east] at (0,-0.9) {Execution view};
+\node[draw,fill=blue!8,align=center,text width=4.1cm] (inside)
+  at (5.05,-0.9) {Embedded instruction sequence};
+\draw[-{Latex[length=2mm]},thick] (2.7,0.15) -- (2.7,-0.9) -- (inside.west);
+\end{tikzpicture}
+\caption{Conceptual views of a wrapped region. Starting at the outer
+opcode interprets the operand as a constant; entering the embedded
+sequence interprets some of those same bytes as instructions.
+The drawing is not to scale and omits inter-region control transfers.}
+\label{fig:wrapping_views}
+\end{figure}
+
+\subsection{What Zone Adds and What the Transformation Requires}
+The contribution of this work is the integration and assessment of an
+existing technique, with implementations for both architectures. Zone
+starts from a prepared instruction stream, groups supported instructions
+into wrapped regions, preserves the required execution relationships, and
+updates the supported location-dependent references after layout. Some
+instructions or local layouts cannot be placed in the main container
+representation; the implementation retains these in separate, unwrapped
+regions. An output may therefore contain both wrapped and ordinary code.
+
+The x86 and x64 implementations share this purpose but use different
+encodings and addressing rules. In particular, the available immediate
+operand has a different width, affecting which instruction groups fit.
+The x86 implementation was introduced after the first benign benchmark
+snapshot and is evaluated under its own recorded version.
+
+Data preparation remains necessary. Wrapping does not determine whether
+an apparent instruction is actually an embedded string or table. If that
+earlier interpretation is wrong, construction may be refused or the output
+may fail when executed. Successful relocation checks likewise cover the
+references the engine supports, not every possible address computation.
+
+\subsection{What the Evaluation Can Establish}
+Three questions follow from this mechanism: can Zone construct an output
+for the input, does that output pass its behavioral test, and what do static
+scanners report for the produced bytes? These questions have different
+denominators. A scan cannot evaluate an unbuilt output, and an absence of
+malicious verdicts does not demonstrate that a constructed output works.
+The following experiments therefore report build availability, functional
+outcomes, and scan results separately, including the failures on the full
+102-payload corpus rather than only the successful benign examples.

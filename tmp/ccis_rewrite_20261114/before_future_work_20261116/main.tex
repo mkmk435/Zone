@@ -1,0 +1,982 @@
+% Extended CCIS working manuscript: original study retained, extensions appended.
+% Revised explanations and completed payload campaign evidence, 14 November 2026.
+\documentclass[runningheads]{llncs}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{newtxtext}
+\usepackage[varvw]{newtxmath}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{xurl}
+\usepackage{listings}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usetikzlibrary{patterns,positioning,arrows.meta}
+\usepackage[hidelinks]{hyperref}
+\urlstyle{same}
+% Class 2.25 provides this command; the fallback keeps class 2.24 compilable.
+\providecommand{\Description}[1]{}
+\lstdefinestyle{zonecode}{
+  basicstyle=\scriptsize\ttfamily,
+  breaklines=true,breakatwhitespace=false,
+  columns=fullflexible,keepspaces=true,
+  frame=single,rulecolor=\color{black},
+  keywordstyle=\bfseries,commentstyle=\itshape,
+  stringstyle=\ttfamily,showstringspaces=false,
+  captionpos=t,aboveskip=\medskipamount,belowskip=\medskipamount
+}
+\lstset{style=zonecode}
+\AtBeginDocument{\renewcommand{\thelstlisting}{\arabic{lstlisting}}}
+\setlength{\emergencystretch}{2em}
+
+
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\definecolor{draftblue}{RGB}{24,73,114}
+\newif\ifworkingdraft
+\workingdrafttrue
+\newcommand{\draftnote}[1]{\ifworkingdraft\par\smallskip\noindent
+ {\color{draftblue}\small\textbf{Draft note.} #1}\par\smallskip\fi}
+\newcommand{\pending}{\textit{pending}}
+\newcommand{\dev}{\textit{in development}}
+
+\begin{document}
+\title{Zone: Code--Data Identification, LLM-Assisted Transformation, and Assembly Wrapping for Binary Rewriting}
+\titlerunning{Zone: An Extended bin2bin Metamorphic Engine}
+\author{Stefano~Bistarelli\orcidID{0000-0001-7411-9678} \and
+Jacopo~Di~Benedetto \and
+Francesco~Santini\orcidID{0000-0002-3935-4696}}
+\authorrunning{S. Bistarelli et al.}
+\institute{Dipartimento di Matematica e Informatica, Universit\`a degli Studi di Perugia,\\
+Via Vanvitelli 1, 06123 Perugia (PG), Italy\\
+\email{stefano.bistarelli@unipg.it}\\
+\email{jacopo.dibenedetto@studenti.unipg.it}\\
+\email{francesco.santini@unipg.it}}
+\maketitle
+
+
+\begin{abstract}
+Rewriting a raw binary requires distinguishing instructions from embedded
+data and preserving their references when the layout changes. Zone is a
+binary-to-binary metamorphic engine for compact Windows x86 and x64
+payloads. This extended study adds symbolic/heuristic and LLM-based data
+identification, LLM-proposed instruction transformations, and integration
+of assembly wrapping, an existing technique that gives stored bytes
+different static and executed instruction interpretations. Six annotated
+benign programs are identified exactly in 18 LLM and six symbolic runs.
+On 13 separate benign fixtures, LLM transformation yields correct
+output buffers in 167/168 x64 and 138/144 x86 invocations. On a separate recovery cohort of 13 previously problematic x64
+payloads, working rate improves from 1.2\% to 80.2\%; the corresponding
+x86 subset improves from 14.9\% to 25.9\%. In the completed campaigns
+on all 102 original payloads,
+wrapping constructs 243/306 variants, with 170 passing the functional
+harness; LLM transformation constructs 350 outputs across 816 conditions,
+with 275 passing. Current raw-file scans give a mean engine detection rate of 0\%
+for 207 distinct wrapping outputs and 5.06\% across 322 nonempty reports
+for LLM-transformed outputs. Together, the experiments demonstrate improved functional reliability
+and evaluate the added transformation modes through construction, execution,
+and static detection measurements.
+\keywords{Binary Rewriting \and Metamorphic Code \and
+Code--Data Identification \and Large Language Models \and Functional Preservation}
+\end{abstract}
+\section{Introduction}\label{sec:introduction}
+Metamorphic rewriting changes a program's instruction sequence, whereas
+polymorphic encoding typically changes an encrypted body and its decoding
+routine. Both complicate byte-pattern recognition, but expose different
+representations during execution~\cite{PEsurveybible,metamorphic1,metamorphic2}.
+Zone is a modular \emph{bin2bin} engine for studying these effects on
+Windows x86 and x64 payloads without source code or debugging symbols.
+
+\paragraph{Motivation and Contributions of the Extension.}
+In this article, we extend our SECRYPT 2026 paper~\cite{zone_secrypt_2026},
+which introduced Zone and evaluated 102 payloads under 15 transformation
+configurations. The original study identified limits in functional reliability.
+One cause is embedded data: a disassembler can interpret a string as
+instructions, which rewriting then modifies. Preserving the bytes also
+requires maintaining their references when the layout changes. We address
+these issues and extend the transformation and evaluation framework with:
+\begin{itemize}
+\item Alternative symbolic/heuristic and LLM data classifiers, followed by
+shared handling of supported data and references
+(Section~\ref{sec:code_data}).
+\item An LLM transformation path for EQ, NOP, BCF, and IBP, with zero-shot
+and two-shot prompting (Section~\ref{sec:llm}).
+\item Integration and assessment of the existing assembly-wrapping
+technique on x64 and x86 (Section~\ref{sec:wrapping}).
+\item New experiments on annotated programs, controlled functional
+programs, and the original corpus, including recovery tests, static
+detection, output diversity, and cost
+(Sections~\ref{sec:methodology} and~\ref{sec:extended_results}).
+\end{itemize}
+
+The original architecture, PII design, experiments, and comparison with
+Shikata Ga Nai provide the baseline. Reused figures, tables, listings, and
+the algorithm carry source citations; added methods and measurements are
+identified separately. The selected x64 recovery cohort improves from
+1.2\% to 80.2\% working rate, motivating a joint assessment of construction
+and execution rather than detection alone.
+
+\paragraph{Scope and terminology.}\label{par:study_scope}
+Throughout this article, \emph{working} means that a transformed output
+passes the specified functional test. Rate denominators distinguish
+planned cases from constructed binaries (Section~\ref{sec:methodology}).
+The scope remains compact, position-independent payloads. Full Portable
+Executable (PE) rewriting requires additional treatment of imports,
+sections, relocations, alignment, and entry points, and signatures may
+also occur outside code~\cite{sigdetPEnoncode}. Raw-file scan results and
+payload-level execution tests therefore describe the tested representations,
+not complete malicious applications or deployed endpoint protection.
+
+Sections~\ref{sec:background}--\ref{sec:comparison} summarize the baseline
+methods, results, and limitations. Sections~\ref{sec:code_data}--\ref{sec:wrapping}
+present the added methods; Sections~\ref{sec:methodology} and~\ref{sec:extended_results}
+describe their evaluation. Section~\ref{sect:related_work} positions the
+contributions within prior research, and Section~\ref{sec:conclusion3}
+discusses the findings and concludes the article.
+
+\section{Background}\label{sec:background}
+
+\subsection{Metamorphic Engines}\label{sub:meth}
+A metamorphic engine changes instructions while aiming to preserve
+control flow, references, and relevant processor
+state~\cite{historycodeobf,identifyingmeth,metworm}. Its rewritten body
+executes directly. Polymorphic encoding instead uses a decoding stage:
+Shikata Ga Nai varies its stub, but recurring features may remain
+recognizable~\cite{sgnstrong}, and decoding can expose the original body
+to memory analysis~\cite{codeExtraction}.
+
+\subsection{Morphing Techniques}
+The baseline considers EQ, NOP insertion, IBP, and BCF, separately and in
+selected combinations. They change instruction vocabulary, add operations,
+rearrange blocks, or introduce branches and unreachable regions.
+PII additionally separates placement from logical execution order
+(Section~\ref{sec:pii}). The following summarizes the original
+design~\cite{zone_secrypt_2026}; Section~\ref{sect:related_work} discusses
+its antecedents.
+
+\paragraph{Equal Code Substitution.}
+EQ replaces an operation with an alternative representation, such as
+\texttt{XOR rax, rax} and \texttt{MOV rax, 0x0}. Equivalent effects on one
+register do not imply preservation of all processor state.
+Table~\ref{tab:instruction_substitutions_x86} reproduces the original
+substitution examples, including arithmetic and stack-based sequences.
+This transformation family has a long
+history~\cite{desai2008towards,desai2010highly,szor2001hunting}.
+
+\begin{table}[t]
+    \caption{Instruction substitutions and corresponding encodings (x86). Reproduced from Table~1 of~\cite{zone_secrypt_2026}.}
+    \label{tab:instruction_substitutions_x86}
+    \small
+    \centering
+    \setlength{\tabcolsep}{3pt}
+    \begin{tabular}{llcl}
+        \hline
+        \textbf{Original Inst.} & \textbf{Morphed Inst.} & \textbf{Orig. Bytes} & \textbf{Morphed Bytes} \\ \hline
+        \texttt{XOR eax, eax} & \texttt{MOV eax, 0} & \texttt{31 C0} & \texttt{B8 00 00 00 00} \\
+        \texttt{SUB eax, 1} & \texttt{ADD eax, -1} & \texttt{83 E8 01} & \texttt{83 C0 FF} \\
+        \texttt{ADD eax, 2} & \texttt{SUB eax, -2} & \texttt{83 C0 02} & \texttt{83 E8 FE} \\
+        \texttt{MOV eax, 0} & \texttt{PUSH 0; POP eax} & \texttt{C7 C0 00..} & \texttt{6A 00 58} \\ \hline
+    \end{tabular}
+\end{table}
+
+\paragraph{NOP/Dead Code Insertion.}
+Inserted operations are intended to leave the relevant computation
+unchanged. Table~\ref{tab:nop_instructions} lists the original examples.
+Arithmetic no-ops can still affect processor flags; the original
+implementation therefore used the flag-preserving sequence in
+Table~\ref{tab:flag_preserving_nop}. Such repeated sequences may themselves
+become recognizable artifacts~\cite{pushfmeth}.
+
+\begin{table}[t]
+    \caption{NOP-like operations and their encodings. Reproduced from Table~2 of~\cite{zone_secrypt_2026}.}
+    \label{tab:nop_instructions}
+    \small
+    \centering
+    \setlength{\tabcolsep}{3pt}
+    \begin{tabular}{ll}
+        \hline
+        \textbf{Example} & \textbf{Compiled Opcode} \\ \hline
+        \verb|NOP| & \verb|0x90| \\ \hline
+        \verb|SUB rax, 0x0| & \verb|0x48, 0x83, 0xE8, 0x00| \\ \hline
+        \verb|ADD rax, 0x0| & \verb|0x48, 0x83, 0xC0, 0x00| \\ \hline
+        \verb|MOV rax, rax| & \verb|0x48, 0x89, 0xC0| \\ \hline
+        \verb|LEA rax, [rax + 0]| & \verb|0x48, 0x8D, 0x40, 0x00| \\ \hline
+        \verb|PUSH rax; POP rax| & \verb|0x50, 0x58| \\ \hline
+        \verb|OR rax, rax| & \verb|0x48, 0x09, 0xC0| \\ \hline
+        \verb|XOR rax, 0x0| & \verb|0x48, 0x83, 0xF0, 0x00| \\ \hline
+        \verb|AND rax, rax| & \verb|0x48, 0x21, 0xC0| \\ \hline
+        \verb|INC rax; DEC rax| & \verb|0x48, 0xFF, 0xC0; 0x48, 0xFF, 0xC8| \\ \hline
+        \verb|DEC rax; INC rax| & \verb|0x48, 0xFF, 0xC8; 0x48, 0xFF, 0xC0| \\ \hline
+        \verb|SAR rax, 0x0| & \verb|0x48, 0xC1, 0xF8, 0x00| \\ \hline
+        \verb|SHR rax, 0x0| & \verb|0x48, 0xC1, 0xE8, 0x00| \\ \hline
+        \verb|SHL rax, 0x0| & \verb|0x48, 0xC1, 0xE0, 0x00| \\ \hline
+        \verb|RCL rax, 0x0| & \verb|0x48, 0xC1, 0xD0, 0x00| \\ \hline
+        \verb|RCR rax, 0x0| & \verb|0x48, 0xC1, 0xD8, 0x00| \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Flag-preserving insertion example. Reproduced from Table~3 of~\cite{zone_secrypt_2026}.}
+    \label{tab:flag_preserving_nop}
+    \small
+    \centering
+    \setlength{\tabcolsep}{3pt}
+    \begin{tabular}{ll}
+        \hline
+        \textbf{Instruction}    & \textbf{Compiled Opcode} \\ \hline
+        \verb|PUSHF|             & \verb|0x9C|                \\ \hline
+        \verb|ADD rax, 0x0|      & \verb|0x48, 0x83, 0xC0, 0x00| \\ \hline
+        \verb|POPF|              & \verb|0x9D|                \\ \hline
+    \end{tabular}
+\end{table}
+
+\paragraph{Instruction Block Permutation.}
+IBP divides instructions into blocks, links each block to its logical
+successor, permutes their placement while retaining the entry block, and
+updates control-flow targets. The chosen granularity affects layout
+variation and overhead. Instructions within a block can remain unchanged,
+so rearrangement need not alter short internal patterns.
+
+\paragraph{Bogus Control Flow.}
+BCF adds branches around code that is not intended to execute. The implementation uses conditions with predetermined outcomes to exclude the inserted region from the execution path~\cite{bin2binobf,llvmobf}. Table~\ref{table:bcf_code} reproduces the illustrative block from the conference article: the condition transfers control past the padding at addresses \texttt{0x11}--\texttt{0x17}.
+
+\begin{table}[t]
+\caption{Illustrative BCF block. Reproduced from Table~4 of~\cite{zone_secrypt_2026}.}
+\small
+\centering
+\setlength{\tabcolsep}{3pt}
+\label{table:bcf_code}
+\begin{tabular}{ll}
+    \hline
+    \textbf{Address}    & \textbf{Instruction} \\ \hline
+
+    \verb|0x0|  & 	\verb|mov rax, 0x1|  \\ \hline
+    \verb|0x7|	&   \verb|cmp rax, 0x1|  \\ \hline
+    \verb|0xb| 	&   \verb|je 0x18|  \\ \hline
+    \verb|0x11|	&   \verb|nop|  \\ \hline
+    \verb|0x12|	&   \verb|nop|  \\ \hline
+    \verb|0x13|	&   \verb|nop|  \\ \hline
+    \verb|0x14|	&   \verb|nop|  \\ \hline
+    \verb|0x15|	&   \verb|nop|  \\ \hline
+    \verb|0x16|	&   \verb|nop|  \\ \hline
+    \verb|0x17|	&   \verb|nop|  \\ \hline
+    \verb|0x18|	&\verb|original code.......|    \\ \hline
+\end{tabular}
+\end{table}
+
+
+\section{Zone Architecture}\label{sec:developing_meth}
+Zone is implemented in Python: Capstone disassembles the input, the
+selected transformations modify its instruction representation, and
+Keystone assembles the output. This \emph{bin2bin} interface requires
+neither source code nor Program Database (PDB) symbols. Although initial
+development also explored PE files, the evaluated scope remains raw
+payloads~\cite{zone_secrypt_2026}. The public repository is linked in the
+Data and Artifact Availability statement.
+
+\subsection{Position-Independent Instruction}\label{sec:pii}
+PII was introduced in the conference paper~\cite{zone_secrypt_2026}. It decouples the physical position of an instruction from its place in the intended execution sequence.
+
+\paragraph{Organization.}
+Consider an instruction such as \texttt{ADD rax, 1}. In the PII representation it is placed in a wrapper rather than relying on adjacency to its successor. The wrapper executes the original operation and transfers control to a redirector. An offset table supplies the location of the next logical instruction. Figure~\ref{fig:pii_layout} reproduces the overall layout, while the listings below document the components of the original design.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+    font=\scriptsize,
+    node distance=0.0cm,
+    every node/.style={
+        rotate=90,
+        minimum width=3.3cm,
+        minimum height=0.7cm,
+        text centered,
+        draw,
+        fill=gray!10,
+        rounded corners,
+        inner xsep=2pt,
+        inner ysep=6pt
+    }
+]
+
+\node (stubCall)  [fill=blue!10]    {Call Stub 1};
+\node (payload)   [below=of stubCall, fill=green!10]  {Wrapped Inst. / payload};
+\node (pad1)      [below=of payload]                  {PAD (NOP)};
+\node (stub2)     [below=of pad1, fill=yellow!20]     {Stub 2};
+\node (pad2)      [below=of stub2]                    {PAD (NOP)};
+\node (stub1)     [below=of pad2, fill=blue!10]       {Stub 1};
+\node (pad3)      [below=of stub1]                    {PAD (NOP)};
+\node (payloadPtr)[below=of pad3, fill=red!20]        {Pointer to Payload};
+\node (pad4)      [below=of payloadPtr]               {PAD (NOP)};
+\node (memZone)   [below=of pad4, fill=purple!10]     {Memory Zone};
+
+\end{tikzpicture}
+\Description{A schematic separates the initial call, instruction wrappers, redirector components, padding, offset information, and memory region.}
+\caption{PII payload layout. Adapted from Fig.~1 of~\cite{zone_secrypt_2026}.}
+\label{fig:pii_layout}
+\end{figure}
+
+The representation has four components: a base-address stub (Stub1), a
+redirector (Stub2), an offset table, and wrapped instructions.
+Stub1 establishes the runtime location (Listing~\ref{lst:stub1}).
+Each wrapper executes its original instruction and supplies its logical
+index to Stub2 (Listing~\ref{lst:instrWrap}). The redirector uses the base
+address and offset table to locate the successor, preserving the state
+it uses before transferring control (Listing~\ref{lst:stub2red}).
+
+\paragraph{Physical Placement.}
+The original implementation permutes complete wrappers, treating each five-instruction wrapper as a unit. The offset table is updated for the resulting placement. Execution still starts with the initial call to Stub1; logical succession is represented by the table rather than by the wrappers' physical adjacency.
+
+\begin{lstlisting}[label={lst:stub1},language={[x86masm]Assembler}, basicstyle=\scriptsize\ttfamily, caption={Base-address component. Reproduced from Listing~1 of~\cite{zone_secrypt_2026}.}]
+pop <random_unused_reg>;    popping 2nd instruction address
+mov [<random_unused_reg> - 5 + <init_address>],  <random_unused_reg>; move it to a memory slot
+push <random_unused_reg>; push just to avoid altering the stack
+jmp <random_unused_reg>; return to the caller (2nd instruction)
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:instrWrap}, language={[x86masm]Assembler}, basicstyle=\scriptsize\ttfamily, caption={Instruction wrapper. Reproduced from Listing~2 of~\cite{zone_secrypt_2026}.}]
+pop rax;                    ; popping rax because we just used it to save jmp address
+lea rsp, [rsp + 8];         ; adjusting stack to avoid stack overflow
+ORIGINAL_INSTRUCTION;       ; original instruction
+push <0x3e8 + counter>;     ; pushing instruction original index + a constant
+jmp <stub2_address>;        ; Jumping to 'redirector' stub 
+\end{lstlisting}
+
+\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}[label={lst:stub2red},language={[x86masm]Assembler}, basicstyle=\scriptsize\ttfamily, caption={x64 redirector. Reproduced from Listing~3 of~\cite{zone_secrypt_2026}.}]
+push rax;                                       saving original 'rax' register state
+push rcx;                                       saving original 'rcx' register state
+mov rcx, [rsp + 0x10] ;                         getting the instruction index from the stack.
+pushf;                                          saving original CPU flags
+sub rcx, 0x3e8; ;                               subtracting a constant to get instr index
+inc rcx;                                        increase instruction number
+mov rax, [rip + init_addr_offset];              get payload base address
+mov rcx, [rax + mem_address - 5 + rcx * 8];     get next instruction address
+sub rcx, 0x5;                                   just because base address is 2nd instruction
+add rax, rcx;                                   add payload base address to the offset
+popf;                                           restore cpu flags
+pop rcx;                                        restore rcx value
+jmp rax;                                        jmp to next instruction
+\end{lstlisting}
+
+\end{minipage}
+
+\paragraph{Architectural Variants.}
+Listings~\ref{lst:stub2red} and~\ref{lst:stub286} show the published x64 and x86 redirectors. In addition to the different register widths, they differ in how the required address is obtained: the x86 version uses the call-based mechanism documented in the original listing rather than x64 RIP-relative addressing.
+
+\begin{lstlisting}[label={lst:stub286},language={[x86masm]Assembler}, basicstyle=\scriptsize\ttfamily, caption={x86 redirector. Reproduced from Listing~4 of~\cite{zone_secrypt_2026}.}]
+push eax;
+push ecx;
+mov ecx, [esp + 0x8]
+pushf;
+sub ecx, 0x3e8;
+inc ecx;
+
+call <stub2_address + 0x14>;    calling pop eax, 0x14 is pop eax offset from stub2 address
+pop eax;                        popping eax puts in eax the value of the instruction pointer
+
+mov eax, [eax + <init_addr_offset>];
+mov ecx, [eax + <mem_address> - 5 + ecx * 4];
+sub ecx, 0x5
+add eax, ecx
+popf;
+pop ecx;
+jmp eax;
+\end{lstlisting}
+
+\subsection{How Instructions Are Patched}\label{sec:instr_patch}
+Moving instructions can invalidate their references. Patching updates
+tracked control-flow destinations and other supported references for
+the modified layout. Algorithm~\ref{alg:zonealg} reproduces the original
+workflow~\cite{zone_secrypt_2026}, within the scope defined in
+Section~\ref{sec:introduction}.
+
+\begin{algorithm}[t]
+
+\caption{High-level Zone workflow. Reproduced from Algorithm~1 of~\cite{zone_secrypt_2026}.}\label{alg:zonealg}
+
+\scriptsize
+
+\SetKwProg{Fn}{Function}{}{}
+\SetKwFor{ForEach}{for each}{}{end}
+\SetKwIF{If}{ElseIf}{Else}{if}{}{else if}{else}{end}
+
+\KwData{raw\_bytes}
+\KwResult{Transformed binary}
+
+\textbf{global} instruction\_list $\gets$ []\;
+\textbf{global} instruction\_dict $\gets$ \{\}\;
+\textbf{global} label\_table $\gets$ []\;
+
+\BlankLine
+
+\Fn{\textbf{disass} \label{fun:disas} }{
+
+    CAPSTONE.SKIPDATA $\gets$ TRUE\;\label{fun:skipdata}
+
+    \ForEach{instruction in disasm(raw\_bytes)}{
+        instruction\_list.append(instruction)\;
+        instruction\_dict[instruction.address] $\gets$ instruction\;
+
+        \If{instruction is X86.Control\_flow\_instruction}{
+            jump\_address $\gets$ extract\_address(instruction.op\_string)\;
+            label\_table.append((instruction, instruction\_dict[jump\_address]))\;
+        }
+    }
+}
+
+\BlankLine
+
+\Fn{\textbf{update\_instructions} \label{fun:update_instr}}{
+    new\_instruction\_dict $\gets$ \{\}\;
+
+    \ForEach{instruction in instruction\_list}{
+        address $\gets$ instruction.previous\_instruction.address + len(instruction.previous\_instruction.bytes)\;
+        instruction.address $\gets$ address\;
+
+        new\_instruction\_dict[instruction.address] $\gets$ instruction\;
+    }
+
+    instruction\_dict $\gets$ new\_instruction\_dict\;
+}
+
+\BlankLine
+
+\Fn{\textbf{morph} \label{fun:morph}} {
+    equal\_code\_substitution()\;
+    nop\_insertion()\;
+    instruction\_block\_shuffling()\;
+    bogus\_control\_flow()\;
+    position\_independent\_instruction()\;
+}
+
+\BlankLine
+
+\Fn{\textbf{adjust\_label\_table} \label{fun:adj_lab_tab}}{
+    update\_instructions()\;
+
+    \ForEach{entry in label\_table}{
+        jmp\_addr $\gets$ extract\_address(entry[0].op\_string)\;
+        jmp\_addr\_new $\gets$ entry[1].address\;
+
+        new\_instruction $\gets$ keystone.assemble(
+        ``entry[0].mnemonic jmp\_addr\_new'')\;
+
+        entry[0] $\gets$ new\_instruction\;
+    }
+}
+
+\BlankLine
+
+\Fn{\textbf{main}}{
+    disass()\;
+    morph()\;
+    adjust\_label\_table()\;
+    write\_to\_file()\; \label{fun:writefile}
+}
+
+\end{algorithm}
+
+\subsection{Transformation Pipeline}
+Algorithm~\ref{alg:zonealg} first constructs instruction objects and an
+address-indexed lookup. A label table associates tracked branches with
+target objects, retaining those associations as addresses change.
+Capstone's \texttt{Skipdata} option does not resolve inline data that also
+decodes as instructions~\cite{bin2binobf}. After transformation, addresses
+are recomputed, tracked branches are reassembled against updated targets,
+and the resulting bytes are written to a raw binary. The added preparation
+and transformation paths are described in
+Sections~\ref{sec:code_data}--\ref{sec:wrapping}.
+
+\section{Published Experimental Baseline}\label{sec:results}
+
+
+This section summarizes the conference study~\cite{zone_secrypt_2026}.
+Figure~\ref{fig:all_payloads} reaggregates its retained scan records with
+corrected configuration labels; no new scans are included. VirusTotal scans supplied verdicts from more than 70 engines, subject to the file-format limitations discussed below.
+
+The corpus comprises 38 x64 and 64 x86 Windows payloads, mostly from
+Metasploit, including reverse and bind shells. It represents selected
+payload types rather than all Windows malware; large DLL-based components
+are outside scope. Architecture comparisons also reflect the different
+input memberships.
+
+\paragraph{Testing Method.}
+Each of the fifteen configurations was applied to every input, with ten generated variants per input and configuration to expose variation in the transformation process. The five individual transformations and ten combinations were:
+
+\begin{itemize}
+    \item \textbf{Single:} NOP (\texttt{nop}), Equal Code Substitution (\texttt{eq}), Bogus Control Flow (\texttt{bcf}), Instruction Block Permutation (\texttt{ibp}), and Position-Independent Instruction (\texttt{pii}).
+    \item \textbf{Combined:} \texttt{eq\_nop\_bcf}, \texttt{eq\_nop\_ibp}, \texttt{eq\_nop\_pii}, \texttt{eq\_nop}, \texttt{eq\_bcf}, \texttt{eq\_ibp}, \texttt{eq\_pii}, \texttt{nop\_bcf}, \texttt{nop\_ibp} and \texttt{nop\_pii}.
+\end{itemize}
+
+The \emph{detection rate} for an individual file is the fraction of scanning engines that returned a malicious verdict; summaries aggregate these per-file measurements. Figure~\ref{fig:all_payloads} reports a reanalysis of 15,020 distinct
+file paths from 15,021 saved records, retaining the latest record for the
+repeated path. Each file uses its recorded engine-response denominator. The corresponding baseline averages for the original files were 21.67\% for x64 and 22.63\% for x86.
+
+\begin{figure}[tbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=\linewidth,height=6.6cm,
+ylabel={Detection rate (\%)},ymin=-0.2,ymax=3.2,xmin=-0.6,xmax=14.6,
+xtick={0,...,14},
+xticklabels={nop,eq,pii,bcf,ibp,eq\_nop\_pii,eq\_nop\_bcf,eq\_nop\_ibp,eq\_nop,eq\_pii,eq\_bcf,eq\_ibp,nop\_pii,nop\_bcf,nop\_ibp},
+xticklabel style={rotate=55,anchor=east,font=\scriptsize},
+yticklabel style={font=\scriptsize},label style={font=\small},
+grid=major,grid style={gray!25},scaled y ticks=false,
+legend style={at={(0.5,1.03)},anchor=south,legend columns=2,column sep=4pt,font=\small,draw=none},
+clip=false,
+]
+\addplot[orange!80!black,dashed,no marks,forget plot] coordinates {(0,0.580598) (14,0.580598)};
+\addplot[blue!65!black,densely dotted,no marks,forget plot] coordinates {(0,0.252471) (14,0.252471)};
+\addplot[only marks,mark size=1.8pt,orange!85!black,mark=*,mark options={fill=orange!40}] coordinates {(0,0.966990) (1,2.242475) (2,0.000000) (3,0.977516) (4,0.620360) (5,0.000000) (6,0.506048) (7,0.371006) (8,0.796921) (9,0.000000) (10,0.802818) (11,0.502046) (12,0.000000) (13,0.541333) (14,0.381452)};
+\addlegendentry{x64}
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:0,0.966990) {0.97};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:1,2.242475) {2.24};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:2,0.000000) {0.00};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:3,0.977516) {0.98};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:4,0.620360) {0.62};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:5,0.000000) {0.00};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:6,0.506048) {0.51};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:7,0.371006) {0.37};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:8,0.796921) {0.80};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:9,0.000000) {0.00};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:10,0.802818) {0.80};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:11,0.502046) {0.50};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:12,0.000000) {0.00};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:13,0.541333) {0.54};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:14,0.381452) {0.38};
+\addplot[only marks,mark size=1.8pt,blue!70!black,mark=square*,mark options={fill=blue!35}] coordinates {(0,0.318914) (1,2.628536) (2,0.000000) (3,0.275768) (4,0.000000) (5,0.000000) (6,0.012336) (7,0.016502) (8,0.265433) (9,0.000000) (10,0.199616) (11,0.030866) (12,0.000000) (13,0.028783) (14,0.010307)};
+\addlegendentry{x86}
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:0,0.318914) {0.32};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:1,2.628536) {2.63};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:2,0.000000) {0.00};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:3,0.275768) {0.28};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:4,0.000000) {0.00};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:5,0.000000) {0.00};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:6,0.012336) {0.01};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:7,0.016502) {0.02};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:8,0.265433) {0.27};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:9,0.000000) {0.00};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:10,0.199616) {0.20};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:11,0.030866) {0.03};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:12,0.000000) {0.00};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:13,0.028783) {0.03};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:14,0.010307) {0.01};
+\end{axis}
+\end{tikzpicture}
+\Description{Historical detection rates reaggregated from deduplicated saved records, with configuration labels aligned to their filenames.}
+\caption{Reanalysis of the historical raw-file scans of~\cite{zone_secrypt_2026}.
+Configuration labels follow the file records; duplicate paths are counted once.
+Dashed lines are equal-weight means over the 15 configurations (x64: 0.58\%; x86: 0.25\%).}
+\label{fig:all_payloads}
+\end{figure}
+
+The plotted observations vary by transformation and architecture. Several configurations involving PII received no malicious verdicts in these raw-file scans, whereas EQ retained more detections. These measurements describe the tested representations and submission conditions; they should be interpreted together with the functional results.
+
+\label{par:working_rate}
+The \emph{working rate} is the proportion passing the execution checks:
+an expected connection for reverse shells, port opening for bind shells,
+or exception-free termination for other generic cases.
+Table~\ref{tab:overall_working_update} consolidates historical rates
+recomputed from retained test records with the update for 49 retested
+inputs. This replaces the earlier working-rate plot and aligns
+configuration labels with those records. The historical study reported
+greater stability for EQ and lower stability for PII, particularly on x86.
+
+
+
+\paragraph{Evaluation Limitations.}
+The raw-file comparison follows the scope defined in
+Section~\ref{sec:introduction}. Unsupported-format responses and omitted
+execution-based analysis affect how these scan results should be
+interpreted~\cite{zone_secrypt_2026}; response accounting is detailed in
+Section~\ref{sec:methodology}.
+
+\section{Size and Statistical Measurements}\label{sect:var_metrics}
+The conference paper measured file length, entropy change, and cosine
+similarity to characterize the rewritten representations~\cite{zone_secrypt_2026}.
+
+\paragraph{Payload Length Variation.}
+Let $L_i$ denote the byte length of a transformed file and let $n$ be the number of files considered for a configuration. The reported mean length is:
+\[
+\overline{L} = \frac{1}{n} \sum_{i=1}^{n} L_i
+\]
+
+\begin{figure}[tbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=\linewidth,height=6.6cm,
+ylabel={Mean file length (bytes)},ymin=-900,ymax=14500,xmin=-0.6,xmax=14.6,
+xtick={0,...,14},
+xticklabels={nop,eq,pii,bcf,ibp,eq\_nop\_pii,eq\_nop\_bcf,eq\_nop\_ibp,eq\_nop,eq\_pii,eq\_bcf,eq\_ibp,nop\_pii,nop\_bcf,nop\_ibp},
+xticklabel style={rotate=55,anchor=east,font=\scriptsize},
+yticklabel style={font=\scriptsize},label style={font=\small},
+grid=major,grid style={gray!25},scaled y ticks=false,
+legend style={at={(0.5,1.03)},anchor=south,legend columns=2,column sep=4pt,font=\small,draw=none},
+clip=false,
+]
+\addplot[orange!80!black,dashed,no marks,forget plot] coordinates {(0,652.632) (14,652.632)};
+\addplot[blue!65!black,densely dotted,no marks,forget plot] coordinates {(0,400.750) (14,400.750)};
+\addplot[only marks,mark size=1.8pt,orange!85!black,mark=*,mark options={fill=orange!40}] coordinates {(0,725) (1,463) (2,4796) (3,1377) (4,543) (5,7838) (6,2366) (7,903) (8,1124) (9,7105) (10,2150) (11,902) (12,11900) (13,3595) (14,1400)};
+\addlegendentry{x64}
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:0,725) {725};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:1,463) {463};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:2,4796) {4796};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:3,1377) {1377};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:4,543) {543};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:5,7838) {7838};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:6,2366) {2366};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:7,903) {903};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:8,1124) {1124};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:9,7105) {7105};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:10,2150) {2150};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:11,902) {902};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:12,11900) {11900};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:13,3595) {3595};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:14,1400) {1400};
+\addplot[only marks,mark size=1.8pt,blue!70!black,mark=square*,mark options={fill=blue!35}] coordinates {(0,700) (1,417) (2,4577) (3,1301) (4,532) (5,7354) (6,2321) (7,971) (8,719) (9,4617) (10,1338) (11,549) (12,7400) (13,2287) (14,954)};
+\addlegendentry{x86}
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:0,700) {700};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:1,417) {417};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:2,4577) {4577};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:3,1301) {1301};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:4,532) {532};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:5,7354) {7354};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:6,2321) {2321};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:7,971) {971};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:8,719) {719};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:9,4617) {4617};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:10,1338) {1338};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:11,549) {549};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:12,7400) {7400};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:13,2287) {2287};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:14,954) {954};
+\end{axis}
+\end{tikzpicture}
+\Description{Mean transformed-file length. Reference lines indicate the original-file means (x64: 652.632 bytes; x86: 400.750 bytes). Orange circles identify x64 and blue squares identify x86.}
+\caption{Mean transformed-file length. Reference lines indicate the original-file means (x64: 652.632 bytes; x86: 400.750 bytes). Data from Fig.~4 of~\cite{zone_secrypt_2026}; redrawn for the present format.}
+\label{fig:length_comparison}
+\end{figure}
+
+The size results in Figure~\ref{fig:length_comparison} show substantial growth for PII and BCF configurations. Some EQ-containing configurations instead produced smaller average outputs than the original-file reference. The conference paper associated this observation with the implementation's treatment of data during disassembly; the size measurement alone does not establish that any removed bytes were semantically irrelevant.
+
+\paragraph{Delta Entropy.}
+The reported entropy change compares the transformed representation, $H_{tech}$, with its original, $H_{orig}$, using the percentage difference:
+
+\begin{equation}
+\Delta H \; (\%) = \frac{H_{tech} - H_{orig}}{H_{orig}} \times 100
+\end{equation}
+
+The measurements were computed on raw bytes and on tokenized assembly. Figures~\ref{fig:shan_entropy} and~\ref{fig:shan_entropy_bytes} retain the published results. The assembly-based representation also permits comparison with the metrics discussed by Mohseni et al.~\cite{llmobf}.
+
+NOP insertion increased assembly entropy, whereas PII decreased it,
+consistent with repeated bookkeeping instructions. BCF combined small
+entropy changes with increased length and a changed opcode distribution;
+IBP could change layout while retaining similar instruction frequencies.
+Entropy describes the representation, not functional preservation.
+
+\begin{figure}[tbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=\linewidth,height=6.6cm,
+ylabel={Assembly entropy change (\%)},ymin=-35,ymax=22,xmin=-0.6,xmax=14.6,
+xtick={0,...,14},
+xticklabels={nop,eq,pii,bcf,ibp,eq\_nop\_pii,eq\_nop\_bcf,eq\_nop\_ibp,eq\_nop,eq\_pii,eq\_bcf,eq\_ibp,nop\_pii,nop\_bcf,nop\_ibp},
+xticklabel style={rotate=55,anchor=east,font=\scriptsize},
+yticklabel style={font=\scriptsize},label style={font=\small},
+grid=major,grid style={gray!25},scaled y ticks=false,
+legend style={at={(0.5,1.03)},anchor=south,legend columns=2,column sep=4pt,font=\small,draw=none},
+clip=false,
+]
+\addplot[orange!80!black,dashed,no marks,forget plot] coordinates {(0,0) (14,0)};
+\addplot[only marks,mark size=1.8pt,orange!85!black,mark=*,mark options={fill=orange!40}] coordinates {(0,11.2) (1,1.4) (2,-28.5) (3,1.2) (4,4.2) (5,-20.0) (6,5.2) (7,10.1) (8,7.3) (9,-24.5) (10,-1.6) (11,-4.9) (12,-19.2) (13,4.4) (14,6.9)};
+\addlegendentry{x64}
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:0,11.2) {11.2};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:1,1.4) {1.4};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:2,-28.5) {-28.5};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:3,1.2) {1.2};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:4,4.2) {4.2};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:5,-20.0) {-20.0};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:6,5.2) {5.2};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:7,10.1) {10.1};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:8,7.3) {7.3};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:9,-24.5) {-24.5};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:10,-1.6) {-1.6};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:11,-4.9) {-4.9};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:12,-19.2) {-19.2};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:13,4.4) {4.4};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:14,6.9) {6.9};
+\addplot[only marks,mark size=1.8pt,blue!70!black,mark=square*,mark options={fill=blue!35}] coordinates {(0,13.6) (1,-1.9) (2,-21.0) (3,2.7) (4,0.6) (5,-17.1) (6,1.9) (7,11.1) (8,12.7) (9,-20.4) (10,1.8) (11,-1.1) (12,-13.9) (13,2.3) (14,11.8)};
+\addlegendentry{x86}
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:0,13.6) {13.6};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:1,-1.9) {-1.9};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:2,-21.0) {-21.0};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:3,2.7) {2.7};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:4,0.6) {0.6};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:5,-17.1) {-17.1};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:6,1.9) {1.9};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:7,11.1) {11.1};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:8,12.7) {12.7};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:9,-20.4) {-20.4};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:10,1.8) {1.8};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:11,-1.1) {-1.1};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:12,-13.9) {-13.9};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:13,2.3) {2.3};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:14,11.8) {11.8};
+\end{axis}
+\end{tikzpicture}
+\Description{Percentage entropy change for tokenized assembly; the reference level is zero. Orange circles identify x64 and blue squares identify x86.}
+\caption{Percentage entropy change for tokenized assembly; the reference level is zero. Data from Fig.~5 of~\cite{zone_secrypt_2026}; redrawn for the present format.}
+\label{fig:shan_entropy}
+\end{figure}
+
+\begin{figure}[tbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=\linewidth,height=6.6cm,
+ylabel={Byte entropy change (\%)},ymin=-32,ymax=3,xmin=-0.6,xmax=14.6,
+xtick={0,...,14},
+xticklabels={nop,eq,pii,bcf,ibp,eq\_nop\_pii,eq\_nop\_bcf,eq\_nop\_ibp,eq\_nop,eq\_pii,eq\_bcf,eq\_ibp,nop\_pii,nop\_bcf,nop\_ibp},
+xticklabel style={rotate=55,anchor=east,font=\scriptsize},
+yticklabel style={font=\scriptsize},label style={font=\small},
+grid=major,grid style={gray!25},scaled y ticks=false,
+legend style={at={(0.5,1.03)},anchor=south,legend columns=2,column sep=4pt,font=\small,draw=none},
+clip=false,
+]
+\addplot[orange!80!black,dashed,no marks,forget plot] coordinates {(-0.5,0) (14.5,0)};
+\addplot[only marks,mark size=1.8pt,orange!85!black,mark=*,mark options={fill=orange!40}] coordinates {(0,-6.7) (1,-3.2) (2,-26.8) (3,-7.1) (4,-2.1) (5,-25.4) (6,-13.1) (7,-7.6) (8,-8.2) (9,-25.1) (10,-8.6) (11,-2.2) (12,-24.0) (13,-13.1) (14,-5.1)};
+\addlegendentry{x64}
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:0,-6.7) {-6.7};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:1,-3.2) {-3.2};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:2,-26.8) {-26.8};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:3,-7.1) {-7.1};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:4,-2.1) {-2.1};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:5,-25.4) {-25.4};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:6,-13.1) {-13.1};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:7,-7.6) {-7.6};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:8,-8.2) {-8.2};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:9,-25.1) {-25.1};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:10,-8.6) {-8.6};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:11,-2.2) {-2.2};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:12,-24.0) {-24.0};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:13,-13.1) {-13.1};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:14,-5.1) {-5.1};
+\addplot[only marks,mark size=1.8pt,blue!70!black,mark=square*,mark options={fill=blue!35}] coordinates {(0,-6.3) (1,-0.7) (2,-24.5) (3,-7.9) (4,-2.1) (5,-24.4) (6,-12.6) (7,-7.0) (8,-6.9) (9,-24.0) (10,-8.5) (11,-3.0) (12,-22.1) (13,-12.3) (14,-6.5)};
+\addlegendentry{x86}
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:0,-6.3) {-6.3};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:1,-0.7) {-0.7};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:2,-24.5) {-24.5};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:3,-7.9) {-7.9};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:4,-2.1) {-2.1};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:5,-24.4) {-24.4};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:6,-12.6) {-12.6};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:7,-7.0) {-7.0};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:8,-6.9) {-6.9};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:9,-24.0) {-24.0};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:10,-8.5) {-8.5};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:11,-3.0) {-3.0};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:12,-22.1) {-22.1};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:13,-12.3) {-12.3};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:14,-6.5) {-6.5};
+\end{axis}
+\end{tikzpicture}
+\Description{Percentage entropy change for raw bytes; the reference level is zero. Orange circles identify x64 and blue squares identify x86.}
+\caption{Percentage entropy change for raw bytes; the reference level is zero. Data from Fig.~6 of~\cite{zone_secrypt_2026}; redrawn for the present format.}
+\label{fig:shan_entropy_bytes}
+\end{figure}
+
+\paragraph{Cosine Similarity.}
+
+The historical assembly analysis compares corpus-level opcode-frequency
+vectors for each architecture: $A$ aggregates original inputs and $B$
+aggregates outputs of one configuration. The retained script extracts
+instruction mnemonics. This is a corpus comparison, not an average of paired
+original/variant similarities. Its cosine similarity is:
+
+\[
+\text{sim}(A, B) = \frac{A \cdot B}{\|A\| \, \|B\|} = \frac{\sum_{i=1}^{n} A_i B_i}{\sqrt{\sum_{i=1}^{n} A_i^2} \, \sqrt{\sum_{i=1}^{n} B_i^2}}
+\]
+
+Here $A_i$ and $B_i$ are opcode frequencies and $n$ is their joint
+vocabulary size. This representation-level comparison~\cite{llmobf}
+does not establish equivalent behavior.
+
+\begin{figure}[tbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=\linewidth,height=6.6cm,
+ylabel={Opcode cosine similarity},ymin=-0.1,ymax=1.15,xmin=-0.6,xmax=14.6,
+xtick={0,...,14},
+xticklabels={nop,eq,pii,bcf,ibp,eq\_nop\_pii,eq\_nop\_bcf,eq\_nop\_ibp,eq\_nop,eq\_pii,eq\_bcf,eq\_ibp,nop\_pii,nop\_bcf,nop\_ibp},
+xticklabel style={rotate=55,anchor=east,font=\scriptsize},
+yticklabel style={font=\scriptsize},label style={font=\small},
+grid=major,grid style={gray!25},scaled y ticks=false,
+legend style={at={(0.5,1.03)},anchor=south,legend columns=2,column sep=4pt,font=\small,draw=none},
+clip=false,
+]
+\addplot[orange!80!black,dashed,no marks,forget plot] coordinates {(0,1) (14,1)};
+\addplot[only marks,mark size=1.8pt,orange!85!black,mark=*,mark options={fill=orange!40}] coordinates {(0,0.686) (1,0.985) (2,0.270) (3,0.557) (4,0.873) (5,0.405) (6,0.632) (7,0.402) (8,0.703) (9,0.439) (10,0.567) (11,0.888) (12,0.469) (13,0.396) (14,0.624)};
+\addlegendentry{x64}
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:0,0.686) {0.686};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:1,0.985) {0.985};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:2,0.270) {0.270};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:3,0.557) {0.557};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:4,0.873) {0.873};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:5,0.405) {0.405};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:6,0.632) {0.632};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:7,0.402) {0.402};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:8,0.703) {0.703};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:9,0.439) {0.439};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:10,0.567) {0.567};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:11,0.888) {0.888};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:12,0.469) {0.469};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:13,0.396) {0.396};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:14,0.624) {0.624};
+\addplot[only marks,mark size=1.8pt,blue!70!black,mark=square*,mark options={fill=blue!35}] coordinates {(0,0.733) (1,0.996) (2,0.393) (3,0.570) (4,0.899) (5,0.405) (6,0.644) (7,0.452) (8,0.735) (9,0.403) (10,0.568) (11,0.899) (12,0.451) (13,0.449) (14,0.638)};
+\addlegendentry{x86}
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:0,0.733) {0.733};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:1,0.996) {0.996};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:2,0.393) {0.393};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:3,0.570) {0.570};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:4,0.899) {0.899};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:5,0.405) {0.405};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:6,0.644) {0.644};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:7,0.452) {0.452};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:8,0.735) {0.735};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:9,0.403) {0.403};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:10,0.568) {0.568};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:11,0.899) {0.899};
+\node[anchor=north,yshift=-2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:12,0.451) {0.451};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:13,0.449) {0.449};
+\node[anchor=south,yshift=2pt,font=\fontsize{6}{7}\selectfont] at (axis cs:14,0.638) {0.638};
+\end{axis}
+\end{tikzpicture}
+\Description{Cosine similarity between original-corpus and configuration-level opcode-frequency vectors; the reference level is one. Orange circles identify x64 and blue squares identify x86.}
+\caption{Cosine similarity between original-corpus and configuration-level opcode-frequency vectors; the reference level is one. Data from Fig.~7 of~\cite{zone_secrypt_2026}; redrawn for the present format.}
+\label{fig:cosine_similarity}
+\end{figure}
+
+Figure~\ref{fig:cosine_similarity} shows higher similarity for EQ and IBP
+than for insertion-heavy configurations. Together with length and entropy,
+this characterizes representation changes. Functional preservation is
+assessed separately by the execution tests in Section~\ref{sec:results}.
+
+\section{Limitations and Defensive Implications}\label{sec:limitations}
+The following limitations concern the original implementation and experiments~\cite{zone_secrypt_2026}. Sections~\ref{sec:code_data}--\ref{sec:wrapping} describe subsequent work motivated by these observations; the residual limits of the added paths are discussed in Section~\ref{sec:extension_limits}.
+\begin{itemize}
+    \item \textbf{Instruction coverage.} Less common instructions, including the example \texttt{JRCXZ}, can require handling not exercised by this corpus. Testing a fixed collection of 102 inputs does not establish complete x86/x64 coverage.
+    \item \textbf{Code--data ambiguity.} Embedded strings may partly decode as instructions. Table~\ref{tab:broken-payload} illustrates an input in which the bytes of \texttt{.exe} are interpreted as a branch. Rewriting the resulting instruction interpretation can corrupt the embedded string.
+\end{itemize}
+
+Recovering instructions and references is a general challenge in static
+analysis~\cite{staticdisasmTuringComplete}. The two published examples
+below show one concrete distinction: an inline string versus a string
+encoded within an instruction operand.
+
+\begin{table}[t]
+    \caption{Inline-data example affected by rewriting. Reproduced from Table~5 of~\cite{zone_secrypt_2026}.}
+    \label{tab:broken-payload}
+    \small
+    \centering
+    \setlength{\tabcolsep}{3pt}
+    \begin{tabular}{ll}
+        \hline
+        \textbf{Bytes}  & \textbf{Instruction} \\ \hline
+        \verb|0x109 b'\xff\xd5'|  & call  rbp \\ \hline
+        \verb|0x10b b'c'|         & .byte 0x63 \\ \hline
+        \verb|0x10c b'a'|         & .byte 0x61 \\ \hline
+        \verb|0x10d b'l'|         & insb  byte ptr [rdi], dx \\ \hline
+        \verb|0x10e b'c'|         & .byte 0x63 \\ \hline
+        \verb|0x10f b'.exe'|      & js    0x178 \\ \hline
+        \verb|0x113 b'\x00'|      & .byte 0x00 \\ \hline
+    \end{tabular}
+\end{table}
+
+In Table~\ref{tab:broken-payload}, part of the trailing
+\texttt{calc.exe} string decodes as a branch and can be modified by rewriting.
+
+\begin{table}[t]
+    \caption{Immediate-operand example. Reproduced from Table~6 of~\cite{zone_secrypt_2026}.}
+    \label{tab:functional-payload}
+    \small
+    \centering
+    \setlength{\tabcolsep}{3pt}
+    \begin{tabular}{ll}
+        \hline
+        \textbf{Bytes}                  & \textbf{Instruction} \\ \hline
+        \verb|0x8d b'Q'|              &  push     rcx \\ \hline
+        \verb|0x8e b'H\xb9calc.exe'|  &  movabs   rcx, 0x6578652e636c6163 \\ \hline
+        \verb|0x98 b'Q'|              &  push     rcx \\ \hline
+        \verb|0x99 b'H\x8d\x0c\$'|     & lea      rcx, [rsp] \\ \hline
+        \verb|0x9d b'H1\xd2'|          & xor      rdx, rdx \\ \hline
+        \verb|0xa0 b'H\xff\xc2'|       & inc      rdx \\ \hline
+        \verb|0xa3 b'H\x83\xec('|      & sub      rsp, 0x28 \\ \hline
+        \verb|0xa7 b'\xff\xd0'|        & call     rax \\ \hline
+    \end{tabular}
+\end{table}
+
+In Table~\ref{tab:functional-payload}, the string is an immediate
+operand at \texttt{0x8e}; the reported transformation avoids that inline-data
+failure. Section~\ref{sec:code_data} develops the corresponding preparation stage.
+
+\subsection{Mitigations and Countermeasures}
+Changing the binary representation does not remove a program's observable actions. Defensive analysis can consider memory protections, execution patterns, API activity, and network behavior in addition to static bytes. Recognition of a transformation engine is another possibility: repeated artifacts of a common toolchain can persist across outputs, as documented for Shikata Ga Nai~\cite{sgnstrong}. Statistical or learned detectors must also account for benign programs that share similar features. These are defensive considerations arising from the study, not results of an additional detection experiment.
+
+\section{Comparison with Shikata Ga Nai}\label{sec:comparison}
+The conference study~\cite{zone_secrypt_2026} compared Zone with the
+Shikata Ga Nai (SGN) polymorphic encoder~\cite{sgnarticle}, using the
+original x86 encoder and an unofficial x64 implementation~\cite{sgn64}.
+Reported mean static detection rates were 0\% for SGN versus 0.57\% for
+Zone on x64, and 10.22\% versus 0.25\% on x86; PII reached 0\% on both.
+
+SGN varies an encoded body and its decoding stub, whose recurring
+features may be recognized~\cite{sgnstrong}. The conference study also
+scanned memory dumps from SGN execution and reported verdicts matching
+the unencoded inputs, consistent with exposure of the original body after
+decoding~\cite{codeExtraction}. Zone instead intends to retain the
+rewritten representation during execution. The dump comparison concerns
+the recognizability of submitted memory contents, within the scope
+defined in Section~\ref{sec:introduction}.
+
+% Added material extends the original study retained above.
+\input{sections/extension_code_data}
+\input{sections/extension_llm}
+\input{sections/extension_wrapping}
+\input{sections/extension_methodology}
+\input{sections/extension_results}
+
+\clearpage
+\input{sections/related_work}
+\input{sections/conclusions}
+
+\begin{credits}
+\subsubsection{\ackname}
+This work was partially funded by the University of Perugia's project ``Fighting Cybercrime with OSINT'' (FICO), Civil Safety and Security for Society (WP2).
+
+\subsubsection{\discintname}
+The authors have no competing interests to declare.
+
+\subsubsection{Data and Artifact Availability.}
+The Zone source repository is available at
+\url{https://github.com/jakydibe/Zone}. Supplementary Material S1 contains
+the numerical evidence for this article: configuration summaries,
+per-cell and per-input outcomes, scan summaries, version provenance,
+calculation notes, and checksums. It is supplied as a separate archive
+with the manuscript; the public repository is not a frozen snapshot of
+all experimental versions. The supplementary archive contains analysis
+records, not executable payloads.
+
+\end{credits}
+
+\bibliographystyle{splncs04}
+\bibliography{bibliography}
+\end{document}

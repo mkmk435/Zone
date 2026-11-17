@@ -1,0 +1,72 @@
+\section{Assembly Wrapping: Mechanism and Integration}\label{sec:wrapping}
+\subsection{Reading the Same Bytes from Different Starting Points}
+Assembly wrapping relies on a property of x86 and x64: instructions have
+variable lengths, and the starting byte determines how a decoder groups
+the following bytes into instructions. The same stored bytes can therefore
+have two interpretations when read from different starting points.
+
+Consider two views of one region. In the \emph{outer view}, a decoder sees
+an instruction followed by its immediate operand, a constant stored inside
+that instruction. In the \emph{execution view}, part of that constant's
+byte field is read as an instruction sequence. The established wrapping
+technique uses this overlap to give the stored representation an outer
+instruction structure while retaining an intended executable interpretation
+within it~\cite{assembly_wrapping}.
+
+Figure~\ref{fig:wrapping_views} shows these two readings of one byte field.
+The term \emph{container} refers to the outer instruction; \emph{embedded
+sequence} refers to the instructions represented inside its operand bytes.
+These are two readings of shared bytes, rather than two copies of the
+program. No decryption step is required to obtain the embedded interpretation.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[font=\small]
+\node[anchor=east] at (0,0.5) {Stored bytes};
+\draw[fill=gray!15] (0.15,0.15) rectangle (2.7,0.85);
+\draw[fill=blue!8] (2.7,0.15) rectangle (7.4,0.85);
+\node at (1.425,0.5) {Outer opcode};
+\node at (5.05,0.5) {Immediate-operand field};
+\node[anchor=east] at (0,1.65) {Outer view};
+\node[draw,align=center,text width=6.9cm] at (3.775,1.65)
+  {One instruction containing a constant operand};
+\node[anchor=east] at (0,-0.9) {Execution view};
+\node[draw,fill=blue!8,align=center,text width=4.1cm] (inside)
+  at (5.05,-0.9) {Embedded instruction sequence};
+\draw[-{Latex[length=2mm]},thick] (2.7,0.15) -- (2.7,-0.9) -- (inside.west);
+\end{tikzpicture}
+\caption{Conceptual views of a wrapped region. Starting at the outer
+opcode interprets the operand as a constant; entering the embedded
+sequence interprets some of those same bytes as instructions.
+The drawing is not to scale and omits inter-region control transfers.}
+\label{fig:wrapping_views}
+\end{figure}
+
+\subsection{What Zone Adds and What the Transformation Requires}
+The contribution of this work is the integration and assessment of an
+existing technique, with implementations for both architectures. Zone
+starts from a prepared instruction stream, groups supported instructions
+into wrapped regions, preserves the required execution relationships, and
+updates the supported location-dependent references after layout. Some
+instructions or local layouts cannot be placed in the main container
+representation; the implementation retains these in separate, unwrapped
+regions. An output may therefore contain both wrapped and ordinary code.
+
+The x86 and x64 implementations share this purpose but use different
+encodings and addressing rules. In particular, the available immediate
+operand has a different width, affecting which instruction groups fit.
+Both architectures are included in the functional evaluation.
+
+Data preparation remains necessary. Wrapping does not determine whether
+an apparent instruction is actually an embedded string or table. If that
+earlier interpretation is wrong, construction may be refused or the output
+may fail when executed. The following execution tests measure whether the resulting program
+performs its expected task.
+
+\subsection{How Wrapping Is Evaluated}
+The evaluation follows three stages: construction of a binary, execution
+of its functional test, and static scanning of the produced file.
+Construction rate measures how many requested variants are available;
+working rate measures how many perform the expected task; detection rate
+describes the scanner responses. The full experiment uses all 102 original
+payloads, with the same stages reported separately for x64 and x86.

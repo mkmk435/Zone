@@ -1,0 +1,84 @@
+\section{LLM-Assisted Assembly Transformation}\label{sec:llm}
+\subsection{What the Model Is Asked to Change}
+In transformation mode, the LLM receives an assembly representation and
+proposes a new instruction sequence intended to preserve the program's
+behavior. This differs from Section~\ref{sec:code_data}, where its answer
+contains only data locations. Zone supports four transformation requests:
+equal code substitution (EQ) replaces instruction sequences; NOP insertion
+adds operations intended to leave the relevant state unchanged; bogus
+control flow (BCF) adds control-flow structure without changing the intended
+outcome; and instruction block permutation (IBP) changes the placement of
+blocks while retaining their execution relationships. These are the
+families introduced in Section~\ref{sec:background}; the LLM proposes their
+application rather than introducing a fifth family. PII and assembly
+wrapping remain native engine operations. This is an implementation scope
+choice: the LLM interface defines requests and validators for the four
+listed families. PII and wrapping also impose constraints on the binary
+layout and encoding that this interface does not implement. Their absence
+from LLM mode is not a claim that a model could never propose them.
+
+Before sending a request, Zone converts the binary into a prepared
+assembly listing. Embedded data that has been identified and extracted is
+kept separately, so the model proposes changes to the instruction
+representation while the pipeline retains the exact data contents.
+Identification may itself use an LLM, but copying retained data and checking
+its contents are deterministic operations. This separation makes the role
+being evaluated explicit. An end-to-end model that also rewrites data would
+be a different design and is not compared in these experiments.
+Relevant locations are named with symbolic labels. A label is a name for
+a destination, like a section name in a document: it stays meaningful even
+when edits change the destination's numerical position.
+
+The model returns a complete proposed assembly listing. Zone then converts
+that text back into binary instructions, restores the preserved data, and
+performs its structural checks. There are therefore three successive
+representations: the original binary, the prepared input listing, and the
+final binary. The LLM similarity score compares the prepared and returned
+listings; changes already made during preparation are outside that comparison.
+
+The experiments request \texttt{deepseek-flash}. The locally recorded
+version name comes from the client's alias table, rather than independent
+provider confirmation, so the requested identifier is the reproducible
+model designation available in these records. Both LLM roles use a
+requested temperature of 0.2; the client supplies neither a sampling seed
+nor an explicit top-p setting. Repeated requests are therefore not treated
+as deterministic reproductions.
+
+\subsection{Prompting Conditions and Repeated Attempts}
+A \emph{zero-shot} request describes the transformation and its constraints
+without a worked example. A \emph{two-shot} request adds two examples of
+input and transformed output. The number of shots thus counts examples
+inside a prompt; it does not count generated variants or execution tests.
+Each input, transformation family, and shot setting defines an experimental
+\emph{cell}.
+
+If structural validation rejects an answer, the pipeline can send the
+diagnostic back to the model and ask for a corrected proposal. This is
+\emph{validation feedback}: an explanation of what the checker rejected,
+such as assembly that cannot be built or a missing label. It is not a
+functional success signal or a scanner verdict. A retry can therefore use
+information unavailable in the initial request.
+The benign benchmark disables
+this mechanism and performs three separate, single-generation invocations
+per cell, retaining every failure. The full-payload campaign instead
+targets one output per cell, with some retries and restarted failed runs
+present in the saved logs. Its results are reported as cell outcomes, not
+as first-generation success rates. Section~\ref{sec:methodology} gives the
+exact accounting for both protocols.
+
+\subsection{From a Proposed Listing to an Assessed Output}
+Validation checks whether the response can be assembled and decoded,
+whether tracked control-flow targets remain consistent, whether preserved
+data survives, and whether the requested transformation's structural
+requirements are met. A response can fail at any of these stages, or be
+truncated before it contains a complete listing. Passing them means that
+Zone accepts a constructed output, which then proceeds to the execution test.
+
+Functional assessment then uses an external \emph{test harness}, meaning
+the program that launches a test and records its observable result. For
+the controlled programs, it compares a complete output buffer with the expected
+bytes fixed before generation. For the original payloads, it checks the
+class-specific observable described in Section~\ref{sec:methodology}.
+The functional test is applied after generation in these experiments. Saved records distinguish model requests, accepted outputs,
+execution results, time, and estimated cost, allowing rejection and execution
+failure to be analyzed independently.

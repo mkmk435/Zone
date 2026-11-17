@@ -1,0 +1,59 @@
+{
+  "means": {
+    "x64": {
+      "historical": 55.59157110500612,
+      "reconstructed": 82.63445862514908
+    },
+    "x86": {
+      "historical": 45.00932101659976,
+      "reconstructed": 50.27486377267228
+    }
+  },
+  "scans": [
+    {
+      "condition": "Wrapping",
+      "output_files": 243,
+      "unique_hashes": 207,
+      "valid_reports": 207,
+      "mean_engine_detection_pct": 0.0,
+      "detected_file_pct": 0.0,
+      "mean_malicious_count": 0.0
+    },
+    {
+      "condition": "LLM x64",
+      "output_files": 53,
+      "unique_hashes": 51,
+      "valid_reports": 51,
+      "mean_engine_detection_pct": 8.862745098039216,
+      "detected_file_pct": 88.23529411764706,
+      "mean_malicious_count": 6.647058823529412
+    },
+    {
+      "condition": "LLM x86",
+      "output_files": 297,
+      "unique_hashes": 272,
+      "valid_reports": 271,
+      "mean_engine_detection_pct": 4.349323493234933,
+      "detected_file_pct": 64.94464944649447,
+      "mean_malicious_count": 3.261992619926199
+    },
+    {
+      "condition": "LLM overall",
+      "output_files": 350,
+      "unique_hashes": 323,
+      "valid_reports": 322,
+      "mean_engine_detection_pct": 5.064182194616977,
+      "detected_file_pct": 68.63354037267081,
+      "mean_malicious_count": 3.798136645962733
+    },
+    {
+      "condition": "LLM working outputs",
+      "output_files": 275,
+      "unique_hashes": 263,
+      "valid_reports": 263,
+      "mean_engine_detection_pct": 5.885931558935361,
+      "detected_file_pct": 79.84790874524715,
+      "mean_malicious_count": 4.414448669201521
+    }
+  ]
+}

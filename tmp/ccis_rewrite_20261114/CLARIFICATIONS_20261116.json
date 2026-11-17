@@ -1,0 +1,21 @@
+{
+  "classification_stats_files": 18,
+  "classification_api_calls": 18,
+  "historical_x86_recorded_tests": 5195,
+  "updated_x86_tests": {
+    "inputs": 36,
+    "configurations": 15,
+    "repetitions": 5,
+    "total": 2700
+  },
+  "shared_winhttp_failure_outputs_identical": true,
+  "root_cause_of_shared_failures_established": false,
+  "new_experiments": false,
+  "pdf_sha256": "a977b79a679cfad5d24501d6f568bf9385f4336449700b5d393f07952b077a5e",
+  "pages": 30,
+  "source_files": [
+    "sections/extension_code_data.tex",
+    "sections/extension_llm.tex",
+    "sections/extension_results.tex"
+  ]
+}

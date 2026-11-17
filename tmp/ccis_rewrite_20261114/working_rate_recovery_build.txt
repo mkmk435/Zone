@@ -1,0 +1,105 @@
+note: Running TeX ...
+warning: working_rate_recovery.tex:18: 
+Requested font "[TeXGyreTermesX-Regular.otf]/OT" at 9.99997pt
+warning: working_rate_recovery.tex:18: Requested font "[TeXGyreTermesX-Regular.otf]/OT" at 10.00003pt
+warning: working_rate_recovery.tex:18: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: working_rate_recovery.tex:18: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: working_rate_recovery.tex:18: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: working_rate_recovery.tex:18: Requested font "[TeXGyreTermesX-Slanted.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: working_rate_recovery.tex:18: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: working_rate_recovery.tex:18: Requested font "[TeXGyreTermesX-BoldSlanted.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: working_rate_recovery.tex:18: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 10.0pt
+warning: figures/recovery_plot:31: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 7.0pt
+warning: figures/recovery_plot:31: 
+Requested font "ntx-Regular-tlf-ot1" at 7.3pt
+warning: figures/recovery_plot:31:  -> ntx-Regular-tlf-ot1
+warning: figures/recovery_plot:31: Requested font "ntx-Regular-tlf-ot1" at 5.5pt
+warning: figures/recovery_plot:31:  -> ntx-Regular-tlf-ot1
+warning: figures/recovery_plot:31: Requested font "ntxmi07" at 7.3pt
+warning: figures/recovery_plot:31:  -> ntxmi07
+warning: figures/recovery_plot:31: Requested font "ntxmi05" at 5.5pt
+warning: figures/recovery_plot:31:  -> ntxmi05
+warning: figures/recovery_plot:31: Requested font "ntxsy7" at 7.3pt
+warning: figures/recovery_plot:31:  -> ntxsy7
+warning: figures/recovery_plot:31: Requested font "ntxsy5" at 5.5pt
+warning: figures/recovery_plot:31:  -> ntxsy5
+warning: figures/recovery_plot:31: Requested font "ntxexx" at 7.3pt
+warning: figures/recovery_plot:31:  -> ntxexx
+warning: figures/recovery_plot:31: Requested font "ntxexx" at 5.5pt
+warning: figures/recovery_plot:31:  -> ntxexx
+warning: figures/recovery_plot:31: 
+Requested font "ntxmia" at 7.3pt
+warning: figures/recovery_plot:31:  -> ntxmia
+warning: figures/recovery_plot:31: Requested font "ntxmia" at 5.5pt
+warning: figures/recovery_plot:31:  -> ntxmia
+warning: figures/recovery_plot:31: 
+Requested font "ntxsym" at 7.3pt
+warning: figures/recovery_plot:31:  -> ntxsym
+warning: figures/recovery_plot:31: Requested font "ntxsym" at 5.5pt
+warning: figures/recovery_plot:31:  -> ntxsym
+warning: figures/recovery_plot:31: 
+Requested font "ntxsyc" at 7.3pt
+warning: figures/recovery_plot:31:  -> ntxsyc
+warning: figures/recovery_plot:31: Requested font "ntxsyc" at 5.5pt
+warning: figures/recovery_plot:31:  -> ntxsyc
+warning: figures/recovery_plot:31: Requested font "ntxexa" at 7.3pt
+warning: figures/recovery_plot:31:  -> ntxexa
+warning: figures/recovery_plot:31: Requested font "ntxexa" at 5.5pt
+warning: figures/recovery_plot:31:  -> ntxexa
+warning: figures/recovery_plot:31: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 9.0pt
+warning: figures/recovery_plot:31: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 9.0pt
+note: Rerunning TeX because "working_rate_recovery.aux" changed ...
+warning: working_rate_recovery.tex:18: 
+Requested font "[TeXGyreTermesX-Regular.otf]/OT" at 9.99997pt
+warning: working_rate_recovery.tex:18: Requested font "[TeXGyreTermesX-Regular.otf]/OT" at 10.00003pt
+warning: working_rate_recovery.tex:18: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: working_rate_recovery.tex:18: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: working_rate_recovery.tex:18: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: working_rate_recovery.tex:18: Requested font "[TeXGyreTermesX-Slanted.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: working_rate_recovery.tex:18: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: working_rate_recovery.tex:18: Requested font "[TeXGyreTermesX-BoldSlanted.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: working_rate_recovery.tex:18: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 10.0pt
+warning: figures/recovery_plot:31: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 7.0pt
+warning: figures/recovery_plot:31: 
+Requested font "ntx-Regular-tlf-ot1" at 7.3pt
+warning: figures/recovery_plot:31:  -> ntx-Regular-tlf-ot1
+warning: figures/recovery_plot:31: Requested font "ntx-Regular-tlf-ot1" at 5.5pt
+warning: figures/recovery_plot:31:  -> ntx-Regular-tlf-ot1
+warning: figures/recovery_plot:31: Requested font "ntxmi07" at 7.3pt
+warning: figures/recovery_plot:31:  -> ntxmi07
+warning: figures/recovery_plot:31: Requested font "ntxmi05" at 5.5pt
+warning: figures/recovery_plot:31:  -> ntxmi05
+warning: figures/recovery_plot:31: Requested font "ntxsy7" at 7.3pt
+warning: figures/recovery_plot:31:  -> ntxsy7
+warning: figures/recovery_plot:31: Requested font "ntxsy5" at 5.5pt
+warning: figures/recovery_plot:31:  -> ntxsy5
+warning: figures/recovery_plot:31: Requested font "ntxexx" at 7.3pt
+warning: figures/recovery_plot:31:  -> ntxexx
+warning: figures/recovery_plot:31: Requested font "ntxexx" at 5.5pt
+warning: figures/recovery_plot:31:  -> ntxexx
+warning: figures/recovery_plot:31: 
+Requested font "ntxmia" at 7.3pt
+warning: figures/recovery_plot:31:  -> ntxmia
+warning: figures/recovery_plot:31: Requested font "ntxmia" at 5.5pt
+warning: figures/recovery_plot:31:  -> ntxmia
+warning: figures/recovery_plot:31: 
+Requested font "ntxsym" at 7.3pt
+warning: figures/recovery_plot:31:  -> ntxsym
+warning: figures/recovery_plot:31: Requested font "ntxsym" at 5.5pt
+warning: figures/recovery_plot:31:  -> ntxsym
+warning: figures/recovery_plot:31: 
+Requested font "ntxsyc" at 7.3pt
+warning: figures/recovery_plot:31:  -> ntxsyc
+warning: figures/recovery_plot:31: Requested font "ntxsyc" at 5.5pt
+warning: figures/recovery_plot:31:  -> ntxsyc
+warning: figures/recovery_plot:31: Requested font "ntxexa" at 7.3pt
+warning: figures/recovery_plot:31:  -> ntxexa
+warning: figures/recovery_plot:31: Requested font "ntxexa" at 5.5pt
+warning: figures/recovery_plot:31:  -> ntxexa
+warning: figures/recovery_plot:31: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 9.0pt
+warning: figures/recovery_plot:31: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 9.0pt
+note: Running xdvipdfmx ...
+warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
+note: Writing `working_rate_recovery.log` (30.630859375 KiB)
+note: Writing `working_rate_recovery.aux` (32 B)
+note: Writing `working_rate_recovery.pdf` (19.751953125 KiB)

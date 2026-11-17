@@ -1,0 +1,36 @@
+\begin{table}[t]
+\caption{Overall working rates (\%): historical measurements and a
+reconstructed update using the recovery tests. The update replaces rates
+only for the 49 retested inputs and retains historical rates for the rest.
+Historical rates are recomputed from the retained test records of~\cite{zone_secrypt_2026}; input weights are held fixed. Within each configuration, input weights are historical test counts.
+The final row gives every configuration weight $1/15$, irrespective of
+its sample count; it is not a pooled success/test ratio.
+This is a combined evidence summary, not a new execution of the full corpus.}
+\label{tab:overall_working_update}
+\centering\small\setlength{\tabcolsep}{5pt}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+ & \multicolumn{2}{c}{x64} & \multicolumn{2}{c}{x86} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Configuration & Historical & Updated & Historical & Updated \\
+\midrule
+NOP & 65.5 & 92.1 & 48.3 & 49.1 \\
+EQ & 65.5 & 99.7 & 77.5 & 76.2 \\
+PII & 60.3 & 89.2 & 38.8 & 43.9 \\
+BCF & 65.8 & 94.5 & 52.7 & 66.1 \\
+IBP & 65.8 & 94.2 & 51.7 & 57.2 \\
+EQ+NOP+PII & 64.2 & 86.3 & 24.0 & 26.9 \\
+EQ+NOP+BCF & 1.1 & 29.5 & 43.9 & 54.7 \\
+EQ+NOP+IBP & 65.8 & 91.3 & 40.8 & 42.8 \\
+NOP+EQ & 66.0 & 90.5 & 48.1 & 49.2 \\
+NOP+PII & 57.3 & 80.1 & 29.3 & 32.5 \\
+NOP+BCF & 0.3 & 28.8 & 45.8 & 53.3 \\
+NOP+IBP & 66.3 & 89.9 & 40.5 & 44.7 \\
+EQ+PII & 57.3 & 86.5 & 28.0 & 31.7 \\
+EQ+BCF & 66.8 & 92.6 & 55.2 & 67.3 \\
+EQ+IBP & 66.0 & 94.4 & 50.6 & 58.4 \\
+\midrule
+\textbf{Mean} & 55.6 & 82.6 & 45.0 & 50.3 \\
+\bottomrule
+\end{tabular}
+\end{table}

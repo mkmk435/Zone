@@ -1,0 +1,127 @@
+\section{Code--Data Identification and Data-Preserving Rewriting}
+\label{sec:code_data}
+\subsection{Why Data Identification Comes Before Transformation}
+A raw binary contains no explicit distinction between instructions and
+embedded strings or tables. String bytes may decode as plausible
+instructions, so rewriting their apparent instruction sequence can corrupt
+data. Table~\ref{tab:broken-payload} illustrates this failure; in
+Table~\ref{tab:functional-payload}, the string instead occupies an
+instruction operand that must remain intact.
+
+Preparation separates two responsibilities. \emph{Identification} proposes
+data regions; \emph{data handling} preserves supported objects and updates
+their references after layout changes. A reference is an instruction
+operand or address calculation pointing to code or data. Preserving a
+string is insufficient if the program still reads its old address.
+Figure~\ref{fig:extended_pipeline} shows the alternative symbolic/heuristic
+and LLM classifiers feeding shared handling. Independently, instructions
+can be transformed natively or by an LLM: classification does not imply
+LLM transformation.
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw,rounded corners=2pt,align=center,font=\small,
+    minimum height=0.8cm,text width=4.0cm},
+  arrow/.style={-{Latex[length=2mm]},thick}]
+\node[box,text width=5.7cm] (input) at (0,0) {Raw binary and target architecture};
+\node[box] (sym) at (-2.35,-1.3) {Symbolic exploration\\and static heuristics};
+\node[box] (llm) at (2.35,-1.3) {LLM data classifier\\(proposes regions only)};
+\node[box,text width=7.4cm] (data) at (0,-2.65) {Shared data handling: check candidate regions,\\preserve supported data and track references};
+\node[box,text width=7.4cm] (trans) at (0,-4.0) {Transform code: native methods, assembly wrapping,\\or LLM-proposed EQ, NOP, BCF, or IBP};
+\node[box,text width=7.4cm] (build) at (0,-5.3) {Finalize layout and references; check construction};
+\node[box,text width=7.4cm] (test) at (0,-6.6) {Test the produced binary with an external harness};
+\draw[arrow] (input) -- (sym);
+\draw[arrow] (input) -- (llm);
+\draw[arrow] (sym) -- (data);
+\draw[arrow] (llm) -- (data);
+\draw[arrow] (data) -- (trans);
+\draw[arrow] (trans) -- (build);
+\draw[arrow] (build) -- (test);
+\node[font=\small,fill=white] at (0,-1.3) {or};
+\end{tikzpicture}
+\caption{Conceptual organization of the extensions. Identification chooses
+candidate data regions; shared handling preserves supported objects during
+rewriting. Successful construction is followed by a separate behavioral
+test. Unsupported inputs can stop before a binary is produced.}
+\label{fig:extended_pipeline}
+\end{figure}
+
+\subsection{What a Classification Result Means}
+For an input of $n$ bytes, a proposed data region is an interval $[s,e)$:
+it starts at offset $s$ from the beginning of the input and includes every
+byte up to, but not including, $e$. For example, $[2,8)$ denotes six bytes.
+An optional type describes a string encoding, such as ASCII or UTF-16LE,
+or another data object. The output is a set of candidate intervals,
+not a replacement binary.
+
+Three stages must be distinguished: a classifier's proposed regions,
+regions accepted by the engine's checks, and regions actually extracted
+from the instruction stream. A correct proposal may still be unsupported
+if its references cannot be updated. Conversely, different proposals can
+produce the same binary when the shared checks retain the same objects.
+The experiments compare annotations, accepted outputs, and final hashes
+at their respective stages.
+
+\subsection{Symbolic Exploration Combined with Static Heuristics}
+The non-LLM method combines three sources of evidence. First, static
+analysis recovers a control-flow graph (CFG): nodes represent basic blocks
+of instructions and edges represent possible transfers of execution.
+Zone uses angr's CFGFast analysis for this initial structure~\cite{angr_cfg_docs}.
+Second, symbolic execution explores possible paths while representing
+unknown register and memory values as symbolic expressions. This supplies
+additional evidence about which instructions can be reached. Third,
+pattern-based rules recognize printable ASCII and UTF-16LE string
+candidates, including their terminators, and consider regions identified
+as data by the control-flow analysis. Candidates overlapping confirmed
+instruction bytes are filtered out. These rules supply recognizable
+patterns and supporting evidence; an unexplored region alone is not
+sufficient to classify it as data.
+
+An observed instruction protects its entire decoded byte span, not only
+its starting address. This matters for variable-length instructions: an
+interior byte should not become a data candidate merely because the
+explorer recorded only the instruction's first byte. Newly observed entry
+points can also support another graph-recovery pass. Printable candidates
+that overlap observed code are excluded by the string heuristic; candidates
+overlapping graph-recovered code need additional structural support.
+
+Exploration is bounded by time, solver, and state limits. The initial state
+does not reproduce every feature of a Windows process, including all
+external API behavior. Consequently, an unvisited region is \emph{unknown},
+not proven to be data. Reports retain the evidence category, stopping
+reason, unresolved states, and errors. These distinctions prevent a
+partial execution search from being presented as a complete partition of
+the binary into code and data.
+
+\subsection{LLM Identification and Shared Data Handling}
+The LLM receives hexadecimal bytes, a linear disassembly, and candidate
+printable strings, and returns structured data intervals. The disassembly
+is evidence to assess, not a trusted annotation. This mode neither
+extracts data nor rewrites instructions.
+
+Deterministic parsing rejects empty or out-of-bounds intervals and invalid
+overlaps. The engine examines supported references and retains accepted
+data separately from the instructions. After transformation, it finalizes
+references using the new layout. Integrity checks compare retained bytes
+with their saved originals at the final locations and verify supported
+references against their expected destinations; mismatches reject the
+construction. Address handling is architecture-specific.
+
+For example, a benign routine may copy embedded strings \texttt{alpha}
+and \texttt{beta} into a buffer. Identification locates the strings;
+handling preserves their contents and links; the final execution test
+checks the expected buffer. These test different stages of the pipeline.
+
+Correction requests append the rejected answer and validator diagnostic
+to the conversation and ask for a revised proposal, within the configured
+attempt limit. An interval beyond the input, for example, receives an
+out-of-bounds diagnostic. Classification feedback concerns data locations;
+transformation feedback concerns assembly. Likewise, examples illustrating
+classification are independent of the transformation zero-shot/two-shot
+conditions in the next section.
+
+Caching reuses identified regions associated with an input identity.
+References are computed again for the working representation because
+rewriting can move code and data. Reusing identification therefore does
+not reuse obsolete addresses. Both classifiers feed the same handling,
+which can reconcile different proposals into identical final binaries.

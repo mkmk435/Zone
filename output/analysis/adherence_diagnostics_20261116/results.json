@@ -1,0 +1,205 @@
+{
+  "scope": "Saved diagnostics only, not a complete technique-adherence evaluation",
+  "corpus": [
+    {
+      "technique": "eq",
+      "shots": 0,
+      "planned": 102,
+      "built": 41,
+      "similarity_one": 0,
+      "explicit_negative_diagnostics": 0
+    },
+    {
+      "technique": "eq",
+      "shots": 2,
+      "planned": 102,
+      "built": 42,
+      "similarity_one": 0,
+      "explicit_negative_diagnostics": 0
+    },
+    {
+      "technique": "nop",
+      "shots": 0,
+      "planned": 102,
+      "built": 46,
+      "similarity_one": 46,
+      "explicit_negative_diagnostics": 1
+    },
+    {
+      "technique": "nop",
+      "shots": 2,
+      "planned": 102,
+      "built": 41,
+      "similarity_one": 41,
+      "explicit_negative_diagnostics": 1
+    },
+    {
+      "technique": "bcf",
+      "shots": 0,
+      "planned": 102,
+      "built": 46,
+      "similarity_one": 0,
+      "explicit_negative_diagnostics": 1
+    },
+    {
+      "technique": "bcf",
+      "shots": 2,
+      "planned": 102,
+      "built": 42,
+      "similarity_one": 0,
+      "explicit_negative_diagnostics": 3
+    },
+    {
+      "technique": "ibp",
+      "shots": 0,
+      "planned": 102,
+      "built": 45,
+      "similarity_one": 0,
+      "explicit_negative_diagnostics": 1
+    },
+    {
+      "technique": "ibp",
+      "shots": 2,
+      "planned": 102,
+      "built": 47,
+      "similarity_one": 0,
+      "explicit_negative_diagnostics": 0
+    }
+  ],
+  "benign_eq": [
+    {
+      "shots": 0,
+      "requests": 39,
+      "built": 39,
+      "unchanged_warning_count": 3,
+      "cases": [
+        {
+          "arch": "x64",
+          "case": "branch",
+          "replicate": 2,
+          "build_ok": true,
+          "functional_match": true
+        },
+        {
+          "arch": "x86",
+          "case": "branch",
+          "replicate": 2,
+          "build_ok": true,
+          "functional_match": true
+        },
+        {
+          "arch": "x86",
+          "case": "branch",
+          "replicate": 3,
+          "build_ok": true,
+          "functional_match": true
+        }
+      ]
+    },
+    {
+      "shots": 2,
+      "requests": 39,
+      "built": 39,
+      "unchanged_warning_count": 2,
+      "cases": [
+        {
+          "arch": "x64",
+          "case": "branch",
+          "replicate": 3,
+          "build_ok": true,
+          "functional_match": true
+        },
+        {
+          "arch": "x86",
+          "case": "branch",
+          "replicate": 2,
+          "build_ok": true,
+          "functional_match": true
+        }
+      ]
+    }
+  ],
+  "source_sha256": {
+    "tmp\\campaign\\llm_summary.csv": "80aeaac8c65e615821cfa173a69e90df9f14c0aca6ec8bbcfa38f7f0d673072c",
+    "bench\\results\\llm_attempts.jsonl": "87cc695edb54516879b87cad638998733f2a619de5594d86cdbfb67ffecc8d8d",
+    "bench\\results\\llm_attempts_x86.jsonl": "0b9263700921eecead483504b750c61f93dc6a778aaad6c81332fad2260fc22d",
+    "bench\\logs\\llm\\x64_arith_eq_s0_1.log": "2f6c80a68a909c71977938fdc06cd42e75da78a6f5e5c2cc53bf1c49a9955545",
+    "bench\\logs\\llm\\x64_arith_eq_s0_3.log": "aa16a4ce336f982a6a925296222ac7b4f37218aec66e3eb36a5dc0a5eade8ced",
+    "bench\\logs\\llm\\x64_arith_eq_s0_2.log": "ea583941f0516660555a79947abf811604b6cb143428bb43e6c6ebd495b1967e",
+    "bench\\logs\\llm\\x64_branch_eq_s0_3.log": "55f00df94d05108e79aa1b43dcb1bc3e043ccc1aca0339426e3f7132d6ffe7a7",
+    "bench\\logs\\llm\\x64_branch_eq_s0_1.log": "fae1ad342ee91af26c0b82c59f3669a3f9b9ccb5f68e4d6fd12b168416aefa55",
+    "bench\\logs\\llm\\x64_branch_eq_s0_2.log": "2b4f960752a15e62eaf004843581370de79851f4481f4389f071e3b7e7165de6",
+    "bench\\logs\\llm\\x64_call_eq_s0_2.log": "cb6360f0f2bd055e9a0e421cf0e45cfff649ac401ce2034d6110057d640416f2",
+    "bench\\logs\\llm\\x64_call_eq_s0_1.log": "7974a3ffda7ca7e50bec2cf43f17fbb62b40e7cf9ff49b427b7a1e2926181bca",
+    "bench\\logs\\llm\\x64_call_eq_s0_3.log": "26a85c10f5850a9e6c6ccdb97bbee4acf104bc52da4a763877c6ab4f81206006",
+    "bench\\logs\\llm\\x64_getpc_eq_s0_1.log": "ad0ee6fd2949f5fa77df30de9e327946f63890f8e855adb9a4164652b3e38359",
+    "bench\\logs\\llm\\x64_getpc_eq_s0_2.log": "d6f3a1346a08750d51da10b7112aaf5fd3952d086bb2f71cb5a176d136e8e523",
+    "bench\\logs\\llm\\x64_getpc_eq_s0_3.log": "1d2d635bc23d3b603f031910d2320d19a3784d8acf45cb59a4ae6cd62a2c57d2",
+    "bench\\logs\\llm\\x64_loop_eq_s0_2.log": "1cbeaeddd6a297b00354813211b744d6c798b9dcabcb235f2ee315fa86ad800c",
+    "bench\\logs\\llm\\x64_loop_eq_s0_1.log": "68d17ae87f36dd6d55efd434e149623bbc0ff5791542d15071ea9cfc4ccf0714",
+    "bench\\logs\\llm\\x64_loop_eq_s0_3.log": "a3d96b49f92c69ea64557d7c26a89624420b3c9681c64fec456a3b2052a04ae4",
+    "bench\\logs\\llm\\x64_mixed_eq_s0_1.log": "d7254a8f2c035a683e030746edb699a401e223b6f65377e693f1f5b7b1962242",
+    "bench\\logs\\llm\\x64_mixed_eq_s0_2.log": "3896275c8654b3d3b76ce71eb063386b81d0405ddd8550681f9ba1d10203c37b",
+    "bench\\logs\\llm\\x64_mixed_eq_s0_3.log": "314a7cf00b5beae4e328174930a4d6d7c211c6b515c883a56c1ebc8907234a95",
+    "bench\\logs\\llm\\x64_strings_eq_s0_1.log": "5579857324cc2d1d288fed64fd688521796f0420da637abf20f2450d87e343e0",
+    "bench\\logs\\llm\\x64_strings_eq_s0_2.log": "85e03ba2e59aa12656cf2ffe9c86f1a1661b480fe1324d8895839b90726ee82a",
+    "bench\\logs\\llm\\x64_strings_eq_s0_3.log": "3580245c1da37f5ce8735991d13345d0eb40b132e49c82b7611cc6163db122ad",
+    "bench\\logs\\llm\\x86_arith_eq_s0_1.log": "32e82938682019596f9fe7e4948672196dd620f8770a83dd86e40ab266c79090",
+    "bench\\logs\\llm\\x86_arith_eq_s0_2.log": "79863274e25263e5c0e39f1c49f5e4fbb4eac00e72d5221a334e6a286a609575",
+    "bench\\logs\\llm\\x86_arith_eq_s0_3.log": "1623fe7efbc026901ab1acb173c43758d510a174d2b886f99850dc0767fc7f8f",
+    "bench\\logs\\llm\\x86_branch_eq_s0_2.log": "c494d9cebc339814ea1c2d2bdbba9c5a22068f8f92fd7640514b5d731637cc7c",
+    "bench\\logs\\llm\\x86_branch_eq_s0_1.log": "bdc77056a7376a4a1826cd9b85d60f730e2f5c5f1a2df510a771197db80ffb1e",
+    "bench\\logs\\llm\\x86_branch_eq_s0_3.log": "4c37a516080653745c9b0db3186e4bf8bdf2969519ac7d945ae21125eef174ba",
+    "bench\\logs\\llm\\x86_loop_eq_s0_1.log": "581029960a393474e9f981afa63b7dbcdce055489f42d05eac1d9ab0ed9a0a20",
+    "bench\\logs\\llm\\x86_loop_eq_s0_2.log": "2bdbe0f2ce8e5e39b73e450ef4646a36f2c2418851f533f6b50b2ad43838376f",
+    "bench\\logs\\llm\\x86_loop_eq_s0_3.log": "2a4bede71d4582b83853236ffc7dacfdf8e0c491340d4079f23e94bf39550201",
+    "bench\\logs\\llm\\x86_call_eq_s0_1.log": "6e54d7c6daf3b323d8cfccc22097cd81ea16da5abf184ce69020a4efb227b4cc",
+    "bench\\logs\\llm\\x86_call_eq_s0_2.log": "5aacbe1e93981e8b56b844a351f41caf24114f9c4bf358dfb6d62ac72b7b4605",
+    "bench\\logs\\llm\\x86_call_eq_s0_3.log": "35aafd6ba8405de2e436753db86dfab6df63a21a2068e74f3f6dc4889c18f4c5",
+    "bench\\logs\\llm\\x86_strings_eq_s0_1.log": "8adcd891003477ff9641a27d7a55e5717a4ef83ac62df7d5e6c3717772176343",
+    "bench\\logs\\llm\\x86_strings_eq_s0_2.log": "a6800380d1c6bb2635b3e917ce05666dc1be053bb71d416fa0cc394045af8421",
+    "bench\\logs\\llm\\x86_strings_eq_s0_3.log": "a4b1737685832476e052448118830a0cc149903bb8ccde6e202a4f306b76159b",
+    "bench\\logs\\llm\\x86_mixed_eq_s0_1.log": "a7c02a03df47ae5f129f90c4dc2350230206cfdbfa17b8f255ed8470ca88d502",
+    "bench\\logs\\llm\\x86_mixed_eq_s0_2.log": "84abdccf1d3ea7cfab7893619e77a8a7b5dbd1962c282e3f45cc1719146270dc",
+    "bench\\logs\\llm\\x86_mixed_eq_s0_3.log": "f9d5b32e69521fd5e06f009914e8b79d349ed075675219e367f4fb815fa114a2",
+    "bench\\logs\\llm\\x64_arith_eq_s2_1.log": "6ba0826af406d65c541fc50a17b63a4e284753a4d1d4a1f6f06073a4898d1348",
+    "bench\\logs\\llm\\x64_arith_eq_s2_2.log": "e3f1a5040eb49f6361681e66ca02d2125dc51f580be1b39f994cb816262bdef2",
+    "bench\\logs\\llm\\x64_arith_eq_s2_3.log": "8b2df6699f445760f0292e2c84b7c74d63a54500c5c944e11199af57f0353abc",
+    "bench\\logs\\llm\\x64_branch_eq_s2_2.log": "4c4e1e893fa378aa014a9dd8e9495e82c0570da0d61640bf56c0110a2df9dd2e",
+    "bench\\logs\\llm\\x64_branch_eq_s2_1.log": "89859351fbfa8166d67047cbee020cc42bb03c4388141511565056daa28eed5e",
+    "bench\\logs\\llm\\x64_branch_eq_s2_3.log": "303b9525a6f73bcb2c5035a470c962c10f77c56269ecf6900c6e0e1814696567",
+    "bench\\logs\\llm\\x64_call_eq_s2_1.log": "32fe2f6f06075599e5c894c19b061511b0fd447ca3b520f553398a830c029705",
+    "bench\\logs\\llm\\x64_call_eq_s2_2.log": "c2889461555b669400995c44e2b0435de2c764f8e289bd33fa36fbdcc13ba8ad",
+    "bench\\logs\\llm\\x64_call_eq_s2_3.log": "6bdc2363673a7ea45cdfc99de29173190992b6b047edbfc1a5b90170d40b90ad",
+    "bench\\logs\\llm\\x64_getpc_eq_s2_1.log": "0b725f44d167a5b3b404eb52ef6e9df793aa4ff4c45ba93d2fce570aa0325250",
+    "bench\\logs\\llm\\x64_getpc_eq_s2_2.log": "2f70d607c5840c5f802b6c8ed433dac239d867bf6282720852df2fdb7679547a",
+    "bench\\logs\\llm\\x64_getpc_eq_s2_3.log": "e9782480534ff3eab29adacc5c7cb2475686c841599447be4d3b4da1a9b24816",
+    "bench\\logs\\llm\\x64_loop_eq_s2_1.log": "bc7e63ac3a5000fa79591171123d916c6c01ea6bcdc1aebd03107eabcdded952",
+    "bench\\logs\\llm\\x64_loop_eq_s2_2.log": "c6a1dc64f25b91fa3e857b5292aacb0ad977d04272b2c2d5d0cdefd9b5764d93",
+    "bench\\logs\\llm\\x64_loop_eq_s2_3.log": "8454607dc2b2a2ce2333795572ba4fd1852b5acdcb6ad0d36b2d1f07356d5cb2",
+    "bench\\logs\\llm\\x64_mixed_eq_s2_1.log": "3a674d92cd3a2cc4d552d0b5af17c00f26cabaed0a2ce9879c4d619f04fafbe9",
+    "bench\\logs\\llm\\x64_mixed_eq_s2_2.log": "e1f6fc322f8a5adb1689b352c239cd1689b452fe7dcb9eabb33a53679b0176b6",
+    "bench\\logs\\llm\\x64_mixed_eq_s2_3.log": "1961a79a5a1b3b062e33b867e24f9d2a3d4226d4cb8fc36a35f1e4202f6e3603",
+    "bench\\logs\\llm\\x64_strings_eq_s2_1.log": "4e02d658fdef937edc7e9e1bb2a9827ca619f749453551ffdef60bf9fb7edec3",
+    "bench\\logs\\llm\\x64_strings_eq_s2_2.log": "0a5d53f5a34ba9d45cb9b1cd86b56582a73b7bb59452b20c73cb09b334adddce",
+    "bench\\logs\\llm\\x64_strings_eq_s2_3.log": "1f6d6f1701c6ac52db6c3fc3ae53a818814af1c7300f07879ea156b1a533e7d8",
+    "bench\\logs\\llm\\x86_arith_eq_s2_1.log": "05304c65af5c36fbef98563b5b133d30c8bb49f29926904d81938f8362158de2",
+    "bench\\logs\\llm\\x86_arith_eq_s2_2.log": "3a6e01f5d3d0214c60ce7d52965f52798c9befaa4db6fc36ef1de69f54c5e7dd",
+    "bench\\logs\\llm\\x86_arith_eq_s2_3.log": "448289e81fed3608b0f77b429e9ecd32da9c9e812176b1cb2686d202eda53d92",
+    "bench\\logs\\llm\\x86_branch_eq_s2_1.log": "c502cf52e0d5f4552b82211dc6688f093e26d965c06e5522ec7ca240e36a4d35",
+    "bench\\logs\\llm\\x86_branch_eq_s2_2.log": "79d05d7a46583643c2185ae8c4d693fec1b17e883dab4a5fc331d9c9b6bc0e8f",
+    "bench\\logs\\llm\\x86_branch_eq_s2_3.log": "e8cd921e8777478ed8d6e989e5ef372bd773797046e20454d60c862995d83fa9",
+    "bench\\logs\\llm\\x86_loop_eq_s2_1.log": "a9cc2905cc88a6f5d05096c529ed21715dfdb0ef3259e181fc09ebab928de9de",
+    "bench\\logs\\llm\\x86_loop_eq_s2_2.log": "8ff6163e5a12eae9947f943b50b637d7fb0d857a09a84f1a069b1c40ddea6424",
+    "bench\\logs\\llm\\x86_loop_eq_s2_3.log": "2a6d7917d6b25ba80979478e6818478828efedea8ff896220eda08e2f7700465",
+    "bench\\logs\\llm\\x86_call_eq_s2_1.log": "44efa3c0259f5c4efe5d2c98474604f064d2c92e12cd350ea3c2657597e7cb5c",
+    "bench\\logs\\llm\\x86_call_eq_s2_2.log": "078a4c2a57e4b0d3f93d7c1eef572cbc04bc80851bd62d47beea62a802391e25",
+    "bench\\logs\\llm\\x86_call_eq_s2_3.log": "dedcb651785bca84ef36f3586ea86b6af0ce088c1c756114e1949b4eebaff54c",
+    "bench\\logs\\llm\\x86_strings_eq_s2_1.log": "9a62c22e8dfe8493e614cb448a2a8feb57ac6061bf42cb2413316f463778d464",
+    "bench\\logs\\llm\\x86_strings_eq_s2_2.log": "0b7dc232e1802cb94408a96225867aa35b179009ef1c3ad3466cbb490027a25e",
+    "bench\\logs\\llm\\x86_strings_eq_s2_3.log": "a17ec1cabcb85db757231f3c0b6e29b2fcd6aabd42f273d6dc9c88023b67f496",
+    "bench\\logs\\llm\\x86_mixed_eq_s2_1.log": "8d62027ea8ef7bd7079ce50b8c9ef0f711dafbff9e2f09362d8223116eeeaf6f",
+    "bench\\logs\\llm\\x86_mixed_eq_s2_2.log": "e4cf96c3e3b6cb457624f1627d880c6065b597c501791e7164d880b731886541",
+    "bench\\logs\\llm\\x86_mixed_eq_s2_3.log": "7811c03fb2927eed07ea8012cf3938efe3d93a0d36f9b4779ad05d01c2e7735d"
+  }
+}
